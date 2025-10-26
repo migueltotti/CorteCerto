@@ -12,7 +12,7 @@ public class Role : BaseEntity<int>
     {
     }
 
-    public Role(int id, string name) : base(id)
+    public Role(string name)
     {
         Name = name;
     }

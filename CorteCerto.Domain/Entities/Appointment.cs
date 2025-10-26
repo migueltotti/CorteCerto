@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CorteCerto.Domain.Entities;
 
-public class Appointment : BaseEntity<int>
+public class Appointment : BaseEntity<Guid>
 {
     public DateTime Date { get; private set; }
     public AppointmentStatus Status { get; private set; }
@@ -20,16 +20,34 @@ public class Appointment : BaseEntity<int>
     {
     }
 
-    public Appointment(int id, DateTime date, TimeSpan responseDeadline, Customer customer, Barber barber, Service service) : base(id)
+    private Appointment(Guid id, DateTime date, TimeSpan responseDeadline, Customer customer, Barber barber, Service service) : base(id)
     {
-        // TODO: Inserir validação de Cliente não pode ser o Barbeiro
-        // TODO: Inserir validação de Data não pode ser menor que a data atual
-        // TODO: Inserir validação de Service deve pertencer ao Barbeiro
         Date = date;
         Status = AppointmentStatus.WaitingForAprovement;
         ResponseDeadline = responseDeadline;
         Customer = customer;
         Barber = barber;
         Service = service;
+    }
+
+    public static Result<Appointment> Create(DateTime date, TimeSpan responseDeadline, Customer customer, Barber barber, Service service)
+    {
+        if (date <= DateTime.Now)
+            return Result<Appointment>.Failure(new Error("InvalidDate", "The appointment date must be in the future"));
+
+        if (customer.Id.Equals(barber.Id))
+            return Result<Appointment>.Failure(new Error("InvalidAppointment", "Customer cannot be the same as the Barber"));
+
+        if (!barber.Services.Contains(service))
+            return Result<Appointment>.Failure(new Error("InvalidService", "The service must belong to the Barber"));
+
+        return Result<Appointment>.Success(new Appointment(
+            Guid.NewGuid(), 
+            date,
+            responseDeadline, 
+            customer, 
+            barber, 
+            service
+        ));
     }
 }

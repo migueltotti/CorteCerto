@@ -12,7 +12,7 @@ public class Country : BaseEntity<int>
     public string Name { get; private set; }
     public List<State> States { get; private set; }
         
-    public Country(int id, string name) : base(id)
+    public Country(string name)
     {
         Name = name;
         States = [];

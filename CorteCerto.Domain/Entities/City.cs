@@ -13,7 +13,7 @@ public class City : BaseEntity<int>
     public List<Address> Addresses{ get; private set; }
     public State State { get; private set; }
 
-    public City(int id, string name, State state) : base(id)
+    public City(string name, State state)
     {
         Name = name;
         State = state;

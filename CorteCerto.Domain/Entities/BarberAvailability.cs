@@ -18,11 +18,24 @@ public class BarberAvailability : BaseEntity<int>
     {
     }
 
-    public BarberAvailability(int id, DayOfWeek dayOfWeek, DateTime startTime, DateTime endTime, Barber barber) : base(id)
+    private BarberAvailability(DayOfWeek dayOfWeek, DateTime startTime, DateTime endTime, Barber barber)
     {
         DayOfWeek = dayOfWeek;
         StartTime = startTime;
         EndTime = endTime;
         Barber = barber;
+    }
+
+    public static Result<BarberAvailability> Create(DayOfWeek dayOfWeek, DateTime startTime, DateTime endTime, Barber barber)
+    {
+        if (endTime <= startTime)
+            return Result<BarberAvailability>.Failure(new Error("InvalidTimeRange", "End time must be after start time"));
+
+        return Result<BarberAvailability>.Success(new BarberAvailability(
+            dayOfWeek,
+            startTime,
+            endTime,
+            barber
+        ));
     }
 }
