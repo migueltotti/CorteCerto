@@ -17,9 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CorteCerto.CrossCutting\CorteCerto.CrossCutting.csproj" />
-    <ProjectReference Include="..\..\CorteCerto.Domain\CorteCerto.Domain.csproj" />
-    <ProjectReference Include="..\..\CorteCerto.Infrastructure\CorteCerto.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\CorteCerto.Domain\CorteCerto.Domain.csproj" />
+    <ProjectReference Include="..\..\src\CorteCerto.Infrastructure\CorteCerto.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
