@@ -20,7 +20,7 @@ public class Barber : Person
     {
     }
 
-    public Barber(Guid id, string name, string email, string phoneNumber, string password, string description, string portfolioUrl, float rating, Address address) : base(id, name, email, phoneNumber, password)
+    public Barber(Guid id, string name, string email, string phoneNumber, string password, string description, string portfolioUrl, float rating, Address address, List<Role> roles) : base(id, name, email, phoneNumber, password, roles)
     {
         Description = description;
         PortfolioUrl = portfolioUrl;

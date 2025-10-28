@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace CorteCerto.Domain.Base;
 
-internal interface IBaseEntity 
+public interface IBaseEntity 
 {
 }

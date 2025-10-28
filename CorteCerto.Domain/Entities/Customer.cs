@@ -15,9 +15,10 @@ public class Customer : Person
     {
     }
 
-    public Customer(Guid id, string name, string email, string phoneNumber, string password, int promotionPoints) : base(id, name, email, phoneNumber, password)
+    public Customer(Guid id, string name, string email, string phoneNumber, string password, List<Role> roles) 
+        : base(id, name, email, phoneNumber, password, roles)
     {
-        PromotionPoints = promotionPoints;
+        PromotionPoints = 0;
         Appointments = [];
     }
 }

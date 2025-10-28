@@ -10,7 +10,7 @@ namespace CorteCerto.Domain.Entities;
 public class State : BaseEntity<int>
 {
     public string Name { get; private set; }
-    public List<City> Cities{ get; private set; }
+    public List<City> Cities { get; private set; }
     public Country Country { get; private set; }
 
     public State(string name, Country country)

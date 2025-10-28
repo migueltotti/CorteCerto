@@ -8,7 +8,7 @@ public class Role : BaseEntity<int>
     public string Name { get; private set; }
     public List<Person> Peoples { get; private set; }
 
-    public Role()
+    private Role()
     {
     }
 
