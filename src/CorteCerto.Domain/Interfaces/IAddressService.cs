@@ -1,5 +1,5 @@
 ﻿using CorteCerto.Domain.Base;
-using CorteCerto.Domain.ValueObjects;
+using CorteCerto.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CorteCerto.Domain.Interfaces;
 
-public interface IViaCepGateway
+public interface IAddressService
 {
-    Task<Result<AddressLookupResult>> GetAddressByCepAsync(string zipCode);
+    Task<Result<Address>> CreateAddressByCep(string cep, int number);
 }

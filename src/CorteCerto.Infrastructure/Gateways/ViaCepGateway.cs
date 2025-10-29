@@ -19,7 +19,7 @@ public class ViaCepGateway : IViaCepGateway, IDisposable
         };
     }
 
-    public async Task<Result<AddressLookupResult>> GetAddressByZipCodeAsync(string zipCode)
+    public async Task<Result<AddressLookupResult>> GetAddressByCepAsync(string zipCode)
     {
         var response = await _httpClient.GetAsync($"{zipCode}/json/");
 

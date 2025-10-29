@@ -16,7 +16,7 @@ public class Address : BaseEntity<Guid>
     public City City { get; private set; }
 
 
-    public Address(string street, int number, string zipCode, City city, string neighborhood)
+    public Address(string street, int number, string neighborhood, string zipCode, City city)
     {
         Street = street;
         Number = number;

@@ -5,4 +5,5 @@ namespace CorteCerto.Domain.Interfaces;
 
 public interface IStateRepository : IBaseRepository<State>
 {
+    Task<State?> GeyStateByAcronym(string stateAcronym);
 }

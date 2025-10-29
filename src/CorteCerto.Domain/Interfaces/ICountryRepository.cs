@@ -5,4 +5,5 @@ namespace CorteCerto.Domain.Interfaces;
 
 public interface ICountryRepository : IBaseRepository<Country>
 {
+    Task<Country?> GetCountryByName(string name);
 }
