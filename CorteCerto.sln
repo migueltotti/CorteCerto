@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorteCerto.Domain", "src\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorteCerto.Infrastructure", "src\CorteCerto.Infrastructure\CorteCerto.Infrastructure.csproj", "{391BC972-ADCB-455A-B11F-EB49BE65BF25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorteCerto.Application", "src\CorteCerto.Application\CorteCerto.Application.csproj", "{66B6F3F2-7379-4D3D-8B4A-83667EBCDB86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{391BC972-ADCB-455A-B11F-EB49BE65BF25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{391BC972-ADCB-455A-B11F-EB49BE65BF25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{391BC972-ADCB-455A-B11F-EB49BE65BF25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66B6F3F2-7379-4D3D-8B4A-83667EBCDB86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66B6F3F2-7379-4D3D-8B4A-83667EBCDB86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66B6F3F2-7379-4D3D-8B4A-83667EBCDB86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66B6F3F2-7379-4D3D-8B4A-83667EBCDB86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{BF475AEF-8144-465A-9EDD-3144C00C2DDC} = {7D398DE5-B298-4D8D-88FA-CD16AFCB2537}
 		{1FC01CA8-6919-42B4-8853-4E3FFA7A11B4} = {518484A8-4E6F-4537-99CE-2B953B7A6557}
 		{391BC972-ADCB-455A-B11F-EB49BE65BF25} = {518484A8-4E6F-4537-99CE-2B953B7A6557}
+		{66B6F3F2-7379-4D3D-8B4A-83667EBCDB86} = {518484A8-4E6F-4537-99CE-2B953B7A6557}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D948BDE2-1007-4E6D-B130-5D6020A8C002}

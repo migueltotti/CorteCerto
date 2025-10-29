@@ -9,15 +9,17 @@ namespace CorteCerto.Domain.Entities;
 
 public class City : BaseEntity<int>
 {
+    public string Acronym { get; private set; }
     public string Name { get; private set; }
     public List<Address> Addresses{ get; private set; }
     public State State { get; private set; }
 
-    public City(string name, State state)
+    public City(string name, State state, string acronym)
     {
         Name = name;
         State = state;
         Addresses = [];
+        Acronym = acronym;
     }
 
     private City() { }

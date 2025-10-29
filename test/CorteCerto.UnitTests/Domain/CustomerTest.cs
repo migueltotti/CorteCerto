@@ -3,7 +3,7 @@ using CorteCerto.Domain.Interfaces;
 using CorteCerto.Infrastructure.Context;
 using CorteCerto.Infrastructure.Repositories;
 
-namespace CorteCerto.UnitTests
+namespace CorteCerto.UnitTests.Domain
 {
     public class CustomerTest
     {
