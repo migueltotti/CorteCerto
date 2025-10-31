@@ -1,5 +1,5 @@
 ﻿using CorteCerto.Domain.Base;
-using CorteCerto.Domain.Interfaces;
+using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Domain.ValueObjects;
 using CorteCerto.Infrastructure.DTO;
 using System.Net.Http.Json;

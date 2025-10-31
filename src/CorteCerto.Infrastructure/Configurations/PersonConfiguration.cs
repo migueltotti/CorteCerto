@@ -21,9 +21,9 @@ public class PersonConfiguration : IEntityTypeConfiguration<Person>
         builder.Property(p => p.PhoneNumber)
             .IsRequired()
             .HasMaxLength(11);
-        builder.Property(p => p.Password)
+        builder.Property(p => p.PasswordHash)
            .IsRequired()
-           .HasMaxLength(30);
+           .HasMaxLength(200);
 
          // Many-to-many Person <-> Role
          builder.HasMany(p => p.Roles)

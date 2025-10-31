@@ -1,6 +1,7 @@
 ﻿using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Entities;
-using CorteCerto.Domain.Interfaces;
+using CorteCerto.Domain.Interfaces.Repositories;
+using CorteCerto.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

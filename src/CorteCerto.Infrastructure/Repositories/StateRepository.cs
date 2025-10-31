@@ -1,5 +1,5 @@
 using CorteCerto.Domain.Entities;
-using CorteCerto.Domain.Interfaces;
+using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System;

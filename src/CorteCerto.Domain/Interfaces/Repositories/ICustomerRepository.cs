@@ -6,8 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CorteCerto.Domain.Interfaces;
+namespace CorteCerto.Domain.Interfaces.Repositories;
 
 public interface ICustomerRepository : IBaseRepository<Customer>
 {
+    Task<bool> EmailExistsAsync(string email);
 }

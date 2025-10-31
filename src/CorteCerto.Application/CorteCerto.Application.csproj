@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="13.1.0" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="LiteBus" Version="4.0.0" />
+    <PackageReference Include="LiteBus.Commands.Abstractions" Version="4.0.0" />
+    <PackageReference Include="LiteBus.Queries.Abstractions" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Queries\" />
+    <ProjectReference Include="..\CorteCerto.Domain\CorteCerto.Domain.csproj" />
+    <ProjectReference Include="..\CorteCerto.Infrastructure\CorteCerto.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

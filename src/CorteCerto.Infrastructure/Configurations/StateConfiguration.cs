@@ -13,10 +13,13 @@ public class StateConfiguration : IEntityTypeConfiguration<State>
         builder.HasKey(s => s.Id);
 
         builder.Property(s => s.Id)
-               .ValueGeneratedOnAdd();
+            .ValueGeneratedOnAdd();
         builder.Property(s => s.Name)
-               .IsRequired()
-               .HasMaxLength(100);
+            .IsRequired()
+            .HasMaxLength(100);
+        builder.Property(s => s.Acronym)
+            .IsRequired()
+            .HasMaxLength(2);
 
         // Relation: State -> Country (many states belong to one country)
         builder.HasOne(s => s.Country)
@@ -34,6 +37,8 @@ public class StateConfiguration : IEntityTypeConfiguration<State>
 
         // Prevent duplicate state names within the same country
         builder.HasIndex("CountryId", "Name")
+               .IsUnique();
+        builder.HasIndex("Name", "Acronym")
                .IsUnique();
     }
 }
