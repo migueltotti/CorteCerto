@@ -13,6 +13,7 @@ public class CountryRepository(CorteCertoDbContext context) :
     public async Task<Country?> GetCountryByName(string name)
     {
         var country = await context.Countries
+            .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Name == name);
 
         return country;

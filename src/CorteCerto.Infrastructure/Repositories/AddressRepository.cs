@@ -13,6 +13,7 @@ public class AddressRepository(CorteCertoDbContext context) :
     public async Task<Address?> GetAddressByZipCode(string zipCode)
     {
         var address = await context.Addresses
+            .AsNoTracking()
             .FirstOrDefaultAsync(a => a.ZipCode == zipCode);
 
         return address;

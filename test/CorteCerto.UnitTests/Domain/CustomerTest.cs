@@ -20,15 +20,13 @@ namespace CorteCerto.UnitTests.Domain
         public void CreateCustomer_WithUniqueValues_ShouldBeSuccess()
         {
             // Arrange
-            var newRole = new Role("Customer");
 
             var newCustomer = new Customer(
                 Guid.NewGuid(),
                 "Teste da Silva",
                 "teste@silva.com",
                 "18997872005",
-                "Teste@Silva10",
-                [newRole]
+                "Teste@Silva10"
             );
 
             // Act

@@ -33,6 +33,5 @@ public class CorteCertoDbContext : DbContext
     public DbSet<Person> People { get; set; }   
     public DbSet<Barber> Barbers { get; set; }
     public DbSet<Customer> Customers { get; set; }
-    public DbSet<Role> Roles { get; set; }
     public DbSet<Service> Services { get; set; }
 }

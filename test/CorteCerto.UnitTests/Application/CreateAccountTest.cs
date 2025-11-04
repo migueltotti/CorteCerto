@@ -26,7 +26,7 @@ public class CreateAccountTest
     {
         context = new CorteCertoDbContext();
         customerRepository = new CustomerRepository(context);
-        validator = new CreateAccountCommandValidation();
+        validator = new CreateAccountCommandValidatior();
         hashService = new PasswordHashService();
         handler = new CreateAccountCommandHandler(customerRepository, validator, hashService);
     }

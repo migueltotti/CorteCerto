@@ -21,7 +21,7 @@ public class CreateAccountCommandHandler(
         var validationResult = await validator.ValidateAsync(command, cancellationToken);
 
         if(!validationResult.IsValid)
-            return Result<CustomerDto>.Failure(new Error("CreateAccount.ValidationError", JsonSerializer.Serialize(validationResult.Errors)));
+            return Result<CustomerDto>.Failure(CustomerErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
 
         var emailExists = await customerRepository.EmailExistsAsync(command.Email);
 
@@ -35,8 +35,7 @@ public class CreateAccountCommandHandler(
             command.Name,
             command.Email,
             command.PhoneNumber,
-            hashedPassword,
-            []
+            hashedPassword
         );
 
         customerRepository.Insert(newCustomer);

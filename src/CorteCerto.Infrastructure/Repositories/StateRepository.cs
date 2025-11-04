@@ -13,6 +13,7 @@ public class StateRepository(CorteCertoDbContext context) :
     public async Task<State?> GeyStateByAcronym(string stateAcronym)
     {
         var state = await context.States
+            .AsNoTracking()
             .FirstOrDefaultAsync(s => s.Acronym == stateAcronym);
 
         return state;

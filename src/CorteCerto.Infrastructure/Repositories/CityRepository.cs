@@ -13,6 +13,7 @@ public class CityRepository(CorteCertoDbContext context) :
     public async Task<City?> GetCityByNameAndStateAcronym(string cityName, string stateAcronym)
     {   
         var city = await context.Cities
+            .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Name == cityName && c.State.Acronym == stateAcronym);
 
         return city;
