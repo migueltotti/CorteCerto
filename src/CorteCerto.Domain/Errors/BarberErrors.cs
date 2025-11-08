@@ -13,4 +13,8 @@ public static class BarberErrors
         "BarberError.NotFoundById",
         "Barbeiro com esse Id não encontrado."
     );
+
+    public static Error ValidationError(string details) => new(
+        "BarberError.ValidationError",
+        details);
 }

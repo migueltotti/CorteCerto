@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CorteCerto.Domain.Entities;
+﻿namespace CorteCerto.Domain.Entities;
 
 public class Barber : Person
 {
@@ -29,5 +23,47 @@ public class Barber : Person
         Availabilities = [];
         Appointments = [];
         Services = [];
+    }
+
+    public Barber SetName(string name)
+    {
+        Name = name;
+        return this;
+    }
+
+    public Barber SetEmail(string email)
+    {
+        Email = email;
+        return this;
+    }
+
+    public Barber SetPasswordHash(string passwordHash)
+    {
+        PasswordHash = passwordHash;
+        return this;
+    }
+
+    public Barber SetPhoneNumber(string phoneNumber)
+    {
+        PhoneNumber = phoneNumber;
+        return this;
+    }
+
+    public Barber SetDescription(string description)
+    {
+        Description = description;
+        return this;
+    }
+
+    public Barber SetPortifolioUrl(string portifolioUrl)
+    {
+        PortfolioUrl = portifolioUrl;
+        return this;
+    }
+
+    public Barber SetAddress(Address address)
+    {
+        Address = address;
+        return this;
     }
 }

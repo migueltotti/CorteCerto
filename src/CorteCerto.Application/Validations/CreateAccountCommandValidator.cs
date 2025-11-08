@@ -12,16 +12,20 @@ public partial class CreateAccountCommandValidator : AbstractValidator<CreateAcc
         RuleFor(x => x.Name)
             .NotNull().WithMessage("Nome não pode ser nulo.")
             .NotEmpty().WithMessage("Nome é obrigatório.")
-            .MaximumLength(200).WithMessage("Name deve ter no máximo 100 caracteres.");
+            .MinimumLength(5).WithErrorCode("Nome deve ter no minimo 5 caracteres.")
+            .MaximumLength(100).WithMessage("Nome deve ter no máximo 100 caracteres.");
+
         RuleFor(x => x.Email)
             .NotNull().WithMessage("Email não pode ser nulo.")
             .NotEmpty().WithMessage("Email é obrigatório.")
             .MaximumLength(200).WithMessage("Email deve ter no máximo 100 caracteres.")
             .EmailAddress(EmailValidationMode.AspNetCoreCompatible).WithMessage("Email deve conter '@'.");
+
         RuleFor(x => x.PhoneNumber)
             .NotNull().WithMessage("Telefone não pode ser nulo.")
             .NotEmpty().WithMessage("Telefone é obrigatório.")
             .MaximumLength(15).WithMessage("Numero de telefone inválido, verifique a quantidade de digitos.");
+
         RuleFor(x => x.Password)
             .NotNull().WithMessage("Senha não pode ser nulo.")
             .NotEmpty().WithMessage("Senha é obrigatório.")

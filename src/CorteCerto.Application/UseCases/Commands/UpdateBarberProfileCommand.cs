@@ -4,10 +4,10 @@ using LiteBus.Commands.Abstractions;
 
 namespace CorteCerto.Application.UseCases.Commands;
 
-public record RegisterBarberProfileCommand(
-    Guid PersonId, 
-    string Description, 
-    string? PortfolioUrl,
-    string Cep, 
-    int AddressNumber
+public record UpdateBarberProfileCommand(
+    Guid BarberId, 
+    string Name,
+    string Description,
+    string PortfolioUrl,
+    string PhoneNumber
 ) : ICommand<Result<BarberDto>>;

@@ -3,6 +3,7 @@ using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Errors;
 using CorteCerto.Domain.Helpers;
+using Barber = CorteCerto.Domain.Entities.Barber;
 using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Domain.Interfaces.Services;
 using FluentValidation;

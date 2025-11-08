@@ -1,4 +1,5 @@
 ﻿using CorteCerto.Application.UseCases.Commands;
+using CorteCerto.Domain.Helpers;
 using FluentValidation;
 using FluentValidation.Validators;
 using System.Text.RegularExpressions;
@@ -18,13 +19,12 @@ public partial class RegisterBarberProfileCommandValidator : AbstractValidator<R
         RuleFor(x => x.Cep)
             .NotNull().WithMessage("Cep não pode ser nulo.")
             .NotEmpty().WithMessage("Cep é obrigatório.")
-            .Must(x => CepChecker().IsMatch(x)).WithMessage("Cep deve estar no formato NNNNN-NNN ou NNNNNNNN.");
+            .Must(x => CepHelper.Checker.IsMatch(x)).WithMessage("Cep deve estar no formato NNNNN-NNN ou NNNNNNNN.");
         RuleFor(x => x.AddressNumber)
             .NotNull().WithMessage("Numero de Endereço não pode ser nulo.")
             .NotEmpty().WithMessage("Numero de Endereço é obrigatório.")
             .Must(x => x > 0).WithMessage("Numero de Endereço não pode ser negativo.");
     }
 
-    [GeneratedRegex("^\\d{5}-?\\d{3}$")]
-    private static partial Regex CepChecker();
+    
 }
