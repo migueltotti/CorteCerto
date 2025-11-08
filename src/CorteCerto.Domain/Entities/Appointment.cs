@@ -1,5 +1,5 @@
 ﻿using CorteCerto.Domain.Base;
-using CorteCerto.Domain.ValueObjects;
+using CorteCerto.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

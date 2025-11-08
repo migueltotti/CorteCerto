@@ -17,8 +17,8 @@ public static class CustomerErrors
         "CustomerError.NotFoundByEmail",
         "Cliente com esse Email não encontrado.");
 
-    public static Error EmailAlreadyInUse => new(
-        "CustomerError.EmailAlreadyInUse", 
+    public static Error DuplicateEmail => new(
+        "CustomerError.DuplicateEmail", 
         "Email já está em uso.");
 
     public static Error ValidationError(string details) => new(

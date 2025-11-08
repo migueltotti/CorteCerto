@@ -25,6 +25,7 @@ public class Barber : Person
         Description = description;
         PortfolioUrl = portfolioUrl;
         Address = address;
+        Rating = 0;
         Availabilities = [];
         Appointments = [];
         Services = [];

@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace CorteCerto.Application.Validations;
 
-public partial class CreateAccountCommandValidatior : AbstractValidator<CreateAccountCommand>
+public partial class CreateAccountCommandValidator : AbstractValidator<CreateAccountCommand>
 {
-    public CreateAccountCommandValidatior()
+    public CreateAccountCommandValidator()
     {
         RuleFor(x => x.Name)
             .NotNull().WithMessage("Nome não pode ser nulo.")
@@ -38,6 +38,6 @@ public partial class CreateAccountCommandValidatior : AbstractValidator<CreateAc
     [GeneratedRegex(@"^(?=.*\d).*$")]
     private static partial Regex HasNumber();
 
-    [GeneratedRegex(@"^(?=.*[!@#$%^&*(),.?""':{}|<>_\-+=\[\]\\\/]).*$")]
+    [GeneratedRegex(@"^(?=.*[!@#$%^&*(),.?:{}|<>_\-+=]).*$")]
     private static partial Regex HasSpecialCharacter();
 }

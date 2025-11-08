@@ -1,12 +1,8 @@
 ﻿using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Entities;
+using CorteCerto.Domain.Helpers;
 using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CorteCerto.Domain.Services;
 
@@ -19,7 +15,27 @@ public class AddressService(
 {
     public async Task<Result<Address>> CreateAddressByCep(string cep, int number)
     {
-        var addressLookuResult = await viaCepGateway.GetAddressByCepAsync(cep);
+        var addressExists = await addressRepository.GetAddressWithCityByZipCode(cep.RemoveHifen());
+
+        Address address;
+
+        if(addressExists is not null)
+        {
+            address = new Address(
+                addressExists.Street,
+                number,
+                addressExists.Neighborhood,
+                addressExists.ZipCode,
+                addressExists.City);
+
+            cityRepository.AttachObject(addressExists.City);
+
+            addressRepository.Insert(address);
+
+            return Result<Address>.Success(address);
+        }
+
+        var addressLookuResult = await viaCepGateway.GetAddressByCepAsync(cep.RemoveHifen());
 
         if (addressLookuResult.IsFailure)
             return Result<Address>.Failure(addressLookuResult.Error);
@@ -35,12 +51,14 @@ public class AddressService(
             addressLookuResult.Data.CityName,
             state);
 
-        var address = new Address(
+        address = new Address(
             addressLookuResult.Data.Street,
             number,
             addressLookuResult.Data.Neighborhood,
-            cep,
+            cep.RemoveHifen(),
             city);
+
+        cityRepository.AttachObject(city);
 
         addressRepository.Insert(address);
 

@@ -8,6 +8,7 @@ using CorteCerto.Infrastructure.Gateways;
 using CorteCerto.Infrastructure.Repositories;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
@@ -17,132 +18,145 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CorteCerto.UnitTests.Application
+namespace CorteCerto.UnitTests.Application;
+
+public class RegisterBarberProfileTest
 {
-    public class RegisterBarberProfileTest
+
+    private readonly ServiceProvider serviceProvider;
+
+    public RegisterBarberProfileTest()
     {
-        private readonly IValidator<RegisterBarberProfileCommand> validator;
-        private readonly CorteCertoDbContext dbContext;
-        private readonly ICustomerRepository customerRepository;
-        private readonly IBarberRepository barberRepository;
-        private readonly IViaCepGateway viaCepGateway;
-        private readonly ICountryRepository countryRepository;
-        private readonly IStateRepository stateRepository;
-        private readonly ICityRepository cityRepository;
-        private readonly IAddressRepository addressRepository;
-        private readonly IAddressService addressService;
-        private readonly ILogger<RegisterBarberProfileCommandHandler> logger;
-        private readonly RegisterBarberProfileCommandHandler commandHandler;
+        var services = new ServiceCollection();
 
-        public RegisterBarberProfileTest()
-        {
-            validator = new RegisterBarberProfileCommandValidator();
-            dbContext = new CorteCertoDbContext();
-            customerRepository = new CustomerRepository(dbContext);
-            barberRepository = new BarberRepository(dbContext);
-            viaCepGateway = new ViaCepGateway();
-            countryRepository = new CountryRepository(dbContext);
-            stateRepository = new StateRepository(dbContext);
-            cityRepository = new CityRepository(dbContext);
-            addressRepository = new AddressRepository(dbContext);
-            addressService = new AddressService(
-                viaCepGateway,
-                countryRepository,
-                stateRepository,
-                cityRepository,
-                addressRepository);
-            logger = NullLogger<RegisterBarberProfileCommandHandler>.Instance;
-            commandHandler = new RegisterBarberProfileCommandHandler(
-                validator,
-                customerRepository,
-                barberRepository,
-                addressService,
-                logger
-            );
-        }
+        services.AddDbContext<CorteCertoDbContext>();
+        services.AddScoped<IPersonRepository, PersonRepository>();
+        services.AddScoped<IBarberRepository, BarberRepository>();
+        services.AddScoped<ICountryRepository, CountryRepository>();
+        services.AddScoped<IStateRepository, StateRepository>();
+        services.AddScoped<ICityRepository, CityRepository>();
+        services.AddScoped<IAddressRepository, AddressRepository>();
+        services.AddScoped<IViaCepGateway, ViaCepGateway>();
+        services.AddScoped<IAddressService, AddressService>();
+        services.AddScoped<IValidator<RegisterBarberProfileCommand>, RegisterBarberProfileCommandValidator>();
+        services.AddLogging();
 
-        [Fact]
-        public async Task RegisterBaberProfile_WithWrongBarberInfos_ShouldFail()
-        {
-            // Arrange
-            var command = new RegisterBarberProfileCommand
-            (
-                Guid.NewGuid(),
-                "", // Invalid description
-                null,
-                "12345-678",
-                100
-            );
+        serviceProvider = services.BuildServiceProvider();
+    }
 
-            // Act
-            var result = await commandHandler.HandleAsync(command);
+    [Fact]
+    public async Task RegisterBaberProfile_WithWrongBarberInfos_ShouldFail()
+    {
+        // Arrange
+        var command = new RegisterBarberProfileCommand
+        (
+            Guid.NewGuid(),
+            "", // Invalid description
+            null,
+            "12345-678",
+            100
+        );
 
-            // Assert
-            Assert.True(result.IsFailure);
-            Assert.Equal("CustomerError.ValidationError", result.Error.Code);
-        }
+        var commandHandler = new RegisterBarberProfileCommandHandler(
+            serviceProvider.GetRequiredService<IValidator<RegisterBarberProfileCommand>>(),
+            serviceProvider.GetRequiredService<IPersonRepository>(),
+            serviceProvider.GetRequiredService<IBarberRepository>(),
+            serviceProvider.GetRequiredService<IAddressService>(),
+            serviceProvider.GetRequiredService<ILogger<RegisterBarberProfileCommandHandler>>()
+        );
 
-        [Fact]
-        public async Task RegisterBaberProfile_WithInvalidPersonId_ShouldFail()
-        {
-            // Arrange
-            var command = new RegisterBarberProfileCommand
-            (
-                Guid.NewGuid(),
-                "Teste Cep inválido", // Invalid description
-                null,
-                "12345-678",
-                100
-            );
+        // Act
+        var result = await commandHandler.HandleAsync(command);
 
-            // Act
-            var result = await commandHandler.HandleAsync(command);
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Equal("CustomerError.ValidationError", result.Error.Code);
+    }
 
-            // Assert
-            Assert.True(result.IsFailure);
-            Assert.Equal("CustomerError.NotFoundById", result.Error.Code);
-        }
+    [Fact]
+    public async Task RegisterBaberProfile_WithInvalidPersonId_ShouldFail()
+    {
+        // Arrange
+        var command = new RegisterBarberProfileCommand
+        (
+            Guid.NewGuid(),
+            "Teste Cep inválido", // Invalid description
+            null,
+            "12345-678",
+            100
+        );
 
-        [Fact]
-        public async Task RegisterBaberProfile_WithInvalidCep_ShouldFail()
-        {
-            // Arrange
-            var command = new RegisterBarberProfileCommand
-            (
-                Guid.Parse("fceceaf7-2d08-44f7-8752-a5b39ba820ed"),
-                "Teste Cep inválido", // Invalid description
-                null,
-                "12345-678",
-                100
-            );
+        var commandHandler = new RegisterBarberProfileCommandHandler(
+            serviceProvider.GetRequiredService<IValidator<RegisterBarberProfileCommand>>(),
+            serviceProvider.GetRequiredService<IPersonRepository>(),
+            serviceProvider.GetRequiredService<IBarberRepository>(),
+            serviceProvider.GetRequiredService<IAddressService>(),
+            serviceProvider.GetRequiredService<ILogger<RegisterBarberProfileCommandHandler>>()
+        );
 
-            // Act
-            var result = await commandHandler.HandleAsync(command);
+        // Act
+        var result = await commandHandler.HandleAsync(command);
 
-            // Assert
-            Assert.True(result.IsFailure);
-            Assert.Equal("ViaCepGateway.InvalidZipCode", result.Error.Code);
-        }
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Equal("CustomerError.NotFoundById", result.Error.Code);
+    }
 
-        [Fact]
-        public async Task RegisterBaberProfile_WithValidInfos_ShouldBeSuccess()
-        {
-            // Arrange
-            var command = new RegisterBarberProfileCommand
-            (
-                Guid.Parse("fceceaf7-2d08-44f7-8752-a5b39ba820ed"),
-                "Teste dados válidos",
-                null,
-                "01001-000",
-                8080
-            );
+    [Fact]
+    public async Task RegisterBaberProfile_WithInvalidCep_ShouldFail()
+    {
+        // Arrange
+        var command = new RegisterBarberProfileCommand
+        (
+            Guid.Parse("fceceaf7-2d08-44f7-8752-a5b39ba820ed"),
+            "Teste Cep inválido", // Invalid description
+            null,
+            "12345-678",
+            100
+        );
 
-            // Act
-            var result = await commandHandler.HandleAsync(command);
+        var commandHandler = new RegisterBarberProfileCommandHandler(
+            serviceProvider.GetRequiredService<IValidator<RegisterBarberProfileCommand>>(),
+            serviceProvider.GetRequiredService<IPersonRepository>(),
+            serviceProvider.GetRequiredService<IBarberRepository>(),
+            serviceProvider.GetRequiredService<IAddressService>(),
+            serviceProvider.GetRequiredService<ILogger<RegisterBarberProfileCommandHandler>>()
+        );
 
-            // Assert
-            Assert.True(result.IsSuccess);
-            Assert.Equal(Guid.Parse("fceceaf7-2d08-44f7-8752-a5b39ba820ed"), result.Data.Id);
-        }
+        // Act
+        var result = await commandHandler.HandleAsync(command);
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Equal("ViaCepGateway.InvalidZipCode", result.Error.Code);
+    }
+
+    [Fact]
+    public async Task RegisterBaberProfile_WithValidInfos_ShouldBeSuccess()
+    {
+        // Arrange
+        var command = new RegisterBarberProfileCommand
+        (
+            Guid.Parse("6bad02d7-b8bf-41bd-bb05-0f58369facf1"),
+            "Miguel Teste `3, mesmo Address",
+            null,
+            "01001-000",
+            111
+        );
+
+        var commandHandler = new RegisterBarberProfileCommandHandler(
+            serviceProvider.GetRequiredService<IValidator<RegisterBarberProfileCommand>>(),
+            serviceProvider.GetRequiredService<IPersonRepository>(),
+            serviceProvider.GetRequiredService<IBarberRepository>(),
+            serviceProvider.GetRequiredService<IAddressService>(),
+            serviceProvider.GetRequiredService<ILogger<RegisterBarberProfileCommandHandler>>()
+        );
+
+        // Act
+        var result = await commandHandler.HandleAsync(command);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal(Guid.Parse("6bad02d7-b8bf-41bd-bb05-0f58369facf1"), result.Data.Id);
     }
 }

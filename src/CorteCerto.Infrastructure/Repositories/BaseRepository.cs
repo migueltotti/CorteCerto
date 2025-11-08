@@ -40,7 +40,7 @@ public class BaseRepository<TEntity, TIdType>(CorteCertoDbContext context)
                 baseQuery = baseQuery.Include(include);
             }
         }
-        return await baseQuery.AsNoTracking().ToListAsync();
+        return await baseQuery.ToListAsync();
     }
 
     public async Task<TEntity> Select(object id, IList<string>? includes = null)
@@ -54,7 +54,7 @@ public class BaseRepository<TEntity, TIdType>(CorteCertoDbContext context)
                 baseQuery = baseQuery.Include(include);
             }
         }
-        return await baseQuery.AsNoTracking().FirstOrDefaultAsync(o => o.Id.Equals((TIdType)id));
+        return await baseQuery.FirstOrDefaultAsync(o => o.Id.Equals((TIdType)id));
     }
 
     public void Update(TEntity entity)

@@ -11,11 +11,16 @@
     <PackageReference Include="LiteBus" Version="4.0.0" />
     <PackageReference Include="LiteBus.Commands.Abstractions" Version="4.0.0" />
     <PackageReference Include="LiteBus.Queries.Abstractions" Version="4.0.0" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CorteCerto.Domain\CorteCerto.Domain.csproj" />
     <ProjectReference Include="..\CorteCerto.Infrastructure\CorteCerto.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UseCases\Queries\" />
   </ItemGroup>
 
 </Project>

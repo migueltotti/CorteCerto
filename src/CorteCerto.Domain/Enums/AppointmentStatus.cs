@@ -1,4 +1,4 @@
-﻿namespace CorteCerto.Domain.ValueObjects;
+﻿namespace CorteCerto.Domain.Enums;
 
 public enum AppointmentStatus
 {

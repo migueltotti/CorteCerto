@@ -7,6 +7,7 @@ using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Domain.Interfaces.Services;
 using FluentValidation;
 using LiteBus.Commands.Abstractions;
+using Mapster;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
@@ -14,7 +15,7 @@ namespace CorteCerto.Application.UseCases.Commands;
 
 public class RegisterBarberProfileCommandHandler(
     IValidator<RegisterBarberProfileCommand> validator,
-    ICustomerRepository customerRepository,
+    IPersonRepository personRepository,
     IBarberRepository barberRepository,
     IAddressService addressService,
     ILogger<RegisterBarberProfileCommandHandler> logger)
@@ -32,7 +33,7 @@ public class RegisterBarberProfileCommandHandler(
         }
 
 
-        var person = await customerRepository.Select(command.PersonId);
+        var person = await personRepository.Select(command.PersonId);
 
         if (person is null)
         {
@@ -42,7 +43,7 @@ public class RegisterBarberProfileCommandHandler(
         }
 
 
-        var addressResult = await addressService.CreateAddressByCep(command.Cep.RemoveHifen(), command.AddressNumber);
+        var addressResult = await addressService.CreateAddressByCep(command.Cep, command.AddressNumber);
 
         if (addressResult.IsFailure)
         {
@@ -62,16 +63,10 @@ public class RegisterBarberProfileCommandHandler(
             addressResult.Data
         );
 
-        barberRepository.Insert(barber);
+        await barberRepository.RegisterBarber(barber);
 
         logger.LogInformation("Barber profile registered successfully for PersonId: {PersonId}", command.PersonId);
 
-        return Result<BarberDto>.Success(
-            new BarberDto(
-                barber.Id,
-                barber.Name,
-                barber.Email,
-                barber.PhoneNumber
-            ));
+        return Result<BarberDto>.Success(barber.Adapt<BarberDto>());
     }
 }

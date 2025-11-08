@@ -6,4 +6,5 @@ namespace CorteCerto.Domain.Interfaces.Repositories;
 public interface IBarberRepository : IBaseRepository<Barber>
 {
     Task<bool> EmailExistsAsync(string email);
+    Task<Barber> RegisterBarber(Barber barber);
 }

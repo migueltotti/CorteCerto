@@ -5,5 +5,5 @@ namespace CorteCerto.Domain.Interfaces.Repositories;
 
 public interface IAddressRepository : IBaseRepository<Address>
 {
-    Task<Address?> GetAddressByZipCode(string zipCode);
+    Task<Address?> GetAddressWithCityByZipCode(string zipCode);
 }

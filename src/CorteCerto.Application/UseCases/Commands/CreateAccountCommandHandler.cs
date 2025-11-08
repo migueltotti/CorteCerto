@@ -26,7 +26,7 @@ public class CreateAccountCommandHandler(
         var emailExists = await customerRepository.EmailExistsAsync(command.Email);
 
         if(emailExists)
-            return Result<CustomerDto>.Failure(CustomerErrors.EmailAlreadyInUse);
+            return Result<CustomerDto>.Failure(CustomerErrors.DuplicateEmail);
 
         var hashedPassword = hashService.Hash(command.Password);
 
