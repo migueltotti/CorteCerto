@@ -1,4 +1,5 @@
 ﻿using CorteCerto.Domain.Base;
+using CorteCerto.Domain.Errors;
 
 namespace CorteCerto.Domain.Entities;
 
@@ -8,6 +9,7 @@ public abstract class Person : BaseEntity<Guid>
     public string Email { get; protected set; }
     public string PhoneNumber { get; protected set; }
     public string PasswordHash { get; protected set; }
+    private const int PasswordHashLenght = 97;
 
     protected Person()
     {
@@ -24,6 +26,16 @@ public abstract class Person : BaseEntity<Guid>
     public void UpadteEmail(string email)
     {
         Email = email;
+    }
+
+    public Result UpadtePasswordHash(string passwordHash)
+    {
+        if (!passwordHash.Contains("-") || passwordHash.Length != PasswordHashLenght)
+            return Result.Failure(PersonErrors.InvalidPasswordHashFormat);
+
+        PasswordHash = passwordHash;
+
+        return Result.Success();
     }
 
     public bool IsCurrentEmail(string email)

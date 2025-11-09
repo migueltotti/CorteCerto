@@ -14,6 +14,16 @@ public static class PersonErrors
         "Email não corresponde ao email atual."
     );
 
+    public static Error PasswordMismatch => new Error(
+        "PersonError.PasswordMismatch",
+        "Senha não corresponde à senha atual."
+    );
+
+    public static Error InvalidPasswordHashFormat => new Error(
+        "PersonError.InvalidPasswordHashFormat",
+        "PasswordHash com formato inválido, deve ser feito o hash da senha!"
+    );
+
     public static Error ValidationError(string details) => new(
         "PersonError.ValidationError",
         details);

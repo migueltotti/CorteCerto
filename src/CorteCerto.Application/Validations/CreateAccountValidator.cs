@@ -1,4 +1,5 @@
 ﻿using CorteCerto.Application.UseCases.Commands;
+using CorteCerto.Domain.Helpers;
 using FluentValidation;
 using FluentValidation.Validators;
 using System.Text.RegularExpressions;
@@ -31,17 +32,10 @@ public partial class CreateAccountValidator : AbstractValidator<CreateAccountCom
             .NotEmpty().WithMessage("Senha é obrigatório.")
             .MinimumLength(8).WithMessage("Senha deve ter no mínimo 8 caracteres.")
             .MaximumLength(15).WithMessage("Senha deve ter no máximo 30 caracteres.")
-            .Must(p => HasUpperAndLowerCaracter().IsMatch(p)).WithMessage("Senha deve conter pelo menos uma letra maiuscula e uma letra minuscula.")
-            .Must(p => HasNumber().IsMatch(p)).WithMessage("Senha deve conter pelo menos um numero.")
-            .Must(p => HasSpecialCharacter().IsMatch(p)).WithMessage("Senha deve conter pelo menos um caracter especial.");
+            .Must(p => PasswordHelper.HasUpperAndLowerCaracter.IsMatch(p)).WithMessage("Senha deve conter pelo menos uma letra maiuscula e uma letra minuscula.")
+            .Must(p => PasswordHelper.HasNumber.IsMatch(p)).WithMessage("Senha deve conter pelo menos um numero.")
+            .Must(p => PasswordHelper.HasSpecialCharacter.IsMatch(p)).WithMessage("Senha deve conter pelo menos um caracter especial.");
     }
 
-    [GeneratedRegex(@"^(?=.*[a-z])(?=.*[A-Z]).*$")]
-    private static partial Regex HasUpperAndLowerCaracter();
-
-    [GeneratedRegex(@"^(?=.*\d).*$")]
-    private static partial Regex HasNumber();
-
-    [GeneratedRegex(@"^(?=.*[!@#$%^&*(),.?:{}|<>_\-+=]).*$")]
-    private static partial Regex HasSpecialCharacter();
+    
 }
