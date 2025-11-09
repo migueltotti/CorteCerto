@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace CorteCerto.Application.Validations;
 
-public class RegisterServiceCommandValidator : AbstractValidator<RegisterServiceCommand>
+public class RegisterServiceValidator : AbstractValidator<RegisterServiceCommand>
 {
-    public RegisterServiceCommandValidator()
+    public RegisterServiceValidator()
     {
         RuleFor(x => x.BarberId)
             .NotNull().WithMessage("Id do barbeiro não pode ser nulo.")

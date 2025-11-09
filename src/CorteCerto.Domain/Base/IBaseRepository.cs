@@ -13,6 +13,6 @@ public interface IBaseRepository<TEntity> where TEntity : IBaseEntity
     void Insert(TEntity entity);
     void Update(TEntity entity);
     void Delete(object id);
-    Task<IList<TEntity>> Select(IList<string>? includes = null);
-    Task<TEntity> Select(object id, IList<string>? includes = null);
+    Task<IList<TEntity>> Select(IList<string>? includes = null, CancellationToken token = default);
+    Task<TEntity> Select(object id, IList<string>? includes = null, CancellationToken token = default);
 }

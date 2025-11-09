@@ -24,7 +24,7 @@ public class RegisterServiceTest
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddLogging();
         services.AddMapster();
-        services.AddScoped<IValidator<RegisterServiceCommand>, RegisterServiceCommandValidator>();
+        services.AddScoped<IValidator<RegisterServiceCommand>, RegisterServiceValidator>();
 
         provider = services.BuildServiceProvider();
 

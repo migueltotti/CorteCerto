@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace CorteCerto.Application.Validations;
 
-public partial class CreateAccountCommandValidator : AbstractValidator<CreateAccountCommand>
+public partial class CreateAccountValidator : AbstractValidator<CreateAccountCommand>
 {
-    public CreateAccountCommandValidator()
+    public CreateAccountValidator()
     {
         RuleFor(x => x.Name)
             .NotNull().WithMessage("Nome não pode ser nulo.")

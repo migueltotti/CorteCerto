@@ -30,7 +30,7 @@ public class UpdateBarberProfileTest
         services.AddScoped<IBarberRepository, BarberRepository>();
         services.AddLogging();
         services.AddMapster();
-        services.AddScoped<IValidator<UpdateBarberProfileCommand>, UpdateBarberProfileCommandValidator>();
+        services.AddScoped<IValidator<UpdateBarberProfileCommand>, UpdateBarberProfileValidator>();
 
         provider = services.BuildServiceProvider();
 

@@ -20,4 +20,14 @@ public abstract class Person : BaseEntity<Guid>
         PhoneNumber = phoneNumber;
         PasswordHash = passwordHash;
     }
+
+    public void UpadteEmail(string email)
+    {
+        Email = email;
+    }
+
+    public bool IsCurrentEmail(string email)
+    {
+        return Email.Equals(email, StringComparison.Ordinal);
+    }
 }

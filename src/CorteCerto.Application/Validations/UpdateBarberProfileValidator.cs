@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace CorteCerto.Application.Validations;
 
-public class UpdateBarberProfileCommandValidator : AbstractValidator<UpdateBarberProfileCommand>
+public class UpdateBarberProfileValidator : AbstractValidator<UpdateBarberProfileCommand>
 {
-    public UpdateBarberProfileCommandValidator()
+    public UpdateBarberProfileValidator()
     {
         RuleFor(x => x.BarberId)
             .NotNull().WithMessage("Id do barbeiro não pode ser nulo.")

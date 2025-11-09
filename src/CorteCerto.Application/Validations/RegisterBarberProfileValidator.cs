@@ -5,9 +5,9 @@ using FluentValidation.Validators;
 using System.Text.RegularExpressions;
 namespace CorteCerto.Application.Validations;
 
-public partial class RegisterBarberProfileCommandValidator : AbstractValidator<RegisterBarberProfileCommand>
+public partial class RegisterBarberProfileValidator : AbstractValidator<RegisterBarberProfileCommand>
 {
-    public RegisterBarberProfileCommandValidator()
+    public RegisterBarberProfileValidator()
     {
         RuleFor(x => x.PersonId)
             .NotNull().WithMessage("Id da Pessoa não pode ser nulo.")

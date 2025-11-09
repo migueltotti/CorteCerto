@@ -38,7 +38,7 @@ public class RegisterBarberProfileTest
         services.AddScoped<IAddressRepository, AddressRepository>();
         services.AddScoped<IViaCepGateway, ViaCepGateway>();
         services.AddScoped<IAddressService, AddressService>();
-        services.AddScoped<IValidator<RegisterBarberProfileCommand>, RegisterBarberProfileCommandValidator>();
+        services.AddScoped<IValidator<RegisterBarberProfileCommand>, RegisterBarberProfileValidator>();
         services.AddLogging();
 
         serviceProvider = services.BuildServiceProvider();
