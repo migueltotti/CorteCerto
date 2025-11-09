@@ -18,7 +18,7 @@ public class Service : BaseEntity<int>
     {
     }
 
-    private Service(string name, string description, decimal price, TimeSpan duration, bool isAvailable, Barber barber)
+    internal Service(string name, string description, decimal price, TimeSpan duration, bool isAvailable, Barber barber)
     {
         Name = name;
         Description = description;
@@ -27,20 +27,5 @@ public class Service : BaseEntity<int>
         IsAvailable = isAvailable;
         Barber = barber;
         Appointments = [];
-    }
-
-    public static Result<Service> Create(string name, string description, decimal price, TimeSpan duration, Barber barber)
-    {   
-        if (duration.TotalMinutes < 15 || duration.TotalDays > 1)
-            return Result<Service>.Failure(ServiceErrors.DurationInvalid);
-        
-        return Result<Service>.Success(new Service(
-            name,
-            description,
-            price,
-            duration,
-            true,
-            barber
-        ));
     }
 }

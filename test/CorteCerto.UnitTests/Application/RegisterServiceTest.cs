@@ -12,7 +12,8 @@ namespace CorteCerto.UnitTests.Application;
 
 public class RegisterServiceTest
 {
-    private ServiceProvider provider;
+    private readonly ServiceProvider provider;
+    private readonly RegisterServiceCommandHandler commandHandler;
 
     public RegisterServiceTest()
     {
@@ -26,6 +27,12 @@ public class RegisterServiceTest
         services.AddScoped<IValidator<RegisterServiceCommand>, RegisterServiceCommandValidator>();
 
         provider = services.BuildServiceProvider();
+
+        commandHandler = new RegisterServiceCommandHandler(
+            provider.GetRequiredService<IBarberRepository>(),
+            provider.GetRequiredService<IValidator<RegisterServiceCommand>>(),
+            provider.GetRequiredService<ILogger<RegisterServiceCommandHandler>>()
+        );
     }
 
 
@@ -39,13 +46,6 @@ public class RegisterServiceTest
             "",
             1231231.7298739M,
             TimeSpan.FromMinutes(5)
-        );
-
-        var commandHandler = new RegisterServiceCommandHandler(
-            provider.GetRequiredService<IBarberRepository>(),
-            provider.GetRequiredService<IServiceRepository>(),
-            provider.GetRequiredService<IValidator<RegisterServiceCommand>>(),
-            provider.GetRequiredService<ILogger<RegisterServiceCommandHandler>>()
         );
 
         // Act
@@ -68,13 +68,6 @@ public class RegisterServiceTest
             TimeSpan.FromMinutes(25)
         );
 
-        var commandHandler = new RegisterServiceCommandHandler(
-            provider.GetRequiredService<IBarberRepository>(),
-            provider.GetRequiredService<IServiceRepository>(),
-            provider.GetRequiredService<IValidator<RegisterServiceCommand>>(),
-            provider.GetRequiredService<ILogger<RegisterServiceCommandHandler>>()
-        );
-
         // Act
         var result = await commandHandler.HandleAsync(command);
 
@@ -95,13 +88,6 @@ public class RegisterServiceTest
             TimeSpan.FromMinutes(10)
         );
 
-        var commandHandler = new RegisterServiceCommandHandler(
-            provider.GetRequiredService<IBarberRepository>(),
-            provider.GetRequiredService<IServiceRepository>(),
-            provider.GetRequiredService<IValidator<RegisterServiceCommand>>(),
-            provider.GetRequiredService<ILogger<RegisterServiceCommandHandler>>()
-        );
-
         // Act
         var result = await commandHandler.HandleAsync(command);
 
@@ -116,17 +102,10 @@ public class RegisterServiceTest
         // arrange
         var command = new RegisterServiceCommand(
             Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            "Cabelo e Barba",
-            "Teste do serviço cabelo e barba!",
-            45.0M,
-            TimeSpan.FromHours(1)
-        );
-
-        var commandHandler = new RegisterServiceCommandHandler(
-            provider.GetRequiredService<IBarberRepository>(),
-            provider.GetRequiredService<IServiceRepository>(),
-            provider.GetRequiredService<IValidator<RegisterServiceCommand>>(),
-            provider.GetRequiredService<ILogger<RegisterServiceCommandHandler>>()
+            "Cabelo e Barba Pelo Root Agregate",
+            "Teste do serviço cabelo e barba pelo root agregate (Barber)!",
+            115.0M,
+            TimeSpan.FromHours(2)
         );
 
         // Act

@@ -13,7 +13,6 @@ namespace CorteCerto.Application.UseCases.Commands;
 
 public class RegisterServiceCommandHandler(
     IBarberRepository barberRepository,
-    IServiceRepository serviceRepository,
     IValidator<RegisterServiceCommand> validator,
     ILogger<RegisterServiceCommandHandler> logger)
     : ICommandHandler<RegisterServiceCommand, Result<ServiceDto>>
@@ -38,13 +37,11 @@ public class RegisterServiceCommandHandler(
             return Result<ServiceDto>.Failure(BarberErrors.NotFoundById);
         }
 
-        var serviceResult = Service.Create(
-            command.Name,
-            command.Description,
-            command.Price,
-            command.Duration,
-            barber
-        );
+        var serviceResult = barber.AddService(
+                        command.Name,
+                        command.Description,
+                        command.Price,
+                        command.Duration);
 
         if (serviceResult.IsFailure)
         {
@@ -53,8 +50,7 @@ public class RegisterServiceCommandHandler(
             return Result<ServiceDto>.Failure(serviceResult.Error);
         }
 
-        //barberRepository.AttachObject(barber);
-        serviceRepository.Insert(serviceResult.Data);
+        barberRepository.Update(barber);
 
         logger.LogInformation("Service registred with sucess for Barber with BarberId: {BarberId}", serviceResult.Data.Barber.Id);
 

@@ -1,4 +1,7 @@
-﻿namespace CorteCerto.Domain.Entities;
+﻿using CorteCerto.Domain.Base;
+using CorteCerto.Domain.Errors;
+
+namespace CorteCerto.Domain.Entities;
 
 public class Barber : Person
 {
@@ -6,9 +9,9 @@ public class Barber : Person
     public string PortfolioUrl { get; private set; }
     public float Rating { get; private set; }
     public Address Address { get; private set; }
-    public List<BarberAvailability> Availabilities { get; private set; }
-    public List<Service> Services { get; private set; }
-    public List<Appointment> Appointments { get; private set; }
+    public List<BarberAvailability> Availabilities { get; private set; } = [];
+    public List<Service> Services { get; private set; } = [];
+    public List<Appointment> Appointments { get; private set; } = [];
         
     private Barber()
     {
@@ -66,4 +69,24 @@ public class Barber : Person
         Address = address;
         return this;
     }
+
+    public Result<Service> AddService(string name, string description, decimal price, TimeSpan duration)
+    {
+        if (duration.TotalMinutes < 15 || duration.TotalDays > 1)
+            return Result<Service>.Failure(ServiceErrors.DurationInvalid);
+
+        var service = new Service(
+            name,
+            description,
+            price,
+            duration,
+            true,
+            this
+        );
+
+        Services.Add(service);
+
+        return Result<Service>.Success(service);
+    }
+
 }
