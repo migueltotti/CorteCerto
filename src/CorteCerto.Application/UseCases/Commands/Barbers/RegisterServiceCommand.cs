@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace CorteCerto.Application.UseCases.Commands;
+namespace CorteCerto.Application.UseCases.Commands.Barbers;
 
 public record RegisterServiceCommand(
     Guid BarberId,

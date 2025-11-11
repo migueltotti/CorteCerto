@@ -12,7 +12,7 @@ using Mapster;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace CorteCerto.Application.UseCases.Commands;
+namespace CorteCerto.Application.UseCases.Commands.Barbers;
 
 public class RegisterBarberProfileCommandHandler(
     IValidator<RegisterBarberProfileCommand> validator,
@@ -24,15 +24,14 @@ public class RegisterBarberProfileCommandHandler(
 {
     public async Task<Result<BarberDto>> HandleAsync(RegisterBarberProfileCommand command, CancellationToken cancellationToken = default)
     {
-        var validationResult = await validator.ValidateAsync(command, cancellationToken);
+        var validationResult = await validator.ValidateAsync(command, cancellationToken);   
 
         if (!validationResult.IsValid)
         {
-            logger.LogInformation("Barber infos validatio failed for PersonId: {PersonId}", command.PersonId);
+            logger.LogInformation("Barber infos validation failed for PersonId: {PersonId}", command.PersonId);
 
             return Result<BarberDto>.Failure(CustomerErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
-
 
         var person = await personRepository.Select(command.PersonId);
 

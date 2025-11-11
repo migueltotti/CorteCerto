@@ -1,6 +1,4 @@
-﻿
-
-using CorteCerto.Application.DTO;
+﻿using CorteCerto.Application.DTO;
 using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Errors;
 using CorteCerto.Domain.Interfaces.Repositories;
@@ -9,7 +7,7 @@ using LiteBus.Commands.Abstractions;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace CorteCerto.Application.UseCases.Commands;
+namespace CorteCerto.Application.UseCases.Commands.People;
 
 public class UpdatePersonEmailCommandHandler(
     IPersonRepository personRepository,

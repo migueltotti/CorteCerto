@@ -8,7 +8,7 @@ using Mapster;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace CorteCerto.Application.UseCases.Commands;
+namespace CorteCerto.Application.UseCases.Commands.Barbers;
 
 public class UpdateBarberProfileCommandHandler(
     IBarberRepository barberRepository,

@@ -1,4 +1,4 @@
-﻿using CorteCerto.Application.UseCases.Commands;
+﻿using CorteCerto.Application.UseCases.Commands.Barbers;
 using CorteCerto.Domain.Entities;
 using FluentValidation;
 using System;

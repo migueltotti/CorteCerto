@@ -8,7 +8,7 @@ using FluentValidation;
 using LiteBus.Commands.Abstractions;
 using System.Text.Json;
 
-namespace CorteCerto.Application.UseCases.Commands;
+namespace CorteCerto.Application.UseCases.Commands.People;
 
 public class CreateAccountCommandHandler(
     ICustomerRepository customerRepository,

@@ -1,4 +1,4 @@
-﻿using CorteCerto.Application.UseCases.Commands;
+﻿using CorteCerto.Application.UseCases.Commands.People;
 using FluentValidation;
 using FluentValidation.Validators;
 

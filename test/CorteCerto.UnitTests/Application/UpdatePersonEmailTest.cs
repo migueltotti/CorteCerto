@@ -1,5 +1,4 @@
-﻿
-using CorteCerto.Application.UseCases.Commands;
+﻿using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.Validations;
 using CorteCerto.Domain.Errors;
 using CorteCerto.Domain.Interfaces.Repositories;
