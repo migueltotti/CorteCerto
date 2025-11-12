@@ -15,8 +15,8 @@ public class Customer : Person
     {
     }
 
-    public Customer(Guid id, string name, string email, string phoneNumber, string password) 
-        : base(id, name, email, phoneNumber, password)
+    public Customer(Guid id, string name, string email, string phoneNumber, string passwordHash) 
+        : base(id, name, email, phoneNumber, passwordHash)
     {
         PromotionPoints = 0;
         Appointments = [];

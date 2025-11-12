@@ -42,7 +42,7 @@ public class UpdatePersonEmailCommandHandler(
             return Result<bool>.Failure(PersonErrors.EmailMismatch);
         }
 
-        person.UpadteEmail(command.NewEmail);
+        person.UpdateEmail(command.NewEmail);
 
         personRepository.Update(person);
 

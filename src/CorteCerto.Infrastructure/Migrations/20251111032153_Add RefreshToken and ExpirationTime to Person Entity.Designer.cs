@@ -3,6 +3,7 @@ using System;
 using CorteCerto.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CorteCerto.Infrastructure.Migrations
 {
     [DbContext(typeof(CorteCertoDbContext))]
-    partial class CorteCertoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251111032153_Add RefreshToken and ExpirationTime to Person Entity")]
+    partial class AddRefreshTokenandExpirationTimetoPersonEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

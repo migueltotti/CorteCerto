@@ -9,7 +9,10 @@ public abstract class Person : BaseEntity<Guid>
     public string Email { get; protected set; }
     public string PhoneNumber { get; protected set; }
     public string PasswordHash { get; protected set; }
-    private const int PasswordHashLenght = 97;
+    public string RefreshToken { get; private set; }
+    public DateTime RefreshTokenExpiresAt { get; private set; }
+
+    private const int PasswordHashLength = 97;
 
     protected Person()
     {
@@ -23,14 +26,14 @@ public abstract class Person : BaseEntity<Guid>
         PasswordHash = passwordHash;
     }
 
-    public void UpadteEmail(string email)
+    public void UpdateEmail(string email)
     {
         Email = email;
     }
 
-    public Result UpadtePasswordHash(string passwordHash)
+    public Result UpdatePasswordHash(string passwordHash)
     {
-        if (!passwordHash.Contains("-") || passwordHash.Length != PasswordHashLenght)
+        if (!passwordHash.Contains("-") || passwordHash.Length != PasswordHashLength)
             return Result.Failure(PersonErrors.InvalidPasswordHashFormat);
 
         PasswordHash = passwordHash;
@@ -41,5 +44,16 @@ public abstract class Person : BaseEntity<Guid>
     public bool IsCurrentEmail(string email)
     {
         return Email.Equals(email, StringComparison.Ordinal);
+    }
+
+    public void SetRefreshToken(string refreshToken, int expirationTimeInMinutes)
+    {
+        RefreshToken = refreshToken;
+        RefreshTokenExpiresAt = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes);
+    }
+
+    public void RemoveRefreshToken()
+    {
+        RefreshToken = "";
     }
 }

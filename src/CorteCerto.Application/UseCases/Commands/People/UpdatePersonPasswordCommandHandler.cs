@@ -45,7 +45,7 @@ public class UpdatePersonPasswordCommandHandler(
 
         var newHashedPassword = passwordService.Hash(command.NewPassword);
 
-        var updatePasswordHashResult = person.UpadtePasswordHash(newHashedPassword);
+        var updatePasswordHashResult = person.UpdatePasswordHash(newHashedPassword);
 
         if (updatePasswordHashResult.IsFailure)
         {
