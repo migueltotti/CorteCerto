@@ -11,6 +11,6 @@ namespace CorteCerto.Domain.Interfaces.Repositories;
 
 public interface ICustomerRepository : IBaseRepository<Customer>
 {
-    Task<IEnumerable<Customer>> GetWithFilter(PersonFilter filter);
+    Task<IEnumerable<Customer>> GetWithFilter(PersonFilter filter, IList<string>? includes = null, CancellationToken token = default);
     Task<bool> EmailExistsAsync(string email);
 }

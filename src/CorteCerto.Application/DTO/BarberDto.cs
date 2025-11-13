@@ -6,5 +6,6 @@ public record BarberDto(
     string Name,
     string Email,
     string PhoneNumber,
-    string Description
+    string Description,
+    List<BarberAvailabilityDto> Availabilities
 );

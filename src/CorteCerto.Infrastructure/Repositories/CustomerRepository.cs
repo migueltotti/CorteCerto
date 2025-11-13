@@ -10,7 +10,7 @@ public class CustomerRepository(CorteCertoDbContext context) :
     BaseRepository<Customer, Guid>(context),
     ICustomerRepository
 {
-    public async Task<IEnumerable<Customer>> GetWithFilter(PersonFilter filter)
+    public async Task<IEnumerable<Customer>> GetWithFilter(PersonFilter filter, IList<string>? includes = null, CancellationToken token = default)
     {
         var query = context.Customers
             .AsQueryable()
@@ -24,6 +24,14 @@ public class CustomerRepository(CorteCertoDbContext context) :
 
         if (filter.Email is not null && filter.Email != String.Empty)
             query = query.Where(c => c.Email == filter.Email);
+
+        if (includes is not null)
+        {
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
 
         return await query.ToListAsync();
     }

@@ -1,6 +1,4 @@
-﻿using CorteCerto.Domain.Base;
-using CorteCerto.Domain.Errors;
-
+﻿
 namespace CorteCerto.Domain.Entities;
 
 public class Barber : Person
@@ -75,4 +73,18 @@ public class Barber : Person
         Services.Add(service);
     }
 
+    public void UpsertAvailability(BarberAvailability availability)
+    {
+        var existingAvailability = Availabilities.FirstOrDefault(a => a.DayOfWeek == availability.DayOfWeek);
+
+        if (existingAvailability is not null)
+        {
+            existingAvailability.SetStartTime(availability.StartTime);
+            existingAvailability.SetEndTime(availability.EndTime);
+        }
+        else
+        {
+            Availabilities.Add(availability);
+        }
+    }
 }

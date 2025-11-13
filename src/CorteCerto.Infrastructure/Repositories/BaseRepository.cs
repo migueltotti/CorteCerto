@@ -40,6 +40,7 @@ public class BaseRepository<TEntity, TIdType>(CorteCertoDbContext context)
                 baseQuery = baseQuery.Include(include);
             }
         }
+
         return await baseQuery.ToListAsync(token);
     }
 
@@ -54,6 +55,7 @@ public class BaseRepository<TEntity, TIdType>(CorteCertoDbContext context)
                 baseQuery = baseQuery.Include(include);
             }
         }
+
         return await baseQuery.FirstOrDefaultAsync(o => o.Id.Equals((TIdType)id), token);
     }
 

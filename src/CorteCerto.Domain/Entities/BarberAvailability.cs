@@ -26,16 +26,26 @@ public class BarberAvailability : BaseEntity<int>
         Barber = barber;
     }
 
-    public static Result<BarberAvailability> Create(DayOfWeek dayOfWeek, DateTime startTime, DateTime endTime, Barber barber)
+    public static Result<BarberAvailability> Create(DayOfWeek dayOfWeek, DateTime startTime, DateTime endTime)
     {
         if (endTime <= startTime)
-            return Result<BarberAvailability>.Failure(new Error("InvalidTimeRange", "End time must be after start time"));
+            return Result<BarberAvailability>.Failure(new Error("BarberAvailabilityError.InvalidTimeRange", "Data de finalização deve vir depois de data de inicio."));
 
         return Result<BarberAvailability>.Success(new BarberAvailability(
             dayOfWeek,
-            startTime,
-            endTime,
-            barber
+            startTime.ToUniversalTime(),
+            endTime.ToUniversalTime(),
+            null
         ));
+    }
+
+    public void SetStartTime(DateTime startTime)
+    {
+        StartTime = startTime;
+    }
+
+    public void SetEndTime(DateTime endTime)
+    {
+        EndTime = endTime;
     }
 }
