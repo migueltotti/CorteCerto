@@ -19,8 +19,4 @@
     <ProjectReference Include="..\CorteCerto.Infrastructure\CorteCerto.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\Queries\" />
-  </ItemGroup>
-
 </Project>
