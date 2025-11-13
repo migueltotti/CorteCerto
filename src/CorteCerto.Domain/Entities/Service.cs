@@ -11,21 +11,34 @@ public class Service : BaseEntity<int>
     public TimeSpan Duration { get; private set; }
     public bool IsAvailable { get; private set; }   
     public Barber Barber { get; private set; }
-    public List<Appointment> Appointments{ get; private set; }
+    public List<Appointment> Appointments { get; private set; } = [];
         
 
     private Service()
     {
     }
 
-    internal Service(string name, string description, decimal price, TimeSpan duration, bool isAvailable, Barber barber)
+    private Service(string name, string description, decimal price, TimeSpan duration, bool isAvailable)
     {
         Name = name;
         Description = description;
         Price = price;
         Duration = duration;
         IsAvailable = isAvailable;
-        Barber = barber;
         Appointments = [];
+    }
+
+    public static Result<Service> Create(string name, string description, decimal price, TimeSpan duration)
+    {
+        if (duration.TotalMinutes < 15 || duration.TotalDays > 1)
+            return Result<Service>.Failure(ServiceErrors.DurationInvalid);
+
+        return Result<Service>.Success(new Service(
+            name,
+            description,
+            price,
+            duration,
+            true
+        ));
     }
 }

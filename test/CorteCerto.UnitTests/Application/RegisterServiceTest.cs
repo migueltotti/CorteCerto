@@ -102,10 +102,10 @@ public class RegisterServiceTest
         // arrange
         var command = new RegisterServiceCommand(
             Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            "Cabelo e Barba Pelo Root Agregate",
-            "Teste do serviço cabelo e barba pelo root agregate (Barber)!",
-            115.0M,
-            TimeSpan.FromHours(2)
+            "Cabelo e Barba Pelo Root Agregate Teste 2",
+            "Teste do serviço cabelo e barba pelo root agregate (Barber) criando o Service pela classe e depois assimilando",
+            125.0M,
+            TimeSpan.FromHours(3)
         );
 
         // Act

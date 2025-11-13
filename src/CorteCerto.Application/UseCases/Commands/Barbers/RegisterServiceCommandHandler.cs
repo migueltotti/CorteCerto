@@ -37,7 +37,7 @@ public class RegisterServiceCommandHandler(
             return Result<ServiceDto>.Failure(BarberErrors.NotFoundById);
         }
 
-        var serviceResult = barber.AddService(
+        var serviceResult = Service.Create(
                         command.Name,
                         command.Description,
                         command.Price,
@@ -49,6 +49,8 @@ public class RegisterServiceCommandHandler(
 
             return Result<ServiceDto>.Failure(serviceResult.Error);
         }
+
+        barber.AddService(serviceResult.Data);
 
         barberRepository.Update(barber);
 

@@ -70,23 +70,9 @@ public class Barber : Person
         return this;
     }
 
-    public Result<Service> AddService(string name, string description, decimal price, TimeSpan duration)
+    public void AddService(Service service)
     {
-        if (duration.TotalMinutes < 15 || duration.TotalDays > 1)
-            return Result<Service>.Failure(ServiceErrors.DurationInvalid);
-
-        var service = new Service(
-            name,
-            description,
-            price,
-            duration,
-            true,
-            this
-        );
-
         Services.Add(service);
-
-        return Result<Service>.Success(service);
     }
 
 }
