@@ -1,18 +1,18 @@
 ﻿namespace CorteCerto.Domain.Filters;
 
-public class BarbersFilter
+public class PersonFilter
 {
     public Guid? Id { get; private set; } = null;
     public string? Name { get; private set; } = null;
     public string? Email { get; private set; } = null;
 
-    private BarbersFilter()
+    private PersonFilter()
     {
     }
 
     public class Builder
     {
-        private BarbersFilter _filter = new();
+        private PersonFilter _filter = new();
 
         public Builder WithId(Guid? id)
         {
@@ -32,7 +32,7 @@ public class BarbersFilter
             return this;
         }
 
-        public BarbersFilter Build()
+        public PersonFilter Build()
         {
             return _filter;
         }

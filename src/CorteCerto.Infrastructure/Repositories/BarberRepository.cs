@@ -12,7 +12,7 @@ public class BarberRepository(CorteCertoDbContext context) :
     BaseRepository<Barber, Guid>(context), 
     IBarberRepository
 {
-    public async Task<IEnumerable<Barber>> GetWithFilter(BarbersFilter filter)
+    public async Task<IEnumerable<Barber>> GetWithFilter(PersonFilter filter)
     {
         var query = context.Barbers
             .AsQueryable()

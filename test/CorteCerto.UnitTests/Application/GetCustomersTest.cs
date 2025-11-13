@@ -1,4 +1,5 @@
 ﻿using CorteCerto.Application.UseCases.Queries.Barbers;
+using CorteCerto.Application.UseCases.Queries.Customers;
 using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Infrastructure.Context;
 using CorteCerto.Infrastructure.Repositories;
@@ -7,32 +8,32 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CorteCerto.UnitTests.Application;
 
-public class GetBarbersTest
+public class GetCustomersTest
 {
     private readonly ServiceProvider provider;
-    private readonly GetBarbersQueryHandler queryHandler;
+    private readonly GetCustomersQueryHandler queryHandler;
 
 
-    public GetBarbersTest()
+    public GetCustomersTest()
     {
         var services = new ServiceCollection();
 
         services.AddDbContext<CorteCertoDbContext>();
-        services.AddScoped<IBarberRepository, BarberRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddMapster();
 
         provider = services.BuildServiceProvider();
 
-        queryHandler = new GetBarbersQueryHandler(
-            provider.GetRequiredService<IBarberRepository>()
+        queryHandler = new GetCustomersQueryHandler(
+            provider.GetRequiredService<ICustomerRepository>()
         );
     }
 
     [Fact]
-    public async Task GetBarber_WithoutFilters_ShouldReturnPagedBarbersCollection()
+    public async Task GetCustomer_WithoutFilters_ShouldReturnPagedCustomersCollection()
     {
         // Arrange
-        var query = new GetBarbersQuery(
+        var query = new GetCustomersQuery(
             null,
             null,
             null
@@ -49,10 +50,10 @@ public class GetBarbersTest
     }
 
     [Fact]
-    public async Task GetBarber_WithIdFilter_ShouldReturnFilteredPagedBarbersCollection()
+    public async Task GetCustomer_WithIdFilter_ShouldReturnFilteredPagedCustomersCollection()
     {
         // Arrange
-        var query = new GetBarbersQuery(
+        var query = new GetCustomersQuery(
             Guid.Parse("6bad02d7-b8bf-41bd-bb05-0f58369facf1"),
             null,
             null
@@ -70,10 +71,10 @@ public class GetBarbersTest
     }
 
     [Fact]
-    public async Task GetBarber_WithNameFilter_ShouldReturnFilteredPagedBarbersCollection()
+    public async Task GetCustomer_WithNameFilter_ShouldReturnFilteredPagedCustomersCollection()
     {
         // Arrange
-        var query = new GetBarbersQuery(
+        var query = new GetCustomersQuery(
             null,
             "Teste da Silva",
             null
@@ -85,16 +86,15 @@ public class GetBarbersTest
         // Assert
         Assert.NotNull(result);
         Assert.NotEmpty(result);
-        Assert.Equal(3, result.Count);
         Assert.Equal(1, result.PageNumber);
         Assert.Equal(50, result.PageSize);
     }
 
     [Fact]
-    public async Task GetBarber_WithEmailFilter_ShouldReturnFilteredPagedBarbersCollection()
+    public async Task GetCustomer_WithEmailFilter_ShouldReturnFilteredPagedCustomersCollection()
     {
         // Arrange
-        var query = new GetBarbersQuery(
+        var query = new GetCustomersQuery(
             null,
             null,
             "teste@silva.com"

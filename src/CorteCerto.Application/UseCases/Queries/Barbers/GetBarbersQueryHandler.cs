@@ -14,7 +14,7 @@ public class GetBarbersQueryHandler(
 {
     public async Task<PagedList<BarberDto>> HandleAsync(GetBarbersQuery query, CancellationToken cancellationToken = default)
     {
-        var filter = new BarbersFilter.Builder()
+        var filter = new PersonFilter.Builder()
             .WithId(query.Id)
             .WithName(query.Name)
             .WithEmail(query.Email)
