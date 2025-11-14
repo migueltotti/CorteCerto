@@ -4,6 +4,8 @@ using CorteCerto.Domain.Services;
 using CorteCerto.Infrastructure.Context;
 using CorteCerto.Infrastructure.Gateways;
 using CorteCerto.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,29 +16,27 @@ namespace CorteCerto.UnitTests.Domain;
 
 public class AddressServiceTest
 {
-    private readonly CorteCertoDbContext context;
-    private readonly IViaCepGateway viaCepGateway;
-    private readonly ICountryRepository countryRepository;
-    private readonly IStateRepository stateRepository;
-    private readonly ICityRepository cityRepository;
-    private readonly IAddressRepository addressRepository;
+    private readonly ServiceProvider provider;
     private readonly IAddressService addressService;
 
     public AddressServiceTest()
     {
-        context = new CorteCertoDbContext();
-        viaCepGateway = new ViaCepGateway();
-        countryRepository = new CountryRepository(context);
-        stateRepository = new StateRepository(context);
-        cityRepository = new CityRepository(context);
-        addressRepository = new AddressRepository(context);
-        addressService = new AddressService(
-            viaCepGateway,
-            countryRepository,
-            stateRepository,
-            cityRepository,
-            addressRepository);
+        var services = new ServiceCollection();
+
+        services.AddDbContext<CorteCertoDbContext>(options =>
+            options.UseNpgsql("User ID=developer;Password=123456789;Server=localhost;Port=5432;Database=corteCertoDb;"));
+        services.AddScoped<IViaCepGateway, ViaCepGateway>();
+        services.AddScoped<ICountryRepository, CountryRepository>();
+        services.AddScoped<IStateRepository, StateRepository>();
+        services.AddScoped<ICityRepository, CityRepository>();
+        services.AddScoped<IAddressRepository, AddressRepository>();
+        services.AddScoped<IAddressService, AddressService>();
+
+        provider = services.BuildServiceProvider();
+
+        addressService = provider.GetRequiredService<IAddressService>();
     }
+
 
     [Fact]
     public async Task CreateAddress_WithValidCep_ShouldbeSuccess()

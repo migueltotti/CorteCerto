@@ -7,6 +7,8 @@ using CorteCerto.Domain.Services;
 using CorteCerto.Infrastructure.Context;
 using CorteCerto.Infrastructure.Repositories;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,20 +19,27 @@ namespace CorteCerto.UnitTests.Application;
 
 public class CreateAccountTest
 {
-    private readonly CorteCertoDbContext context;
-    private readonly ICustomerRepository customerRepository;
-    private readonly IValidator<CreateAccountCommand> validator;
-    private readonly IPasswordHashService hashService;
-    private readonly CreateAccountCommandHandler handler;
+    private readonly ServiceProvider provider;
+    private readonly CreateAccountCommandHandler commandHandler;
 
     public CreateAccountTest()
     {
-        context = new CorteCertoDbContext();
-        customerRepository = new CustomerRepository(context);
-        validator = new CreateAccountValidator();
-        hashService = new PasswordHashService();
-        handler = new CreateAccountCommandHandler(customerRepository, validator, hashService);
+        var services = new ServiceCollection();
+
+        services.AddDbContext<CorteCertoDbContext>(options =>
+            options.UseNpgsql("User ID=developer;Password=123456789;Server=localhost;Port=5432;Database=corteCertoDb;"));
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IValidator<CreateAccountCommand>, CreateAccountValidator>();
+        services.AddScoped<IPasswordHashService, PasswordHashService>();
+
+        provider = services.BuildServiceProvider();
+
+        commandHandler = new CreateAccountCommandHandler(
+            provider.GetRequiredService<ICustomerRepository>(),
+            provider.GetRequiredService<IValidator<CreateAccountCommand>>(),
+            provider.GetRequiredService<IPasswordHashService>());
     }
+
 
     [Fact]
     public async Task CreateAccount_WithInvalidAtributes_ShouldFail()
@@ -44,7 +53,7 @@ public class CreateAccountTest
         );
 
         // Act
-        var result = await handler.HandleAsync(command);
+        var result = await commandHandler.HandleAsync(command);
 
         // Assert
         Assert.True(result.IsFailure);
@@ -63,7 +72,7 @@ public class CreateAccountTest
         );
 
         // Act
-        var result = await handler.HandleAsync(command);
+        var result = await commandHandler.HandleAsync(command);
 
         // Assert
         Assert.True(result.IsFailure);
@@ -76,18 +85,18 @@ public class CreateAccountTest
         // Arrange
         var command = new CreateAccountCommand(
             "Teste da Silva",
-            "teste3@silva",
+            "teste4@silva",
             "Teste123@",
             "18997872005"
         );
 
         // Act
-        var result = await handler.HandleAsync(command);
+        var result = await commandHandler.HandleAsync(command);
 
         // Assert
         Assert.True(result.IsSuccess);
         Assert.Equal("Teste da Silva", result.Data.Name);
-        Assert.Equal("teste3@silva", result.Data.Email);
+        Assert.Equal("teste4@silva", result.Data.Email);
         Assert.Equal("18997872005", result.Data.PhoneNumber);
         Assert.Equal(0, result.Data.PromotionPoints);
     }

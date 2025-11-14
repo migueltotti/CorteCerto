@@ -45,7 +45,7 @@ public class AuthenticationService(
 
         personRepository.Update(person);
 
-        var token = new Token(_tokenHandler.WriteToken(accessToken), refreshToken, person.RefreshTokenExpiresAt);
+        var token = new Token(_tokenHandler.WriteToken(accessToken), refreshToken, person.RefreshTokenExpiresAt!.Value);
 
         return Result<Token>.Success(token);
     }

@@ -9,8 +9,8 @@ public abstract class Person : BaseEntity<Guid>
     public string Email { get; protected set; }
     public string PhoneNumber { get; protected set; }
     public string PasswordHash { get; protected set; }
-    public string RefreshToken { get; private set; }
-    public DateTime RefreshTokenExpiresAt { get; private set; }
+    public string? RefreshToken { get; private set; }
+    public DateTime? RefreshTokenExpiresAt { get; private set; }
 
     private const int PasswordHashLength = 97;
 

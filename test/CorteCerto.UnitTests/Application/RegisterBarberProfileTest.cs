@@ -29,7 +29,8 @@ public class RegisterBarberProfileTest
     {
         var services = new ServiceCollection();
 
-        services.AddDbContext<CorteCertoDbContext>();
+        services.AddDbContext<CorteCertoDbContext>(options =>
+            options.UseNpgsql("User ID=developer;Password=123456789;Server=localhost;Port=5432;Database=corteCertoDb;"));
         services.AddScoped<IPersonRepository, PersonRepository>();
         services.AddScoped<IBarberRepository, BarberRepository>();
         services.AddScoped<ICountryRepository, CountryRepository>();

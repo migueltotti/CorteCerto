@@ -10,6 +10,7 @@ using CorteCerto.Infrastructure.Authentication;
 using CorteCerto.Infrastructure.Context;
 using CorteCerto.Infrastructure.Repositories;
 using Mapster;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -23,8 +24,9 @@ public class AuthenticationServiceTest
     {
         var services = new ServiceCollection();
 
+        services.AddDbContext<CorteCertoDbContext>(options =>
+            options.UseNpgsql("User ID=developer;Password=123456789;Server=localhost;Port=5432;Database=corteCertoDb;"));
         services.AddScoped<IAuthenticationService, AuthenticationService>();
-        services.AddDbContext<CorteCertoDbContext>();
         services.AddScoped<IPersonRepository, PersonRepository>();
         services.AddScoped<IPasswordHashService, PasswordHashService>();
         services.AddScoped<ITokenProvider, TokenProvider>();

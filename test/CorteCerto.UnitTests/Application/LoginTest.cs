@@ -11,6 +11,7 @@ using CorteCerto.Infrastructure.Context;
 using CorteCerto.Infrastructure.Repositories;
 using FluentValidation;
 using Mapster;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -30,7 +31,8 @@ public class LoginTest
     {
         var services = new ServiceCollection();
 
-        services.AddDbContext<CorteCertoDbContext>();
+        services.AddDbContext<CorteCertoDbContext>(options =>
+            options.UseNpgsql("User ID=developer;Password=123456789;Server=localhost;Port=5432;Database=corteCertoDb;"));
         services.AddScoped<IPersonRepository, PersonRepository>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IPasswordHashService, PasswordHashService>();
