@@ -24,5 +24,8 @@ public class PersonConfiguration : IEntityTypeConfiguration<Person>
         builder.Property(p => p.PasswordHash)
            .IsRequired()
            .HasMaxLength(200);
+
+        builder.HasIndex(p => p.Email)
+            .IsUnique();
      }
 }

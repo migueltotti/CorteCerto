@@ -3,8 +3,6 @@ using CorteCerto.Domain.Filters;
 using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace CorteCerto.Infrastructure.Repositories;
 
@@ -26,6 +24,8 @@ public class BarberRepository(CorteCertoDbContext context) :
 
         if (filter.Email is not null && filter.Email != String.Empty)
             query = query.Where(b => b.Email == filter.Email);
+
+        query = query.OrderBy(b => b.Name);
 
         if (includes is not null)
         {

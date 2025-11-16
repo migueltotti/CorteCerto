@@ -25,6 +25,8 @@ public class CustomerRepository(CorteCertoDbContext context) :
         if (filter.Email is not null && filter.Email != String.Empty)
             query = query.Where(c => c.Email == filter.Email);
 
+        query = query.OrderBy(c => c.Name);
+
         if (includes is not null)
         {
             foreach (var include in includes)
