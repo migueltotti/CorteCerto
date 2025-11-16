@@ -1,6 +1,6 @@
 ﻿using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Entities;
-using CorteCerto.Domain.ValueObjects;
+using CorteCerto.Domain.Responses;
 
 namespace CorteCerto.Domain.Interfaces.Services;
 

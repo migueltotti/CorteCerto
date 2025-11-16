@@ -1,29 +1,22 @@
 ﻿using CorteCerto.Domain.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CorteCerto.Domain.Entities;
+namespace CorteCerto.Domain.ValueObjects;
 
-public class BarberAvailability : BaseEntity<int>
+public class BarberAvailability
 {
     public DayOfWeek DayOfWeek { get; private set; }
     public DateTime StartTime { get; private set; }
     public DateTime EndTime { get; private set; }
-    public Barber Barber { get; private set; }
 
     private BarberAvailability()
     {
     }
 
-    private BarberAvailability(DayOfWeek dayOfWeek, DateTime startTime, DateTime endTime, Barber barber)
+    private BarberAvailability(DayOfWeek dayOfWeek, DateTime startTime, DateTime endTime)
     {
         DayOfWeek = dayOfWeek;
         StartTime = startTime;
         EndTime = endTime;
-        Barber = barber;
     }
 
     public static Result<BarberAvailability> Create(DayOfWeek dayOfWeek, DateTime startTime, DateTime endTime)
@@ -34,8 +27,7 @@ public class BarberAvailability : BaseEntity<int>
         return Result<BarberAvailability>.Success(new BarberAvailability(
             dayOfWeek,
             startTime.ToUniversalTime(),
-            endTime.ToUniversalTime(),
-            null
+            endTime.ToUniversalTime()
         ));
     }
 

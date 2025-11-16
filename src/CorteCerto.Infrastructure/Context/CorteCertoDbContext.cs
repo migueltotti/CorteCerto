@@ -26,7 +26,6 @@ public class CorteCertoDbContext : DbContext
 
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Appointment> Appointments{ get; set; }
-    public DbSet<BarberAvailability> BarberAvailabilities { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<State> States { get; set; }
     public DbSet<Country> Countries { get; set; }

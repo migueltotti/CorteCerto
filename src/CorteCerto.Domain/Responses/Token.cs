@@ -1,5 +1,4 @@
-﻿
-namespace CorteCerto.Domain.ValueObjects;
+﻿namespace CorteCerto.Domain.Responses;
 
 public record Token(
     string AccessToken,

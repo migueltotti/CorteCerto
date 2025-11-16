@@ -76,7 +76,7 @@ public class UpsertBarberAvailabilityTest
     }
 
     [Fact]
-    public async Task UpsertBarberAvailability_WithValidArguments_ShouldBeSuccess()
+    public async Task UpsertBarberAvailability_WithValidArguments_ShouldBeSuccessAndAddMondayAvailability()
     {
         // Arrange
         var command = new UpsertBarberAvailabilityCommand(
@@ -93,4 +93,23 @@ public class UpsertBarberAvailabilityTest
         Assert.True(result.IsSuccess);
         Assert.NotEmpty(result.Data.Availabilities);
     }
+    [Fact]
+    public async Task UpsertBarberAvailability_WithValidArguments_ShouldBeSuccessAndUpdateMondayAvailability()
+    {
+        // Arrange
+        var command = new UpsertBarberAvailabilityCommand(
+            Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+            DayOfWeek.Monday,
+            DateTime.Parse("09:00:00"),
+            DateTime.Parse("17:00:00")
+        );
+
+        // Act
+        var result = await commandHandler.HandleAsync(command, CancellationToken.None);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.NotEmpty(result.Data.Availabilities);
+    }
+
 }

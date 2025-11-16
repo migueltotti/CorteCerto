@@ -1,8 +1,8 @@
 ﻿using CorteCerto.Application.DTO;
 using CorteCerto.Domain.Base;
-using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Errors;
 using CorteCerto.Domain.Interfaces.Repositories;
+using CorteCerto.Domain.ValueObjects;
 using FluentValidation;
 using LiteBus.Commands.Abstractions;
 using Mapster;

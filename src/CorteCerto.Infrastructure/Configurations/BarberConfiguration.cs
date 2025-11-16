@@ -22,10 +22,27 @@ public class BarberConfiguration : IEntityTypeConfiguration<Barber>
             .HasForeignKey<Barber>("AddressId")
             .OnDelete(DeleteBehavior.SetNull);
 
-        builder.HasMany(b => b.Availabilities)
-            .WithOne(a => a.Barber)
-            .HasForeignKey("BarberId")
-            .OnDelete(DeleteBehavior.ClientCascade);
+        builder.OwnsMany(b => b.Availabilities, availabilitiesBuilder =>
+        {
+            availabilitiesBuilder.WithOwner().HasForeignKey("BarberId");
+
+            availabilitiesBuilder.ToTable("BarberAvailabilities");
+
+            availabilitiesBuilder.HasKey("BarberId", "DayOfWeek");
+
+            availabilitiesBuilder.Property(b => b.DayOfWeek)
+                .IsRequired()
+                .HasConversion<string>();
+            availabilitiesBuilder.Property(b => b.StartTime)
+                .IsRequired();
+            availabilitiesBuilder.Property(b => b.EndTime)
+                .IsRequired();
+        });
+
+        //builder.HasMany(b => b.Availabilities)
+        //    .WithOne()
+        //    .HasForeignKey("BarberId")
+        //    .OnDelete(DeleteBehavior.ClientCascade);
 
         builder.HasMany(b => b.Services)
             .WithOne(s => s.Barber)

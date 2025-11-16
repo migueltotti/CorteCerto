@@ -1,4 +1,6 @@
 ﻿
+using CorteCerto.Domain.ValueObjects;
+
 namespace CorteCerto.Domain.Entities;
 
 public class Barber : Person

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CorteCerto.Domain.ValueObjects;
+namespace CorteCerto.Domain.Responses;
 
 public sealed record AddressLookupResult(
     string Street,
