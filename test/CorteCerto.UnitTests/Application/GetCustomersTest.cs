@@ -69,7 +69,8 @@ public class GetCustomersTest
         // Assert
         Assert.NotNull(result);
         Assert.NotEmpty(result.Results);
-        Assert.Equal(2, result.Results.Count());
+        Assert.Equal(5, result.TotalCount);
+        Assert.Equal(3, result.TotalPages);
         Assert.Equal(1, result.PageNumber);
         Assert.Equal(2, result.PageSize);
     }

@@ -37,13 +37,20 @@ public class BarberRepository(CorteCertoDbContext context) :
             }
         }
 
-        query = query
+        var paginatedQuery = query
             .Skip((filter.PageNumber - 1) * filter.PageSize)
             .Take(filter.PageSize);
 
-        var results = await query.ToListAsync();
+        var results = await paginatedQuery.ToListAsync();
 
-        return results.ToPagedResult(filter.PageSize, filter.PageNumber);
+        var totalCount = await GetPaginationTotalCount(query);
+
+        return results.ToPagedResult(totalCount, filter.PageSize, filter.PageNumber);
+    }
+
+    private async Task<int> GetPaginationTotalCount(IQueryable<Barber> query)
+    {
+        return await query.CountAsync();
     }
 
     public async Task<bool> EmailExistsAsync(string email)

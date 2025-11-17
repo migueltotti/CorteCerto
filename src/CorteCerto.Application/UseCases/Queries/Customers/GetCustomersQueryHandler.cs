@@ -25,6 +25,6 @@ public class GetCustomersQueryHandler(
 
         var customersResponse = customers.Results.Adapt<List<CustomerDto>>();
 
-        return customersResponse.ToPagedResult(customers.PageSize, customers.PageNumber);
+        return customersResponse.ToPagedResult(customers.TotalCount, customers.PageSize, customers.PageNumber);
     }
 }

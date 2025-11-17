@@ -49,7 +49,14 @@ public class BaseRepository<TEntity, TIdType>(CorteCertoDbContext context)
 
         var results = await baseQuery.ToListAsync(token);
 
-        return results.ToPagedResult(pageSize, pageNumber);
+        var totalCount = await GetPaginationTotalCount();
+
+        return results.ToPagedResult(totalCount, pageSize, pageNumber);
+    }
+
+    private async Task<int> GetPaginationTotalCount()
+    {
+        return await context.Set<TEntity>().AsNoTracking().CountAsync();
     }
 
     public async Task<TEntity?> Select(object id, IList<string>? includes = null, CancellationToken token = default)

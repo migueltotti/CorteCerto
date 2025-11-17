@@ -25,6 +25,6 @@ public class GetBarbersQueryHandler(
 
         var barbersResponse = barbers.Results.Adapt<List<BarberDto>>();
 
-        return barbersResponse.ToPagedResult(barbers.PageSize, barbers.PageNumber);
+        return barbersResponse.ToPagedResult(barbers.TotalCount, barbers.PageSize, barbers.PageNumber);
     }
 }
