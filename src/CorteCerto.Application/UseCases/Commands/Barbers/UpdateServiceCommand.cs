@@ -4,10 +4,12 @@ using LiteBus.Commands.Abstractions;
 
 namespace CorteCerto.Application.UseCases.Commands.Barbers;
 
-public record RegisterServiceCommand(
+public record UpdateServiceCommand(
     Guid BarberId,
+    int ServiceId,
     string Name,
     string Description,
     decimal Price,
-    TimeSpan Duration
+    TimeSpan Duration,
+    bool IsAvailable
 ) : ICommand<Result<ServiceDto>>;

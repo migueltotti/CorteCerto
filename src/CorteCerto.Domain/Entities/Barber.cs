@@ -1,4 +1,6 @@
 ﻿
+using CorteCerto.Domain.Base;
+using CorteCerto.Domain.Errors;
 using CorteCerto.Domain.ValueObjects;
 
 namespace CorteCerto.Domain.Entities;
@@ -72,6 +74,13 @@ public class Barber : Person
 
     public void AddService(Service service)
     {
+        Services.Add(service);
+    }
+
+    public void UpdateService(Service service)
+    {
+        Services.RemoveAll(s => s.Id == service.Id);
+
         Services.Add(service);
     }
 

@@ -53,7 +53,7 @@ public class UpsertBarberAvailabilityCommandHandler(
 
         barberRepository.Update(barber);
 
-        logger.LogInformation("Availability created successfully for BarberId: {BarberId}", command.BarberId);
+        logger.LogInformation("Availability upserted successfully for BarberId: {BarberId}", command.BarberId);
 
         var barberResponse = barber.Adapt<BarberDto>();
 

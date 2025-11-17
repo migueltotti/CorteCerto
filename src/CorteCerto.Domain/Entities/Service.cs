@@ -41,4 +41,18 @@ public class Service : BaseEntity<int>
             true
         ));
     }
+
+    public Result Update(string name, string description, decimal price, TimeSpan duration, bool isAvailable)
+    {
+        if (duration.TotalMinutes < 15 || duration.TotalDays > 1)
+            return Result<Service>.Failure(ServiceErrors.DurationInvalid);
+
+        Name = name;
+        Description = description;
+        Price = price;
+        Duration = duration;
+        IsAvailable = isAvailable;
+
+        return Result.Success();
+    }
 }

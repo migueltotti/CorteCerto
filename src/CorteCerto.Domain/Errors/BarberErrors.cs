@@ -14,6 +14,11 @@ public static class BarberErrors
         "Barbeiro com esse Id não encontrado."
     );
 
+    public static Error ServiceNotFound => new Error(
+        "BarberError.ServiceNotFound",
+        "Serviço não existe ou não pertence a esse Barbeiro com esse Id."
+    );
+
     public static Error ValidationError(string details) => new(
         "BarberError.ValidationError",
         details);
