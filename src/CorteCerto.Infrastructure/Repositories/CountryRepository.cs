@@ -2,7 +2,6 @@ using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace CorteCerto.Infrastructure.Repositories;
 

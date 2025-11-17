@@ -10,20 +10,21 @@ namespace CorteCerto.Application.UseCases.Queries.Barbers;
 
 public class GetBarbersQueryHandler(
     IBarberRepository barberRepository)
-    : IQueryHandler<GetBarbersQuery, PagedList<BarberDto>>
+    : IQueryHandler<GetBarbersQuery, PagedResult<BarberDto>>
 {
-    public async Task<PagedList<BarberDto>> HandleAsync(GetBarbersQuery query, CancellationToken cancellationToken = default)
+    public async Task<PagedResult<BarberDto>> HandleAsync(GetBarbersQuery query, CancellationToken cancellationToken = default)
     {
         var filter = new PersonFilter.Builder()
             .WithId(query.Id)
             .WithName(query.Name)
             .WithEmail(query.Email)
+            .WithPagination(query.PageSize, query.PageNumber)
             .Build();
 
-        var barbers = await barberRepository.GetWithFilter(filter);
+        var barbers = await barberRepository.GetWithFilter(filter, token: cancellationToken);
 
-        var barbersResponse = barbers.Adapt<List<BarberDto>>();
+        var barbersResponse = barbers.Results.Adapt<List<BarberDto>>();
 
-        return barbersResponse.ToPagedList(query.PageNumber, query.PageSize);
+        return barbersResponse.ToPagedResult(barbers.PageSize, barbers.PageNumber);
     }
 }

@@ -1,4 +1,4 @@
-﻿using CorteCerto.Domain.Interfaces.Repositories;
+﻿using CorteCerto.Domain.Interfaces.Gateways;
 using CorteCerto.Infrastructure.Gateways;
 using System;
 using System.Collections.Generic;

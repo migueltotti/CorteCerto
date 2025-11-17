@@ -1,4 +1,6 @@
-﻿using CorteCerto.Domain.Entities;
+﻿using CorteCerto.Application.Common;
+using CorteCerto.Application.Extentions;
+using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Filters;
 using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Infrastructure.Context;
@@ -10,7 +12,7 @@ public class CustomerRepository(CorteCertoDbContext context) :
     BaseRepository<Customer, Guid>(context),
     ICustomerRepository
 {
-    public async Task<IEnumerable<Customer>> GetWithFilter(PersonFilter filter, IList<string>? includes = null, CancellationToken token = default)
+    public async Task<PagedResult<Customer>> GetWithFilter(PersonFilter filter, IList<string>? includes = null, CancellationToken token = default)
     {
         var query = context.Customers
             .AsQueryable()
@@ -35,7 +37,13 @@ public class CustomerRepository(CorteCertoDbContext context) :
             }
         }
 
-        return await query.ToListAsync();
+        query = query
+           .Skip((filter.PageNumber - 1) * filter.PageSize)
+           .Take(filter.PageSize);
+
+        var results = await query.ToListAsync();
+
+        return results.ToPagedResult(filter.PageSize, filter.PageNumber);
     }
 
     public async Task<bool> EmailExistsAsync(string email)

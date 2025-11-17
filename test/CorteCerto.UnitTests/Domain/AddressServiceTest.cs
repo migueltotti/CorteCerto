@@ -1,4 +1,5 @@
-﻿using CorteCerto.Domain.Interfaces.Repositories;
+﻿using CorteCerto.Domain.Interfaces.Gateways;
+using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Domain.Interfaces.Services;
 using CorteCerto.Domain.Services;
 using CorteCerto.Infrastructure.Context;

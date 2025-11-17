@@ -12,4 +12,4 @@ public record GetBarbersQuery(
     string? Email,
     int PageSize = 50,
     int PageNumber = 1
-) : IQuery<PagedList<BarberDto>>;
+) : IQuery<PagedResult<BarberDto>>;

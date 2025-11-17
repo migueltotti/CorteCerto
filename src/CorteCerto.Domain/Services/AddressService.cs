@@ -1,6 +1,7 @@
 ﻿using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Helpers;
+using CorteCerto.Domain.Interfaces.Gateways;
 using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Domain.Interfaces.Services;
 

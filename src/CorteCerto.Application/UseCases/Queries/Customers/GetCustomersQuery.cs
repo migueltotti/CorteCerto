@@ -10,4 +10,4 @@ public record GetCustomersQuery(
     string? Email,
     int PageSize = 50,
     int PageNumber = 1
-) : IQuery<PagedList<CustomerDto>>;
+) : IQuery<PagedResult<CustomerDto>>;

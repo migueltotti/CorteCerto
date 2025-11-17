@@ -1,5 +1,6 @@
 ﻿using CorteCerto.Application.UseCases.Commands.Barbers;
 using CorteCerto.Application.Validations;
+using CorteCerto.Domain.Interfaces.Gateways;
 using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Domain.Interfaces.Services;
 using CorteCerto.Domain.Services;

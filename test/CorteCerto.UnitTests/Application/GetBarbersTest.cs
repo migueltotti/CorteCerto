@@ -45,9 +45,32 @@ public class GetBarbersTest
 
         // Assert
         Assert.NotNull(result);
-        Assert.NotEmpty(result);
+        Assert.NotEmpty(result.Results);
         Assert.Equal(1, result.PageNumber);
         Assert.Equal(50, result.PageSize);
+    }
+
+    [Fact]
+    public async Task GetBarber_WithPaginationFilter_ShouldReturnPagedBarbersCollection()
+    {
+        // Arrange
+        var query = new GetBarbersQuery(
+            null,
+            null,
+            null,
+            PageSize: 2,
+            PageNumber: 1
+        );
+
+        // Act
+        var result = await queryHandler.HandleAsync(query);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.NotEmpty(result.Results);
+        Assert.Equal(2, result.Results.Count());
+        Assert.Equal(1, result.PageNumber);
+        Assert.Equal(2, result.PageSize);
     }
 
     [Fact]
@@ -65,8 +88,8 @@ public class GetBarbersTest
 
         // Assert
         Assert.NotNull(result);
-        Assert.NotEmpty(result);
-        Assert.Single(result);
+        Assert.NotEmpty(result.Results);
+        Assert.Single(result.Results);
         Assert.Equal(1, result.PageNumber);
         Assert.Equal(50, result.PageSize);
     }
@@ -86,8 +109,8 @@ public class GetBarbersTest
 
         // Assert
         Assert.NotNull(result);
-        Assert.NotEmpty(result);
-        Assert.Equal(3, result.Count);
+        Assert.NotEmpty(result.Results);
+        Assert.Equal(3, result.Results.Count());
         Assert.Equal(1, result.PageNumber);
         Assert.Equal(50, result.PageSize);
     }
@@ -107,8 +130,8 @@ public class GetBarbersTest
 
         // Assert
         Assert.NotNull(result);
-        Assert.NotEmpty(result);
-        Assert.Single(result);
+        Assert.NotEmpty(result.Results);
+        Assert.Single(result.Results);
         Assert.Equal(1, result.PageNumber);
         Assert.Equal(50, result.PageSize);
     }

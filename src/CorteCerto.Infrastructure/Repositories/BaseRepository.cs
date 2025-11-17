@@ -1,4 +1,6 @@
-﻿using CorteCerto.Domain.Base;
+﻿using CorteCerto.Application.Common;
+using CorteCerto.Application.Extentions;
+using CorteCerto.Domain.Base;
 using CorteCerto.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +31,7 @@ public class BaseRepository<TEntity, TIdType>(CorteCertoDbContext context)
         context.SaveChanges();
     }
 
-    public async Task<IList<TEntity>> Select(IList<string>? includes = null, CancellationToken token = default)
+    public async Task<PagedResult<TEntity>> Select(IList<string>? includes = null, int pageSize = 50, int pageNumber = 1, CancellationToken token = default)
     {
         var baseQuery = context.Set<TEntity>().AsQueryable();
 
@@ -41,10 +43,16 @@ public class BaseRepository<TEntity, TIdType>(CorteCertoDbContext context)
             }
         }
 
-        return await baseQuery.ToListAsync(token);
+        baseQuery = baseQuery
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize);
+
+        var results = await baseQuery.ToListAsync(token);
+
+        return results.ToPagedResult(pageSize, pageNumber);
     }
 
-    public async Task<TEntity> Select(object id, IList<string>? includes = null, CancellationToken token = default)
+    public async Task<TEntity?> Select(object id, IList<string>? includes = null, CancellationToken token = default)
     {
         var baseQuery = context.Set<TEntity>().AsQueryable();
 
