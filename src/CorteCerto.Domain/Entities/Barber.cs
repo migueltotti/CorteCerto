@@ -72,6 +72,11 @@ public class Barber : Person
         return this;
     }
 
+    public Service? GetService(int serviceId)
+    {
+        return Services.FirstOrDefault(s => s.Id.Equals(serviceId));
+    }
+
     public void AddService(Service service)
     {
         Services.Add(service);
@@ -82,6 +87,11 @@ public class Barber : Person
         Services.RemoveAll(s => s.Id == service.Id);
 
         Services.Add(service);
+    }
+
+    public void RemoveService(int serviceId)
+    {
+        Services.RemoveAll(s => s.Id == serviceId);
     }
 
     public void UpsertAvailability(BarberAvailability availability)
