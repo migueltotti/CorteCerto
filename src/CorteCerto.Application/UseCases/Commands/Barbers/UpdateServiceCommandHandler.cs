@@ -37,7 +37,7 @@ public class UpdateServiceCommandHandler(
             return Result<ServiceDto>.Failure(BarberErrors.NotFoundById);
         }
 
-        var service = barber.Services.FirstOrDefault(s => s.Id.Equals(command.ServiceId));
+        var service = barber.GetService(command.ServiceId);
 
         if (service is null)
         {
