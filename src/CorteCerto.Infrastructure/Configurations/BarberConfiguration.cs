@@ -39,15 +39,10 @@ public class BarberConfiguration : IEntityTypeConfiguration<Barber>
                 .IsRequired();
         });
 
-        //builder.HasMany(b => b.Availabilities)
-        //    .WithOne()
-        //    .HasForeignKey("BarberId")
-        //    .OnDelete(DeleteBehavior.ClientCascade);
-
         builder.HasMany(b => b.Services)
             .WithOne(s => s.Barber)
             .HasForeignKey("BarberId")
-            .OnDelete(DeleteBehavior.ClientCascade);
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(b => b.Appointments)
             .WithOne(a => a.Barber)
