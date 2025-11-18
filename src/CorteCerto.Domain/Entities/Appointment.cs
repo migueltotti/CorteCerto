@@ -1,5 +1,6 @@
 ﻿using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Enums;
+using CorteCerto.Domain.Errors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,13 +35,24 @@ public class Appointment : BaseEntity<Guid>
     public static Result<Appointment> Create(DateTime date, TimeSpan responseDeadline, Customer customer, Barber barber, Service service)
     {
         if (date <= DateTime.Now)
-            return Result<Appointment>.Failure(new Error("InvalidDate", "The appointment date must be in the future"));
+            return Result<Appointment>.Failure(AppointmentErrors.InvalidDate);
 
-        if (customer.Id.Equals(barber.Id))
-            return Result<Appointment>.Failure(new Error("InvalidAppointment", "Customer cannot be the same as the Barber"));
+        var availabilityForDate = barber.GetAvailabilityAt(date.DayOfWeek);
 
-        if (!barber.Services.Contains(service))
-            return Result<Appointment>.Failure(new Error("InvalidService", "The service must belong to the Barber"));
+        if (availabilityForDate is null)
+            return Result<Appointment>.Failure(BarberErrors.NotAvailableAtDate);
+
+        if (availabilityForDate.StartTime.TimeOfDay > date.TimeOfDay)
+            return Result<Appointment>.Failure(BarberErrors.NotAvailableStartTime);
+
+        if (barber.HasAppointmentAtTime(date))
+            return Result<Appointment>.Failure(AppointmentErrors.AppointmentExistsAtTime);
+
+        if (availabilityForDate.EndTime.TimeOfDay < date.Add(service.Duration).TimeOfDay)
+            return Result<Appointment>.Failure(BarberErrors.NotAvailableAtTime);
+
+        if (barber.HasAppointmentEndTimeCollision(date, service.Duration))
+            return Result<Appointment>.Failure(AppointmentErrors.EndTimeCollision);
 
         return Result<Appointment>.Success(new Appointment(
             Guid.NewGuid(), 

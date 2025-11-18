@@ -2,6 +2,8 @@
 using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Errors;
 using CorteCerto.Domain.ValueObjects;
+using System.Threading;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CorteCerto.Domain.Entities;
 
@@ -94,6 +96,11 @@ public class Barber : Person
         Services.RemoveAll(s => s.Id == serviceId);
     }
 
+    public BarberAvailability? GetAvailabilityAt(DayOfWeek dayOfWeek)
+    {
+        return Availabilities.FirstOrDefault(a => a.DayOfWeek == dayOfWeek);
+    }
+
     public void UpsertAvailability(BarberAvailability availability)
     {
         var existingAvailability = Availabilities.FirstOrDefault(a => a.DayOfWeek == availability.DayOfWeek);
@@ -107,5 +114,20 @@ public class Barber : Person
         {
             Availabilities.Add(availability);
         }
+    }
+
+    public bool HasAppointmentAtTime(DateTime dateTime)
+    {
+        return Appointments.Exists(ap => 
+            ap.Date.DayOfWeek.Equals(dateTime.DayOfWeek) && 
+            ap.Date.Equals(dateTime));
+    }
+
+    public bool HasAppointmentEndTimeCollision(DateTime initialDateTime, TimeSpan duration)
+    {
+        return Appointments.Exists(ap => 
+            ap.Date.DayOfWeek.Equals(initialDateTime.DayOfWeek) &&
+            initialDateTime.TimeOfDay < ap.Date.TimeOfDay &&
+            ap.Date.TimeOfDay < initialDateTime.Add(duration).TimeOfDay);
     }
 }

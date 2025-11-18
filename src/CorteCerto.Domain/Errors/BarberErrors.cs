@@ -19,6 +19,21 @@ public static class BarberErrors
         "Serviço não existe ou não pertence a esse Barbeiro com esse Id."
     );
 
+    public static Error NotAvailableAtDate => new Error(
+        "BarberError.NotAvailableAtDate",
+        "Barbeiro não está disponivel nesse dia da semana."
+    );
+
+    public static Error NotAvailableStartTime => new Error(
+        "BarberError.NotAvailableAtDate",
+        "Barbeiro ainda não está disponivel neste horario, ficará disponivel mais tarde."
+    );
+
+    public static Error NotAvailableAtTime => new Error(
+        "BarberError.NotAvailableAtDate",
+        "Barbeiro não está disponivel nesse horario do dia."
+    );
+
     public static Error ValidationError(string details) => new(
         "BarberError.ValidationError",
         details);
