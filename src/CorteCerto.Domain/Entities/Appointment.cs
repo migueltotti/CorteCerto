@@ -1,11 +1,6 @@
 ﻿using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Enums;
 using CorteCerto.Domain.Errors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CorteCerto.Domain.Entities;
 
@@ -62,5 +57,18 @@ public class Appointment : BaseEntity<Guid>
             barber, 
             service
         ));
+    }
+
+    public Result Aprove(Guid barberId)
+    {
+        if (!barberId.Equals(Barber.Id))
+            return Result.Failure(AppointmentErrors.BarberIdMismatch);
+
+        if (Status is not AppointmentStatus.WaitingForAprovement)
+            return Result.Failure(AppointmentErrors.AprovementFailed);
+
+        Status = AppointmentStatus.Scheduled;
+
+        return Result.Success();
     }
 }
