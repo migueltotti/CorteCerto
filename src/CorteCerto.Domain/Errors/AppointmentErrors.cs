@@ -38,6 +38,11 @@ public static class AppointmentErrors
         "Agendamento deve estar em \"Esperando por Aprovação\" para ser aprovado."
     );
 
+    public static Error CompleteFailed => new Error(
+        "AppointmentError.CompleteFailed",
+        "Agendamento deve estar em \"Agendado\" para ser finalizado."
+    );
+
     public static Error ValidationError(string details) => new(
         "AppointmentError.ValidationError",
         details);
