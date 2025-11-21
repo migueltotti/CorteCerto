@@ -85,10 +85,13 @@ public class Appointment : BaseEntity<Guid>
         return Result.Success();
     }
 
-    public Result Cancelate(Guid barberId)
+    public Result Cancelate(Guid barberId, Guid customerId)
     {
         if (!barberId.Equals(Barber.Id))
             return Result.Failure(AppointmentErrors.BarberIdMismatch);
+
+        if (!customerId.Equals(Customer.Id))
+            return Result.Failure(AppointmentErrors.CustomerIdMismatch);
 
         if (Status is AppointmentStatus.Completed)
             return Result.Failure(AppointmentErrors.CancelationFailed);

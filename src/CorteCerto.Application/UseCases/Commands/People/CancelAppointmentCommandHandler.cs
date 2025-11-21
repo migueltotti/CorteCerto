@@ -8,7 +8,7 @@ using Mapster;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace CorteCerto.Application.UseCases.Commands.Barbers;
+namespace CorteCerto.Application.UseCases.Commands.People;
 
 public class CancelAppointmentCommandHandler(
     IAppointmentRepository appointmentRepository,
@@ -26,7 +26,7 @@ public class CancelAppointmentCommandHandler(
             return Result<AppointmentDto>.Failure(AppointmentErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
 
-        var appointment = await appointmentRepository.Select(command.AppointmentId, ["Barber"], cancellationToken);
+        var appointment = await appointmentRepository.Select(command.AppointmentId, ["Barber", "Customer"], cancellationToken);
 
         if (appointment is null)
         {
@@ -35,7 +35,7 @@ public class CancelAppointmentCommandHandler(
             return Result<AppointmentDto>.Failure(AppointmentErrors.NotFoundById);
         }
 
-        var approvementResult = appointment.Cancelate(command.BarberId);
+        var approvementResult = appointment.Cancelate(command.BarberId, command.CustomerId);
 
         if (approvementResult.IsFailure)
         {

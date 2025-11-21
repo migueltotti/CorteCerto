@@ -1,4 +1,4 @@
-﻿using CorteCerto.Application.UseCases.Commands.Barbers;
+﻿using CorteCerto.Application.UseCases.Commands.People;
 using FluentValidation;
 
 namespace CorteCerto.Application.Validations;

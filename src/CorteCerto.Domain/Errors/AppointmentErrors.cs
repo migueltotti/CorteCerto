@@ -33,6 +33,11 @@ public static class AppointmentErrors
         "Barbeiro não corresponde ao barbeiro do Agendamento."
     );
 
+    public static Error CustomerIdMismatch => new Error(
+        "AppointmentError.CustomerIdMismatch",
+        "Cliente não corresponde ao cliente do Agendamento."
+    );
+
     public static Error AprovementFailed => new Error(
         "AppointmentError.AprovementFailed",
         "Agendamento deve estar em \"Esperando por Aprovação\" para ser aprovado."
