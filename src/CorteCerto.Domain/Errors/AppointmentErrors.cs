@@ -43,6 +43,11 @@ public static class AppointmentErrors
         "Agendamento deve estar em \"Agendado\" para ser finalizado."
     );
 
+    public static Error CancelationFailed => new Error(
+        "AppointmentError.CancelationFailed",
+        "Agendamento não pode ter sido \"Finalizado\" para ser cancelado."
+    );
+
     public static Error ValidationError(string details) => new(
         "AppointmentError.ValidationError",
         details);

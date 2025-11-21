@@ -84,4 +84,17 @@ public class Appointment : BaseEntity<Guid>
 
         return Result.Success();
     }
+
+    public Result Cancelate(Guid barberId)
+    {
+        if (!barberId.Equals(Barber.Id))
+            return Result.Failure(AppointmentErrors.BarberIdMismatch);
+
+        if (Status is AppointmentStatus.Completed)
+            return Result.Failure(AppointmentErrors.CancelationFailed);
+
+        Status = AppointmentStatus.Canceled;
+
+        return Result.Success();
+    }
 }
