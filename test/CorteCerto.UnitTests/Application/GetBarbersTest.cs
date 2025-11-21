@@ -13,7 +13,6 @@ public class GetBarbersTest
     private readonly ServiceProvider provider;
     private readonly GetBarbersQueryHandler queryHandler;
 
-
     public GetBarbersTest()
     {
         var services = new ServiceCollection();
