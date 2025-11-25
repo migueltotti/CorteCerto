@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorteCerto.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorteCerto.Application", "src\CorteCerto.Application\CorteCerto.Application.csproj", "{66B6F3F2-7379-4D3D-8B4A-83667EBCDB86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorteCerto.Forms", "src\CorteCerto.Forms\CorteCerto.Forms.csproj", "{D30CC443-2C51-454A-B799-759A8B869F94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorteCerto.App", "src\CorteCerto.Forms\CorteCerto.App.csproj", "{D30CC443-2C51-454A-B799-759A8B869F94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
