@@ -15,6 +15,7 @@
     <PackageReference Include="LiteBus.Queries.Extensions.MicrosoftDependencyInjection" Version="3.1.0" />
     <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="ReaLTaiizor" Version="3.8.1.4" />
   </ItemGroup>
 
@@ -44,6 +45,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Assets\envelope-solid-full.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\eye-slash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\eye.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\lock-solid-full.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Config\.env">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

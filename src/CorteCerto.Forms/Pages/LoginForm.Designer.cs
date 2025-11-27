@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnShowPassword = new ReaLTaiizor.Controls.MaterialButton();
             label3 = new Label();
             lblCreateAccount = new LinkLabel();
             lblIncorrectPassword = new Label();
@@ -45,6 +46,7 @@
             // 
             panel1.Anchor = AnchorStyles.None;
             panel1.BackColor = Color.FromArgb(251, 250, 249);
+            panel1.Controls.Add(btnShowPassword);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(lblCreateAccount);
             panel1.Controls.Add(lblIncorrectPassword);
@@ -59,24 +61,45 @@
             panel1.Size = new Size(477, 497);
             panel1.TabIndex = 0;
             // 
+            // btnShowPassword
+            // 
+            btnShowPassword.AutoSize = false;
+            btnShowPassword.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnShowPassword.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnShowPassword.Depth = 0;
+            btnShowPassword.HighEmphasis = true;
+            btnShowPassword.Icon = Properties.Resources.eye;
+            btnShowPassword.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnShowPassword.Location = new Point(408, 305);
+            btnShowPassword.Margin = new Padding(4, 6, 4, 6);
+            btnShowPassword.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnShowPassword.Name = "btnShowPassword";
+            btnShowPassword.NoAccentTextColor = Color.Empty;
+            btnShowPassword.Size = new Size(39, 39);
+            btnShowPassword.TabIndex = 2;
+            btnShowPassword.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnShowPassword.UseAccentColor = false;
+            btnShowPassword.UseVisualStyleBackColor = true;
+            btnShowPassword.Click += btnShowPassword_Click;
+            // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Location = new Point(37, 459);
             label3.Name = "label3";
-            label3.Size = new Size(178, 20);
+            label3.Size = new Size(148, 20);
             label3.TabIndex = 8;
-            label3.Text = "Doesn`t have an account?";
+            label3.Text = "Não tem uma conta?";
             // 
             // lblCreateAccount
             // 
             lblCreateAccount.AutoSize = true;
-            lblCreateAccount.Location = new Point(212, 459);
+            lblCreateAccount.Location = new Point(181, 459);
             lblCreateAccount.Name = "lblCreateAccount";
-            lblCreateAccount.Size = new Size(71, 20);
+            lblCreateAccount.Size = new Size(86, 20);
             lblCreateAccount.TabIndex = 7;
             lblCreateAccount.TabStop = true;
-            lblCreateAccount.Text = "click here";
+            lblCreateAccount.Text = "clique aqui!";
             lblCreateAccount.LinkClicked += lblCreateAccount_LinkClicked;
             // 
             // lblIncorrectPassword
@@ -86,9 +109,9 @@
             lblIncorrectPassword.ForeColor = Color.Red;
             lblIncorrectPassword.Location = new Point(37, 353);
             lblIncorrectPassword.Name = "lblIncorrectPassword";
-            lblIncorrectPassword.Size = new Size(134, 20);
+            lblIncorrectPassword.Size = new Size(112, 20);
             lblIncorrectPassword.TabIndex = 6;
-            lblIncorrectPassword.Text = "Incorrect password";
+            lblIncorrectPassword.Text = "Senha incorreta";
             lblIncorrectPassword.TextAlign = ContentAlignment.TopCenter;
             lblIncorrectPassword.Visible = false;
             // 
@@ -99,9 +122,9 @@
             lblIncorrectEmail.ForeColor = Color.Red;
             lblIncorrectEmail.Location = new Point(37, 265);
             lblIncorrectEmail.Name = "lblIncorrectEmail";
-            lblIncorrectEmail.Size = new Size(108, 20);
+            lblIncorrectEmail.Size = new Size(110, 20);
             lblIncorrectEmail.TabIndex = 5;
-            lblIncorrectEmail.Text = "Incorrect email";
+            lblIncorrectEmail.Text = "Email incorreto";
             lblIncorrectEmail.TextAlign = ContentAlignment.TopCenter;
             lblIncorrectEmail.Visible = false;
             // 
@@ -142,7 +165,7 @@
             mtbPassword.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             mtbPassword.HidePromptOnLeave = false;
             mtbPassword.HideSelection = true;
-            mtbPassword.Hint = "Password";
+            mtbPassword.Hint = "Senha";
             mtbPassword.InsertKeyMode = InsertKeyMode.Default;
             mtbPassword.LeadingIcon = null;
             mtbPassword.Location = new Point(37, 302);
@@ -150,7 +173,7 @@
             mtbPassword.MaxLength = 32767;
             mtbPassword.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             mtbPassword.Name = "mtbPassword";
-            mtbPassword.PasswordChar = '\0';
+            mtbPassword.PasswordChar = '●';
             mtbPassword.PrefixSuffixText = null;
             mtbPassword.PromptChar = '_';
             mtbPassword.ReadOnly = false;
@@ -162,7 +185,7 @@
             mtbPassword.SelectionLength = 0;
             mtbPassword.SelectionStart = 0;
             mtbPassword.ShortcutsEnabled = true;
-            mtbPassword.Size = new Size(410, 48);
+            mtbPassword.Size = new Size(364, 48);
             mtbPassword.SkipLiterals = true;
             mtbPassword.TabIndex = 3;
             mtbPassword.TabStop = false;
@@ -218,22 +241,22 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft PhagsPa", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(82, 109);
+            label2.Location = new Point(37, 109);
             label2.Name = "label2";
             label2.Size = new Size(319, 44);
             label2.TabIndex = 1;
             label2.Text = "Consulte serviços, faça agendamentos e \r\norganize seus horários";
-            label2.TextAlign = ContentAlignment.TopCenter;
+            label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Microsoft PhagsPa", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(176, 49);
+            label1.Font = new Font("Microsoft PhagsPa", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(31, 50);
             label1.Name = "label1";
-            label1.Size = new Size(127, 53);
+            label1.Size = new Size(292, 49);
             label1.TabIndex = 0;
-            label1.Text = "Login";
+            label1.Text = "Entrar na Conta";
             // 
             // LoginForm
             // 
@@ -262,5 +285,7 @@
         private Label lblIncorrectEmail;
         private Label label3;
         private LinkLabel lblCreateAccount;
+        private ReaLTaiizor.Controls.AirButton airButton1;
+        private ReaLTaiizor.Controls.MaterialButton btnShowPassword;
     }
 }

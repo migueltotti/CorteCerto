@@ -1,3 +1,4 @@
+﻿using CorteCerto.App.Helpers;
 using CorteCerto.App.Infra;
 using CorteCerto.App.Pages;
 using CorteCerto.Application.UseCases.Commands.People;
@@ -11,6 +12,7 @@ namespace CorteCerto.App
     {
         #region Variables
         private readonly ICommandMediator _commandMediator;
+        private bool isPasswordVisible = false;
         #endregion
 
         #region Methods
@@ -27,7 +29,7 @@ namespace CorteCerto.App
                 WindowState = FormWindowState.Maximized;
             };
 
-            // Adiciona Centraliza��o do Painel de Login com base na largura e altura do Forms
+            // Adiciona Centralização do Painel de Login com base na largura e altura do Forms
             this.Load += (s, e) => CenterPanel();
             this.Resize += (s, e) => CenterPanel();
         }
@@ -52,23 +54,26 @@ namespace CorteCerto.App
                 lblIncorrectPassword.Visible = true;
             }
 
-            NavegateTo<MainForm>();
+            NavegationHelper.NavegateTo<MainForm>();
             this.Hide();
         }
 
         private void lblCreateAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            NavegateTo<CreateAccountForm>();
+            NavegationHelper.NavegateTo<CreateAccountForm>();
         }
 
-        private void NavegateTo<TForm>() where TForm : Form
+        private void btnShowPassword_Click(object sender, EventArgs e)
         {
-            var cad = ConfigureDI.serviceProvider.GetService<TForm>();
+            isPasswordVisible = !isPasswordVisible;
 
-            if (cad is not null && !cad.IsDisposed)
-            {
-                cad.Show();
-            }
+            btnShowPassword.Icon = isPasswordVisible ? 
+                Properties.Resources.eye_slash:
+                Properties.Resources.eye;
+
+            mtbPassword.PasswordChar = isPasswordVisible ?
+                new char[1].First() :
+                '●';
         }
 
         #endregion
