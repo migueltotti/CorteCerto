@@ -1,4 +1,6 @@
-﻿using CorteCerto.App.Pages;
+﻿using CorteCerto.App.Interfaces;
+using CorteCerto.App.Pages;
+using CorteCerto.App.Services;
 using CorteCerto.Application.Services;
 using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.UseCases.Queries.People;
@@ -71,6 +73,8 @@ internal static class ConfigureDI
         services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddScoped<IViaCepGateway, ViaCepGateway>();
+        services.AddSingleton<ISessionService, SessionService>();
+        services.AddSingleton<INavegationService, NavegationService>();
         #endregion
 
         #region Login

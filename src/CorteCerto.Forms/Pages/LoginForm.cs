@@ -1,9 +1,7 @@
-﻿using CorteCerto.App.Helpers;
-using CorteCerto.App.Infra;
+﻿using CorteCerto.App.Interfaces;
 using CorteCerto.App.Pages;
 using CorteCerto.Application.UseCases.Commands.People;
 using LiteBus.Commands.Abstractions;
-using Microsoft.Extensions.DependencyInjection;
 using ReaLTaiizor.Forms;
 
 namespace CorteCerto.App
@@ -12,13 +10,15 @@ namespace CorteCerto.App
     {
         #region Variables
         private readonly ICommandMediator _commandMediator;
+        private readonly INavegationService _navegationService;
         private bool isPasswordVisible = false;
         #endregion
 
         #region Methods
-        public LoginForm(ICommandMediator mediator)
+        public LoginForm(ICommandMediator mediator, INavegationService navegationService)
         {
             _commandMediator = mediator;
+            _navegationService = navegationService;
 
             InitializeComponent();
 
@@ -54,13 +54,13 @@ namespace CorteCerto.App
                 lblIncorrectPassword.Visible = true;
             }
 
-            NavegationHelper.NavegateTo<MainForm>();
+            _navegationService.NavegateTo<MainForm>();
             this.Hide();
         }
 
         private void lblCreateAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            NavegationHelper.NavegateTo<CreateAccountForm>();
+            _navegationService.NavegateTo<CreateAccountForm>();
         }
 
         private void btnShowPassword_Click(object sender, EventArgs e)

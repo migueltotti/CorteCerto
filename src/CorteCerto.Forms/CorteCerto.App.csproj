@@ -42,6 +42,7 @@
 
   <ItemGroup>
     <Folder Include="Config\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>

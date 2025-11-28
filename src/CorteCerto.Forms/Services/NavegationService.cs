@@ -1,11 +1,12 @@
 ﻿using CorteCerto.App.Infra;
+using CorteCerto.App.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CorteCerto.App.Helpers;
+namespace CorteCerto.App.Services;
 
-internal static class NavegationHelper
+public class NavegationService : INavegationService
 {
-    public static void NavegateTo<TForm>() where TForm : Form
+    public void NavegateTo<TForm>() where TForm : Form
     {
         var cad = ConfigureDI.serviceProvider.GetService<TForm>();
 
