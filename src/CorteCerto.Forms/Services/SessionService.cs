@@ -1,11 +1,9 @@
 ﻿using CorteCerto.App.Interfaces;
 using CorteCerto.Application.DTO;
-using CorteCerto.Domain.Base;
-using Microsoft.VisualBasic.ApplicationServices;
 
 namespace CorteCerto.App.Services;
 
-internal class SessionService : ISessionService
+public class SessionService : ISessionService
 {
     public bool IsAuthenticated => !string.IsNullOrEmpty(AccessToken);
 

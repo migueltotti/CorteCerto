@@ -11,14 +11,16 @@ namespace CorteCerto.App
         #region Variables
         private readonly ICommandMediator _commandMediator;
         private readonly INavegationService _navegationService;
+        private readonly ISessionService _sessionService;
         private bool isPasswordVisible = false;
         #endregion
 
         #region Methods
-        public LoginForm(ICommandMediator mediator, INavegationService navegationService)
+        public LoginForm(ICommandMediator mediator, INavegationService navegationService, ISessionService sessionService)
         {
             _commandMediator = mediator;
             _navegationService = navegationService;
+
 
             InitializeComponent();
 
@@ -53,14 +55,18 @@ namespace CorteCerto.App
                 lblIncorrectEmail.Visible = true;
                 lblIncorrectPassword.Visible = true;
             }
-
-            _navegationService.NavegateTo<MainForm>();
-            this.Hide();
+            else
+            {
+                _sessionService.SetSession(result.Data);
+                _navegationService.NavegateTo<MainForm>();
+                this.Close();
+            }
         }
 
         private void lblCreateAccount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             _navegationService.NavegateTo<CreateAccountForm>();
+            this.Close();
         }
 
         private void btnShowPassword_Click(object sender, EventArgs e)

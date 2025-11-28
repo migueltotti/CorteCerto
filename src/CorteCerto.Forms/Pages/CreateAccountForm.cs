@@ -1,4 +1,5 @@
-﻿using CorteCerto.App.Models;
+﻿using CorteCerto.App.Interfaces;
+using CorteCerto.App.Models;
 using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Domain.Helpers;
 using LiteBus.Commands.Abstractions;
@@ -12,13 +13,15 @@ namespace CorteCerto.App.Pages
     {
         #region Variables
         private readonly ICommandMediator _commandMediator;
+        private readonly INavegationService _navegationService;
         private bool isPasswordVisible = false;
         #endregion
 
         #region Methods
-        public CreateAccountForm(ICommandMediator commandMediator)
+        public CreateAccountForm(ICommandMediator commandMediator, INavegationService navegationService)
         {
             _commandMediator = commandMediator;
+            _navegationService = navegationService;
 
             InitializeComponent();
 
@@ -130,6 +133,7 @@ namespace CorteCerto.App.Pages
                     MessageBox.Show("Conta criada com sucesso!", "Sucesso.",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
+                    _navegationService.NavegateTo<LoginForm>();
                     this.Close();
                 }
             }

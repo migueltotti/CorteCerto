@@ -1,7 +1,10 @@
 using CorteCerto.App.Infra;
+using CorteCerto.App.Interfaces;
+using CorteCerto.App.Pages;
 using dotenv.net;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Messaging.Internal.Extensions;
+using LiteBus.Queries.Abstractions;
 
 namespace CorteCerto.App
 {
@@ -16,7 +19,12 @@ namespace CorteCerto.App
 
             ApplicationConfiguration.Initialize();
             System.Windows.Forms.Application.Run(
-                new LoginForm(ConfigureDI.serviceProvider.GetRequiredService<ICommandMediator>()));
+                new MainForm(
+                    ConfigureDI.serviceProvider.GetRequiredService<ICommandMediator>(),
+                    ConfigureDI.serviceProvider.GetRequiredService<IQueryMediator>(),
+                    ConfigureDI.serviceProvider.GetRequiredService<INavegationService>(),
+                    ConfigureDI.serviceProvider.GetRequiredService<ISessionService>())
+                );
         }
     }
 }

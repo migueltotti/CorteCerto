@@ -2,7 +2,7 @@
 
 namespace CorteCerto.App.Interfaces;
 
-internal interface ISessionService
+public interface ISessionService
 {
     bool IsAuthenticated { get; }
 

@@ -86,8 +86,8 @@ internal static class ConfigureDI
         #endregion
 
         #region Forms
+        services.AddSingleton<MainForm>();
         services.AddTransient<LoginForm>();
-        services.AddTransient<MainForm>();
         services.AddTransient<CreateAccountForm>();
         #endregion
 
