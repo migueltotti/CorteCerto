@@ -6,6 +6,8 @@ public interface ISessionService
 {
     bool IsAuthenticated { get; }
 
-    void SetSession(LoginDto result);
+    void SetSession(CustomerDto customer);
     void ClearSession();
+    string GetUserName();
+    string GetUserEmail();
 }

@@ -1,7 +1,11 @@
 ﻿using CorteCerto.App.Interfaces;
 using CorteCerto.App.Pages;
+using CorteCerto.Application.DTO;
 using CorteCerto.Application.UseCases.Commands.People;
+using CorteCerto.Application.UseCases.Queries.Customers;
 using LiteBus.Commands.Abstractions;
+using LiteBus.Queries.Abstractions;
+using Mapster;
 using ReaLTaiizor.Forms;
 
 namespace CorteCerto.App
@@ -10,17 +14,19 @@ namespace CorteCerto.App
     {
         #region Variables
         private readonly ICommandMediator _commandMediator;
+        private readonly IQueryMediator _queryMediator;
         private readonly INavegationService _navegationService;
         private readonly ISessionService _sessionService;
         private bool isPasswordVisible = false;
         #endregion
 
         #region Methods
-        public LoginForm(ICommandMediator mediator, INavegationService navegationService, ISessionService sessionService)
+        public LoginForm(ICommandMediator mediator, IQueryMediator queryMediator, INavegationService navegationService, ISessionService sessionService)
         {
             _commandMediator = mediator;
+            _queryMediator = queryMediator;
             _navegationService = navegationService;
-
+            _sessionService = sessionService;
 
             InitializeComponent();
 
@@ -57,7 +63,9 @@ namespace CorteCerto.App
             }
             else
             {
-                _sessionService.SetSession(result.Data);
+                var customer = await _queryMediator.QueryAsync(new GetCustomersQuery(null, null, mtbEmail.Text));
+
+                _sessionService.SetSession(customer.Results.First());
                 _navegationService.NavegateTo<MainForm>();
                 this.Close();
             }

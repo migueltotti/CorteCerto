@@ -1,6 +1,8 @@
 ﻿using CorteCerto.App.Interfaces;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
 
 namespace CorteCerto.App.Pages
@@ -20,6 +22,8 @@ namespace CorteCerto.App.Pages
 
             InitializeComponent();
 
+            HideTabPageTitles();
+
             // Resolve problema do RealTaiizor iniciando o Forms um pouco deslocado para cima
             this.Load += (s, e) =>
             {
@@ -37,19 +41,101 @@ namespace CorteCerto.App.Pages
             btnReports.ForeColor = Color.Black;
             btnConfigurations.ForeColor = Color.Black;
         }
+
+        private void HideTabPageTitles()
+        {
+            tabControlMain.Appearance = TabAppearance.FlatButtons;
+            tabControlMain.ItemSize = new Size(0, 1);
+            tabControlMain.SizeMode = TabSizeMode.Fixed;
+        }
+
+        private void SetUserInfo()
+        {
+            if (_sessionService.IsAuthenticated)
+            {
+                lblUserName.Text = _sessionService.GetUserName();
+                lblUserEmail.Text = _sessionService.GetUserEmail();
+
+                btnUserAction.Text = "Profile";
+            }
+            else
+            {
+                btnUserAction.Text = "Login";
+            }
+        }
+
+        private void LogoutUser()
+        {
+            lblUserName.Text = "Nome Usuário";
+            lblUserEmail.Text = "nome@gmail.com";
+
+            btnUserAction.Text = "Login";
+
+            _sessionService.ClearSession();
+        }
         #endregion
 
         #region Events
-        private void materialButton1_Click(object sender, EventArgs e)
-        {
-            _navegationService.NavegateTo<LoginForm>();
-            this.Hide();
-        }
-        #endregion
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             ColorSideBarButtons();
+            SetUserInfo();
+        }
+
+        #endregion
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            LogoutUser();
+        }
+
+        private void btnUserAction_Click(object sender, EventArgs e)
+        {
+            if (_sessionService.IsAuthenticated)
+            {
+
+            }
+            else
+            {
+                _navegationService.NavegateTo<LoginForm>();
+                this.Hide();
+            }
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            tabControlMain.SelectedIndex = 0;
+        }
+
+        private void btnAppoitments_Click(object sender, EventArgs e)
+        {
+            tabControlMain.SelectedIndex = 1;
+        }
+
+        private void btnServices_Click(object sender, EventArgs e)
+        {
+            tabControlMain.SelectedIndex = 2;
+        }
+
+        private void btnBarbers_Click(object sender, EventArgs e)
+        {
+            tabControlMain.SelectedIndex = 4;
+        }
+
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+            tabControlMain.SelectedIndex = 5;
+        }
+
+        private void btnConfigurations_Click(object sender, EventArgs e)
+        {
+            tabControlMain.SelectedIndex = 6;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tabControlMain.SelectedIndex = 7;
         }
     }
 }

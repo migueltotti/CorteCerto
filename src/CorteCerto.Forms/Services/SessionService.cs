@@ -5,17 +5,27 @@ namespace CorteCerto.App.Services;
 
 public class SessionService : ISessionService
 {
-    public bool IsAuthenticated => !string.IsNullOrEmpty(AccessToken);
+    public bool IsAuthenticated => _customer is not null;
 
-    private string AccessToken = string.Empty;
+    private CustomerDto? _customer = null;
 
     public void ClearSession()
     {
-        AccessToken = string.Empty;
+        _customer = null;
     }
 
-    public void SetSession(LoginDto result)
+    public void SetSession(CustomerDto customer) 
     {
-        AccessToken = result.AccessToken;
+        _customer = customer;
+    }
+
+    public string GetUserName()
+    {
+        return _customer.Name ?? "";
+    }
+
+    public string GetUserEmail()
+    {
+        return _customer.Email ?? "";
     }
 }
