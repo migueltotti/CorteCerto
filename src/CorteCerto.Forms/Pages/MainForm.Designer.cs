@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             sideBar = new ReaLTaiizor.Controls.MaterialCard();
+            button1 = new ReaLTaiizor.Controls.Button();
             label6 = new Label();
             btnLogout = new ReaLTaiizor.Controls.MaterialButton();
             btnUserAction = new ReaLTaiizor.Controls.MaterialButton();
@@ -70,12 +71,13 @@
             label9 = new Label();
             tabPageConfigurations = new TabPage();
             label10 = new Label();
+            tabPageAvailability = new TabPage();
             materialButton3 = new ReaLTaiizor.Controls.MaterialButton();
             materialButton4 = new ReaLTaiizor.Controls.MaterialButton();
             materialButton5 = new ReaLTaiizor.Controls.MaterialButton();
             materialButton6 = new ReaLTaiizor.Controls.MaterialButton();
-            button1 = new ReaLTaiizor.Controls.Button();
-            tabPageAvailability = new TabPage();
+            btnNewAppointment = new ReaLTaiizor.Controls.MaterialButton();
+            listView1 = new ListView();
             sideBar.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPageDashboard.SuspendLayout();
@@ -119,6 +121,27 @@
             sideBar.Padding = new Padding(14);
             sideBar.Size = new Size(314, 700);
             sideBar.TabIndex = 11;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Transparent;
+            button1.BorderColor = Color.Transparent;
+            button1.EnteredBorderColor = Color.FromArgb(184, 184, 184);
+            button1.EnteredColor = Color.FromArgb(184, 184, 184);
+            button1.Font = new Font("Segoe UI", 11F);
+            button1.Image = null;
+            button1.ImageAlign = ContentAlignment.MiddleLeft;
+            button1.InactiveColor = Color.Transparent;
+            button1.Location = new Point(26, 282);
+            button1.Name = "button1";
+            button1.PressedBorderColor = Color.FromArgb(11, 153, 255);
+            button1.PressedColor = Color.FromArgb(73, 167, 235);
+            button1.Size = new Size(221, 35);
+            button1.TabIndex = 25;
+            button1.Tag = "7";
+            button1.Text = "Disponibilidade";
+            button1.TextAlignment = StringAlignment.Near;
+            button1.Click += button1_Click;
             // 
             // label6
             // 
@@ -523,6 +546,7 @@
             // 
             calendarCard.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             calendarCard.BackColor = Color.FromArgb(255, 255, 255);
+            calendarCard.Controls.Add(listView1);
             calendarCard.Controls.Add(btnYearCalendar);
             calendarCard.Controls.Add(btnMonthCalendar);
             calendarCard.Controls.Add(btnWeekCalendar);
@@ -636,6 +660,7 @@
             // 
             appointmentCard.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             appointmentCard.BackColor = Color.FromArgb(255, 255, 255);
+            appointmentCard.Controls.Add(btnNewAppointment);
             appointmentCard.Controls.Add(label12);
             appointmentCard.Controls.Add(label13);
             appointmentCard.Depth = 0;
@@ -758,6 +783,16 @@
             label10.TabIndex = 30;
             label10.Text = "Configurations";
             // 
+            // tabPageAvailability
+            // 
+            tabPageAvailability.Location = new Point(4, 29);
+            tabPageAvailability.Name = "tabPageAvailability";
+            tabPageAvailability.Padding = new Padding(3);
+            tabPageAvailability.Size = new Size(996, 668);
+            tabPageAvailability.TabIndex = 6;
+            tabPageAvailability.Text = "Availability";
+            tabPageAvailability.UseVisualStyleBackColor = true;
+            // 
             // materialButton3
             // 
             materialButton3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
@@ -850,36 +885,38 @@
             materialButton6.UseAccentColor = false;
             materialButton6.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btnNewAppointment
             // 
-            button1.BackColor = Color.Transparent;
-            button1.BorderColor = Color.Transparent;
-            button1.EnteredBorderColor = Color.FromArgb(184, 184, 184);
-            button1.EnteredColor = Color.FromArgb(184, 184, 184);
-            button1.Font = new Font("Segoe UI", 11F);
-            button1.Image = null;
-            button1.ImageAlign = ContentAlignment.MiddleLeft;
-            button1.InactiveColor = Color.Transparent;
-            button1.Location = new Point(26, 282);
-            button1.Name = "button1";
-            button1.PressedBorderColor = Color.FromArgb(11, 153, 255);
-            button1.PressedColor = Color.FromArgb(73, 167, 235);
-            button1.Size = new Size(221, 35);
-            button1.TabIndex = 25;
-            button1.Tag = "7";
-            button1.Text = "Disponibilidade";
-            button1.TextAlignment = StringAlignment.Near;
-            button1.Click += button1_Click;
+            btnNewAppointment.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            btnNewAppointment.AutoSize = false;
+            btnNewAppointment.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnNewAppointment.BackColor = SystemColors.Control;
+            btnNewAppointment.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnNewAppointment.Depth = 0;
+            btnNewAppointment.HighEmphasis = true;
+            btnNewAppointment.Icon = Properties.Resources.calendar_plus;
+            btnNewAppointment.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnNewAppointment.Location = new Point(754, 32);
+            btnNewAppointment.Margin = new Padding(4, 6, 4, 6);
+            btnNewAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnNewAppointment.Name = "btnNewAppointment";
+            btnNewAppointment.NoAccentTextColor = Color.Empty;
+            btnNewAppointment.Size = new Size(193, 49);
+            btnNewAppointment.TabIndex = 27;
+            btnNewAppointment.Text = "Novo Agendamento";
+            btnNewAppointment.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnNewAppointment.UseAccentColor = false;
+            btnNewAppointment.UseVisualStyleBackColor = false;
             // 
-            // tabPageAvailability
+            // listView1
             // 
-            tabPageAvailability.Location = new Point(4, 29);
-            tabPageAvailability.Name = "tabPageAvailability";
-            tabPageAvailability.Padding = new Padding(3);
-            tabPageAvailability.Size = new Size(996, 668);
-            tabPageAvailability.TabIndex = 6;
-            tabPageAvailability.Text = "Availability";
-            tabPageAvailability.UseVisualStyleBackColor = true;
+            listView1.FullRowSelect = true;
+            listView1.Location = new Point(17, 72);
+            listView1.MultiSelect = false;
+            listView1.Name = "listView1";
+            listView1.Size = new Size(930, 449);
+            listView1.TabIndex = 32;
+            listView1.UseCompatibleStateImageBehavior = false;
             // 
             // MainForm
             // 
@@ -963,5 +1000,7 @@
         private ReaLTaiizor.Controls.ParrotButton btnWeekCalendar;
         private ReaLTaiizor.Controls.Button button1;
         private TabPage tabPageAvailability;
+        private ListView listView1;
+        private ReaLTaiizor.Controls.MaterialButton btnNewAppointment;
     }
 }

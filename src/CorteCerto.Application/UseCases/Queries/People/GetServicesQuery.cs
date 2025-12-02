@@ -5,9 +5,9 @@ using LiteBus.Queries.Abstractions;
 namespace CorteCerto.Application.UseCases.Queries.People;
 
 public record GetServicesQuery(
-    string? Name,
-    TimeSpan? Duration,
-    decimal? Price,
+    string? Name = null,
+    TimeSpan? Duration = null,
+    decimal? Price = null,
     PriceOperator PriceOperator = default,
     DurationOperator DurationOperator = default,
     int PageSize = 50,
