@@ -22,6 +22,7 @@ namespace CorteCerto.App.Pages
         private int? _selectedServiceId = null;
         private Guid? _selectedBarberId = null;
         private DateTime? _selectedDate = null;
+        private DateTime? _selectedDateTime = null;
         #endregion
 
         #region Methods
@@ -64,7 +65,7 @@ namespace CorteCerto.App.Pages
 
         protected override async void Save()
         {
-            if (_selectedServiceId is null || _selectedBarberId is null || _selectedDate is null)
+            if (_selectedServiceId is null || _selectedBarberId is null || _selectedDateTime is null)
             {
                 MessageBox.Show("Precisa selecionar um serviço e uma data para realizar o agendamento.", "Corte Certo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -94,12 +95,39 @@ namespace CorteCerto.App.Pages
                 }
             }
         }
-        #endregion
 
-        private async void tabPageService_Enter(object sender, EventArgs e)
+        private void GetAvailableTimeByDayOfWeek(DayOfWeek dayOfWeek)
         {
-            await LoadServicesGrid(string.Empty);
+            if (_selectedBarberId is not null)
+            {
+                cbTimeAvailable.Items.Clear();
+
+                var barber = _services.FirstOrDefault(s => s.Id == _selectedServiceId)?.Barber;
+
+                var totalTimeAvailable = barber!.Availabilities.FirstOrDefault(a => a.DayOfWeek == dayOfWeek);
+
+                if(totalTimeAvailable is null)
+                {
+                    cbTimeAvailable.Items.Add("Barbeiro não está disponivel nessa data.");
+                    cbTimeAvailable.SelectedIndex = 0;
+                    return;
+                }
+
+                cbTimeAvailable.Items.Add("");
+
+                for (var time = totalTimeAvailable.StartTime.TimeOfDay; time <= totalTimeAvailable.EndTime.TimeOfDay; time = time.Add(TimeSpan.FromHours(1)))
+                {
+                    cbTimeAvailable.Items.Add(time);
+                }
+
+                cbTimeAvailable.Enabled = true;
+            }
+            else
+            {
+                cbTimeAvailable.Enabled = false;
+            }
         }
+        #endregion
 
         private async void btnSearchServices_Click(object sender, EventArgs e)
         {
@@ -115,21 +143,37 @@ namespace CorteCerto.App.Pages
             ServiceGridToForm(record);
         }
 
-        private void RegisterAppointmentForm_Click(object sender, EventArgs e)
-        {
-            var date = dpAppointmentDate.Date;
-
-            _selectedDate = date;
-
-            lblDate.Text = date.ToString("dd/MM/yyyy");
-        }
-
         private async void mtbServiceName_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(mtbServiceName.Text))
             {
                 await LoadServicesGrid(mtbServiceName.Text);
             }
+        }
+
+        private void dpAppointmentDate_onDateChanged(DateTime newDateTime)
+        {
+            var date = dpAppointmentDate.Date;
+
+            _selectedDate = date;
+
+            GetAvailableTimeByDayOfWeek(date.DayOfWeek);
+        }
+
+        private void cbTimeAvailable_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var time = cbTimeAvailable.SelectedItem.ToString();
+
+            var dateTime = DateTime.Parse($"{_selectedDate.Value.Date.Date} {time}");
+
+            _selectedDateTime = dateTime;
+
+            lblDate.Text = _selectedDateTime.ToString();
+        }
+
+        private async void RegisterAppointmentForm_Load(object sender, EventArgs e)
+        {
+            await LoadServicesGrid(string.Empty);
         }
     }
 }

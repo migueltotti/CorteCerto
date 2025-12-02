@@ -33,6 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             tabControlRegister = new TabControl();
             tabPageService = new TabPage();
+            cbTimeAvailable = new ReaLTaiizor.Controls.PoisonComboBox();
             dataGridViewServices = new ReaLTaiizor.Controls.PoisonDataGridView();
             btnSearchServices = new ReaLTaiizor.Controls.MaterialButton();
             mtbServiceName = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
@@ -51,6 +52,7 @@
             mtbBarberName = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             label1 = new Label();
             tabPageBarber = new TabPage();
+            label10 = new Label();
             actionPanel.SuspendLayout();
             fieldPanel.SuspendLayout();
             tabControlRegister.SuspendLayout();
@@ -66,12 +68,12 @@
             // btnCancel
             // 
             btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCancel.Location = new Point(656, 16);
+            btnCancel.Location = new Point(748, 16);
             // 
             // btnSave
             // 
             btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSave.Location = new Point(708, 16);
+            btnSave.Location = new Point(610, 16);
             // 
             // fieldPanel
             // 
@@ -91,6 +93,8 @@
             // 
             // tabPageService
             // 
+            tabPageService.Controls.Add(label10);
+            tabPageService.Controls.Add(cbTimeAvailable);
             tabPageService.Controls.Add(dataGridViewServices);
             tabPageService.Controls.Add(btnSearchServices);
             tabPageService.Controls.Add(mtbServiceName);
@@ -115,7 +119,18 @@
             tabPageService.TabIndex = 0;
             tabPageService.Text = "Service";
             tabPageService.UseVisualStyleBackColor = true;
-            tabPageService.Enter += tabPageService_Enter;
+            // 
+            // cbTimeAvailable
+            // 
+            cbTimeAvailable.Enabled = false;
+            cbTimeAvailable.FormattingEnabled = true;
+            cbTimeAvailable.ItemHeight = 24;
+            cbTimeAvailable.Location = new Point(623, 340);
+            cbTimeAvailable.Name = "cbTimeAvailable";
+            cbTimeAvailable.Size = new Size(250, 30);
+            cbTimeAvailable.TabIndex = 19;
+            cbTimeAvailable.UseSelectable = true;
+            cbTimeAvailable.SelectedIndexChanged += cbTimeAvailable_SelectedIndexChanged;
             // 
             // dataGridViewServices
             // 
@@ -158,7 +173,7 @@
             dataGridViewServices.RowHeadersWidth = 51;
             dataGridViewServices.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewServices.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewServices.Size = new Size(547, 285);
+            dataGridViewServices.Size = new Size(556, 285);
             dataGridViewServices.TabIndex = 18;
             dataGridViewServices.DoubleClick += dataGridViewServices_DoubleClick;
             // 
@@ -172,7 +187,7 @@
             btnSearchServices.HighEmphasis = true;
             btnSearchServices.Icon = Properties.Resources.search;
             btnSearchServices.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Default;
-            btnSearchServices.Location = new Point(550, 67);
+            btnSearchServices.Location = new Point(529, 69);
             btnSearchServices.Margin = new Padding(4, 6, 4, 6);
             btnSearchServices.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnSearchServices.Name = "btnSearchServices";
@@ -192,7 +207,6 @@
             mtbServiceName.BackgroundImageLayout = ImageLayout.None;
             mtbServiceName.CharacterCasing = CharacterCasing.Normal;
             mtbServiceName.Depth = 0;
-            mtbServiceName.Enabled = false;
             mtbServiceName.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             mtbServiceName.HideSelection = true;
             mtbServiceName.LeadingIcon = null;
@@ -208,7 +222,7 @@
             mtbServiceName.SelectionLength = 0;
             mtbServiceName.SelectionStart = 0;
             mtbServiceName.ShortcutsEnabled = true;
-            mtbServiceName.Size = new Size(524, 48);
+            mtbServiceName.Size = new Size(503, 48);
             mtbServiceName.TabIndex = 16;
             mtbServiceName.TabStop = false;
             mtbServiceName.TextAlign = HorizontalAlignment.Left;
@@ -229,34 +243,31 @@
             // lblDate
             // 
             lblDate.Font = new Font("Segoe UI", 9F);
-            lblDate.Location = new Point(638, 486);
+            lblDate.Location = new Point(638, 526);
             lblDate.Name = "lblDate";
             lblDate.Size = new Size(235, 25);
             lblDate.TabIndex = 14;
-            lblDate.Text = "b";
             // 
             // lblBarber
             // 
             lblBarber.Font = new Font("Segoe UI", 9F);
-            lblBarber.Location = new Point(657, 427);
+            lblBarber.Location = new Point(652, 467);
             lblBarber.Name = "lblBarber";
             lblBarber.Size = new Size(216, 54);
             lblBarber.TabIndex = 13;
-            lblBarber.Text = "b";
             // 
             // lblService
             // 
             lblService.Font = new Font("Segoe UI", 9F);
-            lblService.Location = new Point(656, 373);
+            lblService.Location = new Point(656, 413);
             lblService.Name = "lblService";
             lblService.Size = new Size(217, 54);
             lblService.TabIndex = 12;
-            lblService.Text = "b";
             // 
             // label8
             // 
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label8.Location = new Point(586, 486);
+            label8.Location = new Point(586, 526);
             label8.Name = "label8";
             label8.Size = new Size(65, 25);
             label8.TabIndex = 11;
@@ -265,7 +276,7 @@
             // label7
             // 
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label7.Location = new Point(586, 427);
+            label7.Location = new Point(586, 467);
             label7.Name = "label7";
             label7.Size = new Size(73, 25);
             label7.TabIndex = 10;
@@ -274,7 +285,7 @@
             // label6
             // 
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label6.Location = new Point(586, 373);
+            label6.Location = new Point(586, 413);
             label6.Name = "label6";
             label6.Size = new Size(65, 25);
             label6.TabIndex = 9;
@@ -284,7 +295,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label5.Location = new Point(586, 336);
+            label5.Location = new Point(586, 376);
             label5.Name = "label5";
             label5.Size = new Size(258, 28);
             label5.TabIndex = 8;
@@ -319,6 +330,7 @@
             dpAppointmentDate.TabIndex = 7;
             dpAppointmentDate.Text = "hopeDatePicker1";
             dpAppointmentDate.ValueTextColor = Color.FromArgb(43, 133, 228);
+            dpAppointmentDate.onDateChanged += dpAppointmentDate_onDateChanged;
             // 
             // label4
             // 
@@ -356,7 +368,6 @@
             mtbBarberName.BackgroundImageLayout = ImageLayout.None;
             mtbBarberName.CharacterCasing = CharacterCasing.Normal;
             mtbBarberName.Depth = 0;
-            mtbBarberName.Enabled = false;
             mtbBarberName.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             mtbBarberName.HideSelection = true;
             mtbBarberName.LeadingIcon = null;
@@ -366,7 +377,7 @@
             mtbBarberName.Name = "mtbBarberName";
             mtbBarberName.PasswordChar = '\0';
             mtbBarberName.PrefixSuffixText = null;
-            mtbBarberName.ReadOnly = false;
+            mtbBarberName.ReadOnly = true;
             mtbBarberName.RightToLeft = RightToLeft.No;
             mtbBarberName.SelectedText = "";
             mtbBarberName.SelectionLength = 0;
@@ -399,6 +410,15 @@
             tabPageBarber.Text = "Barber";
             tabPageBarber.UseVisualStyleBackColor = true;
             // 
+            // label10
+            // 
+            label10.Font = new Font("Segoe UI", 9F);
+            label10.Location = new Point(624, 319);
+            label10.Name = "label10";
+            label10.Size = new Size(160, 18);
+            label10.TabIndex = 20;
+            label10.Text = "Selecione um horário:";
+            // 
             // RegisterAppointmentForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -411,7 +431,7 @@
             Name = "RegisterAppointmentForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Registrar Agendamento";
-            Click += RegisterAppointmentForm_Click;
+            Load += RegisterAppointmentForm_Load;
             actionPanel.ResumeLayout(false);
             fieldPanel.ResumeLayout(false);
             tabControlRegister.ResumeLayout(false);
@@ -443,5 +463,7 @@
         private ReaLTaiizor.Controls.MaterialTextBoxEdit mtbServiceName;
         private ReaLTaiizor.Controls.MaterialButton btnSearchServices;
         private ReaLTaiizor.Controls.PoisonDataGridView dataGridViewServices;
+        private ReaLTaiizor.Controls.PoisonComboBox cbTimeAvailable;
+        private Label label10;
     }
 }
