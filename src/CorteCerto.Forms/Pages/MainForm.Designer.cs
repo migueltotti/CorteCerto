@@ -55,12 +55,14 @@
             label4 = new Label();
             tabPageAppointments = new TabPage();
             calendarCard = new ReaLTaiizor.Controls.MaterialCard();
+            listView1 = new ListView();
             btnYearCalendar = new ReaLTaiizor.Controls.ParrotButton();
             btnMonthCalendar = new ReaLTaiizor.Controls.ParrotButton();
             btnWeekCalendar = new ReaLTaiizor.Controls.ParrotButton();
             label5 = new Label();
             label14 = new Label();
             appointmentCard = new ReaLTaiizor.Controls.MaterialCard();
+            btnNewAppointment = new ReaLTaiizor.Controls.MaterialButton();
             label12 = new Label();
             label13 = new Label();
             tabPageServices = new TabPage();
@@ -76,8 +78,6 @@
             materialButton4 = new ReaLTaiizor.Controls.MaterialButton();
             materialButton5 = new ReaLTaiizor.Controls.MaterialButton();
             materialButton6 = new ReaLTaiizor.Controls.MaterialButton();
-            btnNewAppointment = new ReaLTaiizor.Controls.MaterialButton();
-            listView1 = new ListView();
             sideBar.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPageDashboard.SuspendLayout();
@@ -484,6 +484,7 @@
             btnDashboardNewAppointment.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
             btnDashboardNewAppointment.UseAccentColor = false;
             btnDashboardNewAppointment.UseVisualStyleBackColor = false;
+            btnDashboardNewAppointment.Click += btnDashboardNewAppointment_Click;
             // 
             // btnDashboardNewService
             // 
@@ -561,6 +562,16 @@
             calendarCard.Padding = new Padding(14);
             calendarCard.Size = new Size(965, 538);
             calendarCard.TabIndex = 28;
+            // 
+            // listView1
+            // 
+            listView1.FullRowSelect = true;
+            listView1.Location = new Point(17, 72);
+            listView1.MultiSelect = false;
+            listView1.Name = "listView1";
+            listView1.Size = new Size(930, 449);
+            listView1.TabIndex = 32;
+            listView1.UseCompatibleStateImageBehavior = false;
             // 
             // btnYearCalendar
             // 
@@ -672,6 +683,30 @@
             appointmentCard.Padding = new Padding(14);
             appointmentCard.Size = new Size(965, 106);
             appointmentCard.TabIndex = 27;
+            // 
+            // btnNewAppointment
+            // 
+            btnNewAppointment.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            btnNewAppointment.AutoSize = false;
+            btnNewAppointment.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnNewAppointment.BackColor = SystemColors.Control;
+            btnNewAppointment.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnNewAppointment.Depth = 0;
+            btnNewAppointment.HighEmphasis = true;
+            btnNewAppointment.Icon = Properties.Resources.calendar_plus;
+            btnNewAppointment.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnNewAppointment.Location = new Point(754, 32);
+            btnNewAppointment.Margin = new Padding(4, 6, 4, 6);
+            btnNewAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnNewAppointment.Name = "btnNewAppointment";
+            btnNewAppointment.NoAccentTextColor = Color.Empty;
+            btnNewAppointment.Size = new Size(193, 49);
+            btnNewAppointment.TabIndex = 27;
+            btnNewAppointment.Text = "Novo Agendamento";
+            btnNewAppointment.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnNewAppointment.UseAccentColor = false;
+            btnNewAppointment.UseVisualStyleBackColor = false;
+            btnNewAppointment.Click += btnNewAppointment_Click;
             // 
             // label12
             // 
@@ -885,39 +920,6 @@
             materialButton6.UseAccentColor = false;
             materialButton6.UseVisualStyleBackColor = false;
             // 
-            // btnNewAppointment
-            // 
-            btnNewAppointment.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            btnNewAppointment.AutoSize = false;
-            btnNewAppointment.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnNewAppointment.BackColor = SystemColors.Control;
-            btnNewAppointment.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
-            btnNewAppointment.Depth = 0;
-            btnNewAppointment.HighEmphasis = true;
-            btnNewAppointment.Icon = Properties.Resources.calendar_plus;
-            btnNewAppointment.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnNewAppointment.Location = new Point(754, 32);
-            btnNewAppointment.Margin = new Padding(4, 6, 4, 6);
-            btnNewAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            btnNewAppointment.Name = "btnNewAppointment";
-            btnNewAppointment.NoAccentTextColor = Color.Empty;
-            btnNewAppointment.Size = new Size(193, 49);
-            btnNewAppointment.TabIndex = 27;
-            btnNewAppointment.Text = "Novo Agendamento";
-            btnNewAppointment.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
-            btnNewAppointment.UseAccentColor = false;
-            btnNewAppointment.UseVisualStyleBackColor = false;
-            // 
-            // listView1
-            // 
-            listView1.FullRowSelect = true;
-            listView1.Location = new Point(17, 72);
-            listView1.MultiSelect = false;
-            listView1.Name = "listView1";
-            listView1.Size = new Size(930, 449);
-            listView1.TabIndex = 32;
-            listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -925,9 +927,11 @@
             ClientSize = new Size(1339, 774);
             Controls.Add(tabControlMain);
             Controls.Add(sideBar);
+            IsMdiContainer = true;
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             WindowState = FormWindowState.Maximized;
+            FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             sideBar.ResumeLayout(false);
             sideBar.PerformLayout();

@@ -28,4 +28,9 @@ public class SessionService : ISessionService
     {
         return _customer.Email ?? "";
     }
+
+    public CustomerDto? GetCurrentCustomer()
+    {
+        return _customer;
+    }
 }

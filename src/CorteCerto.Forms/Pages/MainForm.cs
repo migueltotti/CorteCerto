@@ -137,5 +137,23 @@ namespace CorteCerto.App.Pages
         {
             tabControlMain.SelectedIndex = 7;
         }
+
+        private void btnNewAppointment_Click(object sender, EventArgs e)
+        {
+            _navegationService.NavegateTo<RegisterAppointmentForm>();
+        }
+
+        private void btnDashboardNewAppointment_Click(object sender, EventArgs e)
+        {
+            _navegationService.NavegateTo<RegisterAppointmentForm>();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.ApplicationExitCall)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

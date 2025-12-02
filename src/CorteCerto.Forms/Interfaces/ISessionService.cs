@@ -10,4 +10,5 @@ public interface ISessionService
     void ClearSession();
     string GetUserName();
     string GetUserEmail();
+    CustomerDto? GetCurrentCustomer();
 }

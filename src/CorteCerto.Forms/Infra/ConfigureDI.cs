@@ -89,6 +89,7 @@ internal static class ConfigureDI
         services.AddSingleton<MainForm>();
         services.AddTransient<LoginForm>();
         services.AddTransient<CreateAccountForm>();
+        services.AddTransient<RegisterAppointmentForm>();
         #endregion
 
         serviceProvider = services.BuildServiceProvider();

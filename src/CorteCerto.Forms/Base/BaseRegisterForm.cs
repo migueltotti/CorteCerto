@@ -27,14 +27,6 @@ public partial class BaseRegisterForm : MaterialForm
     {
     }
 
-    protected virtual void PopulateGrid()
-    {
-    }
-
-    protected virtual void GridToForm(DataGridViewRow? record)
-    {
-    }
-
     #endregion
 
     #region Events

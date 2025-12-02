@@ -2,5 +2,5 @@
 
 public interface INavegationService
 {
-    void NavegateTo<TForm>() where TForm : Form;
+    void NavegateTo<TForm>(Form? MdiParent = null) where TForm : Form;
 }

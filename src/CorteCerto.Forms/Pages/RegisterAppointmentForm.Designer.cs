@@ -65,11 +65,13 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(754, 16);
+            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancel.Location = new Point(656, 16);
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(714, 16);
+            btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSave.Location = new Point(708, 16);
             // 
             // fieldPanel
             // 
@@ -212,6 +214,7 @@
             mtbServiceName.TextAlign = HorizontalAlignment.Left;
             mtbServiceName.TrailingIcon = null;
             mtbServiceName.UseSystemPasswordChar = false;
+            mtbServiceName.KeyDown += mtbServiceName_KeyDown;
             // 
             // label9
             // 
@@ -402,9 +405,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(903, 718);
             MaximizeBox = false;
+            MaximumSize = new Size(903, 718);
             MinimizeBox = false;
+            MinimumSize = new Size(903, 718);
             Name = "RegisterAppointmentForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Registrar Agendamento";
+            Click += RegisterAppointmentForm_Click;
             actionPanel.ResumeLayout(false);
             fieldPanel.ResumeLayout(false);
             tabControlRegister.ResumeLayout(false);
