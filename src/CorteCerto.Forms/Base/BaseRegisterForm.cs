@@ -11,7 +11,7 @@ public partial class BaseRegisterForm : MaterialForm
         InitializeComponent();
     }
 
-    protected void ClearFields()
+    protected virtual void ClearFields()
     {
         foreach (var control in fieldPanel.Controls)
         {
@@ -20,6 +20,9 @@ public partial class BaseRegisterForm : MaterialForm
 
             if (control is MaterialMaskedTextBox maskedTextBox)
                 maskedTextBox.Clear();
+
+            if (control is PoisonComboBox comboBox)
+                comboBox.Items.Clear();
         }
     }
 

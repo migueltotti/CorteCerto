@@ -7,12 +7,7 @@ using FluentValidation;
 using LiteBus.Commands.Abstractions;
 using Mapster;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace CorteCerto.Application.UseCases.Commands.Customers;
 
@@ -70,7 +65,7 @@ public class ScheduleBarberServiceCommandHandler(
         }
 
         var appointmentResult = Appointment.Create(
-            command.Date,
+            command.Date.ToUniversalTime(),
             TimeSpan.FromHours(2),
             customer,
             barber,

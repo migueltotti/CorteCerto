@@ -33,6 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             tabControlRegister = new TabControl();
             tabPageService = new TabPage();
+            label10 = new Label();
             cbTimeAvailable = new ReaLTaiizor.Controls.PoisonComboBox();
             dataGridViewServices = new ReaLTaiizor.Controls.PoisonDataGridView();
             btnSearchServices = new ReaLTaiizor.Controls.MaterialButton();
@@ -52,7 +53,6 @@
             mtbBarberName = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             label1 = new Label();
             tabPageBarber = new TabPage();
-            label10 = new Label();
             actionPanel.SuspendLayout();
             fieldPanel.SuspendLayout();
             tabControlRegister.SuspendLayout();
@@ -67,13 +67,20 @@
             // 
             // btnCancel
             // 
-            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCancel.Location = new Point(748, 16);
+            btnCancel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnCancel.Location = new Point(780, 16);
+            btnCancel.MaximumSize = new Size(116, 32);
+            btnCancel.MinimumSize = new Size(116, 32);
+            btnCancel.Size = new Size(116, 32);
             // 
             // btnSave
             // 
-            btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSave.Location = new Point(610, 16);
+            btnSave.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnSave.AutoSizeMode = AutoSizeMode.GrowOnly;
+            btnSave.Location = new Point(656, 16);
+            btnSave.MaximumSize = new Size(116, 32);
+            btnSave.MinimumSize = new Size(116, 32);
+            btnSave.Size = new Size(116, 32);
             // 
             // fieldPanel
             // 
@@ -120,6 +127,15 @@
             tabPageService.Text = "Service";
             tabPageService.UseVisualStyleBackColor = true;
             // 
+            // label10
+            // 
+            label10.Font = new Font("Segoe UI", 9F);
+            label10.Location = new Point(624, 319);
+            label10.Name = "label10";
+            label10.Size = new Size(160, 18);
+            label10.TabIndex = 20;
+            label10.Text = "Selecione um horário:";
+            // 
             // cbTimeAvailable
             // 
             cbTimeAvailable.Enabled = false;
@@ -161,6 +177,7 @@
             dataGridViewServices.GridColor = Color.FromArgb(255, 255, 255);
             dataGridViewServices.Location = new Point(19, 118);
             dataGridViewServices.Name = "dataGridViewServices";
+            dataGridViewServices.ReadOnly = true;
             dataGridViewServices.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.FromArgb(0, 174, 219);
@@ -409,15 +426,6 @@
             tabPageBarber.TabIndex = 1;
             tabPageBarber.Text = "Barber";
             tabPageBarber.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            label10.Font = new Font("Segoe UI", 9F);
-            label10.Location = new Point(624, 319);
-            label10.Name = "label10";
-            label10.Size = new Size(160, 18);
-            label10.TabIndex = 20;
-            label10.Text = "Selecione um horário:";
             // 
             // RegisterAppointmentForm
             // 

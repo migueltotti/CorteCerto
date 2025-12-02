@@ -1,10 +1,12 @@
 ﻿using CorteCerto.App.Base;
 using CorteCerto.App.Interfaces;
+using CorteCerto.App.Models;
 using CorteCerto.Application.DTO;
 using CorteCerto.Application.UseCases.Commands.Customers;
 using CorteCerto.Application.UseCases.Queries.People;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
+using Mapster;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace CorteCerto.App.Pages
@@ -45,9 +47,11 @@ namespace CorteCerto.App.Pages
 
             _services = result.Results.ToList();
 
+            var formatedServices = _services.Adapt<List<ServiceModel>>();
+
             dataGridViewServices.DataSource = null;
-            dataGridViewServices.DataSource = _services;
-            dataGridViewServices.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewServices.DataSource = formatedServices;
+            dataGridViewServices.Columns["Id"].Visible = false;
         }
 
         private void ServiceGridToForm(DataGridViewRow? record)
@@ -76,7 +80,7 @@ namespace CorteCerto.App.Pages
                     ServiceId: _selectedServiceId.Value,
                     CustomerId: _sessionService.GetCurrentCustomer()!.Id,
                     BarberId: _selectedBarberId.Value,
-                    Date: _selectedDate.Value
+                    Date: _selectedDateTime.Value
                 );
 
                 var result = await _commandMediator.SendAsync(command);
@@ -87,6 +91,7 @@ namespace CorteCerto.App.Pages
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     ClearFields();
+                    cbTimeAvailable.Enabled = false;
                 }
                 else
                 {
@@ -106,7 +111,7 @@ namespace CorteCerto.App.Pages
 
                 var totalTimeAvailable = barber!.Availabilities.FirstOrDefault(a => a.DayOfWeek == dayOfWeek);
 
-                if(totalTimeAvailable is null)
+                if (totalTimeAvailable is null)
                 {
                     cbTimeAvailable.Items.Add("Barbeiro não está disponivel nessa data.");
                     cbTimeAvailable.SelectedIndex = 0;
@@ -115,7 +120,7 @@ namespace CorteCerto.App.Pages
 
                 cbTimeAvailable.Items.Add("");
 
-                for (var time = totalTimeAvailable.StartTime.TimeOfDay; time <= totalTimeAvailable.EndTime.TimeOfDay; time = time.Add(TimeSpan.FromHours(1)))
+                for (var time = totalTimeAvailable.StartTime.TimeOfDay; time <= totalTimeAvailable.EndTime.TimeOfDay; time = time.Add(TimeSpan.FromMinutes(30)))
                 {
                     cbTimeAvailable.Items.Add(time);
                 }
@@ -127,8 +132,20 @@ namespace CorteCerto.App.Pages
                 cbTimeAvailable.Enabled = false;
             }
         }
+
+        protected override void ClearFields()
+        {
+            mtbServiceName.Clear();
+            mtbBarberName.Clear();
+            cbTimeAvailable.Items.Clear();
+
+            lblService.Text = "";
+            lblBarber.Text = "";
+            lblDate.Text = "";
+        }
         #endregion
 
+        #region Events
         private async void btnSearchServices_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(mtbServiceName.Text))
@@ -162,18 +179,29 @@ namespace CorteCerto.App.Pages
 
         private void cbTimeAvailable_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var time = cbTimeAvailable.SelectedItem.ToString();
+            if(cbTimeAvailable.SelectedItem!.ToString() == "Barbeiro não está disponivel nessa data." ||
+                cbTimeAvailable.SelectedItem!.ToString() == "")
+            {
+                lblDate.Text = "";
+                return;
+            }
 
-            var dateTime = DateTime.Parse($"{_selectedDate.Value.Date.Date} {time}");
+            var time = cbTimeAvailable.SelectedItem!.ToString();
+            var date = _selectedDate!.Value.Date;
+
+            var timeSpan = TimeSpan.Parse(time);
+
+            var dateTime = date + timeSpan;
 
             _selectedDateTime = dateTime;
-
-            lblDate.Text = _selectedDateTime.ToString();
+            lblDate.Text = _selectedDateTime.Value.ToString("dd/MM/yyyy HH:mm");
         }
 
         private async void RegisterAppointmentForm_Load(object sender, EventArgs e)
         {
             await LoadServicesGrid(string.Empty);
         }
+
+        #endregion
     }
 }
