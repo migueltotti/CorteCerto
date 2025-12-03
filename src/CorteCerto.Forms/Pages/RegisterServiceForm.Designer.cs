@@ -32,6 +32,10 @@
             mtbDescription = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             mtbDuration = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             mtbPrice = new ReaLTaiizor.Controls.MaterialMaskedTextBox();
+            lblIncorrectName = new Label();
+            lblIncorrectDescription = new Label();
+            lblIncorrectPrice = new Label();
+            lblIncorrectDuration = new Label();
             actionPanel.SuspendLayout();
             fieldPanel.SuspendLayout();
             SuspendLayout();
@@ -43,16 +47,20 @@
             // 
             // btnCancel
             // 
-            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnCancel.Location = new Point(436, 15);
+            btnCancel.AutoSizeMode = AutoSizeMode.GrowOnly;
+            btnCancel.Location = new Point(439, 16);
             // 
             // btnSave
             // 
-            btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSave.Location = new Point(298, 15);
+            btnSave.AutoSizeMode = AutoSizeMode.GrowOnly;
+            btnSave.Location = new Point(305, 16);
             // 
             // fieldPanel
             // 
+            fieldPanel.Controls.Add(lblIncorrectDuration);
+            fieldPanel.Controls.Add(lblIncorrectPrice);
+            fieldPanel.Controls.Add(lblIncorrectDescription);
+            fieldPanel.Controls.Add(lblIncorrectName);
             fieldPanel.Controls.Add(mtbPrice);
             fieldPanel.Controls.Add(mtbDuration);
             fieldPanel.Controls.Add(mtbDescription);
@@ -146,7 +154,7 @@
             mtbDuration.SelectionStart = 0;
             mtbDuration.ShortcutsEnabled = true;
             mtbDuration.Size = new Size(264, 48);
-            mtbDuration.TabIndex = 3;
+            mtbDuration.TabIndex = 4;
             mtbDuration.TabStop = false;
             mtbDuration.TextAlign = HorizontalAlignment.Left;
             mtbDuration.TrailingIcon = null;
@@ -186,7 +194,7 @@
             mtbPrice.ShortcutsEnabled = true;
             mtbPrice.Size = new Size(264, 48);
             mtbPrice.SkipLiterals = true;
-            mtbPrice.TabIndex = 4;
+            mtbPrice.TabIndex = 3;
             mtbPrice.TabStop = false;
             mtbPrice.Text = "    ,";
             mtbPrice.TextAlign = HorizontalAlignment.Left;
@@ -195,15 +203,69 @@
             mtbPrice.UseSystemPasswordChar = false;
             mtbPrice.ValidatingType = null;
             // 
+            // lblIncorrectName
+            // 
+            lblIncorrectName.AutoSize = true;
+            lblIncorrectName.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblIncorrectName.ForeColor = Color.Red;
+            lblIncorrectName.Location = new Point(22, 77);
+            lblIncorrectName.Name = "lblIncorrectName";
+            lblIncorrectName.Size = new Size(114, 20);
+            lblIncorrectName.TabIndex = 6;
+            lblIncorrectName.Text = "Nome incorreto";
+            lblIncorrectName.TextAlign = ContentAlignment.TopCenter;
+            lblIncorrectName.Visible = false;
+            // 
+            // lblIncorrectDescription
+            // 
+            lblIncorrectDescription.AutoSize = true;
+            lblIncorrectDescription.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblIncorrectDescription.ForeColor = Color.Red;
+            lblIncorrectDescription.Location = new Point(22, 153);
+            lblIncorrectDescription.Name = "lblIncorrectDescription";
+            lblIncorrectDescription.Size = new Size(137, 20);
+            lblIncorrectDescription.TabIndex = 7;
+            lblIncorrectDescription.Text = "Descrição incorreta";
+            lblIncorrectDescription.TextAlign = ContentAlignment.TopCenter;
+            lblIncorrectDescription.Visible = false;
+            // 
+            // lblIncorrectPrice
+            // 
+            lblIncorrectPrice.AutoSize = true;
+            lblIncorrectPrice.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblIncorrectPrice.ForeColor = Color.Red;
+            lblIncorrectPrice.Location = new Point(22, 230);
+            lblIncorrectPrice.Name = "lblIncorrectPrice";
+            lblIncorrectPrice.Size = new Size(110, 20);
+            lblIncorrectPrice.TabIndex = 8;
+            lblIncorrectPrice.Text = "Preço incorreto";
+            lblIncorrectPrice.TextAlign = ContentAlignment.TopCenter;
+            lblIncorrectPrice.Visible = false;
+            // 
+            // lblIncorrectDuration
+            // 
+            lblIncorrectDuration.AutoSize = true;
+            lblIncorrectDuration.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblIncorrectDuration.ForeColor = Color.Red;
+            lblIncorrectDuration.Location = new Point(305, 230);
+            lblIncorrectDuration.Name = "lblIncorrectDuration";
+            lblIncorrectDuration.Size = new Size(128, 20);
+            lblIncorrectDuration.TabIndex = 9;
+            lblIncorrectDuration.Text = "Duração incorreta";
+            lblIncorrectDuration.TextAlign = ContentAlignment.TopCenter;
+            lblIncorrectDuration.Visible = false;
+            // 
             // RegisterServiceForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(605, 475);
             Name = "RegisterServiceForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "RegisterService";
             actionPanel.ResumeLayout(false);
             fieldPanel.ResumeLayout(false);
+            fieldPanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -214,5 +276,9 @@
         private ReaLTaiizor.Controls.MaterialTextBoxEdit mtbDuration;
         private ReaLTaiizor.Controls.MaterialTextBoxEdit mtbServicePrice;
         private ReaLTaiizor.Controls.MaterialMaskedTextBox mtbPrice;
+        private Label lblIncorrectDuration;
+        private Label lblIncorrectPrice;
+        private Label lblIncorrectDescription;
+        private Label lblIncorrectName;
     }
 }

@@ -2,6 +2,7 @@
 using CorteCerto.App.Pages;
 using CorteCerto.Application.DTO;
 using CorteCerto.Application.UseCases.Commands.People;
+using CorteCerto.Application.UseCases.Queries.Barbers;
 using CorteCerto.Application.UseCases.Queries.Customers;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
@@ -13,18 +14,16 @@ namespace CorteCerto.App
     public partial class LoginForm : MaterialForm
     {
         #region Variables
-        private readonly ICommandMediator _commandMediator;
-        private readonly IQueryMediator _queryMediator;
+        private readonly ICustomMediator _mediator;
         private readonly INavegationService _navegationService;
         private readonly ISessionService _sessionService;
         private bool isPasswordVisible = false;
         #endregion
 
         #region Methods
-        public LoginForm(ICommandMediator mediator, IQueryMediator queryMediator, INavegationService navegationService, ISessionService sessionService)
+        public LoginForm(ICustomMediator mediator, INavegationService navegationService, ISessionService sessionService)
         {
-            _commandMediator = mediator;
-            _queryMediator = queryMediator;
+            _mediator = mediator;
             _navegationService = navegationService;
             _sessionService = sessionService;
 
@@ -54,7 +53,7 @@ namespace CorteCerto.App
         #region Events
         private async void btnLogin_Click(object sender, EventArgs e)
         {
-            var result = await _commandMediator.SendAsync(new LoginCommand(mtbEmail.Text, mtbPassword.Text));
+            var result = await _mediator.SendAsync(new LoginCommand(mtbEmail.Text, mtbPassword.Text));
 
             if (result.IsFailure)
             {
@@ -63,7 +62,7 @@ namespace CorteCerto.App
             }
             else
             {
-                var customer = await _queryMediator.QueryAsync(new GetCustomersQuery(null, null, mtbEmail.Text));
+                var customer = await _mediator.QueryAsync(new GetCustomersQuery(null, null, mtbEmail.Text));
 
                 _sessionService.SetSession(customer.Results.First());
                 _navegationService.NavegateTo<MainForm>();

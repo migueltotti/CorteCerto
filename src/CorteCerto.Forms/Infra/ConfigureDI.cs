@@ -35,13 +35,15 @@ internal static class ConfigureDI
 
         var services = new ServiceCollection();
 
+        // ✅ DbContext como Scoped (padrão)
         services.AddDbContext<CorteCertoDbContext>(options =>
         {
             options.LogTo(Console.WriteLine);
             options.UseNpgsql(dbConnectionString);
-        });
+            options.EnableSensitiveDataLogging();
+        }, ServiceLifetime.Scoped); // Explícito
 
-        #region Repositories
+        #region Repositories (Scoped - correto)
         services.AddScoped<IAddressRepository, AddressRepository>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
         services.AddScoped<IBarberRepository, BarberRepository>();
@@ -53,7 +55,7 @@ internal static class ConfigureDI
         services.AddScoped<IStateRepository, StateRepository>();
         #endregion
 
-        #region Validations
+        #region Validations (Singleton - validators são stateless)
         services.AddValidatorsFromAssemblyContaining<CreateAccountValidator>();
         #endregion
 
@@ -70,16 +72,20 @@ internal static class ConfigureDI
                 module.RegisterFromAssembly(typeof(GetServicesQueryHandler).Assembly);
             });
         });
+
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IPasswordHashService, PasswordHashService>();
         services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddScoped<IViaCepGateway, ViaCepGateway>();
+
+        // ✅ Singleton - não depende de DbContext
         services.AddSingleton<ISessionService, SessionService>();
         services.AddSingleton<INavegationService, NavegationService>();
+        services.AddSingleton<ICustomMediator, CustomMediator>();
         #endregion
 
-        #region Login
+        #region Logging
         services.AddLogging();
         #endregion
 
@@ -91,10 +97,13 @@ internal static class ConfigureDI
         #endregion
 
         #region Forms
-        services.AddSingleton<MainForm>();
+        // ✅ TODOS como TRANSIENT - nova instância a cada navegação
+        // O scope gerencia o ciclo de vida
+        services.AddTransient<MainForm>();
         services.AddTransient<LoginForm>();
         services.AddTransient<CreateAccountForm>();
         services.AddTransient<RegisterAppointmentForm>();
+        services.AddTransient<RegisterServiceForm>();
         #endregion
 
         serviceProvider = services.BuildServiceProvider();

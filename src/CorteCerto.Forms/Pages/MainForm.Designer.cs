@@ -508,6 +508,7 @@
             btnDashboardNewService.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
             btnDashboardNewService.UseAccentColor = false;
             btnDashboardNewService.UseVisualStyleBackColor = false;
+            btnDashboardNewService.Click += btnDashboardNewService_Click;
             // 
             // label11
             // 

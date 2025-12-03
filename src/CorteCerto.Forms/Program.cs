@@ -1,10 +1,8 @@
-using CorteCerto.App.Infra;
+﻿using CorteCerto.App.Infra;
 using CorteCerto.App.Interfaces;
 using CorteCerto.App.Pages;
 using dotenv.net;
-using LiteBus.Commands.Abstractions;
-using LiteBus.Messaging.Internal.Extensions;
-using LiteBus.Queries.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CorteCerto.App
 {
@@ -15,16 +13,13 @@ namespace CorteCerto.App
         {
             DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { @"Config\.env" }));
 
+            ApplicationConfiguration.Initialize();
+
             ConfigureDI.ConfigureService();
 
-            ApplicationConfiguration.Initialize();
-            System.Windows.Forms.Application.Run(
-                new MainForm(
-                    ConfigureDI.serviceProvider.GetRequiredService<ICommandMediator>(),
-                    ConfigureDI.serviceProvider.GetRequiredService<IQueryMediator>(),
-                    ConfigureDI.serviceProvider.GetRequiredService<INavegationService>(),
-                    ConfigureDI.serviceProvider.GetRequiredService<ISessionService>())
-                );
+            var mainForm = ConfigureDI.serviceProvider.GetRequiredService<MainForm>();
+
+            System.Windows.Forms.Application.Run(mainForm);
         }
     }
 }

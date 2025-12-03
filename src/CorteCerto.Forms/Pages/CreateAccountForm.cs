@@ -2,7 +2,6 @@
 using CorteCerto.App.Models;
 using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Domain.Helpers;
-using LiteBus.Commands.Abstractions;
 using ReaLTaiizor.Forms;
 using System.Text.Json;
 using Error = CorteCerto.Domain.Base.Error;
@@ -12,15 +11,15 @@ namespace CorteCerto.App.Pages
     public partial class CreateAccountForm : MaterialForm
     {
         #region Variables
-        private readonly ICommandMediator _commandMediator;
+        private readonly ICustomMediator _mediator;
         private readonly INavegationService _navegationService;
         private bool isPasswordVisible = false;
         #endregion
 
         #region Methods
-        public CreateAccountForm(ICommandMediator commandMediator, INavegationService navegationService)
+        public CreateAccountForm(ICustomMediator mediator, INavegationService navegationService)
         {
-            _commandMediator = commandMediator;
+            _mediator = mediator;
             _navegationService = navegationService;
 
             InitializeComponent();
@@ -122,7 +121,7 @@ namespace CorteCerto.App.Pages
                     mtbPhoneNumber.Text.FormatPhoneNumber()
                 );
 
-                var result = await _commandMediator.SendAsync(command);
+                var result = await _mediator.SendAsync(command);
 
                 if (result.IsFailure)
                 {

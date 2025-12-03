@@ -14,8 +14,7 @@ namespace CorteCerto.App.Pages
     public partial class RegisterAppointmentForm : BaseRegisterForm
     {
         #region Variables
-        private readonly ICommandMediator _commandMediator;
-        private readonly IQueryMediator _queryMediator;
+        private readonly ICustomMediator _mediator;
         private readonly ISessionService _sessionService;
 
         private List<ServiceDto> _services = [];
@@ -28,10 +27,9 @@ namespace CorteCerto.App.Pages
         #endregion
 
         #region Methods
-        public RegisterAppointmentForm(ICommandMediator commandMediator, IQueryMediator queryMediator, ISessionService sessionService)
+        public RegisterAppointmentForm(ICustomMediator mediator, ISessionService sessionService)
         {
-            _commandMediator = commandMediator;
-            _queryMediator = queryMediator;
+            _mediator = mediator;
             _sessionService = sessionService;
 
             InitializeComponent();
@@ -43,7 +41,7 @@ namespace CorteCerto.App.Pages
                 new GetServicesQuery() :
                 new GetServicesQuery(Name: serviceName);
 
-            var result = await _queryMediator.QueryAsync(query);
+            var result = await _mediator.QueryAsync(query);
 
             _services = result.Results.ToList();
 
@@ -83,7 +81,7 @@ namespace CorteCerto.App.Pages
                     Date: _selectedDateTime.Value
                 );
 
-                var result = await _commandMediator.SendAsync(command);
+                var result = await _mediator.SendAsync(command);
 
                 if (result.IsSuccess)
                 {

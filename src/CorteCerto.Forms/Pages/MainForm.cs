@@ -83,7 +83,6 @@ namespace CorteCerto.App.Pages
             SetUserInfo();
         }
 
-        #endregion
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
@@ -155,5 +154,12 @@ namespace CorteCerto.App.Pages
                 e.Cancel = true;
             }
         }
+
+        private void btnDashboardNewService_Click(object sender, EventArgs e)
+        {
+            _navegationService.NavegateTo<RegisterServiceForm>();
+        }
+
+        #endregion
     }
 }
