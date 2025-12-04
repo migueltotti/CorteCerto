@@ -78,6 +78,7 @@
             materialButton4 = new ReaLTaiizor.Controls.MaterialButton();
             materialButton5 = new ReaLTaiizor.Controls.MaterialButton();
             materialButton6 = new ReaLTaiizor.Controls.MaterialButton();
+            mtbRegisterBarberProfile = new ReaLTaiizor.Controls.MaterialButton();
             sideBar.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPageDashboard.SuspendLayout();
@@ -95,6 +96,7 @@
             // 
             sideBar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             sideBar.BackColor = Color.FromArgb(255, 255, 255);
+            sideBar.Controls.Add(mtbRegisterBarberProfile);
             sideBar.Controls.Add(button1);
             sideBar.Controls.Add(label6);
             sideBar.Controls.Add(btnLogout);
@@ -921,6 +923,30 @@
             materialButton6.UseAccentColor = false;
             materialButton6.UseVisualStyleBackColor = false;
             // 
+            // mtbRegisterBarberProfile
+            // 
+            mtbRegisterBarberProfile.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            mtbRegisterBarberProfile.AutoSize = false;
+            mtbRegisterBarberProfile.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            mtbRegisterBarberProfile.BackColor = SystemColors.Control;
+            mtbRegisterBarberProfile.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            mtbRegisterBarberProfile.Depth = 0;
+            mtbRegisterBarberProfile.HighEmphasis = true;
+            mtbRegisterBarberProfile.Icon = null;
+            mtbRegisterBarberProfile.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            mtbRegisterBarberProfile.Location = new Point(13, 499);
+            mtbRegisterBarberProfile.Margin = new Padding(4, 6, 4, 6);
+            mtbRegisterBarberProfile.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            mtbRegisterBarberProfile.Name = "mtbRegisterBarberProfile";
+            mtbRegisterBarberProfile.NoAccentTextColor = Color.Empty;
+            mtbRegisterBarberProfile.Size = new Size(275, 36);
+            mtbRegisterBarberProfile.TabIndex = 26;
+            mtbRegisterBarberProfile.Text = "Registrar perfil de barbeiro";
+            mtbRegisterBarberProfile.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            mtbRegisterBarberProfile.UseAccentColor = false;
+            mtbRegisterBarberProfile.UseVisualStyleBackColor = false;
+            mtbRegisterBarberProfile.Click += mtbRegisterBarberProfile_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1007,5 +1033,6 @@
         private TabPage tabPageAvailability;
         private ListView listView1;
         private ReaLTaiizor.Controls.MaterialButton btnNewAppointment;
+        private ReaLTaiizor.Controls.MaterialButton mtbRegisterBarberProfile;
     }
 }

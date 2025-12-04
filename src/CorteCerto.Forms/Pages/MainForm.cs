@@ -161,5 +161,23 @@ namespace CorteCerto.App.Pages
         }
 
         #endregion
+
+        private void mtbRegisterBarberProfile_Click(object sender, EventArgs e)
+        {
+            if (_sessionService.CurrentUserHasBarberProfile())
+            {
+                MessageBox.Show("Perfil de barbeiro já registrado!", "Perfil de Barbeiro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (!_sessionService.IsAuthenticated)
+            {
+                _navegationService.NavegateTo<LoginForm>();
+                this.Hide();
+            }
+            else
+            {
+                _navegationService.NavegateTo<RegisterBarberProfileForm>();
+            }
+        }
     }
 }

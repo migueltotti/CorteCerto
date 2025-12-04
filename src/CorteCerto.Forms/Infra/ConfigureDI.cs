@@ -104,6 +104,7 @@ internal static class ConfigureDI
         services.AddTransient<CreateAccountForm>();
         services.AddTransient<RegisterAppointmentForm>();
         services.AddTransient<RegisterServiceForm>();
+        services.AddTransient<RegisterBarberProfileForm>();
         #endregion
 
         serviceProvider = services.BuildServiceProvider();

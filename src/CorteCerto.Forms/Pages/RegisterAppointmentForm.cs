@@ -109,7 +109,7 @@ namespace CorteCerto.App.Pages
             {
                 var command = new ScheduleBarberServiceCommand(
                     ServiceId: _selectedServiceId.Value,
-                    CustomerId: _sessionService.GetCurrentCustomer()!.Id,
+                    CustomerId: _sessionService.GetCurrentUser()!.Id,
                     BarberId: _selectedBarberId.Value,
                     Date: _selectedDateTime.Value
                 );

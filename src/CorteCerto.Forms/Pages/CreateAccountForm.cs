@@ -130,7 +130,7 @@ namespace CorteCerto.App.Pages
                 else
                 {
                     MessageBox.Show("Conta criada com sucesso!", "Sucesso.",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     _navegationService.NavegateTo<LoginForm>();
                     this.Close();

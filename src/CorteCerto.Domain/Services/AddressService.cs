@@ -88,6 +88,7 @@ public class AddressService(
         {
             state = new State(name, stateAcronym, country);
 
+            countryRepository.AttachObject(country);
             stateRepository.Insert(state);
         }
 
@@ -102,6 +103,7 @@ public class AddressService(
         {
             city = new City(cityName, state);
 
+            stateRepository.AttachObject(state);
             cityRepository.Insert(city);
         }
 

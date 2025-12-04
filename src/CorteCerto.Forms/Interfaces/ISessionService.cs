@@ -6,9 +6,10 @@ public interface ISessionService
 {
     bool IsAuthenticated { get; }
 
-    void SetSession(CustomerDto customer);
+    void SetSession(CustomerDto customer, BarberDto? barber);
     void ClearSession();
     string GetUserName();
     string GetUserEmail();
-    CustomerDto? GetCurrentCustomer();
+    CustomerDto? GetCurrentUser();
+    bool CurrentUserHasBarberProfile();
 }

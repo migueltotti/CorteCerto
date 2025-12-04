@@ -1,12 +1,8 @@
 ﻿using CorteCerto.App.Interfaces;
 using CorteCerto.App.Pages;
-using CorteCerto.Application.DTO;
 using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.UseCases.Queries.Barbers;
 using CorteCerto.Application.UseCases.Queries.Customers;
-using LiteBus.Commands.Abstractions;
-using LiteBus.Queries.Abstractions;
-using Mapster;
 using ReaLTaiizor.Forms;
 
 namespace CorteCerto.App
@@ -63,8 +59,12 @@ namespace CorteCerto.App
             else
             {
                 var customer = await _mediator.QueryAsync(new GetCustomersQuery(null, null, mtbEmail.Text));
+                var barber = await _mediator.QueryAsync(new GetBarbersQuery(null, null, mtbEmail.Text));
 
-                _sessionService.SetSession(customer.Results.First());
+                _sessionService.SetSession(
+                    customer.Results.First(),
+                    barber.Results.Any() ? barber.Results.First() : null
+                );
                 _navegationService.NavegateTo<MainForm>();
                 this.Close();
             }

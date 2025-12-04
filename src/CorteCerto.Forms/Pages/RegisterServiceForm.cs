@@ -42,7 +42,7 @@ namespace CorteCerto.App.Pages
                 //_commandMediator = scope.ServiceProvider.GetRequiredService<ICommandMediator>();
 
                 var command = new RegisterServiceCommand(
-                    BarberId: _sessionService.GetCurrentCustomer()!.Id,
+                    BarberId: _sessionService.GetCurrentUser()!.Id,
                     Name: mtbName.Text,
                     Description: mtbDescription.Text,
                     Price: decimal.Parse(mtbPrice.Text.Replace(",", ".")),
