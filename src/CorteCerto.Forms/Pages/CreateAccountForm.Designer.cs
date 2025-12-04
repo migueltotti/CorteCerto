@@ -169,7 +169,7 @@
             mtbPhoneNumber.ShortcutsEnabled = true;
             mtbPhoneNumber.Size = new Size(410, 48);
             mtbPhoneNumber.SkipLiterals = true;
-            mtbPhoneNumber.TabIndex = 10;
+            mtbPhoneNumber.TabIndex = 3;
             mtbPhoneNumber.TabStop = false;
             mtbPhoneNumber.Text = "(  )      -";
             mtbPhoneNumber.TextAlign = HorizontalAlignment.Left;
@@ -212,7 +212,7 @@
             mtbName.ShortcutsEnabled = true;
             mtbName.Size = new Size(410, 48);
             mtbName.SkipLiterals = true;
-            mtbName.TabIndex = 8;
+            mtbName.TabIndex = 1;
             mtbName.TabStop = false;
             mtbName.TextAlign = HorizontalAlignment.Left;
             mtbName.TextMaskFormat = MaskFormat.IncludeLiterals;
@@ -260,7 +260,7 @@
             btnShowPassword.Name = "btnShowPassword";
             btnShowPassword.NoAccentTextColor = Color.Empty;
             btnShowPassword.Size = new Size(39, 39);
-            btnShowPassword.TabIndex = 2;
+            btnShowPassword.TabIndex = 5;
             btnShowPassword.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
             btnShowPassword.UseAccentColor = false;
             btnShowPassword.UseVisualStyleBackColor = true;
@@ -309,7 +309,7 @@
             btnRegister.Name = "btnRegister";
             btnRegister.NoAccentTextColor = Color.Empty;
             btnRegister.Size = new Size(410, 36);
-            btnRegister.TabIndex = 4;
+            btnRegister.TabIndex = 6;
             btnRegister.Text = "Cadastrar";
             btnRegister.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
             btnRegister.UseAccentColor = false;
@@ -350,7 +350,7 @@
             mtbPassword.ShortcutsEnabled = true;
             mtbPassword.Size = new Size(364, 48);
             mtbPassword.SkipLiterals = true;
-            mtbPassword.TabIndex = 3;
+            mtbPassword.TabIndex = 4;
             mtbPassword.TabStop = false;
             mtbPassword.TextAlign = HorizontalAlignment.Left;
             mtbPassword.TextMaskFormat = MaskFormat.IncludeLiterals;

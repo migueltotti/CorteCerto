@@ -3,11 +3,11 @@ using CorteCerto.App.Interfaces;
 using CorteCerto.App.Models;
 using CorteCerto.Application.DTO;
 using CorteCerto.Application.UseCases.Commands.Customers;
+using CorteCerto.Application.UseCases.Queries.Barbers;
 using CorteCerto.Application.UseCases.Queries.People;
-using LiteBus.Commands.Abstractions;
-using LiteBus.Queries.Abstractions;
 using Mapster;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using ReaLTaiizor.Controls;
 
 namespace CorteCerto.App.Pages
 {
@@ -52,6 +52,23 @@ namespace CorteCerto.App.Pages
             dataGridViewServices.Columns["Id"].Visible = false;
         }
 
+        private async Task LoadBarbersGrid(string barberName)
+        {
+            var query = string.IsNullOrEmpty(barberName) ?
+                new GetBarbersQuery() :
+                new GetBarbersQuery(Name: barberName);
+
+            var result = await _mediator.QueryAsync(query);
+
+            _barbers = result.Results.ToList();
+
+            dgwBarbers.DataSource = null;
+            dgwBarbers.DataSource = _barbers;
+            dgwBarbers.Columns["Id"].Visible = false;
+            dgwBarbers.Columns["Email"].Visible = false;
+        }
+
+
         private void ServiceGridToForm(DataGridViewRow? record)
         {
             _selectedServiceId = Convert.ToInt32(record?.Cells["Id"].Value);
@@ -65,14 +82,30 @@ namespace CorteCerto.App.Pages
             lblBarber.Text = mtbBarberName.Text;
         }
 
+        private void BarberGridToForm(DataGridViewRow? record)
+        {
+            _selectedBarberId = Guid.Parse(record?.Cells["Id"].Value.ToString()!);
+            mtbBarberName2.Text = record?.Cells["Name"].Value.ToString();
+            lblBarberName2.Text = mtbBarberName2.Text;
+
+            var services = _services.FindAll(s => s.Barber.Id == _selectedBarberId);
+
+            var formatedServices = services.Adapt<List<ServiceModel>>();
+
+            dgwServices2.DataSource = null;
+            dgwServices2.DataSource = formatedServices;
+            dgwServices2.Columns["Id"].Visible = false;
+        }
+
+        private void BarberServiceGridToForm(DataGridViewRow? record)
+        {
+            _selectedServiceId = Convert.ToInt32(record?.Cells["Id"].Value);
+            lblServiceName2.Text = record?.Cells["Name"].Value.ToString();
+        }
+
         protected override async void Save()
         {
-            if (_selectedServiceId is null || _selectedBarberId is null || _selectedDateTime is null)
-            {
-                MessageBox.Show("Precisa selecionar um serviço e uma data para realizar o agendamento.", "Corte Certo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
+            if (_selectedServiceId is not null && _selectedBarberId is not null && _selectedDateTime is not null)
             {
                 var command = new ScheduleBarberServiceCommand(
                     ServiceId: _selectedServiceId.Value,
@@ -97,53 +130,72 @@ namespace CorteCerto.App.Pages
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            else
+            {
+                MessageBox.Show("Precisa selecionar um serviço e uma data para realizar o agendamento.", "Corte Certo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
-        private void GetAvailableTimeByDayOfWeek(DayOfWeek dayOfWeek)
+        private void GetAvailableTimeByDayOfWeek(DayOfWeek dayOfWeek, PoisonComboBox cb)
         {
             if (_selectedBarberId is not null)
             {
-                cbTimeAvailable.Items.Clear();
+                cb.Items.Clear();
 
-                var barber = _services.FirstOrDefault(s => s.Id == _selectedServiceId)?.Barber;
+                var barber = _barbers.FirstOrDefault(s => s.Id == _selectedBarberId);
 
                 var totalTimeAvailable = barber!.Availabilities.FirstOrDefault(a => a.DayOfWeek == dayOfWeek);
 
                 if (totalTimeAvailable is null)
                 {
-                    cbTimeAvailable.Items.Add("Barbeiro não está disponivel nessa data.");
-                    cbTimeAvailable.SelectedIndex = 0;
+                    cb.Items.Add("Barbeiro não está disponivel nessa data.");
+                    cb.SelectedIndex = 0;
                     return;
                 }
 
-                cbTimeAvailable.Items.Add("");
+                cb.Items.Add("");
 
                 for (var time = totalTimeAvailable.StartTime.TimeOfDay; time <= totalTimeAvailable.EndTime.TimeOfDay; time = time.Add(TimeSpan.FromMinutes(30)))
                 {
-                    cbTimeAvailable.Items.Add(time);
+                    cb.Items.Add(time);
                 }
 
-                cbTimeAvailable.Enabled = true;
+                cb.Enabled = true;
             }
             else
             {
-                cbTimeAvailable.Enabled = false;
+                cb.Enabled = false;
             }
         }
 
         protected override void ClearFields()
         {
+            _selectedServiceId = null;
+            _selectedBarberId = null;
+            _selectedDate = null;
+            _selectedDateTime = null;
+
             mtbServiceName.Clear();
             mtbBarberName.Clear();
             cbTimeAvailable.Items.Clear();
 
+            mtbBarberName2.Clear();
+            dgwServices2.DataSource = null;
+            cbAvailabilities.Items.Clear();
+
             lblService.Text = "";
             lblBarber.Text = "";
             lblDate.Text = "";
+
+            lblServiceName2.Text = "";
+            lblBarberName2.Text = "";
+            lblDate2.Text = "";
         }
         #endregion
 
         #region Events
+        // SERVICE TAB PAGE
         private async void btnSearchServices_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(mtbServiceName.Text))
@@ -172,12 +224,12 @@ namespace CorteCerto.App.Pages
 
             _selectedDate = date;
 
-            GetAvailableTimeByDayOfWeek(date.DayOfWeek);
+            GetAvailableTimeByDayOfWeek(date.DayOfWeek, cbTimeAvailable);
         }
 
         private void cbTimeAvailable_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cbTimeAvailable.SelectedItem!.ToString() == "Barbeiro não está disponivel nessa data." ||
+            if (cbTimeAvailable.SelectedItem!.ToString() == "Barbeiro não está disponivel nessa data." ||
                 cbTimeAvailable.SelectedItem!.ToString() == "")
             {
                 lblDate.Text = "";
@@ -198,6 +250,77 @@ namespace CorteCerto.App.Pages
         private async void RegisterAppointmentForm_Load(object sender, EventArgs e)
         {
             await LoadServicesGrid(string.Empty);
+            await LoadBarbersGrid(string.Empty);
+        }
+
+        // BARBER TAB PAGE
+
+        private async void mtbBarberSearch2_Click(object sender, EventArgs e)
+        {
+            await LoadBarbersGrid(mtbBarberName2.Text);
+        }
+
+        private void cbAvailabilities_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbAvailabilities.SelectedItem!.ToString() == "Barbeiro não está disponivel nessa data." ||
+                cbAvailabilities.SelectedItem!.ToString() == "")
+            {
+                lblDate2.Text = "";
+                return;
+            }
+
+            var time = cbAvailabilities.SelectedItem!.ToString();
+            var date = _selectedDate!.Value.Date;
+
+            var timeSpan = TimeSpan.Parse(time);
+
+            var dateTime = date + timeSpan;
+
+            _selectedDateTime = dateTime;
+            lblDate2.Text = _selectedDateTime.Value.ToString("dd/MM/yyyy HH:mm");
+        }
+
+        private void dpDate2_onDateChanged(DateTime newDateTime)
+        {
+            var date = dpDate2.Date;
+
+            _selectedDate = date;
+
+            GetAvailableTimeByDayOfWeek(date.DayOfWeek, cbAvailabilities);
+        }
+
+        private async void mtbBarberName2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(mtbBarberName2.Text))
+            {
+                await LoadBarbersGrid(mtbBarberName2.Text);
+            }
+        }
+
+        private async void dgwBarbers_DoubleClick(object sender, EventArgs e)
+        {
+            var record = dgwBarbers.SelectedRows[0];
+            BarberGridToForm(record);
+        }
+
+        private void dgwServices2_DoubleClick(object sender, EventArgs e)
+        {
+            var record = dgwServices2.SelectedRows[0];
+            BarberServiceGridToForm(record);
+        }
+
+        private async void tabPageService_Enter(object sender, EventArgs e)
+        {
+            ClearFields();
+            await LoadServicesGrid(string.Empty);
+            await LoadBarbersGrid(string.Empty);
+        }
+
+        private async void tabPageBarber_Enter(object sender, EventArgs e)
+        {
+            ClearFields();
+            await LoadServicesGrid(string.Empty);
+            await LoadBarbersGrid(string.Empty);
         }
 
         #endregion
