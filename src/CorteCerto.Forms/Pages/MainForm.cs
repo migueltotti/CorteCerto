@@ -169,11 +169,6 @@ namespace CorteCerto.App.Pages
                 MessageBox.Show("Perfil de barbeiro já registrado!", "Perfil de Barbeiro",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if (!_sessionService.IsAuthenticated)
-            {
-                _navegationService.NavegateTo<LoginForm>();
-                this.Hide();
-            }
             else
             {
                 _navegationService.NavegateTo<RegisterBarberProfileForm>();

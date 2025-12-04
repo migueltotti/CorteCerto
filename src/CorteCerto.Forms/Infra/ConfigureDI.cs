@@ -81,7 +81,17 @@ internal static class ConfigureDI
 
         // ✅ Singleton - não depende de DbContext
         services.AddSingleton<ISessionService, SessionService>();
-        services.AddSingleton<INavegationService, NavegationService>();
+        services.AddNavegationService(config =>
+        {
+            config.AddAuthenticateRequiredForms([
+                typeof(RegisterAppointmentForm),
+                typeof(RegisterBarberProfileForm)
+                ]);
+
+            config.AddBarberProfileRequiredForms([
+                typeof(RegisterServiceForm)
+                ]);
+        });
         services.AddSingleton<ICustomMediator, CustomMediator>();
         #endregion
 
