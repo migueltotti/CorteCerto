@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             sideBar = new ReaLTaiizor.Controls.MaterialCard();
-            button1 = new ReaLTaiizor.Controls.Button();
+            mtbRegisterBarberProfile = new ReaLTaiizor.Controls.MaterialButton();
+            btnBarberAvailabilities = new ReaLTaiizor.Controls.Button();
             label6 = new Label();
             btnLogout = new ReaLTaiizor.Controls.MaterialButton();
             btnUserAction = new ReaLTaiizor.Controls.MaterialButton();
@@ -74,11 +75,20 @@
             tabPageConfigurations = new TabPage();
             label10 = new Label();
             tabPageAvailability = new TabPage();
+            cardSaturdayAvailability = new ReaLTaiizor.Controls.MaterialCard();
+            lblEndTime = new Label();
+            label21 = new Label();
+            lblStartTime = new Label();
+            label18 = new Label();
+            btnEditDayAvailability = new ReaLTaiizor.Controls.MaterialButton();
+            label17 = new Label();
+            materialCard1 = new ReaLTaiizor.Controls.MaterialCard();
+            label15 = new Label();
+            label16 = new Label();
             materialButton3 = new ReaLTaiizor.Controls.MaterialButton();
             materialButton4 = new ReaLTaiizor.Controls.MaterialButton();
             materialButton5 = new ReaLTaiizor.Controls.MaterialButton();
             materialButton6 = new ReaLTaiizor.Controls.MaterialButton();
-            mtbRegisterBarberProfile = new ReaLTaiizor.Controls.MaterialButton();
             sideBar.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPageDashboard.SuspendLayout();
@@ -90,6 +100,9 @@
             tabPageBarbers.SuspendLayout();
             tabPageReports.SuspendLayout();
             tabPageConfigurations.SuspendLayout();
+            tabPageAvailability.SuspendLayout();
+            cardSaturdayAvailability.SuspendLayout();
+            materialCard1.SuspendLayout();
             SuspendLayout();
             // 
             // sideBar
@@ -97,7 +110,7 @@
             sideBar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             sideBar.BackColor = Color.FromArgb(255, 255, 255);
             sideBar.Controls.Add(mtbRegisterBarberProfile);
-            sideBar.Controls.Add(button1);
+            sideBar.Controls.Add(btnBarberAvailabilities);
             sideBar.Controls.Add(label6);
             sideBar.Controls.Add(btnLogout);
             sideBar.Controls.Add(btnUserAction);
@@ -124,26 +137,50 @@
             sideBar.Size = new Size(314, 700);
             sideBar.TabIndex = 11;
             // 
-            // button1
+            // mtbRegisterBarberProfile
             // 
-            button1.BackColor = Color.Transparent;
-            button1.BorderColor = Color.Transparent;
-            button1.EnteredBorderColor = Color.FromArgb(184, 184, 184);
-            button1.EnteredColor = Color.FromArgb(184, 184, 184);
-            button1.Font = new Font("Segoe UI", 11F);
-            button1.Image = null;
-            button1.ImageAlign = ContentAlignment.MiddleLeft;
-            button1.InactiveColor = Color.Transparent;
-            button1.Location = new Point(26, 282);
-            button1.Name = "button1";
-            button1.PressedBorderColor = Color.FromArgb(11, 153, 255);
-            button1.PressedColor = Color.FromArgb(73, 167, 235);
-            button1.Size = new Size(221, 35);
-            button1.TabIndex = 25;
-            button1.Tag = "7";
-            button1.Text = "Disponibilidade";
-            button1.TextAlignment = StringAlignment.Near;
-            button1.Click += button1_Click;
+            mtbRegisterBarberProfile.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            mtbRegisterBarberProfile.AutoSize = false;
+            mtbRegisterBarberProfile.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            mtbRegisterBarberProfile.BackColor = SystemColors.Control;
+            mtbRegisterBarberProfile.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            mtbRegisterBarberProfile.Depth = 0;
+            mtbRegisterBarberProfile.HighEmphasis = true;
+            mtbRegisterBarberProfile.Icon = null;
+            mtbRegisterBarberProfile.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            mtbRegisterBarberProfile.Location = new Point(13, 499);
+            mtbRegisterBarberProfile.Margin = new Padding(4, 6, 4, 6);
+            mtbRegisterBarberProfile.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            mtbRegisterBarberProfile.Name = "mtbRegisterBarberProfile";
+            mtbRegisterBarberProfile.NoAccentTextColor = Color.Empty;
+            mtbRegisterBarberProfile.Size = new Size(275, 36);
+            mtbRegisterBarberProfile.TabIndex = 26;
+            mtbRegisterBarberProfile.Text = "Registrar perfil de barbeiro";
+            mtbRegisterBarberProfile.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            mtbRegisterBarberProfile.UseAccentColor = false;
+            mtbRegisterBarberProfile.UseVisualStyleBackColor = false;
+            mtbRegisterBarberProfile.Click += mtbRegisterBarberProfile_Click;
+            // 
+            // btnBarberAvailabilities
+            // 
+            btnBarberAvailabilities.BackColor = Color.Transparent;
+            btnBarberAvailabilities.BorderColor = Color.Transparent;
+            btnBarberAvailabilities.EnteredBorderColor = Color.FromArgb(184, 184, 184);
+            btnBarberAvailabilities.EnteredColor = Color.FromArgb(184, 184, 184);
+            btnBarberAvailabilities.Font = new Font("Segoe UI", 11F);
+            btnBarberAvailabilities.Image = null;
+            btnBarberAvailabilities.ImageAlign = ContentAlignment.MiddleLeft;
+            btnBarberAvailabilities.InactiveColor = Color.Transparent;
+            btnBarberAvailabilities.Location = new Point(26, 282);
+            btnBarberAvailabilities.Name = "btnBarberAvailabilities";
+            btnBarberAvailabilities.PressedBorderColor = Color.FromArgb(11, 153, 255);
+            btnBarberAvailabilities.PressedColor = Color.FromArgb(73, 167, 235);
+            btnBarberAvailabilities.Size = new Size(221, 35);
+            btnBarberAvailabilities.TabIndex = 25;
+            btnBarberAvailabilities.Tag = "7";
+            btnBarberAvailabilities.Text = "Disponibilidade";
+            btnBarberAvailabilities.TextAlignment = StringAlignment.Near;
+            btnBarberAvailabilities.Click += btnBarberAvailabilities_Click;
             // 
             // label6
             // 
@@ -432,7 +469,7 @@
             tabControlMain.Location = new Point(329, 67);
             tabControlMain.Name = "tabControlMain";
             tabControlMain.SelectedIndex = 0;
-            tabControlMain.Size = new Size(1004, 701);
+            tabControlMain.Size = new Size(956, 701);
             tabControlMain.TabIndex = 12;
             // 
             // tabPageDashboard
@@ -441,7 +478,7 @@
             tabPageDashboard.Location = new Point(4, 29);
             tabPageDashboard.Name = "tabPageDashboard";
             tabPageDashboard.Padding = new Padding(3);
-            tabPageDashboard.Size = new Size(996, 668);
+            tabPageDashboard.Size = new Size(821, 668);
             tabPageDashboard.TabIndex = 0;
             tabPageDashboard.Text = "Dashboard";
             tabPageDashboard.UseVisualStyleBackColor = true;
@@ -461,7 +498,7 @@
             dashboardCard.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             dashboardCard.Name = "dashboardCard";
             dashboardCard.Padding = new Padding(14);
-            dashboardCard.Size = new Size(965, 106);
+            dashboardCard.Size = new Size(790, 106);
             dashboardCard.TabIndex = 25;
             // 
             // btnDashboardNewAppointment
@@ -475,7 +512,7 @@
             btnDashboardNewAppointment.HighEmphasis = true;
             btnDashboardNewAppointment.Icon = Properties.Resources.calendar_plus;
             btnDashboardNewAppointment.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnDashboardNewAppointment.Location = new Point(579, 27);
+            btnDashboardNewAppointment.Location = new Point(404, 27);
             btnDashboardNewAppointment.Margin = new Padding(4, 6, 4, 6);
             btnDashboardNewAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnDashboardNewAppointment.Name = "btnDashboardNewAppointment";
@@ -499,7 +536,7 @@
             btnDashboardNewService.HighEmphasis = true;
             btnDashboardNewService.Icon = Properties.Resources.barber_pole;
             btnDashboardNewService.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnDashboardNewService.Location = new Point(780, 27);
+            btnDashboardNewService.Location = new Point(605, 27);
             btnDashboardNewService.Margin = new Padding(4, 6, 4, 6);
             btnDashboardNewService.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnDashboardNewService.Name = "btnDashboardNewService";
@@ -541,7 +578,7 @@
             tabPageAppointments.Location = new Point(4, 29);
             tabPageAppointments.Name = "tabPageAppointments";
             tabPageAppointments.Padding = new Padding(3);
-            tabPageAppointments.Size = new Size(996, 668);
+            tabPageAppointments.Size = new Size(821, 668);
             tabPageAppointments.TabIndex = 1;
             tabPageAppointments.Text = "Appointments";
             tabPageAppointments.UseVisualStyleBackColor = true;
@@ -563,7 +600,7 @@
             calendarCard.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             calendarCard.Name = "calendarCard";
             calendarCard.Padding = new Padding(14);
-            calendarCard.Size = new Size(965, 538);
+            calendarCard.Size = new Size(790, 538);
             calendarCard.TabIndex = 28;
             // 
             // listView1
@@ -591,7 +628,7 @@
             btnYearCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
             btnYearCalendar.HoverTextColor = Color.DodgerBlue;
             btnYearCalendar.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            btnYearCalendar.Location = new Point(864, 17);
+            btnYearCalendar.Location = new Point(689, 17);
             btnYearCalendar.Name = "btnYearCalendar";
             btnYearCalendar.Size = new Size(84, 40);
             btnYearCalendar.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
@@ -615,7 +652,7 @@
             btnMonthCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
             btnMonthCalendar.HoverTextColor = Color.DodgerBlue;
             btnMonthCalendar.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            btnMonthCalendar.Location = new Point(774, 17);
+            btnMonthCalendar.Location = new Point(599, 17);
             btnMonthCalendar.Name = "btnMonthCalendar";
             btnMonthCalendar.Size = new Size(84, 40);
             btnMonthCalendar.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
@@ -639,7 +676,7 @@
             btnWeekCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
             btnWeekCalendar.HoverTextColor = Color.DodgerBlue;
             btnWeekCalendar.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            btnWeekCalendar.Location = new Point(684, 17);
+            btnWeekCalendar.Location = new Point(509, 17);
             btnWeekCalendar.Name = "btnWeekCalendar";
             btnWeekCalendar.Size = new Size(84, 40);
             btnWeekCalendar.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
@@ -684,7 +721,7 @@
             appointmentCard.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             appointmentCard.Name = "appointmentCard";
             appointmentCard.Padding = new Padding(14);
-            appointmentCard.Size = new Size(965, 106);
+            appointmentCard.Size = new Size(790, 106);
             appointmentCard.TabIndex = 27;
             // 
             // btnNewAppointment
@@ -698,7 +735,7 @@
             btnNewAppointment.HighEmphasis = true;
             btnNewAppointment.Icon = Properties.Resources.calendar_plus;
             btnNewAppointment.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnNewAppointment.Location = new Point(754, 32);
+            btnNewAppointment.Location = new Point(579, 32);
             btnNewAppointment.Margin = new Padding(4, 6, 4, 6);
             btnNewAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnNewAppointment.Name = "btnNewAppointment";
@@ -739,7 +776,7 @@
             tabPageServices.Location = new Point(4, 29);
             tabPageServices.Name = "tabPageServices";
             tabPageServices.Padding = new Padding(3);
-            tabPageServices.Size = new Size(996, 668);
+            tabPageServices.Size = new Size(821, 668);
             tabPageServices.TabIndex = 2;
             tabPageServices.Text = "Services";
             tabPageServices.UseVisualStyleBackColor = true;
@@ -761,7 +798,7 @@
             tabPageBarbers.Location = new Point(4, 29);
             tabPageBarbers.Name = "tabPageBarbers";
             tabPageBarbers.Padding = new Padding(3);
-            tabPageBarbers.Size = new Size(996, 668);
+            tabPageBarbers.Size = new Size(821, 668);
             tabPageBarbers.TabIndex = 3;
             tabPageBarbers.Text = "Barbers";
             tabPageBarbers.UseVisualStyleBackColor = true;
@@ -783,7 +820,7 @@
             tabPageReports.Location = new Point(4, 29);
             tabPageReports.Name = "tabPageReports";
             tabPageReports.Padding = new Padding(3);
-            tabPageReports.Size = new Size(996, 668);
+            tabPageReports.Size = new Size(821, 668);
             tabPageReports.TabIndex = 4;
             tabPageReports.Text = "Reports";
             tabPageReports.UseVisualStyleBackColor = true;
@@ -805,7 +842,7 @@
             tabPageConfigurations.Location = new Point(4, 29);
             tabPageConfigurations.Name = "tabPageConfigurations";
             tabPageConfigurations.Padding = new Padding(3);
-            tabPageConfigurations.Size = new Size(996, 668);
+            tabPageConfigurations.Size = new Size(821, 668);
             tabPageConfigurations.TabIndex = 5;
             tabPageConfigurations.Text = "Configurations";
             tabPageConfigurations.UseVisualStyleBackColor = true;
@@ -823,13 +860,146 @@
             // 
             // tabPageAvailability
             // 
+            tabPageAvailability.Controls.Add(cardSaturdayAvailability);
+            tabPageAvailability.Controls.Add(materialCard1);
             tabPageAvailability.Location = new Point(4, 29);
             tabPageAvailability.Name = "tabPageAvailability";
             tabPageAvailability.Padding = new Padding(3);
-            tabPageAvailability.Size = new Size(996, 668);
+            tabPageAvailability.Size = new Size(948, 668);
             tabPageAvailability.TabIndex = 6;
             tabPageAvailability.Text = "Availability";
             tabPageAvailability.UseVisualStyleBackColor = true;
+            // 
+            // cardSaturdayAvailability
+            // 
+            cardSaturdayAvailability.BackColor = Color.FromArgb(255, 255, 255);
+            cardSaturdayAvailability.Controls.Add(lblEndTime);
+            cardSaturdayAvailability.Controls.Add(label21);
+            cardSaturdayAvailability.Controls.Add(lblStartTime);
+            cardSaturdayAvailability.Controls.Add(label18);
+            cardSaturdayAvailability.Controls.Add(btnEditDayAvailability);
+            cardSaturdayAvailability.Controls.Add(label17);
+            cardSaturdayAvailability.Depth = 0;
+            cardSaturdayAvailability.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            cardSaturdayAvailability.Location = new Point(17, 143);
+            cardSaturdayAvailability.Margin = new Padding(14);
+            cardSaturdayAvailability.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            cardSaturdayAvailability.Name = "cardSaturdayAvailability";
+            cardSaturdayAvailability.Padding = new Padding(14);
+            cardSaturdayAvailability.Size = new Size(250, 246);
+            cardSaturdayAvailability.TabIndex = 29;
+            // 
+            // lblEndTime
+            // 
+            lblEndTime.Font = new Font("Segoe UI", 10F);
+            lblEndTime.ForeColor = Color.Black;
+            lblEndTime.Location = new Point(18, 147);
+            lblEndTime.Name = "lblEndTime";
+            lblEndTime.Size = new Size(121, 23);
+            lblEndTime.TabIndex = 31;
+            lblEndTime.Text = "19:00";
+            // 
+            // label21
+            // 
+            label21.Font = new Font("Segoe UI", 10F);
+            label21.ForeColor = Color.Gray;
+            label21.Location = new Point(18, 124);
+            label21.Name = "label21";
+            label21.Size = new Size(186, 23);
+            label21.TabIndex = 30;
+            label21.Text = "Horário Encerramento:";
+            // 
+            // lblStartTime
+            // 
+            lblStartTime.Font = new Font("Segoe UI", 10F);
+            lblStartTime.ForeColor = Color.Black;
+            lblStartTime.Location = new Point(18, 90);
+            lblStartTime.Name = "lblStartTime";
+            lblStartTime.Size = new Size(121, 23);
+            lblStartTime.TabIndex = 29;
+            lblStartTime.Text = "08:00";
+            // 
+            // label18
+            // 
+            label18.Font = new Font("Segoe UI", 10F);
+            label18.ForeColor = Color.Gray;
+            label18.Location = new Point(18, 67);
+            label18.Name = "label18";
+            label18.Size = new Size(121, 23);
+            label18.TabIndex = 26;
+            label18.Text = "Horário Inicio:";
+            // 
+            // btnEditDayAvailability
+            // 
+            btnEditDayAvailability.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnEditDayAvailability.AutoSize = false;
+            btnEditDayAvailability.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnEditDayAvailability.BackColor = SystemColors.Control;
+            btnEditDayAvailability.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnEditDayAvailability.Depth = 0;
+            btnEditDayAvailability.HighEmphasis = true;
+            btnEditDayAvailability.Icon = null;
+            btnEditDayAvailability.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnEditDayAvailability.Location = new Point(18, 190);
+            btnEditDayAvailability.Margin = new Padding(4, 6, 4, 6);
+            btnEditDayAvailability.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnEditDayAvailability.Name = "btnEditDayAvailability";
+            btnEditDayAvailability.NoAccentTextColor = Color.Empty;
+            btnEditDayAvailability.Size = new Size(214, 36);
+            btnEditDayAvailability.TabIndex = 27;
+            btnEditDayAvailability.Text = "Editar";
+            btnEditDayAvailability.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            btnEditDayAvailability.UseAccentColor = false;
+            btnEditDayAvailability.UseVisualStyleBackColor = false;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label17.ForeColor = Color.Black;
+            label17.Location = new Point(14, 26);
+            label17.Name = "label17";
+            label17.Size = new Size(115, 31);
+            label17.TabIndex = 28;
+            label17.Text = "Domingo";
+            // 
+            // materialCard1
+            // 
+            materialCard1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            materialCard1.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard1.Controls.Add(label15);
+            materialCard1.Controls.Add(label16);
+            materialCard1.Depth = 0;
+            materialCard1.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard1.Location = new Point(14, 0);
+            materialCard1.Margin = new Padding(14);
+            materialCard1.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            materialCard1.Name = "materialCard1";
+            materialCard1.Padding = new Padding(14);
+            materialCard1.Size = new Size(917, 106);
+            materialCard1.TabIndex = 28;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 10F);
+            label15.ForeColor = Color.Gray;
+            label15.Location = new Point(17, 61);
+            label15.Name = "label15";
+            label15.Size = new Size(658, 23);
+            label15.TabIndex = 25;
+            label15.Text = "Gerencie seus horários da semana, defina disponibilidades para cada dia de trabalho.";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label16.ForeColor = Color.Black;
+            label16.Location = new Point(17, 14);
+            label16.Name = "label16";
+            label16.Size = new Size(222, 38);
+            label16.TabIndex = 25;
+            label16.Text = "Disponibilidade";
             // 
             // materialButton3
             // 
@@ -923,35 +1093,11 @@
             materialButton6.UseAccentColor = false;
             materialButton6.UseVisualStyleBackColor = false;
             // 
-            // mtbRegisterBarberProfile
-            // 
-            mtbRegisterBarberProfile.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            mtbRegisterBarberProfile.AutoSize = false;
-            mtbRegisterBarberProfile.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            mtbRegisterBarberProfile.BackColor = SystemColors.Control;
-            mtbRegisterBarberProfile.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
-            mtbRegisterBarberProfile.Depth = 0;
-            mtbRegisterBarberProfile.HighEmphasis = true;
-            mtbRegisterBarberProfile.Icon = null;
-            mtbRegisterBarberProfile.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            mtbRegisterBarberProfile.Location = new Point(13, 499);
-            mtbRegisterBarberProfile.Margin = new Padding(4, 6, 4, 6);
-            mtbRegisterBarberProfile.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            mtbRegisterBarberProfile.Name = "mtbRegisterBarberProfile";
-            mtbRegisterBarberProfile.NoAccentTextColor = Color.Empty;
-            mtbRegisterBarberProfile.Size = new Size(275, 36);
-            mtbRegisterBarberProfile.TabIndex = 26;
-            mtbRegisterBarberProfile.Text = "Registrar perfil de barbeiro";
-            mtbRegisterBarberProfile.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
-            mtbRegisterBarberProfile.UseAccentColor = false;
-            mtbRegisterBarberProfile.UseVisualStyleBackColor = false;
-            mtbRegisterBarberProfile.Click += mtbRegisterBarberProfile_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1339, 774);
+            ClientSize = new Size(1291, 774);
             Controls.Add(tabControlMain);
             Controls.Add(sideBar);
             IsMdiContainer = true;
@@ -979,6 +1125,11 @@
             tabPageReports.PerformLayout();
             tabPageConfigurations.ResumeLayout(false);
             tabPageConfigurations.PerformLayout();
+            tabPageAvailability.ResumeLayout(false);
+            cardSaturdayAvailability.ResumeLayout(false);
+            cardSaturdayAvailability.PerformLayout();
+            materialCard1.ResumeLayout(false);
+            materialCard1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1029,10 +1180,22 @@
         private ReaLTaiizor.Controls.ParrotButton btnYearCalendar;
         private ReaLTaiizor.Controls.ParrotButton btnMonthCalendar;
         private ReaLTaiizor.Controls.ParrotButton btnWeekCalendar;
-        private ReaLTaiizor.Controls.Button button1;
+        private ReaLTaiizor.Controls.Button btnBarberAvailabilities;
         private TabPage tabPageAvailability;
         private ListView listView1;
         private ReaLTaiizor.Controls.MaterialButton btnNewAppointment;
         private ReaLTaiizor.Controls.MaterialButton mtbRegisterBarberProfile;
+        private ReaLTaiizor.Controls.MaterialCard materialCard1;
+        private Label label15;
+        private Label label16;
+        private ReaLTaiizor.Controls.MaterialCard cardSaturdayAvailability;
+        private ReaLTaiizor.Controls.MaterialCard materialCard4;
+        private ReaLTaiizor.Controls.MaterialCard materialCard3;
+        private Label label17;
+        private Label lblEndTime;
+        private Label label21;
+        private Label lblStartTime;
+        private Label label18;
+        private ReaLTaiizor.Controls.MaterialButton btnEditDayAvailability;
     }
 }

@@ -38,6 +38,7 @@ namespace CorteCerto.App.Pages
             btnAppoitments.ForeColor = Color.Black;
             btnServices.ForeColor = Color.Black;
             btnBarbers.ForeColor = Color.Black;
+            btnBarberAvailabilities.ForeColor = Color.Black;
             btnReports.ForeColor = Color.Black;
             btnConfigurations.ForeColor = Color.Black;
         }
@@ -119,22 +120,30 @@ namespace CorteCerto.App.Pages
 
         private void btnBarbers_Click(object sender, EventArgs e)
         {
-            tabControlMain.SelectedIndex = 4;
+            tabControlMain.SelectedIndex = 3;
         }
 
         private void btnReports_Click(object sender, EventArgs e)
         {
-            tabControlMain.SelectedIndex = 5;
+            tabControlMain.SelectedIndex = 4;
         }
 
         private void btnConfigurations_Click(object sender, EventArgs e)
         {
-            tabControlMain.SelectedIndex = 6;
+            tabControlMain.SelectedIndex = 5;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnBarberAvailabilities_Click(object sender, EventArgs e)
         {
-            tabControlMain.SelectedIndex = 7;
+            if(_sessionService.IsAuthenticated && _sessionService.CurrentUserHasBarberProfile())
+            {
+                tabControlMain.SelectedIndex = 6;
+            }
+            else
+            {
+                MessageBox.Show("Você precisa registrar um perfil de barbeiro para acessar esta seção.", "Acesso Negado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnNewAppointment_Click(object sender, EventArgs e)
