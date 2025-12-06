@@ -1,5 +1,7 @@
 ﻿using CorteCerto.App.Components;
 using CorteCerto.App.Interfaces;
+using CorteCerto.Application.DTO;
+using CorteCerto.Application.UseCases.Queries.Barbers;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
 using Microsoft.EntityFrameworkCore.Query.Internal;
@@ -13,13 +15,25 @@ namespace CorteCerto.App.Pages
         #region Variables
         private readonly INavegationService _navegationService;
         private readonly ISessionService _sessionService;
+        private readonly ICustomMediator _mediator;
+
+        private readonly HashSet<DayOfWeek> _daysOfWeek = [
+            DayOfWeek.Sunday,
+            DayOfWeek.Monday,
+            DayOfWeek.Tuesday,
+            DayOfWeek.Wednesday,
+            DayOfWeek.Thursday,
+            DayOfWeek.Friday,
+            DayOfWeek.Saturday
+        ];
         #endregion
 
         #region Methods
-        public MainForm(ICommandMediator commandMediator, IQueryMediator queryMediator, INavegationService navegationService, ISessionService sessionService)
+        public MainForm(ICommandMediator commandMediator, IQueryMediator queryMediator, INavegationService navegationService, ISessionService sessionService, ICustomMediator mediator)
         {
             _navegationService = navegationService;
             _sessionService = sessionService;
+            _mediator = mediator;
 
             InitializeComponent();
 
@@ -74,6 +88,44 @@ namespace CorteCerto.App.Pages
             btnUserAction.Text = "Login";
 
             _sessionService.ClearSession();
+        }
+
+        private async Task LoadAvailabilityCards()
+        {
+            var barberId = _sessionService.GetCurrentUser()!.Id;
+
+            var barber = (await _mediator.QueryAsync(new GetBarbersQuery(Id: barberId)))
+                .Results.First();
+
+            MaterialCard card;
+            BarberAvailabilityDto? availability;
+
+            int xLocaltionPoint = 17;
+            int yLocaltionPoint = 143;
+            const int padding = 20;
+
+            foreach(var day in _daysOfWeek)
+            {
+                availability = barber.Availabilities.FirstOrDefault(a => a.DayOfWeek == day);
+
+                card = BarberAvailabilityCard.Builder
+                    .Create(day)
+                    .WithStartTime(availability?.StartTime ?? null)
+                    .WithEndTime(availability?.EndTime ?? null)
+                    .Build();
+
+                card.Location = new Point(xLocaltionPoint, yLocaltionPoint);
+
+                tabPageAvailability.Controls.Add(card);
+
+                xLocaltionPoint += 270;
+
+                if (xLocaltionPoint + card.Size.Width + padding > tabPageAvailability.Width)
+                {
+                    xLocaltionPoint = 17;
+                    yLocaltionPoint += 266;
+                }
+            }
         }
         #endregion
 
@@ -134,11 +186,13 @@ namespace CorteCerto.App.Pages
             tabControlMain.SelectedIndex = 5;
         }
 
-        private void btnBarberAvailabilities_Click(object sender, EventArgs e)
+        private async void btnBarberAvailabilities_Click(object sender, EventArgs e)
         {
             if (_sessionService.IsAuthenticated && _sessionService.CurrentUserHasBarberProfile())
             {
                 tabControlMain.SelectedIndex = 6;
+
+                await LoadAvailabilityCards();
             }
             else
             {

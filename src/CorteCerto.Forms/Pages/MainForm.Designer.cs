@@ -888,6 +888,7 @@
             cardSaturdayAvailability.Padding = new Padding(14);
             cardSaturdayAvailability.Size = new Size(250, 246);
             cardSaturdayAvailability.TabIndex = 29;
+            cardSaturdayAvailability.Visible = false;
             // 
             // lblEndTime
             // 
