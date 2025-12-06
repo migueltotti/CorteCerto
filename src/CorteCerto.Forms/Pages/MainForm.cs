@@ -1,4 +1,5 @@
-﻿using CorteCerto.App.Interfaces;
+﻿using CorteCerto.App.Components;
+using CorteCerto.App.Interfaces;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
 using Microsoft.EntityFrameworkCore.Query.Internal;
@@ -135,7 +136,7 @@ namespace CorteCerto.App.Pages
 
         private void btnBarberAvailabilities_Click(object sender, EventArgs e)
         {
-            if(_sessionService.IsAuthenticated && _sessionService.CurrentUserHasBarberProfile())
+            if (_sessionService.IsAuthenticated && _sessionService.CurrentUserHasBarberProfile())
             {
                 tabControlMain.SelectedIndex = 6;
             }

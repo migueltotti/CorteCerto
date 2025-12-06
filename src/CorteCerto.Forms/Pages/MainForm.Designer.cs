@@ -478,7 +478,7 @@
             tabPageDashboard.Location = new Point(4, 29);
             tabPageDashboard.Name = "tabPageDashboard";
             tabPageDashboard.Padding = new Padding(3);
-            tabPageDashboard.Size = new Size(821, 668);
+            tabPageDashboard.Size = new Size(948, 668);
             tabPageDashboard.TabIndex = 0;
             tabPageDashboard.Text = "Dashboard";
             tabPageDashboard.UseVisualStyleBackColor = true;
@@ -498,7 +498,7 @@
             dashboardCard.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             dashboardCard.Name = "dashboardCard";
             dashboardCard.Padding = new Padding(14);
-            dashboardCard.Size = new Size(790, 106);
+            dashboardCard.Size = new Size(914, 106);
             dashboardCard.TabIndex = 25;
             // 
             // btnDashboardNewAppointment
@@ -512,7 +512,7 @@
             btnDashboardNewAppointment.HighEmphasis = true;
             btnDashboardNewAppointment.Icon = Properties.Resources.calendar_plus;
             btnDashboardNewAppointment.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnDashboardNewAppointment.Location = new Point(404, 27);
+            btnDashboardNewAppointment.Location = new Point(528, 27);
             btnDashboardNewAppointment.Margin = new Padding(4, 6, 4, 6);
             btnDashboardNewAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnDashboardNewAppointment.Name = "btnDashboardNewAppointment";
@@ -536,7 +536,7 @@
             btnDashboardNewService.HighEmphasis = true;
             btnDashboardNewService.Icon = Properties.Resources.barber_pole;
             btnDashboardNewService.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnDashboardNewService.Location = new Point(605, 27);
+            btnDashboardNewService.Location = new Point(729, 27);
             btnDashboardNewService.Margin = new Padding(4, 6, 4, 6);
             btnDashboardNewService.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnDashboardNewService.Name = "btnDashboardNewService";
@@ -578,7 +578,7 @@
             tabPageAppointments.Location = new Point(4, 29);
             tabPageAppointments.Name = "tabPageAppointments";
             tabPageAppointments.Padding = new Padding(3);
-            tabPageAppointments.Size = new Size(821, 668);
+            tabPageAppointments.Size = new Size(948, 668);
             tabPageAppointments.TabIndex = 1;
             tabPageAppointments.Text = "Appointments";
             tabPageAppointments.UseVisualStyleBackColor = true;
@@ -776,7 +776,7 @@
             tabPageServices.Location = new Point(4, 29);
             tabPageServices.Name = "tabPageServices";
             tabPageServices.Padding = new Padding(3);
-            tabPageServices.Size = new Size(821, 668);
+            tabPageServices.Size = new Size(948, 668);
             tabPageServices.TabIndex = 2;
             tabPageServices.Text = "Services";
             tabPageServices.UseVisualStyleBackColor = true;
@@ -798,7 +798,7 @@
             tabPageBarbers.Location = new Point(4, 29);
             tabPageBarbers.Name = "tabPageBarbers";
             tabPageBarbers.Padding = new Padding(3);
-            tabPageBarbers.Size = new Size(821, 668);
+            tabPageBarbers.Size = new Size(948, 668);
             tabPageBarbers.TabIndex = 3;
             tabPageBarbers.Text = "Barbers";
             tabPageBarbers.UseVisualStyleBackColor = true;
@@ -820,7 +820,7 @@
             tabPageReports.Location = new Point(4, 29);
             tabPageReports.Name = "tabPageReports";
             tabPageReports.Padding = new Padding(3);
-            tabPageReports.Size = new Size(821, 668);
+            tabPageReports.Size = new Size(948, 668);
             tabPageReports.TabIndex = 4;
             tabPageReports.Text = "Reports";
             tabPageReports.UseVisualStyleBackColor = true;
@@ -842,7 +842,7 @@
             tabPageConfigurations.Location = new Point(4, 29);
             tabPageConfigurations.Name = "tabPageConfigurations";
             tabPageConfigurations.Padding = new Padding(3);
-            tabPageConfigurations.Size = new Size(821, 668);
+            tabPageConfigurations.Size = new Size(948, 668);
             tabPageConfigurations.TabIndex = 5;
             tabPageConfigurations.Text = "Configurations";
             tabPageConfigurations.UseVisualStyleBackColor = true;
