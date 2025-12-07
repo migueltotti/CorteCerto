@@ -67,7 +67,29 @@
             label12 = new Label();
             label13 = new Label();
             tabPageServices = new TabPage();
+            materialCard3 = new ReaLTaiizor.Controls.MaterialCard();
+            label29 = new Label();
+            label28 = new Label();
+            label27 = new Label();
+            label26 = new Label();
+            materialButton2 = new ReaLTaiizor.Controls.MaterialButton();
+            label25 = new Label();
+            label24 = new Label();
+            flpServiceCardList = new FlowLayoutPanel();
+            btnApplyFilters = new ReaLTaiizor.Controls.MaterialButton();
+            label23 = new Label();
+            mcbPriceOperatorFilter = new ReaLTaiizor.Controls.MaterialComboBox();
+            mtbPriceFilter = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            label22 = new Label();
+            mcbDurationOperatorFilter = new ReaLTaiizor.Controls.MaterialComboBox();
+            mtbDurationFilter = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            label20 = new Label();
+            btnSearchServices = new ReaLTaiizor.Controls.MaterialButton();
+            mtbServiceName = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            materialCard2 = new ReaLTaiizor.Controls.MaterialCard();
+            mtbNewService = new ReaLTaiizor.Controls.MaterialButton();
             label7 = new Label();
+            label19 = new Label();
             tabPageBarbers = new TabPage();
             label8 = new Label();
             tabPageReports = new TabPage();
@@ -97,6 +119,8 @@
             calendarCard.SuspendLayout();
             appointmentCard.SuspendLayout();
             tabPageServices.SuspendLayout();
+            materialCard3.SuspendLayout();
+            materialCard2.SuspendLayout();
             tabPageBarbers.SuspendLayout();
             tabPageReports.SuspendLayout();
             tabPageConfigurations.SuspendLayout();
@@ -600,7 +624,7 @@
             calendarCard.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             calendarCard.Name = "calendarCard";
             calendarCard.Padding = new Padding(14);
-            calendarCard.Size = new Size(790, 538);
+            calendarCard.Size = new Size(917, 538);
             calendarCard.TabIndex = 28;
             // 
             // listView1
@@ -609,7 +633,7 @@
             listView1.Location = new Point(17, 72);
             listView1.MultiSelect = false;
             listView1.Name = "listView1";
-            listView1.Size = new Size(930, 449);
+            listView1.Size = new Size(883, 449);
             listView1.TabIndex = 32;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -628,7 +652,7 @@
             btnYearCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
             btnYearCalendar.HoverTextColor = Color.DodgerBlue;
             btnYearCalendar.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            btnYearCalendar.Location = new Point(689, 17);
+            btnYearCalendar.Location = new Point(816, 17);
             btnYearCalendar.Name = "btnYearCalendar";
             btnYearCalendar.Size = new Size(84, 40);
             btnYearCalendar.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
@@ -652,7 +676,7 @@
             btnMonthCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
             btnMonthCalendar.HoverTextColor = Color.DodgerBlue;
             btnMonthCalendar.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            btnMonthCalendar.Location = new Point(599, 17);
+            btnMonthCalendar.Location = new Point(726, 17);
             btnMonthCalendar.Name = "btnMonthCalendar";
             btnMonthCalendar.Size = new Size(84, 40);
             btnMonthCalendar.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
@@ -676,7 +700,7 @@
             btnWeekCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
             btnWeekCalendar.HoverTextColor = Color.DodgerBlue;
             btnWeekCalendar.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
-            btnWeekCalendar.Location = new Point(509, 17);
+            btnWeekCalendar.Location = new Point(636, 17);
             btnWeekCalendar.Name = "btnWeekCalendar";
             btnWeekCalendar.Size = new Size(84, 40);
             btnWeekCalendar.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
@@ -721,7 +745,7 @@
             appointmentCard.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             appointmentCard.Name = "appointmentCard";
             appointmentCard.Padding = new Padding(14);
-            appointmentCard.Size = new Size(790, 106);
+            appointmentCard.Size = new Size(917, 106);
             appointmentCard.TabIndex = 27;
             // 
             // btnNewAppointment
@@ -735,7 +759,7 @@
             btnNewAppointment.HighEmphasis = true;
             btnNewAppointment.Icon = Properties.Resources.calendar_plus;
             btnNewAppointment.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnNewAppointment.Location = new Point(579, 32);
+            btnNewAppointment.Location = new Point(706, 32);
             btnNewAppointment.Margin = new Padding(4, 6, 4, 6);
             btnNewAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnNewAppointment.Name = "btnNewAppointment";
@@ -772,7 +796,19 @@
             // 
             // tabPageServices
             // 
-            tabPageServices.Controls.Add(label7);
+            tabPageServices.Controls.Add(materialCard3);
+            tabPageServices.Controls.Add(flpServiceCardList);
+            tabPageServices.Controls.Add(btnApplyFilters);
+            tabPageServices.Controls.Add(label23);
+            tabPageServices.Controls.Add(mcbPriceOperatorFilter);
+            tabPageServices.Controls.Add(mtbPriceFilter);
+            tabPageServices.Controls.Add(label22);
+            tabPageServices.Controls.Add(mcbDurationOperatorFilter);
+            tabPageServices.Controls.Add(mtbDurationFilter);
+            tabPageServices.Controls.Add(label20);
+            tabPageServices.Controls.Add(btnSearchServices);
+            tabPageServices.Controls.Add(mtbServiceName);
+            tabPageServices.Controls.Add(materialCard2);
             tabPageServices.Location = new Point(4, 29);
             tabPageServices.Name = "tabPageServices";
             tabPageServices.Padding = new Padding(3);
@@ -781,16 +817,443 @@
             tabPageServices.Text = "Services";
             tabPageServices.UseVisualStyleBackColor = true;
             // 
+            // materialCard3
+            // 
+            materialCard3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            materialCard3.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard3.Controls.Add(label29);
+            materialCard3.Controls.Add(label28);
+            materialCard3.Controls.Add(label27);
+            materialCard3.Controls.Add(label26);
+            materialCard3.Controls.Add(materialButton2);
+            materialCard3.Controls.Add(label25);
+            materialCard3.Controls.Add(label24);
+            materialCard3.Depth = 0;
+            materialCard3.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard3.Location = new Point(31, 186);
+            materialCard3.Margin = new Padding(14);
+            materialCard3.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            materialCard3.Name = "materialCard3";
+            materialCard3.Padding = new Padding(14);
+            materialCard3.Size = new Size(663, 121);
+            materialCard3.TabIndex = 0;
+            materialCard3.Visible = false;
+            // 
+            // label29
+            // 
+            label29.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label29.AutoSize = true;
+            label29.Font = new Font("Segoe UI", 10F);
+            label29.ForeColor = Color.Black;
+            label29.Location = new Point(457, 84);
+            label29.Name = "label29";
+            label29.Size = new Size(62, 23);
+            label29.TabIndex = 44;
+            label29.Text = "60 min";
+            label29.Visible = false;
+            // 
+            // label28
+            // 
+            label28.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 10F);
+            label28.ForeColor = Color.Gray;
+            label28.Location = new Point(457, 61);
+            label28.Name = "label28";
+            label28.Size = new Size(78, 23);
+            label28.TabIndex = 43;
+            label28.Text = "Duração:";
+            label28.Visible = false;
+            // 
+            // label27
+            // 
+            label27.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 10F);
+            label27.ForeColor = Color.Black;
+            label27.Location = new Point(457, 38);
+            label27.Name = "label27";
+            label27.Size = new Size(74, 23);
+            label27.TabIndex = 42;
+            label27.Text = "R$ 45,00";
+            label27.Visible = false;
+            // 
+            // label26
+            // 
+            label26.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 10F);
+            label26.ForeColor = Color.Gray;
+            label26.Location = new Point(457, 14);
+            label26.Name = "label26";
+            label26.Size = new Size(57, 23);
+            label26.TabIndex = 41;
+            label26.Text = "Preço:";
+            label26.Visible = false;
+            // 
+            // materialButton2
+            // 
+            materialButton2.Anchor = AnchorStyles.Right;
+            materialButton2.AutoSize = false;
+            materialButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButton2.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton2.Depth = 0;
+            materialButton2.ForeColor = Color.Black;
+            materialButton2.HighEmphasis = true;
+            materialButton2.Icon = null;
+            materialButton2.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Default;
+            materialButton2.Location = new Point(554, 38);
+            materialButton2.Margin = new Padding(4, 6, 4, 6);
+            materialButton2.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            materialButton2.Name = "materialButton2";
+            materialButton2.NoAccentTextColor = Color.Empty;
+            materialButton2.Size = new Size(91, 40);
+            materialButton2.TabIndex = 41;
+            materialButton2.Text = "Agendar";
+            materialButton2.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            materialButton2.UseAccentColor = true;
+            materialButton2.UseVisualStyleBackColor = true;
+            materialButton2.Visible = false;
+            // 
+            // label25
+            // 
+            label25.Font = new Font("Segoe UI", 10F);
+            label25.ForeColor = Color.Gray;
+            label25.Location = new Point(17, 44);
+            label25.Name = "label25";
+            label25.Size = new Size(429, 46);
+            label25.TabIndex = 29;
+            label25.Text = "Procure por serviços e veja suas ofertas.";
+            label25.Visible = false;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label24.ForeColor = Color.Black;
+            label24.Location = new Point(13, 13);
+            label24.Name = "label24";
+            label24.Size = new Size(103, 31);
+            label24.TabIndex = 29;
+            label24.Text = "Serviços";
+            label24.Visible = false;
+            // 
+            // flpServiceCardList
+            // 
+            flpServiceCardList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            flpServiceCardList.AutoScroll = true;
+            flpServiceCardList.AutoSize = true;
+            flpServiceCardList.FlowDirection = FlowDirection.TopDown;
+            flpServiceCardList.Location = new Point(18, 186);
+            flpServiceCardList.Name = "flpServiceCardList";
+            flpServiceCardList.Size = new Size(698, 476);
+            flpServiceCardList.TabIndex = 0;
+            flpServiceCardList.WrapContents = false;
+            // 
+            // btnApplyFilters
+            // 
+            btnApplyFilters.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnApplyFilters.AutoSize = false;
+            btnApplyFilters.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnApplyFilters.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnApplyFilters.Depth = 0;
+            btnApplyFilters.ForeColor = Color.Black;
+            btnApplyFilters.HighEmphasis = true;
+            btnApplyFilters.Icon = null;
+            btnApplyFilters.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Default;
+            btnApplyFilters.Location = new Point(731, 433);
+            btnApplyFilters.Margin = new Padding(4, 6, 4, 6);
+            btnApplyFilters.MaximumSize = new Size(200, 40);
+            btnApplyFilters.MinimumSize = new Size(200, 40);
+            btnApplyFilters.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnApplyFilters.Name = "btnApplyFilters";
+            btnApplyFilters.NoAccentTextColor = Color.Empty;
+            btnApplyFilters.Size = new Size(200, 40);
+            btnApplyFilters.TabIndex = 40;
+            btnApplyFilters.Text = "Aplicar filtros";
+            btnApplyFilters.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnApplyFilters.UseAccentColor = false;
+            btnApplyFilters.UseVisualStyleBackColor = true;
+            btnApplyFilters.Click += btnApplyFilters_Click;
+            // 
+            // label23
+            // 
+            label23.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 10F);
+            label23.ForeColor = Color.Gray;
+            label23.Location = new Point(731, 295);
+            label23.Name = "label23";
+            label23.Size = new Size(57, 23);
+            label23.TabIndex = 39;
+            label23.Text = "Preço:";
+            // 
+            // mcbPriceOperatorFilter
+            // 
+            mcbPriceOperatorFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            mcbPriceOperatorFilter.AutoResize = false;
+            mcbPriceOperatorFilter.BackColor = Color.FromArgb(255, 255, 255);
+            mcbPriceOperatorFilter.Depth = 0;
+            mcbPriceOperatorFilter.DrawMode = DrawMode.OwnerDrawVariable;
+            mcbPriceOperatorFilter.DropDownHeight = 174;
+            mcbPriceOperatorFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            mcbPriceOperatorFilter.DropDownWidth = 121;
+            mcbPriceOperatorFilter.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            mcbPriceOperatorFilter.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            mcbPriceOperatorFilter.FormattingEnabled = true;
+            mcbPriceOperatorFilter.IntegralHeight = false;
+            mcbPriceOperatorFilter.ItemHeight = 43;
+            mcbPriceOperatorFilter.Items.AddRange(new object[] { "Menor que", "Igual", "Maior que" });
+            mcbPriceOperatorFilter.Location = new Point(731, 375);
+            mcbPriceOperatorFilter.MaxDropDownItems = 4;
+            mcbPriceOperatorFilter.MaximumSize = new Size(200, 0);
+            mcbPriceOperatorFilter.MinimumSize = new Size(200, 0);
+            mcbPriceOperatorFilter.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            mcbPriceOperatorFilter.Name = "mcbPriceOperatorFilter";
+            mcbPriceOperatorFilter.Size = new Size(200, 49);
+            mcbPriceOperatorFilter.StartIndex = 0;
+            mcbPriceOperatorFilter.TabIndex = 38;
+            // 
+            // mtbPriceFilter
+            // 
+            mtbPriceFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            mtbPriceFilter.AnimateReadOnly = false;
+            mtbPriceFilter.AutoCompleteMode = AutoCompleteMode.None;
+            mtbPriceFilter.AutoCompleteSource = AutoCompleteSource.None;
+            mtbPriceFilter.BackgroundImageLayout = ImageLayout.None;
+            mtbPriceFilter.CharacterCasing = CharacterCasing.Normal;
+            mtbPriceFilter.Depth = 0;
+            mtbPriceFilter.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            mtbPriceFilter.HideSelection = true;
+            mtbPriceFilter.Hint = "Preço em R$";
+            mtbPriceFilter.LeadingIcon = null;
+            mtbPriceFilter.Location = new Point(731, 321);
+            mtbPriceFilter.MaximumSize = new Size(200, 48);
+            mtbPriceFilter.MaxLength = 32767;
+            mtbPriceFilter.MinimumSize = new Size(200, 48);
+            mtbPriceFilter.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            mtbPriceFilter.Name = "mtbPriceFilter";
+            mtbPriceFilter.PasswordChar = '\0';
+            mtbPriceFilter.PrefixSuffixText = null;
+            mtbPriceFilter.ReadOnly = false;
+            mtbPriceFilter.RightToLeft = RightToLeft.No;
+            mtbPriceFilter.SelectedText = "";
+            mtbPriceFilter.SelectionLength = 0;
+            mtbPriceFilter.SelectionStart = 0;
+            mtbPriceFilter.ShortcutsEnabled = true;
+            mtbPriceFilter.Size = new Size(200, 48);
+            mtbPriceFilter.TabIndex = 37;
+            mtbPriceFilter.TabStop = false;
+            mtbPriceFilter.TextAlign = HorizontalAlignment.Left;
+            mtbPriceFilter.TrailingIcon = null;
+            mtbPriceFilter.UseSystemPasswordChar = false;
+            mtbPriceFilter.KeyPress += mtbFilter_KeyPress;
+            mtbPriceFilter.TextChanged += mtbFilter_TextChanged;
+            // 
+            // label22
+            // 
+            label22.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 10F);
+            label22.ForeColor = Color.Gray;
+            label22.Location = new Point(731, 163);
+            label22.Name = "label22";
+            label22.Size = new Size(78, 23);
+            label22.TabIndex = 36;
+            label22.Text = "Duração:";
+            // 
+            // mcbDurationOperatorFilter
+            // 
+            mcbDurationOperatorFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            mcbDurationOperatorFilter.AutoResize = false;
+            mcbDurationOperatorFilter.BackColor = Color.FromArgb(255, 255, 255);
+            mcbDurationOperatorFilter.Depth = 0;
+            mcbDurationOperatorFilter.DrawMode = DrawMode.OwnerDrawVariable;
+            mcbDurationOperatorFilter.DropDownHeight = 174;
+            mcbDurationOperatorFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            mcbDurationOperatorFilter.DropDownWidth = 121;
+            mcbDurationOperatorFilter.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            mcbDurationOperatorFilter.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            mcbDurationOperatorFilter.FormattingEnabled = true;
+            mcbDurationOperatorFilter.IntegralHeight = false;
+            mcbDurationOperatorFilter.ItemHeight = 43;
+            mcbDurationOperatorFilter.Items.AddRange(new object[] { "Menor que", "Igual", "Maior que" });
+            mcbDurationOperatorFilter.Location = new Point(731, 243);
+            mcbDurationOperatorFilter.MaxDropDownItems = 4;
+            mcbDurationOperatorFilter.MaximumSize = new Size(200, 0);
+            mcbDurationOperatorFilter.MinimumSize = new Size(200, 0);
+            mcbDurationOperatorFilter.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            mcbDurationOperatorFilter.Name = "mcbDurationOperatorFilter";
+            mcbDurationOperatorFilter.Size = new Size(200, 49);
+            mcbDurationOperatorFilter.StartIndex = 0;
+            mcbDurationOperatorFilter.TabIndex = 35;
+            // 
+            // mtbDurationFilter
+            // 
+            mtbDurationFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            mtbDurationFilter.AnimateReadOnly = false;
+            mtbDurationFilter.AutoCompleteMode = AutoCompleteMode.None;
+            mtbDurationFilter.AutoCompleteSource = AutoCompleteSource.None;
+            mtbDurationFilter.BackgroundImageLayout = ImageLayout.None;
+            mtbDurationFilter.CharacterCasing = CharacterCasing.Normal;
+            mtbDurationFilter.Depth = 0;
+            mtbDurationFilter.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            mtbDurationFilter.HideSelection = true;
+            mtbDurationFilter.Hint = "Duração em Minutos";
+            mtbDurationFilter.LeadingIcon = null;
+            mtbDurationFilter.Location = new Point(731, 189);
+            mtbDurationFilter.MaximumSize = new Size(200, 48);
+            mtbDurationFilter.MaxLength = 32767;
+            mtbDurationFilter.MinimumSize = new Size(200, 48);
+            mtbDurationFilter.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            mtbDurationFilter.Name = "mtbDurationFilter";
+            mtbDurationFilter.PasswordChar = '\0';
+            mtbDurationFilter.PrefixSuffixText = null;
+            mtbDurationFilter.ReadOnly = false;
+            mtbDurationFilter.RightToLeft = RightToLeft.No;
+            mtbDurationFilter.SelectedText = "";
+            mtbDurationFilter.SelectionLength = 0;
+            mtbDurationFilter.SelectionStart = 0;
+            mtbDurationFilter.ShortcutsEnabled = true;
+            mtbDurationFilter.Size = new Size(200, 48);
+            mtbDurationFilter.TabIndex = 34;
+            mtbDurationFilter.TabStop = false;
+            mtbDurationFilter.TextAlign = HorizontalAlignment.Left;
+            mtbDurationFilter.TrailingIcon = null;
+            mtbDurationFilter.UseSystemPasswordChar = false;
+            mtbDurationFilter.KeyPress += mtbFilter_KeyPress;
+            mtbDurationFilter.TextChanged += mtbFilter_TextChanged;
+            // 
+            // label20
+            // 
+            label20.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI", 10F);
+            label20.ForeColor = Color.Black;
+            label20.Location = new Point(731, 132);
+            label20.Name = "label20";
+            label20.Size = new Size(59, 23);
+            label20.TabIndex = 33;
+            label20.Text = "Filtros:";
+            // 
+            // btnSearchServices
+            // 
+            btnSearchServices.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSearchServices.AutoSize = false;
+            btnSearchServices.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnSearchServices.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnSearchServices.Depth = 0;
+            btnSearchServices.ForeColor = Color.Black;
+            btnSearchServices.HighEmphasis = true;
+            btnSearchServices.Icon = Properties.Resources.search;
+            btnSearchServices.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Default;
+            btnSearchServices.Location = new Point(670, 132);
+            btnSearchServices.Margin = new Padding(4, 6, 4, 6);
+            btnSearchServices.MaximumSize = new Size(46, 40);
+            btnSearchServices.MinimumSize = new Size(46, 40);
+            btnSearchServices.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnSearchServices.Name = "btnSearchServices";
+            btnSearchServices.NoAccentTextColor = Color.Empty;
+            btnSearchServices.Size = new Size(46, 40);
+            btnSearchServices.TabIndex = 32;
+            btnSearchServices.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnSearchServices.UseAccentColor = false;
+            btnSearchServices.UseVisualStyleBackColor = true;
+            btnSearchServices.Click += btnSearchServices_Click;
+            // 
+            // mtbServiceName
+            // 
+            mtbServiceName.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            mtbServiceName.AnimateReadOnly = false;
+            mtbServiceName.AutoCompleteMode = AutoCompleteMode.None;
+            mtbServiceName.AutoCompleteSource = AutoCompleteSource.None;
+            mtbServiceName.BackgroundImageLayout = ImageLayout.None;
+            mtbServiceName.CharacterCasing = CharacterCasing.Normal;
+            mtbServiceName.Depth = 0;
+            mtbServiceName.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            mtbServiceName.HideSelection = true;
+            mtbServiceName.Hint = "Insira o nome do serviço ou parte dele.";
+            mtbServiceName.LeadingIcon = null;
+            mtbServiceName.Location = new Point(16, 129);
+            mtbServiceName.MaxLength = 32767;
+            mtbServiceName.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            mtbServiceName.Name = "mtbServiceName";
+            mtbServiceName.PasswordChar = '\0';
+            mtbServiceName.PrefixSuffixText = null;
+            mtbServiceName.ReadOnly = false;
+            mtbServiceName.RightToLeft = RightToLeft.No;
+            mtbServiceName.SelectedText = "";
+            mtbServiceName.SelectionLength = 0;
+            mtbServiceName.SelectionStart = 0;
+            mtbServiceName.ShortcutsEnabled = true;
+            mtbServiceName.Size = new Size(646, 48);
+            mtbServiceName.TabIndex = 31;
+            mtbServiceName.TabStop = false;
+            mtbServiceName.TextAlign = HorizontalAlignment.Left;
+            mtbServiceName.TrailingIcon = null;
+            mtbServiceName.UseSystemPasswordChar = false;
+            // 
+            // materialCard2
+            // 
+            materialCard2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            materialCard2.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard2.Controls.Add(mtbNewService);
+            materialCard2.Controls.Add(label7);
+            materialCard2.Controls.Add(label19);
+            materialCard2.Depth = 0;
+            materialCard2.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard2.Location = new Point(14, 10);
+            materialCard2.Margin = new Padding(14);
+            materialCard2.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            materialCard2.Name = "materialCard2";
+            materialCard2.Padding = new Padding(14);
+            materialCard2.Size = new Size(917, 106);
+            materialCard2.TabIndex = 28;
+            // 
+            // mtbNewService
+            // 
+            mtbNewService.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            mtbNewService.AutoSize = false;
+            mtbNewService.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            mtbNewService.BackColor = SystemColors.Control;
+            mtbNewService.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            mtbNewService.Depth = 0;
+            mtbNewService.HighEmphasis = true;
+            mtbNewService.Icon = Properties.Resources.barber_pole;
+            mtbNewService.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            mtbNewService.Location = new Point(729, 27);
+            mtbNewService.Margin = new Padding(4, 6, 4, 6);
+            mtbNewService.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            mtbNewService.Name = "mtbNewService";
+            mtbNewService.NoAccentTextColor = Color.Empty;
+            mtbNewService.Size = new Size(153, 49);
+            mtbNewService.TabIndex = 28;
+            mtbNewService.Text = "Novo Serviço";
+            mtbNewService.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            mtbNewService.UseAccentColor = false;
+            mtbNewService.UseVisualStyleBackColor = false;
+            // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 10F);
             label7.ForeColor = Color.Gray;
-            label7.Location = new Point(72, 47);
+            label7.Location = new Point(17, 61);
             label7.Name = "label7";
-            label7.Size = new Size(70, 23);
-            label7.TabIndex = 27;
-            label7.Text = "Services";
+            label7.Size = new Size(312, 23);
+            label7.TabIndex = 25;
+            label7.Text = "Procure por serviços e veja suas ofertas.";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label19.ForeColor = Color.Black;
+            label19.Location = new Point(17, 14);
+            label19.Name = "label19";
+            label19.Size = new Size(125, 38);
+            label19.TabIndex = 25;
+            label19.Text = "Serviços";
             // 
             // tabPageBarbers
             // 
@@ -1120,6 +1583,10 @@
             appointmentCard.PerformLayout();
             tabPageServices.ResumeLayout(false);
             tabPageServices.PerformLayout();
+            materialCard3.ResumeLayout(false);
+            materialCard3.PerformLayout();
+            materialCard2.ResumeLayout(false);
+            materialCard2.PerformLayout();
             tabPageBarbers.ResumeLayout(false);
             tabPageBarbers.PerformLayout();
             tabPageReports.ResumeLayout(false);
@@ -1159,7 +1626,6 @@
         private TabPage tabPageReports;
         private TabPage tabPageConfigurations;
         private Label label6;
-        private Label label7;
         private Label label8;
         private Label label9;
         private Label label10;
@@ -1190,13 +1656,34 @@
         private Label label15;
         private Label label16;
         private ReaLTaiizor.Controls.MaterialCard cardSaturdayAvailability;
-        private ReaLTaiizor.Controls.MaterialCard materialCard4;
-        private ReaLTaiizor.Controls.MaterialCard materialCard3;
         private Label label17;
         private Label lblEndTime;
         private Label label21;
         private Label lblStartTime;
         private Label label18;
         private ReaLTaiizor.Controls.MaterialButton btnEditDayAvailability;
+        private ReaLTaiizor.Controls.MaterialCard materialCard2;
+        private ReaLTaiizor.Controls.MaterialButton mtbNewService;
+        private Label label7;
+        private Label label19;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit mtbServiceName;
+        private ReaLTaiizor.Controls.MaterialButton btnSearchServices;
+        private Label label20;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit mtbDurationFilter;
+        private Label label23;
+        private ReaLTaiizor.Controls.MaterialComboBox mcbPriceOperatorFilter;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit mtbPriceFilter;
+        private Label label22;
+        private ReaLTaiizor.Controls.MaterialComboBox mcbDurationOperatorFilter;
+        private ReaLTaiizor.Controls.MaterialButton btnApplyFilters;
+        private FlowLayoutPanel flpServiceCardList;
+        private ReaLTaiizor.Controls.MaterialCard materialCard3;
+        private Label label29;
+        private Label label28;
+        private Label label27;
+        private Label label26;
+        private ReaLTaiizor.Controls.MaterialButton materialButton2;
+        private Label label25;
+        private Label label24;
     }
 }

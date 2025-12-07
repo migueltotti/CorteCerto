@@ -2,11 +2,16 @@
 using CorteCerto.App.Interfaces;
 using CorteCerto.Application.DTO;
 using CorteCerto.Application.UseCases.Queries.Barbers;
+using CorteCerto.Application.UseCases.Queries.People;
+using CorteCerto.Domain.Entities;
+using CorteCerto.Domain.Filters;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CorteCerto.App.Pages
 {
@@ -104,7 +109,7 @@ namespace CorteCerto.App.Pages
             int yLocaltionPoint = 143;
             const int padding = 20;
 
-            foreach(var day in _daysOfWeek)
+            foreach (var day in _daysOfWeek)
             {
                 availability = barber.Availabilities.FirstOrDefault(a => a.DayOfWeek == day);
 
@@ -125,6 +130,47 @@ namespace CorteCerto.App.Pages
                     xLocaltionPoint = 17;
                     yLocaltionPoint += 266;
                 }
+            }
+        }
+
+        private async Task LoadServiceCards(
+            string? name = null,
+            TimeSpan? duration = null,
+            decimal? price = null,
+            PriceOperator priceOperator = default,
+            DurationOperator durationOperator = default
+        )
+        {
+            var query = new GetServicesQuery
+            (
+                Name: name,
+                Duration: duration,
+                Price: price,
+                PriceOperator: priceOperator,
+                DurationOperator: durationOperator
+            );
+
+            var services = await _mediator.QueryAsync(query);
+
+            ServiceCard card;
+
+            int xLocaltionPoint = 0;
+            int yLocaltionPoint = 0;
+
+            flpServiceCardList.Controls.Clear();
+
+            foreach (var service in services.Results)
+            {
+                card = ServiceCard.Builder
+                    .Create(_sessionService, _mediator)
+                    .WithService(service)
+                    .Build();
+
+                card.Location = new Point(xLocaltionPoint, yLocaltionPoint);
+
+                flpServiceCardList.Controls.Add(card);
+
+                yLocaltionPoint += 131;
             }
         }
         #endregion
@@ -166,9 +212,11 @@ namespace CorteCerto.App.Pages
             tabControlMain.SelectedIndex = 1;
         }
 
-        private void btnServices_Click(object sender, EventArgs e)
+        private async void btnServices_Click(object sender, EventArgs e)
         {
             tabControlMain.SelectedIndex = 2;
+
+            await LoadServiceCards();
         }
 
         private void btnBarbers_Click(object sender, EventArgs e)
@@ -237,6 +285,50 @@ namespace CorteCerto.App.Pages
             {
                 _navegationService.NavegateTo<RegisterBarberProfileForm>();
             }
+        }
+
+        private async void btnSearchServices_Click(object sender, EventArgs e)
+        {
+            await LoadServiceCards(
+                name: mtbServiceName.Text != "" ? mtbServiceName.Text : null,
+                duration: mtbDurationFilter.Text != "" ? TimeSpan.FromMinutes(Int32.Parse(mtbDurationFilter.Text)) : null,
+                price: mtbPriceFilter.Text != "" ? Decimal.Parse(mtbPriceFilter.Text) : null,
+                priceOperator: Enum.Parse<PriceOperator>(mcbPriceOperatorFilter.SelectedText),
+                durationOperator: Enum.Parse<DurationOperator>(mcbDurationOperatorFilter.SelectedText)
+            );
+        }
+
+        private void mtbFilter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void mtbFilter_TextChanged(object sender, EventArgs e)
+        {
+            var tb = (Control)sender as MaterialTextBoxEdit;
+
+            if (tb == null)
+                return;
+
+            // Remove tudo que não for número
+            tb.Text = new string(tb.Text.Where(char.IsDigit).ToArray());
+
+            // Move o cursor para o final
+            tb.SelectionStart = tb.Text.Length;
+        }
+
+        private async void btnApplyFilters_Click(object sender, EventArgs e)
+        {
+            await LoadServiceCards(
+                name: mtbServiceName.Text,
+                duration: mtbDurationFilter.Text != "" ? TimeSpan.FromMinutes(Int32.Parse(mtbDurationFilter.Text)) : null,
+                price: mtbPriceFilter.Text != "" ? Decimal.Parse(mtbPriceFilter.Text) : null,
+                priceOperator: Enum.Parse<PriceOperator>(mcbPriceOperatorFilter.SelectedText),
+                durationOperator: Enum.Parse<DurationOperator>(mcbDurationOperatorFilter.SelectedText)
+            );
         }
     }
 }
