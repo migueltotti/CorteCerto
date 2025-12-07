@@ -1,15 +1,26 @@
 ﻿using CorteCerto.App.Helpers;
+using CorteCerto.App.Interfaces;
+using CorteCerto.App.Pages;
 using ReaLTaiizor.Controls;
 
 namespace CorteCerto.App.Components;
 
 internal class BarberAvailabilityCard : MaterialCard
 {
-    public string DayOfWeek { get; set; }
+    #region Variables
+    public DayOfWeek DayOfWeek { get; set; }
     public DateTime? StartTime { get; set; }
     public DateTime? EndTime { get; set; }
+    private readonly ISessionService _sessionService;
+    private readonly ICustomMediator _mediator;
+    #endregion
 
-    private BarberAvailabilityCard() { }
+    #region Methods
+    private BarberAvailabilityCard(ISessionService sessionService, ICustomMediator mediator) 
+    { 
+        _sessionService = sessionService;
+        _mediator = mediator;
+    }
 
     public void SetAvailability(DateTime startTime, DateTime endTime)
     {
@@ -18,29 +29,63 @@ internal class BarberAvailabilityCard : MaterialCard
 
         foreach (var control in Controls)
         {
-            if(control is Label lblStart && lblStart.Name == "lblStartTime")
+            if (control is Label lblStart && lblStart.Name == "lblStartTime")
             {
-                lblStart.Text = StartTime.Value.ToLocalTime().ToShortTimeString();
+                lblStart.Text = StartTime.Value.ToLocalTime().ToString("HH:mm");
             }
 
             if (control is Label lblEnd && lblEnd.Name == "lblEndTime")
             {
-                lblEnd.Text = EndTime.Value.ToLocalTime().ToShortTimeString();
+                lblEnd.Text = EndTime.Value.ToLocalTime().ToString("HH:mm");
             }
         }
     }
 
+    private void AddEventClickToEditButton()
+    {
+        foreach (var control in Controls)
+        {
+            if (control is MaterialButton btn && btn.Name == $"btnEdit{DayOfWeek.ToPortuguese()}")
+            {
+                btn.Click += BtnEditDayAvailability_Click;
+                break;
+            }
+        }
+    }
+    #endregion
+
+    #region Events
+    private void BtnEditDayAvailability_Click(object? sender, EventArgs e)
+    {
+        var editForm = new EditBarberAvailabilityForm(_sessionService, _mediator, DayOfWeek);
+
+        editForm.ShowDialog();
+
+        if (editForm.DialogResult == DialogResult.OK && !editForm.IsDisposed)
+        {
+            SetAvailability(editForm.availabilityResult.startTime, editForm.availabilityResult.endTime);
+        }
+
+        editForm.Dispose();
+    }
+    #endregion
+
+    #region Builder Class
     public class Builder()
     {
-        private string DayOfWeek;
+        private DayOfWeek DayOfWeek;
         private DateTime? StartTime;
         private DateTime? EndTime;
+        private ISessionService _sessionService;
+        private ICustomMediator _mediator;
 
-        public static Builder Create(DayOfWeek dayOfWeek)
+        public static Builder Create(DayOfWeek dayOfWeek, ISessionService sessionService, ICustomMediator mediator)
         {
-            var builder = new Builder
+            var builder = new Builder()
             {
-                DayOfWeek = dayOfWeek.ToPortuguese()
+                DayOfWeek = dayOfWeek,
+                _sessionService = sessionService,
+                _mediator = mediator
             };
 
             return builder;
@@ -67,7 +112,7 @@ internal class BarberAvailabilityCard : MaterialCard
                 Name = "label17",
                 Size = new Size(115, 31),
                 TabIndex = 28,
-                Text = DayOfWeek
+                Text = DayOfWeek.ToPortuguese()
             };
         }
 
@@ -139,7 +184,7 @@ internal class BarberAvailabilityCard : MaterialCard
                 Location = new Point(18, 190),
                 Margin = new Padding(4, 6, 4, 6),
                 MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER,
-                Name = DayOfWeek,
+                Name = $"btnEdit{DayOfWeek.ToPortuguese()}",
                 NoAccentTextColor = Color.Empty,
                 Size = new Size(214, 36),
                 TabIndex = 27,
@@ -154,7 +199,7 @@ internal class BarberAvailabilityCard : MaterialCard
 
         public BarberAvailabilityCard Build()
         {
-            var card = new BarberAvailabilityCard
+            var card = new BarberAvailabilityCard(_sessionService, _mediator)
             {
                 Size = new Size(250, 246),
                 Padding = new Padding(14),
@@ -162,7 +207,7 @@ internal class BarberAvailabilityCard : MaterialCard
                 DayOfWeek = DayOfWeek,
                 StartTime = StartTime,
                 EndTime = EndTime,
-                Name = $"card{DayOfWeek}Availability"
+                Name = $"card{DayOfWeek.ToPortuguese()}Availability"
             };
 
             var cardTitle = CreateDayOfWeekTitleLabel();
@@ -177,7 +222,10 @@ internal class BarberAvailabilityCard : MaterialCard
             card.Controls.Add(endTimeLabel);
             card.Controls.Add(editButton);
 
+            card.AddEventClickToEditButton();
+
             return card;
         }
     }
+    #endregion
 }

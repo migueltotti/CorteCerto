@@ -109,7 +109,7 @@ namespace CorteCerto.App.Pages
                 availability = barber.Availabilities.FirstOrDefault(a => a.DayOfWeek == day);
 
                 card = BarberAvailabilityCard.Builder
-                    .Create(day)
+                    .Create(day, _sessionService, _mediator)
                     .WithStartTime(availability?.StartTime ?? null)
                     .WithEndTime(availability?.EndTime ?? null)
                     .Build();
