@@ -2,6 +2,7 @@
 using CorteCerto.App.Infra;
 using CorteCerto.App.Interfaces;
 using CorteCerto.App.Models;
+using CorteCerto.Application.DTO;
 using CorteCerto.Application.UseCases.Commands.Barbers;
 using CorteCerto.Domain.Base;
 using LiteBus.Commands.Abstractions;
@@ -14,9 +15,10 @@ namespace CorteCerto.App.Pages
     public partial class RegisterServiceForm : BaseRegisterForm
     {
         #region Variables
+        private bool _isEditMode = false;
+        private int? _serviceId = null;
         private readonly ICustomMediator _mediator;
         private readonly ISessionService _sessionService;
-        private readonly IQueryMediator _queryMediator;
         #endregion
 
         public RegisterServiceForm(ICustomMediator mediator, ISessionService sessionService)
@@ -25,6 +27,18 @@ namespace CorteCerto.App.Pages
             _sessionService = sessionService;
 
             InitializeComponent();
+        }
+
+        public void InitializeForEditMode(ServiceDto service)
+        {
+            _isEditMode = true;
+            _serviceId = service.Id;
+            Text = "Editar Serviço";
+            btnSave.Text = "Salvar";
+            mtbName.Text = service.Name;
+            mtbDescription.Text = service.Description;
+            mtbPrice.Text = service.Price.ToString("F2");
+            mtbDuration.Text = service.Duration.TotalMinutes.ToString();
         }
 
         protected override async void Save()
@@ -36,20 +50,35 @@ namespace CorteCerto.App.Pages
             }
             else
             {
-                //// TODO: Testar pra ver se isso funciona e se funcionar, criar um ICustomMediator para colocar tudo isso junto
-                //// e não precisar fazer toda vez em todo lugar.
-                //using var scope = ConfigureDI.serviceProvider.CreateScope();
-                //_commandMediator = scope.ServiceProvider.GetRequiredService<ICommandMediator>();
+                Result<ServiceDto> result;
 
-                var command = new RegisterServiceCommand(
-                    BarberId: _sessionService.GetCurrentUser()!.Id,
-                    Name: mtbName.Text,
-                    Description: mtbDescription.Text,
-                    Price: decimal.Parse(mtbPrice.Text.Replace(",", ".")),
-                    Duration: TimeSpan.FromMinutes(double.Parse(mtbDuration.Text))!
-                );
+                if (_isEditMode)
+                {
+                    var editCommand = new UpdateServiceCommand(
+                        BarberId: _sessionService.GetCurrentUser()!.Id,
+                        ServiceId: _serviceId!.Value,
+                        Name: mtbName.Text,
+                        Description: mtbDescription.Text,
+                        Price: decimal.Parse(mtbPrice.Text.Replace(",", ".")),
+                        Duration: TimeSpan.FromMinutes(double.Parse(mtbDuration.Text))!,
+                        IsAvailable: true
+                    );
 
-                var result = await _mediator.SendAsync(command);
+                    result = await _mediator.SendAsync(editCommand);
+                }
+                else
+                {
+
+                    var command = new RegisterServiceCommand(
+                        BarberId: _sessionService.GetCurrentUser()!.Id,
+                        Name: mtbName.Text,
+                        Description: mtbDescription.Text,
+                        Price: decimal.Parse(mtbPrice.Text.Replace(",", ".")),
+                        Duration: TimeSpan.FromMinutes(double.Parse(mtbDuration.Text))!
+                    );
+
+                    result = await _mediator.SendAsync(command);
+                }
 
                 if (result.IsSuccess)
                 {

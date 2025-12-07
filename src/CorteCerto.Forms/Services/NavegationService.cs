@@ -17,7 +17,7 @@ public class NavegationService : INavegationService
         _sessionService = sessionService;
     }
 
-    public void NavegateTo<TForm>(Form? MdiParent = null) where TForm : Form
+    public void NavegateTo<TForm>(Form? MdiParent = null, Action<TForm>? initializer = null) where TForm : Form
     {
         var cad = ConfigureDI.serviceProvider.GetService<TForm>();
 
@@ -49,6 +49,8 @@ public class NavegationService : INavegationService
             {
                 cad.MdiParent = MdiParent;
             }
+
+            initializer?.Invoke(cad);
 
             cad.Show();
         }

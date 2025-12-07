@@ -12,13 +12,15 @@ internal class ServiceCard : MaterialCard
     public ServiceDto Service;
     private readonly ISessionService _sessionService;
     private readonly ICustomMediator _mediator;
+    private readonly INavegationService _navegationService;
     #endregion
 
     #region Methods
-    private ServiceCard(ISessionService sessionService, ICustomMediator mediator)
+    private ServiceCard(ISessionService sessionService, ICustomMediator mediator, INavegationService navegationService)
     {
         _sessionService = sessionService;
         _mediator = mediator;
+        _navegationService = navegationService;
     }
 
     private void AddEventClickToButton()
@@ -43,20 +45,16 @@ internal class ServiceCard : MaterialCard
     #region Events
     private void BtnScheduleService_Click(object? sender, EventArgs e)
     {
-        var scheduleForm = new RegisterAppointmentForm(_mediator, _sessionService);
-
-        scheduleForm.ShowDialog();
-
-        scheduleForm.Dispose();
+        _navegationService.NavegateTo<RegisterAppointmentForm>(
+            initializer: form => form.InitializeWithServiceDto(Service)
+        );
     }
 
     private void BtnEditService_Click(object? sender, EventArgs e)
     {
-        var editForm = new RegisterServiceForm(_mediator, _sessionService);
-
-        editForm.ShowDialog();
-
-        editForm.Dispose();
+        _navegationService.NavegateTo<RegisterServiceForm>(
+            initializer: form => form.InitializeForEditMode(Service)
+        );
     }
     #endregion
 
@@ -67,12 +65,14 @@ internal class ServiceCard : MaterialCard
         private bool _editButtonIncluded = false;
         private ISessionService _sessionService;
         private ICustomMediator _mediator;
+        private INavegationService _navegationService;
 
-        public static Builder Create(ISessionService sessionService, ICustomMediator mediator)
+        public static Builder Create(ISessionService sessionService, INavegationService navegationService, ICustomMediator mediator)
         {
             var builder = new Builder()
             {
                 _sessionService = sessionService,
+                _navegationService = navegationService,
                 _mediator = mediator
             };
 
@@ -241,7 +241,7 @@ internal class ServiceCard : MaterialCard
 
         public ServiceCard Build()
         {
-            var card = new ServiceCard(_sessionService, _mediator)
+            var card = new ServiceCard(_sessionService, _mediator, _navegationService)
             {
                 Size = new Size(698, 121),
                 Padding = new Padding(14),

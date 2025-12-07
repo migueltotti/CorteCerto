@@ -1,4 +1,5 @@
 ﻿using CorteCerto.App.Components;
+using CorteCerto.App.Helpers;
 using CorteCerto.App.Interfaces;
 using CorteCerto.Application.DTO;
 using CorteCerto.Application.UseCases.Queries.Barbers;
@@ -7,6 +8,7 @@ using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Filters;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
@@ -162,7 +164,7 @@ namespace CorteCerto.App.Pages
             foreach (var service in services.Results)
             {
                 card = ServiceCard.Builder
-                    .Create(_sessionService, _mediator)
+                    .Create(_sessionService, _navegationService, _mediator)
                     .WithService(service)
                     .Build();
 
@@ -292,9 +294,9 @@ namespace CorteCerto.App.Pages
             await LoadServiceCards(
                 name: mtbServiceName.Text != "" ? mtbServiceName.Text : null,
                 duration: mtbDurationFilter.Text != "" ? TimeSpan.FromMinutes(Int32.Parse(mtbDurationFilter.Text)) : null,
-                price: mtbPriceFilter.Text != "" ? Decimal.Parse(mtbPriceFilter.Text) : null,
-                priceOperator: Enum.Parse<PriceOperator>(mcbPriceOperatorFilter.SelectedText),
-                durationOperator: Enum.Parse<DurationOperator>(mcbDurationOperatorFilter.SelectedText)
+                price: mtbPriceFilter.Text != "" ? Decimal.Parse(mtbPriceFilter.Text.Replace(",", ".")) : null,
+                priceOperator: mcbPriceOperatorFilter.Text.ToPriceOperator(),
+                durationOperator: mcbDurationOperatorFilter.Text.ToDurationOperator()
             );
         }
 
@@ -323,12 +325,34 @@ namespace CorteCerto.App.Pages
         private async void btnApplyFilters_Click(object sender, EventArgs e)
         {
             await LoadServiceCards(
-                name: mtbServiceName.Text,
+                name: mtbServiceName.Text != "" ? mtbServiceName.Text : null,
                 duration: mtbDurationFilter.Text != "" ? TimeSpan.FromMinutes(Int32.Parse(mtbDurationFilter.Text)) : null,
-                price: mtbPriceFilter.Text != "" ? Decimal.Parse(mtbPriceFilter.Text) : null,
-                priceOperator: Enum.Parse<PriceOperator>(mcbPriceOperatorFilter.SelectedText),
-                durationOperator: Enum.Parse<DurationOperator>(mcbDurationOperatorFilter.SelectedText)
+                price: mtbPriceFilter.Text != "" ? Decimal.Parse(mtbPriceFilter.Text.Replace(",", ".")) : null,
+                priceOperator: mcbPriceOperatorFilter.Text.ToPriceOperator(),
+                durationOperator: mcbDurationOperatorFilter.Text.ToDurationOperator()
             );
+        }
+
+        private async void mtbServiceName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                await LoadServiceCards(
+                    name: mtbServiceName.Text != "" ? mtbServiceName.Text : null,
+                    duration: mtbDurationFilter.Text != "" ? TimeSpan.FromMinutes(Int32.Parse(mtbDurationFilter.Text)) : null,
+                    price: mtbPriceFilter.Text != "" ? Decimal.Parse(mtbPriceFilter.Text.Replace(",", ".")) : null,
+                    priceOperator: mcbPriceOperatorFilter.Text.ToPriceOperator(),
+                    durationOperator: mcbDurationOperatorFilter.Text.ToDurationOperator()
+                );
+            }
+        }
+
+        private void mtbPriceFilter_Leave(object sender, EventArgs e)
+        {
+            var price = mtbPriceFilter.Text.Replace(".", ",");
+
+            if (!string.IsNullOrEmpty(price))
+                mtbPriceFilter.Text = $"R$ {price}";
         }
     }
 }

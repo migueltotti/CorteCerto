@@ -1048,6 +1048,7 @@
             mtbPriceFilter.TrailingIcon = null;
             mtbPriceFilter.UseSystemPasswordChar = false;
             mtbPriceFilter.KeyPress += mtbFilter_KeyPress;
+            mtbPriceFilter.Leave += mtbPriceFilter_Leave;
             mtbPriceFilter.TextChanged += mtbFilter_TextChanged;
             // 
             // label22
@@ -1192,6 +1193,7 @@
             mtbServiceName.TextAlign = HorizontalAlignment.Left;
             mtbServiceName.TrailingIcon = null;
             mtbServiceName.UseSystemPasswordChar = false;
+            mtbServiceName.KeyPress += mtbServiceName_KeyPress;
             // 
             // materialCard2
             // 

@@ -5,6 +5,7 @@ using CorteCerto.Application.DTO;
 using CorteCerto.Application.UseCases.Commands.Customers;
 using CorteCerto.Application.UseCases.Queries.Barbers;
 using CorteCerto.Application.UseCases.Queries.People;
+using CorteCerto.Domain.Entities;
 using Mapster;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using ReaLTaiizor.Controls;
@@ -24,6 +25,8 @@ namespace CorteCerto.App.Pages
         private Guid? _selectedBarberId = null;
         private DateTime? _selectedDate = null;
         private DateTime? _selectedDateTime = null;
+
+        private int _lastSelectedTabIndex = 0;
         #endregion
 
         #region Methods
@@ -33,6 +36,18 @@ namespace CorteCerto.App.Pages
             _sessionService = sessionService;
 
             InitializeComponent();
+        }
+
+        public void InitializeWithServiceDto(ServiceDto service)
+        {
+            _selectedServiceId = service.Id;
+            _selectedBarberId = service.Barber.Id;
+
+            mtbServiceName.Text = service.Name;
+            lblService.Text = mtbServiceName.Text;
+
+            mtbBarberName.Text = service.Barber.Name;
+            lblBarber.Text = mtbBarberName.Text;
         }
 
         private async Task LoadServicesGrid(string serviceName)
@@ -153,8 +168,6 @@ namespace CorteCerto.App.Pages
                     cb.SelectedIndex = 0;
                     return;
                 }
-
-                cb.Items.Add("");
 
                 for (var time = totalTimeAvailable.StartTime.TimeOfDay; time <= totalTimeAvailable.EndTime.TimeOfDay; time = time.Add(TimeSpan.FromMinutes(30)))
                 {
@@ -311,13 +324,18 @@ namespace CorteCerto.App.Pages
 
         private async void tabPageService_Enter(object sender, EventArgs e)
         {
-            ClearFields();
-            await LoadServicesGrid(string.Empty);
-            await LoadBarbersGrid(string.Empty);
+            if (_lastSelectedTabIndex != 0)
+            {
+                _lastSelectedTabIndex = 0;
+                ClearFields();
+                await LoadServicesGrid(string.Empty);
+                await LoadBarbersGrid(string.Empty);
+            }
         }
 
         private async void tabPageBarber_Enter(object sender, EventArgs e)
         {
+            _lastSelectedTabIndex = 1;
             ClearFields();
             await LoadServicesGrid(string.Empty);
             await LoadBarbersGrid(string.Empty);

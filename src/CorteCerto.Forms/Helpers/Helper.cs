@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using CorteCerto.Domain.Filters;
+using System.Text.RegularExpressions;
 
 namespace CorteCerto.App.Helpers;
 
@@ -22,6 +23,28 @@ public static partial class Helper
             DayOfWeek.Thursday => "Quinta",
             DayOfWeek.Friday => "Sexta",
             DayOfWeek.Saturday => "Sábado",
+            _ => throw new NotImplementedException()
+        };
+    }
+
+    public static PriceOperator ToPriceOperator(this string portuguesePriceOperator)
+    {
+        return portuguesePriceOperator switch
+        {
+            "Menor que" => PriceOperator.LessThan,
+            "Igual" => PriceOperator.Equal,
+            "Maior que" => PriceOperator.GreaterThan,
+            _ => throw new NotImplementedException()
+        };
+    }
+
+    public static DurationOperator ToDurationOperator(this string portugueseDurationOperator)
+    {
+        return portugueseDurationOperator switch
+        {
+            "Menor que" => DurationOperator.LessThan,
+            "Igual" => DurationOperator.Equal,
+            "Maior que" => DurationOperator.GreaterThan,
             _ => throw new NotImplementedException()
         };
     }
