@@ -3,6 +3,7 @@ using CorteCerto.App.Models;
 using CorteCerto.App.Pages;
 using CorteCerto.App.Services;
 using CorteCerto.Application.DTO;
+using CorteCerto.Application.Mappers;
 using CorteCerto.Application.Services;
 using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.UseCases.Queries.People;
@@ -101,6 +102,7 @@ internal static class ConfigureDI
 
         #region Mappers
         services.AddMapster();
+        CustomMappers.Configure();
         TypeAdapterConfig<ServiceDto, ServiceModel>
             .NewConfig()
             .Map(dest => dest.Barber, src => src.Barber.Name);

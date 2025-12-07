@@ -21,7 +21,7 @@ public class GetBarbersQueryHandler(
             .WithPagination(query.PageSize, query.PageNumber)
             .Build();
 
-        var barbers = await barberRepository.GetWithFilter(filter, token: cancellationToken);
+        var barbers = await barberRepository.GetWithFilter(filter, ["Address.City.State.Country"], cancellationToken);
 
         var barbersResponse = barbers.Results.Adapt<List<BarberDto>>();
 

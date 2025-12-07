@@ -26,6 +26,16 @@ public abstract class Person : BaseEntity<Guid>
         PasswordHash = passwordHash;
     }
 
+    public void UpdateName(string name)
+    {
+        Name = name;
+    }
+
+    public void UpdatePhoneNumber(string phoneNumber)
+    {
+        PhoneNumber = phoneNumber;
+    }
+
     public void UpdateEmail(string email)
     {
         Email = email;

@@ -2,7 +2,9 @@
 using CorteCerto.App.Helpers;
 using CorteCerto.App.Interfaces;
 using CorteCerto.Application.DTO;
+using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.UseCases.Queries.Barbers;
+using CorteCerto.Application.UseCases.Queries.Customers;
 using CorteCerto.Application.UseCases.Queries.People;
 using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Filters;
@@ -33,6 +35,7 @@ namespace CorteCerto.App.Pages
             DayOfWeek.Friday,
             DayOfWeek.Saturday
         ];
+        private string _currentEmail = "";
         #endregion
 
         #region Methods
@@ -175,6 +178,33 @@ namespace CorteCerto.App.Pages
                 yLocaltionPoint += 131;
             }
         }
+
+        private async Task LoadProfileData()
+        {
+            var customerData = await _mediator.QueryAsync(new GetCustomersQuery(Id: _sessionService.GetCurrentUser()!.Id));
+            var barberData = await _mediator.QueryAsync(new GetBarbersQuery(Id: _sessionService.GetCurrentUser()!.Id));
+
+            var customer = customerData.Results.First();
+
+            mtbProfileName.Text = customer.Name;
+            mtbProfileEmail.Text = customer.Email;
+            mtbProfilePhoneNumber.Text = customer.PhoneNumber;
+            mtbPromotionPoints.Text = customer.PromotionPoints.ToString();
+
+            if (barberData.Results.Any())
+            {
+                var baber = barberData.Results.First();
+
+                mtbProfileDescription.Text = baber.Description;
+                mtbProfilePortifolioUrl.Text = baber.ProfileUrl;
+                mtbProfileCep.Text = baber.Address.ZipCode;
+                mtbProfileCountry.Text = baber.Address.Country;
+                mtbProfileState.Text = baber.Address.State;
+                mtbProfileCity.Text = baber.Address.City;
+                mtbProfileAddress.Text = baber.Address.Street;
+                mtbProfileAddressNumber.Text = baber.Address.Number.ToString();
+            }
+        }
         #endregion
 
         #region Events
@@ -191,11 +221,12 @@ namespace CorteCerto.App.Pages
             LogoutUser();
         }
 
-        private void btnUserAction_Click(object sender, EventArgs e)
+        private async void btnUserAction_Click(object sender, EventArgs e)
         {
             if (_sessionService.IsAuthenticated)
             {
-
+                tabControlMain.SelectedIndex = 5;
+                await LoadProfileData();
             }
             else
             {
@@ -231,9 +262,17 @@ namespace CorteCerto.App.Pages
             tabControlMain.SelectedIndex = 4;
         }
 
-        private void btnConfigurations_Click(object sender, EventArgs e)
+        private async void btnConfigurations_Click(object sender, EventArgs e)
         {
+            if(!_sessionService.IsAuthenticated)
+            {
+                MessageBox.Show("Você precisa estar logado para acessar esta seção.", "Acesso Negado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             tabControlMain.SelectedIndex = 5;
+            await LoadProfileData();
         }
 
         private async void btnBarberAvailabilities_Click(object sender, EventArgs e)
@@ -353,6 +392,80 @@ namespace CorteCerto.App.Pages
 
             if (!string.IsNullOrEmpty(price))
                 mtbPriceFilter.Text = $"R$ {price}";
+        }
+
+        private void mchbEditMode_CheckedChanged(object sender, EventArgs e)
+        {
+            mtbProfileName.Enabled = mchbEditMode.Checked;
+            mtbProfileName.ReadOnly = !mchbEditMode.Checked;
+
+            _currentEmail = mtbProfileEmail.Text;
+            mtbProfileEmail.Enabled = mchbEditMode.Checked;
+            mtbProfileEmail.ReadOnly = !mchbEditMode.Checked;
+
+            mtbProfilePhoneNumber.Enabled = mchbEditMode.Checked;
+            mtbProfilePhoneNumber.ReadOnly = !mchbEditMode.Checked;
+
+            btnSaveChanges.Enabled = mchbEditMode.Checked;
+        }
+
+        private void mchbProfileEditMode_CheckedChanged(object sender, EventArgs e)
+        {
+            mtbProfileDescription.Enabled = mchbProfileEditMode.Checked;
+            mtbProfileDescription.ReadOnly = !mchbProfileEditMode.Checked;
+
+            mtbProfilePortifolioUrl.Enabled = mchbProfileEditMode.Checked;
+            mtbProfilePortifolioUrl.ReadOnly = !mchbProfileEditMode.Checked;
+
+            mtbProfileCep.Enabled = mchbProfileEditMode.Checked;
+            mtbProfileCep.ReadOnly = !mchbProfileEditMode.Checked;
+
+            mtbProfileAddressNumber.Enabled = mchbProfileEditMode.Checked;
+            mtbProfileAddressNumber.ReadOnly = !mchbProfileEditMode.Checked;
+
+            btnProfileSaveChanges.Enabled = mchbProfileEditMode.Checked;
+        }
+
+        private async void btnSaveChanges_Click(object sender, EventArgs e)
+        {
+            var updateEmailCommand = new UpdatePersonEmailCommand(
+                _sessionService.GetCurrentUser()!.Id,
+                _currentEmail,
+                mtbProfileEmail.Text
+            );
+
+            var updateProfileInfo = new UpdateProfileInfoCommand(
+                _sessionService.GetCurrentUser()!.Id,
+                mtbProfileName.Text,
+                mtbProfilePhoneNumber.Text
+            );
+
+            var emailResult = await _mediator.SendAsync(updateEmailCommand);
+            var profileResult = await _mediator.SendAsync(updateProfileInfo);
+
+            if (emailResult.IsFailure)
+            {
+                MessageBox.Show($"Não foi possivel atualizar o email, erro: {emailResult.Error.Description}", "Atualização de informações da conta.",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (profileResult.IsFailure)
+            {
+                MessageBox.Show($"Não foi possivel atualizar o nome ou o numero de telefone, erro: {profileResult.Error.Description}", "Atualização de informações da conta.",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                mtbProfileName.Text = profileResult.Data.Name;
+                mtbProfilePhoneNumber.Text = profileResult.Data.PhoneNumber;
+            }
+
+            mchbEditMode.Checked = false;
+        }
+
+        private void btnProfileSaveChanges_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
