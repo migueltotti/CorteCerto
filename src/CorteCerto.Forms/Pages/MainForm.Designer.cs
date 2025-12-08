@@ -58,7 +58,16 @@ namespace CorteCerto.App.Pages
             label4 = new Label();
             tabPageAppointments = new System.Windows.Forms.TabPage();
             calendarCard = new MaterialCard();
-            listView1 = new ListView();
+            flpAppointmentRequest = new FlowLayoutPanel();
+            materialCard5 = new MaterialCard();
+            materialButton1 = new MaterialButton();
+            label50 = new Label();
+            label49 = new Label();
+            label48 = new Label();
+            label47 = new Label();
+            label46 = new Label();
+            label45 = new Label();
+            flpAppointments = new FlowLayoutPanel();
             btnYearCalendar = new ParrotButton();
             btnMonthCalendar = new ParrotButton();
             btnWeekCalendar = new ParrotButton();
@@ -151,6 +160,8 @@ namespace CorteCerto.App.Pages
             dashboardCard.SuspendLayout();
             tabPageAppointments.SuspendLayout();
             calendarCard.SuspendLayout();
+            flpAppointmentRequest.SuspendLayout();
+            materialCard5.SuspendLayout();
             appointmentCard.SuspendLayout();
             tabPageServices.SuspendLayout();
             materialCard3.SuspendLayout();
@@ -644,9 +655,11 @@ namespace CorteCerto.App.Pages
             // 
             // calendarCard
             // 
-            calendarCard.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            calendarCard.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             calendarCard.BackColor = Color.FromArgb(255, 255, 255);
-            calendarCard.Controls.Add(listView1);
+            calendarCard.Controls.Add(flpAppointmentRequest);
+            calendarCard.Controls.Add(label45);
+            calendarCard.Controls.Add(flpAppointments);
             calendarCard.Controls.Add(btnYearCalendar);
             calendarCard.Controls.Add(btnMonthCalendar);
             calendarCard.Controls.Add(btnWeekCalendar);
@@ -662,15 +675,128 @@ namespace CorteCerto.App.Pages
             calendarCard.Size = new Size(917, 538);
             calendarCard.TabIndex = 28;
             // 
-            // listView1
+            // flpAppointmentRequest
             // 
-            listView1.FullRowSelect = true;
-            listView1.Location = new Point(17, 72);
-            listView1.MultiSelect = false;
-            listView1.Name = "listView1";
-            listView1.Size = new Size(883, 449);
-            listView1.TabIndex = 32;
-            listView1.UseCompatibleStateImageBehavior = false;
+            flpAppointmentRequest.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            flpAppointmentRequest.AutoScroll = true;
+            flpAppointmentRequest.BackColor = Color.White;
+            flpAppointmentRequest.Controls.Add(materialCard5);
+            flpAppointmentRequest.Location = new Point(17, 290);
+            flpAppointmentRequest.Name = "flpAppointmentRequest";
+            flpAppointmentRequest.Size = new Size(882, 231);
+            flpAppointmentRequest.TabIndex = 34;
+            flpAppointmentRequest.WrapContents = false;
+            // 
+            // materialCard5
+            // 
+            materialCard5.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard5.Controls.Add(materialButton1);
+            materialCard5.Controls.Add(label50);
+            materialCard5.Controls.Add(label49);
+            materialCard5.Controls.Add(label48);
+            materialCard5.Controls.Add(label47);
+            materialCard5.Controls.Add(label46);
+            materialCard5.Depth = 0;
+            materialCard5.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard5.Location = new Point(14, 14);
+            materialCard5.Margin = new Padding(14);
+            materialCard5.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            materialCard5.Name = "materialCard5";
+            materialCard5.Padding = new Padding(14);
+            materialCard5.Size = new Size(218, 206);
+            materialCard5.TabIndex = 0;
+            // 
+            // materialButton1
+            // 
+            materialButton1.AutoSize = false;
+            materialButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            materialButton1.Density = MaterialButton.MaterialButtonDensity.Default;
+            materialButton1.Depth = 0;
+            materialButton1.HighEmphasis = true;
+            materialButton1.Icon = null;
+            materialButton1.IconType = MaterialButton.MaterialIconType.Rebase;
+            materialButton1.Location = new Point(10, 166);
+            materialButton1.Margin = new Padding(4, 6, 4, 6);
+            materialButton1.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            materialButton1.Name = "materialButton1";
+            materialButton1.NoAccentTextColor = Color.Empty;
+            materialButton1.Size = new Size(198, 31);
+            materialButton1.TabIndex = 39;
+            materialButton1.Text = "Ver mais";
+            materialButton1.Type = MaterialButton.MaterialButtonType.Contained;
+            materialButton1.UseAccentColor = false;
+            materialButton1.UseVisualStyleBackColor = true;
+            // 
+            // label50
+            // 
+            label50.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label50.ForeColor = Color.Black;
+            label50.Location = new Point(117, 55);
+            label50.Name = "label50";
+            label50.Size = new Size(94, 24);
+            label50.TabIndex = 38;
+            label50.Text = "Sábado";
+            // 
+            // label49
+            // 
+            label49.Font = new Font("Segoe UI", 10F);
+            label49.ForeColor = Color.Gray;
+            label49.Location = new Point(10, 67);
+            label49.Name = "label49";
+            label49.Size = new Size(101, 24);
+            label49.TabIndex = 37;
+            label49.Text = "19:00";
+            // 
+            // label48
+            // 
+            label48.Font = new Font("Segoe UI", 10F);
+            label48.ForeColor = Color.Gray;
+            label48.Location = new Point(10, 46);
+            label48.Name = "label48";
+            label48.Size = new Size(101, 24);
+            label48.TabIndex = 36;
+            label48.Text = "21/12/2025";
+            // 
+            // label47
+            // 
+            label47.Font = new Font("Segoe UI", 10F);
+            label47.ForeColor = Color.Black;
+            label47.Location = new Point(10, 97);
+            label47.Name = "label47";
+            label47.Size = new Size(201, 78);
+            label47.TabIndex = 35;
+            label47.Text = "Cabelo e Barba ";
+            // 
+            // label46
+            // 
+            label46.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label46.ForeColor = Color.Black;
+            label46.Location = new Point(10, 14);
+            label46.Name = "label46";
+            label46.Size = new Size(201, 32);
+            label46.TabIndex = 35;
+            label46.Text = "Jose da silva";
+            // 
+            // label45
+            // 
+            label45.AutoSize = true;
+            label45.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label45.ForeColor = Color.Black;
+            label45.Location = new Point(17, 255);
+            label45.Name = "label45";
+            label45.Size = new Size(397, 32);
+            label45.TabIndex = 33;
+            label45.Text = "Suas proprostas de agendamento";
+            // 
+            // flpAppointments
+            // 
+            flpAppointments.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            flpAppointments.BackColor = Color.Red;
+            flpAppointments.Location = new Point(17, 72);
+            flpAppointments.MaximumSize = new Size(0, 400);
+            flpAppointments.Name = "flpAppointments";
+            flpAppointments.Size = new Size(882, 158);
+            flpAppointments.TabIndex = 32;
             // 
             // btnYearCalendar
             // 
@@ -2264,6 +2390,8 @@ namespace CorteCerto.App.Pages
             tabPageAppointments.ResumeLayout(false);
             calendarCard.ResumeLayout(false);
             calendarCard.PerformLayout();
+            flpAppointmentRequest.ResumeLayout(false);
+            materialCard5.ResumeLayout(false);
             appointmentCard.ResumeLayout(false);
             appointmentCard.PerformLayout();
             tabPageServices.ResumeLayout(false);
@@ -2335,7 +2463,6 @@ namespace CorteCerto.App.Pages
         private ReaLTaiizor.Controls.ParrotButton btnWeekCalendar;
         private ReaLTaiizor.Controls.Button btnBarberAvailabilities;
         private System.Windows.Forms.TabPage tabPageAvailability;
-        private ListView listView1;
         private ReaLTaiizor.Controls.MaterialButton btnNewAppointment;
         private ReaLTaiizor.Controls.MaterialButton mtbRegisterBarberProfile;
         private ReaLTaiizor.Controls.MaterialCard materialCard1;
@@ -2404,5 +2531,15 @@ namespace CorteCerto.App.Pages
         private Label label41;
         private MaterialButton btnSaveBarberChanges;
         private MaterialCheckBox mchbBarberEditMode;
+        private FlowLayoutPanel flpAppointments;
+        private Label label45;
+        private FlowLayoutPanel flpAppointmentRequest;
+        private MaterialCard materialCard5;
+        private Label label50;
+        private Label label49;
+        private Label label48;
+        private Label label47;
+        private Label label46;
+        private MaterialButton materialButton1;
     }
 }

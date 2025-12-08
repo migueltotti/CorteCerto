@@ -65,6 +65,8 @@ namespace CorteCerto.App.Pages
                 WindowState = FormWindowState.Normal;
                 WindowState = FormWindowState.Maximized;
             };
+
+            AjustFLPAppointmentRequestsPosition();
         }
 
         private void ColorSideBarButtons()
@@ -83,6 +85,19 @@ namespace CorteCerto.App.Pages
             tabControlMain.Appearance = TabAppearance.FlatButtons;
             tabControlMain.ItemSize = new Size(0, 1);
             tabControlMain.SizeMode = TabSizeMode.Fixed;
+        }
+
+        private void AjustFLPAppointmentRequestsPosition()
+        {
+            label45.Location = new Point(
+                17,
+                flpAppointmentRequest.Location.Y + 252
+            );
+
+            flpAppointmentRequest.Location = new Point(
+                17,
+                flpAppointmentRequest.Location.Y + 292
+            );
         }
 
         private void SetUserInfo()
@@ -231,6 +246,37 @@ namespace CorteCerto.App.Pages
             }
         }
 
+        private async Task LoadAppointmentRequestsCards()
+        {
+            //var barberId = _sessionService.GetCurrentUser()!.Id;
+            var barberId = Guid.Parse("c160437f-405c-4203-824f-033b827a089c");
+
+            var appointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
+                BarberId: barberId, 
+                AppointmentStatus: Domain.Enums.AppointmentStatus.WaitingForAprovement
+            ));
+
+            AppointmentRequestCard card;
+
+            int xLocaltionPoint = 14;
+            int yLocaltionPoint = 14;
+            const int padding = 10;
+
+            foreach (var appointmentRequest in appointments.Results)
+            {
+                card = AppointmentRequestCard.Builder
+                    .Create(_mediator)
+                    .WithAppointment(appointmentRequest)
+                    .Build();
+
+                card.Location = new Point(xLocaltionPoint, yLocaltionPoint);
+
+                flpAppointmentRequest.Controls.Add(card);
+
+                xLocaltionPoint += 218 + padding;
+            }
+        }
+
         private bool HasProfileChanges()
         {
             return
@@ -302,9 +348,11 @@ namespace CorteCerto.App.Pages
             tabControlMain.SelectedIndex = 0;
         }
 
-        private void btnAppoitments_Click(object sender, EventArgs e)
+        private async void btnAppoitments_Click(object sender, EventArgs e)
         {
             tabControlMain.SelectedIndex = 1;
+
+            await LoadAppointmentRequestsCards();
         }
 
         private async void btnServices_Click(object sender, EventArgs e)
