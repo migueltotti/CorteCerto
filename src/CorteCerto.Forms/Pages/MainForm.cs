@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
+using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -190,8 +191,7 @@ namespace CorteCerto.App.Pages
 
         private async Task LoadProfileInfo()
         {
-            //var personId = _sessionService.GetCurrentUser()!.Id;
-            var personId = Guid.Parse("c160437f-405c-4203-824f-033b827a089c");
+            var personId = _sessionService.GetCurrentUser()!.Id;
 
             var customerResult = await _mediator.QueryAsync(new GetCustomersQuery(Id: personId));
 
@@ -206,15 +206,17 @@ namespace CorteCerto.App.Pages
             _oldEmail = customer.Email;
             _oldPhoneNumber = customer.PhoneNumber;
 
-            //if (_sessionService.CurrentUserHasBarberProfile())
-            //{
+            if (_sessionService.CurrentUserHasBarberProfile())
+            {
                 var barberResult = await _mediator.QueryAsync(new GetBarbersQuery(Id: personId));
 
                 var barber = barberResult.Results.First();
 
+                var cep = barber.Address.ZipCode;
+
                 mrtbBarberDescription.Text = barber.Description;
                 mtbBarberPortifolioUrl.Text = barber.PortfolioUrl;
-                mtbBarberCep.Text = barber.Address.ZipCode;
+                mtbBarberCep.Text = $"{cep.Substring(0, 5)}-{cep.Substring(5, 3)}";
                 mtbBarberAddressNumber.Text = barber.Address.Number.ToString();
 
                 mtbBarberAddressCountry.Text = barber.Address.Country;
@@ -226,7 +228,7 @@ namespace CorteCerto.App.Pages
                 _oldPortifolioUrl = barber.PortfolioUrl;
                 _oldCep = barber.Address.ZipCode;
                 _oldAddressNumber = barber.Address.Number.ToString();
-            //}
+            }
         }
 
         private bool HasProfileChanges()
@@ -262,7 +264,6 @@ namespace CorteCerto.App.Pages
         {
             return
                 mrtbBarberDescription.Text != "" &&
-                mtbBarberPortifolioUrl.Text != "" &&
                 mtbBarberCep.Text != "" &&
                 mtbBarberAddressNumber.Text != "";
         }
@@ -515,8 +516,8 @@ namespace CorteCerto.App.Pages
 
         private void mchbBarberEditMode_CheckedChanged(object sender, EventArgs e)
         {
-            //if (_sessionService.CurrentUserHasBarberProfile())
-            //{
+            if (_sessionService.CurrentUserHasBarberProfile())
+            {
                 mrtbBarberDescription.ReadOnly = !mchbBarberEditMode.Checked;
 
                 mtbBarberPortifolioUrl.Enabled = mchbBarberEditMode.Checked;
@@ -529,11 +530,11 @@ namespace CorteCerto.App.Pages
                 mtbBarberAddressNumber.ReadOnly = !mchbBarberEditMode.Checked;
 
                 btnSaveBarberChanges.Enabled = mchbBarberEditMode.Checked;
-            //}
-            //else
-            //{
-            //    mchbBarberEditMode.Checked = false;
-            //}
+            }
+            else
+            {
+                mchbBarberEditMode.Checked = false;
+            }
         }
 
         private async void btnSaveBarberChanges_Click(object sender, EventArgs e)
@@ -541,12 +542,13 @@ namespace CorteCerto.App.Pages
             if (IsBarberInfoValid() && HasBarberProfileChanges())
             {
                 var updateBarberInfo = new UpdateBarberProfileCommand(
-                    //_sessionService.GetCurrentUser()!.Id,
-                    Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                    _sessionService.GetCurrentUser()!.Id,
                     mtbProfileName.Text,
                     mrtbBarberDescription.Text,
-                    mtbBarberPortifolioUrl.Text,
-                    mtbProfilePhoneNumber.Text
+                    mtbBarberPortifolioUrl.Text != "" ? mtbBarberPortifolioUrl.Text : null,
+                    mtbProfilePhoneNumber.Text,
+                    mtbBarberCep.Text,
+                    Int32.Parse(mtbBarberAddressNumber.Text)
                 );
 
                 var barberResult = await _mediator.SendAsync(updateBarberInfo);
@@ -558,9 +560,11 @@ namespace CorteCerto.App.Pages
                 }
                 else
                 {
+                    var cep = barberResult.Data.Address.ZipCode;
+
                     mrtbBarberDescription.Text = barberResult.Data.Description;
                     mtbBarberPortifolioUrl.Text = barberResult.Data.PortfolioUrl;
-                    mtbBarberCep.Text = barberResult.Data.Address.ZipCode;
+                    mtbBarberCep.Text = $"{cep.Substring(0, 5)}-{cep.Substring(5, 3)}";
                     mtbBarberAddressNumber.Text = barberResult.Data.Address.Number.ToString();
 
                     mtbBarberAddressCountry.Text = barberResult.Data.Address.Country;
@@ -570,7 +574,7 @@ namespace CorteCerto.App.Pages
 
                     _oldDescription = barberResult.Data.Description;
                     _oldPortifolioUrl = barberResult.Data.PortfolioUrl;
-                    _oldCep = barberResult.Data.Address.ZipCode;
+                    _oldCep = $"{cep.Substring(0, 5)}-{cep.Substring(5, 3)}";
                     _oldAddressNumber = barberResult.Data.Address.Number.ToString();
                 }
 

@@ -2,6 +2,7 @@
 using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Errors;
 using CorteCerto.Domain.Interfaces.Repositories;
+using CorteCerto.Domain.Interfaces.Services;
 using FluentValidation;
 using LiteBus.Commands.Abstractions;
 using Mapster;
@@ -12,6 +13,7 @@ namespace CorteCerto.Application.UseCases.Commands.Barbers;
 
 public class UpdateBarberProfileCommandHandler(
     IBarberRepository barberRepository,
+    IAddressService addressService,
     IValidator<UpdateBarberProfileCommand> validator,
     ILogger<UpdateBarberProfileCommandHandler> logger)
     : ICommandHandler<UpdateBarberProfileCommand, Result<BarberDto>>
@@ -34,6 +36,21 @@ public class UpdateBarberProfileCommandHandler(
             logger.LogInformation("Barber with BarberId: {BarberId} not found.", command.BarberId);
 
             return Result<BarberDto>.Failure(BarberErrors.NotFoundById);
+        }
+
+        if (command.Cep != barber.Address.ZipCode || command.AddressNumber != barber.Address.Number)
+        {
+            var addressResult = await addressService.CreateAddressByCep(command.Cep, command.AddressNumber);
+
+            if (addressResult.IsFailure)
+            {
+                logger.LogInformation("Address not found for Cep: {Cep}", command.Cep);
+
+                return Result<BarberDto>.Failure(addressResult.Error);
+            }
+
+            barber = barber
+                .SetAddress(addressResult.Data);
         }
 
         barber = barber

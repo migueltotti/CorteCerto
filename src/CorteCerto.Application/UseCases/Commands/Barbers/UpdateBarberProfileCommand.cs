@@ -8,6 +8,8 @@ public record UpdateBarberProfileCommand(
     Guid BarberId, 
     string Name,
     string Description,
-    string PortfolioUrl,
-    string PhoneNumber
+    string? PortfolioUrl,
+    string PhoneNumber,
+    string Cep,
+    int AddressNumber
 ) : ICommand<Result<BarberDto>>;

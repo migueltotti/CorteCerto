@@ -1,8 +1,6 @@
 ﻿using CorteCerto.Application.UseCases.Commands.Barbers;
 using CorteCerto.Domain.Helpers;
 using FluentValidation;
-using FluentValidation.Validators;
-using System.Text.RegularExpressions;
 namespace CorteCerto.Application.Validations;
 
 public partial class RegisterBarberProfileValidator : AbstractValidator<RegisterBarberProfileCommand>

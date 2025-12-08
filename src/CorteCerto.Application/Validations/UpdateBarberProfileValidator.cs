@@ -27,5 +27,15 @@ public class UpdateBarberProfileValidator : AbstractValidator<UpdateBarberProfil
             .NotNull().WithMessage("Telefone não pode ser nulo.")
             .NotEmpty().WithMessage("Telefone é obrigatório.")
             .MaximumLength(15).WithMessage("Numero de telefone inválido, verifique a quantidade de digitos.");
+
+        RuleFor(x => x.Cep)
+            .NotNull().WithMessage("Cep não pode ser nulo.")
+            .NotEmpty().WithMessage("Cep é obrigatório.")
+            .Must(x => CepHelper.Checker.IsMatch(x)).WithMessage("Cep deve estar no formato NNNNN-NNN ou NNNNNNNN.");
+        
+        RuleFor(x => x.AddressNumber)
+            .NotNull().WithMessage("Numero de Endereço não pode ser nulo.")
+            .NotEmpty().WithMessage("Numero de Endereço é obrigatório.")
+            .Must(x => x > 0).WithMessage("Numero de Endereço não pode ser negativo.");
     }
 }
