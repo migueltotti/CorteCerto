@@ -7,7 +7,7 @@ public record BarberDto(
     string Email,
     string PhoneNumber,
     string Description,
-    string ProfileUrl,
+    string PortfolioUrl,
     AddressDto Address,
     List<BarberAvailabilityDto> Availabilities
 );

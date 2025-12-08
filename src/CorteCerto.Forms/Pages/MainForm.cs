@@ -2,6 +2,7 @@
 using CorteCerto.App.Helpers;
 using CorteCerto.App.Interfaces;
 using CorteCerto.Application.DTO;
+using CorteCerto.Application.UseCases.Commands.Barbers;
 using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.UseCases.Queries.Barbers;
 using CorteCerto.Application.UseCases.Queries.Customers;
@@ -14,6 +15,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -38,6 +40,11 @@ namespace CorteCerto.App.Pages
         private string _oldName = "";
         private string _oldEmail = "";
         private string _oldPhoneNumber = "";
+
+        private string _oldDescription = "";
+        private string _oldPortifolioUrl = "";
+        private string _oldCep = "";
+        private string _oldAddressNumber = "";
         #endregion
 
         #region Methods
@@ -198,6 +205,66 @@ namespace CorteCerto.App.Pages
             _oldName = customer.Name;
             _oldEmail = customer.Email;
             _oldPhoneNumber = customer.PhoneNumber;
+
+            //if (_sessionService.CurrentUserHasBarberProfile())
+            //{
+                var barberResult = await _mediator.QueryAsync(new GetBarbersQuery(Id: personId));
+
+                var barber = barberResult.Results.First();
+
+                mrtbBarberDescription.Text = barber.Description;
+                mtbBarberPortifolioUrl.Text = barber.PortfolioUrl;
+                mtbBarberCep.Text = barber.Address.ZipCode;
+                mtbBarberAddressNumber.Text = barber.Address.Number.ToString();
+
+                mtbBarberAddressCountry.Text = barber.Address.Country;
+                mtbBarberAddressState.Text = barber.Address.State;
+                mtbBarberAddressCity.Text = barber.Address.City;
+                mtbBarberAddress.Text = barber.Address.Street;
+
+                _oldDescription = barber.Description;
+                _oldPortifolioUrl = barber.PortfolioUrl;
+                _oldCep = barber.Address.ZipCode;
+                _oldAddressNumber = barber.Address.Number.ToString();
+            //}
+        }
+
+        private bool HasProfileChanges()
+        {
+            return
+                _oldName != mtbProfileName.Text ||
+                _oldPhoneNumber != mtbProfilePhoneNumber.Text;
+        }
+
+        private bool HasProfileEmailChanged()
+        {
+            return _oldEmail != mtbProfileEmail.Text;
+        }
+
+        private bool HasBarberProfileChanges()
+        {
+            return
+                _oldDescription != mrtbBarberDescription.Text ||
+                _oldPortifolioUrl != mtbBarberPortifolioUrl.Text ||
+                _oldCep != mtbBarberCep.Text ||
+                _oldAddressNumber != mtbBarberAddressNumber.Text;
+        }
+
+        private bool IsProfileInfoValid()
+        {
+            return
+                mtbProfileName.Text != "" &&
+                mtbProfileEmail.Text != "" &&
+                mtbProfilePhoneNumber.Text != "";
+        }
+
+        private bool IsBarberInfoValid()
+        {
+            return
+                mrtbBarberDescription.Text != "" &&
+                mtbBarberPortifolioUrl.Text != "" &&
+                mtbBarberCep.Text != "" &&
+                mtbBarberAddressNumber.Text != "";
         }
         #endregion
 
@@ -382,9 +449,9 @@ namespace CorteCerto.App.Pages
 
         private async void btnSaveProfileChanges_Click(object sender, EventArgs e)
         {
-            if (mtbProfileName.Text != "" && mtbProfileEmail.Text != "" && mtbProfilePhoneNumber.Text != "") 
-            { 
-                if (_oldEmail != mtbProfileEmail.Text)
+            if (IsProfileInfoValid())
+            {
+                if (HasProfileEmailChanged())
                 {
                     var updateEmailCommand = new UpdatePersonEmailCommand(
                         _sessionService.GetCurrentUser()!.Id,
@@ -399,9 +466,11 @@ namespace CorteCerto.App.Pages
                         MessageBox.Show($"Não foi possivel atualizar o email, erro: {emailResult.Error.Description}", "Atualização de informações da conta.",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+
+                    _oldEmail = mtbProfileEmail.Text;
                 }
 
-                if(_oldName != mtbProfileName.Text || _oldPhoneNumber != mtbProfilePhoneNumber.Text)
+                if (HasProfileChanges())
                 {
                     var updateProfileInfo = new UpdateProfileInfoCommand(
                         _sessionService.GetCurrentUser()!.Id,
@@ -420,6 +489,9 @@ namespace CorteCerto.App.Pages
                     {
                         mtbProfileName.Text = profileResult.Data.Name;
                         mtbProfilePhoneNumber.Text = profileResult.Data.PhoneNumber;
+
+                        _oldName = profileResult.Data.Name;
+                        _oldPhoneNumber = profileResult.Data.PhoneNumber;
                     }
                 }
 
@@ -439,6 +511,71 @@ namespace CorteCerto.App.Pages
             mtbProfilePhoneNumber.ReadOnly = !mchbProfileEditMode.Checked;
 
             btnSaveProfileChanges.Enabled = mchbProfileEditMode.Checked;
+        }
+
+        private void mchbBarberEditMode_CheckedChanged(object sender, EventArgs e)
+        {
+            //if (_sessionService.CurrentUserHasBarberProfile())
+            //{
+                mrtbBarberDescription.ReadOnly = !mchbBarberEditMode.Checked;
+
+                mtbBarberPortifolioUrl.Enabled = mchbBarberEditMode.Checked;
+                mtbBarberPortifolioUrl.ReadOnly = !mchbBarberEditMode.Checked;
+
+                mtbBarberCep.Enabled = mchbBarberEditMode.Checked;
+                mtbBarberCep.ReadOnly = !mchbBarberEditMode.Checked;
+
+                mtbBarberAddressNumber.Enabled = mchbBarberEditMode.Checked;
+                mtbBarberAddressNumber.ReadOnly = !mchbBarberEditMode.Checked;
+
+                btnSaveBarberChanges.Enabled = mchbBarberEditMode.Checked;
+            //}
+            //else
+            //{
+            //    mchbBarberEditMode.Checked = false;
+            //}
+        }
+
+        private async void btnSaveBarberChanges_Click(object sender, EventArgs e)
+        {
+            if (IsBarberInfoValid() && HasBarberProfileChanges())
+            {
+                var updateBarberInfo = new UpdateBarberProfileCommand(
+                    //_sessionService.GetCurrentUser()!.Id,
+                    Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                    mtbProfileName.Text,
+                    mrtbBarberDescription.Text,
+                    mtbBarberPortifolioUrl.Text,
+                    mtbProfilePhoneNumber.Text
+                );
+
+                var barberResult = await _mediator.SendAsync(updateBarberInfo);
+
+                if (barberResult.IsFailure)
+                {
+                    MessageBox.Show($"Não foi possivel atualizar descrição, portifolio, cep ou numero de endereço do barbeiro, erro: {barberResult.Error.Description}", "Atualização de informações da conta.",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    mrtbBarberDescription.Text = barberResult.Data.Description;
+                    mtbBarberPortifolioUrl.Text = barberResult.Data.PortfolioUrl;
+                    mtbBarberCep.Text = barberResult.Data.Address.ZipCode;
+                    mtbBarberAddressNumber.Text = barberResult.Data.Address.Number.ToString();
+
+                    mtbBarberAddressCountry.Text = barberResult.Data.Address.Country;
+                    mtbBarberAddressState.Text = barberResult.Data.Address.State;
+                    mtbBarberAddressCity.Text = barberResult.Data.Address.City;
+                    mtbBarberAddress.Text = barberResult.Data.Address.Street;
+
+                    _oldDescription = barberResult.Data.Description;
+                    _oldPortifolioUrl = barberResult.Data.PortfolioUrl;
+                    _oldCep = barberResult.Data.Address.ZipCode;
+                    _oldAddressNumber = barberResult.Data.Address.Number.ToString();
+                }
+
+                mchbBarberEditMode.Checked = false;
+            }
         }
     }
 }

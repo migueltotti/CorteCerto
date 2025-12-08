@@ -27,7 +27,7 @@ public class UpdateBarberProfileCommandHandler(
             return Result<BarberDto>.Failure(BarberErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
 
-        var barber = await barberRepository.Select(command.BarberId);
+        var barber = await barberRepository.Select(command.BarberId, ["Address.City.State.Country"], cancellationToken);
 
         if (barber is null)
         {
