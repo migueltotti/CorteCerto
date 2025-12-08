@@ -31,6 +31,16 @@ public abstract class Person : BaseEntity<Guid>
         Email = email;
     }
 
+    public void UpdateName(string name)
+    {
+        Name = name;
+    }
+
+    public void UpdatePhoneNumber(string phoneNumber)
+    {
+        PhoneNumber = phoneNumber;
+    }
+
     public Result UpdatePasswordHash(string passwordHash)
     {
         if (!passwordHash.Contains("-") || passwordHash.Length != PasswordHashLength)
