@@ -5,9 +5,9 @@ using LiteBus.Queries.Abstractions;
 namespace CorteCerto.Application.UseCases.Queries.Customers;
 
 public record GetCustomersQuery(
-    Guid? Id,
-    string? Name,
-    string? Email,
+    Guid? Id = null,
+    string? Name = null,
+    string? Email = null,
     int PageSize = 50,
     int PageNumber = 1
 ) : IQuery<PagedResult<CustomerDto>>;
