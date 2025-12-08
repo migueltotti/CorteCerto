@@ -283,11 +283,12 @@ namespace CorteCerto.App.Pages
             LogoutUser();
         }
 
-        private void btnUserAction_Click(object sender, EventArgs e)
+        private async void btnUserAction_Click(object sender, EventArgs e)
         {
             if (_sessionService.IsAuthenticated)
             {
-
+                tabControlMain.SelectedIndex = 5;
+                await LoadProfileInfo();
             }
             else
             {
@@ -325,8 +326,16 @@ namespace CorteCerto.App.Pages
 
         private async void btnConfigurations_Click(object sender, EventArgs e)
         {
-            tabControlMain.SelectedIndex = 5;
-            await LoadProfileInfo();
+            if (_sessionService.IsAuthenticated)
+            {
+                tabControlMain.SelectedIndex = 5;
+                await LoadProfileInfo();
+            }
+            else
+            {
+                MessageBox.Show("Você precisa fazer login para acessar esta seção.", "Acesso Negado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private async void btnBarberAvailabilities_Click(object sender, EventArgs e)

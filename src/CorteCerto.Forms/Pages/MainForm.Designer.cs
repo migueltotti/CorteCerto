@@ -373,7 +373,7 @@ namespace CorteCerto.App.Pages
             btnConfigurations.Size = new Size(221, 35);
             btnConfigurations.TabIndex = 19;
             btnConfigurations.Tag = "6";
-            btnConfigurations.Text = "Configurações";
+            btnConfigurations.Text = "Perfil";
             btnConfigurations.TextAlignment = StringAlignment.Near;
             btnConfigurations.Click += btnConfigurations_Click;
             // 
