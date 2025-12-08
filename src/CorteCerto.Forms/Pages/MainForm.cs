@@ -2,7 +2,9 @@
 using CorteCerto.App.Helpers;
 using CorteCerto.App.Interfaces;
 using CorteCerto.Application.DTO;
+using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.UseCases.Queries.Barbers;
+using CorteCerto.Application.UseCases.Queries.Customers;
 using CorteCerto.Application.UseCases.Queries.People;
 using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Filters;
@@ -33,6 +35,9 @@ namespace CorteCerto.App.Pages
             DayOfWeek.Friday,
             DayOfWeek.Saturday
         ];
+        private string _oldName = "";
+        private string _oldEmail = "";
+        private string _oldPhoneNumber = "";
         #endregion
 
         #region Methods
@@ -175,6 +180,25 @@ namespace CorteCerto.App.Pages
                 yLocaltionPoint += 131;
             }
         }
+
+        private async Task LoadProfileInfo()
+        {
+            //var personId = _sessionService.GetCurrentUser()!.Id;
+            var personId = Guid.Parse("c160437f-405c-4203-824f-033b827a089c");
+
+            var customerResult = await _mediator.QueryAsync(new GetCustomersQuery(Id: personId));
+
+            var customer = customerResult.Results.First();
+
+            mtbProfileName.Text = customer.Name;
+            mtbProfileEmail.Text = customer.Email;
+            mtbProfilePhoneNumber.Text = customer.PhoneNumber;
+            mtbProfilePromotionPoints.Text = customer.PromotionPoints.ToString();
+
+            _oldName = customer.Name;
+            _oldEmail = customer.Email;
+            _oldPhoneNumber = customer.PhoneNumber;
+        }
         #endregion
 
         #region Events
@@ -231,9 +255,10 @@ namespace CorteCerto.App.Pages
             tabControlMain.SelectedIndex = 4;
         }
 
-        private void btnConfigurations_Click(object sender, EventArgs e)
+        private async void btnConfigurations_Click(object sender, EventArgs e)
         {
             tabControlMain.SelectedIndex = 5;
+            await LoadProfileInfo();
         }
 
         private async void btnBarberAvailabilities_Click(object sender, EventArgs e)
@@ -353,6 +378,67 @@ namespace CorteCerto.App.Pages
 
             if (!string.IsNullOrEmpty(price))
                 mtbPriceFilter.Text = $"R$ {price}";
+        }
+
+        private async void btnSaveProfileChanges_Click(object sender, EventArgs e)
+        {
+            if (mtbProfileName.Text != "" && mtbProfileEmail.Text != "" && mtbProfilePhoneNumber.Text != "") 
+            { 
+                if (_oldEmail != mtbProfileEmail.Text)
+                {
+                    var updateEmailCommand = new UpdatePersonEmailCommand(
+                        _sessionService.GetCurrentUser()!.Id,
+                        _oldEmail,
+                        mtbProfileEmail.Text
+                    );
+
+                    var emailResult = await _mediator.SendAsync(updateEmailCommand);
+
+                    if (emailResult.IsFailure)
+                    {
+                        MessageBox.Show($"Não foi possivel atualizar o email, erro: {emailResult.Error.Description}", "Atualização de informações da conta.",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                if(_oldName != mtbProfileName.Text || _oldPhoneNumber != mtbProfilePhoneNumber.Text)
+                {
+                    var updateProfileInfo = new UpdateProfileInfoCommand(
+                        _sessionService.GetCurrentUser()!.Id,
+                        mtbProfileName.Text,
+                        mtbProfilePhoneNumber.Text
+                    );
+
+                    var profileResult = await _mediator.SendAsync(updateProfileInfo);
+
+                    if (profileResult.IsFailure)
+                    {
+                        MessageBox.Show($"Não foi possivel atualizar o nome ou o numero de telefone, erro: {profileResult.Error.Description}", "Atualização de informações da conta.",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        mtbProfileName.Text = profileResult.Data.Name;
+                        mtbProfilePhoneNumber.Text = profileResult.Data.PhoneNumber;
+                    }
+                }
+
+                mchbProfileEditMode.Checked = false;
+            }
+        }
+
+        private void mchbProfileEditMode_CheckedChanged(object sender, EventArgs e)
+        {
+            mtbProfileName.Enabled = mchbProfileEditMode.Checked;
+            mtbProfileName.ReadOnly = !mchbProfileEditMode.Checked;
+
+            mtbProfileEmail.Enabled = mchbProfileEditMode.Checked;
+            mtbProfileEmail.ReadOnly = !mchbProfileEditMode.Checked;
+
+            mtbProfilePhoneNumber.Enabled = mchbProfileEditMode.Checked;
+            mtbProfilePhoneNumber.ReadOnly = !mchbProfileEditMode.Checked;
+
+            btnSaveProfileChanges.Enabled = mchbProfileEditMode.Checked;
         }
     }
 }

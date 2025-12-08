@@ -97,6 +97,14 @@ namespace CorteCerto.App.Pages
             tabPageReports = new System.Windows.Forms.TabPage();
             label9 = new Label();
             tabPageConfigurations = new System.Windows.Forms.TabPage();
+            btnSaveProfileChanges = new MaterialButton();
+            mchbProfileEditMode = new MaterialCheckBox();
+            mtbProfilePromotionPoints = new MaterialTextBoxEdit();
+            label35 = new Label();
+            mtbProfilePhoneNumber = new MaterialTextBoxEdit();
+            label34 = new Label();
+            mtbProfileEmail = new MaterialTextBoxEdit();
+            label33 = new Label();
             materialCard4 = new MaterialCard();
             label10 = new Label();
             label30 = new Label();
@@ -1311,6 +1319,14 @@ namespace CorteCerto.App.Pages
             // 
             // tabPageConfigurations
             // 
+            tabPageConfigurations.Controls.Add(btnSaveProfileChanges);
+            tabPageConfigurations.Controls.Add(mchbProfileEditMode);
+            tabPageConfigurations.Controls.Add(mtbProfilePromotionPoints);
+            tabPageConfigurations.Controls.Add(label35);
+            tabPageConfigurations.Controls.Add(mtbProfilePhoneNumber);
+            tabPageConfigurations.Controls.Add(label34);
+            tabPageConfigurations.Controls.Add(mtbProfileEmail);
+            tabPageConfigurations.Controls.Add(label33);
             tabPageConfigurations.Controls.Add(materialCard4);
             tabPageConfigurations.Controls.Add(mtbProfileName);
             tabPageConfigurations.Controls.Add(label32);
@@ -1322,6 +1338,172 @@ namespace CorteCerto.App.Pages
             tabPageConfigurations.TabIndex = 5;
             tabPageConfigurations.Text = "Configurations";
             tabPageConfigurations.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveProfileChanges
+            // 
+            btnSaveProfileChanges.AutoSize = false;
+            btnSaveProfileChanges.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnSaveProfileChanges.Density = MaterialButton.MaterialButtonDensity.Default;
+            btnSaveProfileChanges.Depth = 0;
+            btnSaveProfileChanges.HighEmphasis = true;
+            btnSaveProfileChanges.Icon = null;
+            btnSaveProfileChanges.IconType = MaterialButton.MaterialIconType.Rebase;
+            btnSaveProfileChanges.Location = new Point(31, 598);
+            btnSaveProfileChanges.Margin = new Padding(4, 6, 4, 6);
+            btnSaveProfileChanges.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnSaveProfileChanges.Name = "btnSaveProfileChanges";
+            btnSaveProfileChanges.NoAccentTextColor = Color.Empty;
+            btnSaveProfileChanges.Size = new Size(198, 37);
+            btnSaveProfileChanges.TabIndex = 37;
+            btnSaveProfileChanges.Text = "Salvar Alterações";
+            btnSaveProfileChanges.Type = MaterialButton.MaterialButtonType.Contained;
+            btnSaveProfileChanges.UseAccentColor = false;
+            btnSaveProfileChanges.UseVisualStyleBackColor = true;
+            btnSaveProfileChanges.Click += btnSaveProfileChanges_Click;
+            // 
+            // mchbProfileEditMode
+            // 
+            mchbProfileEditMode.AutoSize = true;
+            mchbProfileEditMode.Depth = 0;
+            mchbProfileEditMode.Location = new Point(31, 555);
+            mchbProfileEditMode.Margin = new Padding(0);
+            mchbProfileEditMode.MouseLocation = new Point(-1, -1);
+            mchbProfileEditMode.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            mchbProfileEditMode.Name = "mchbProfileEditMode";
+            mchbProfileEditMode.ReadOnly = false;
+            mchbProfileEditMode.Ripple = true;
+            mchbProfileEditMode.Size = new Size(128, 37);
+            mchbProfileEditMode.TabIndex = 36;
+            mchbProfileEditMode.Text = "Modo Edição";
+            mchbProfileEditMode.UseAccentColor = false;
+            mchbProfileEditMode.UseVisualStyleBackColor = true;
+            mchbProfileEditMode.CheckedChanged += mchbProfileEditMode_CheckedChanged;
+            // 
+            // mtbProfilePromotionPoints
+            // 
+            mtbProfilePromotionPoints.AnimateReadOnly = false;
+            mtbProfilePromotionPoints.AutoCompleteMode = AutoCompleteMode.None;
+            mtbProfilePromotionPoints.AutoCompleteSource = AutoCompleteSource.None;
+            mtbProfilePromotionPoints.BackgroundImageLayout = ImageLayout.None;
+            mtbProfilePromotionPoints.CharacterCasing = CharacterCasing.Normal;
+            mtbProfilePromotionPoints.Depth = 0;
+            mtbProfilePromotionPoints.Enabled = false;
+            mtbProfilePromotionPoints.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            mtbProfilePromotionPoints.HideSelection = true;
+            mtbProfilePromotionPoints.LeadingIcon = null;
+            mtbProfilePromotionPoints.Location = new Point(31, 472);
+            mtbProfilePromotionPoints.MaxLength = 32767;
+            mtbProfilePromotionPoints.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            mtbProfilePromotionPoints.Name = "mtbProfilePromotionPoints";
+            mtbProfilePromotionPoints.PasswordChar = '\0';
+            mtbProfilePromotionPoints.PrefixSuffixText = null;
+            mtbProfilePromotionPoints.ReadOnly = true;
+            mtbProfilePromotionPoints.RightToLeft = RightToLeft.No;
+            mtbProfilePromotionPoints.SelectedText = "";
+            mtbProfilePromotionPoints.SelectionLength = 0;
+            mtbProfilePromotionPoints.SelectionStart = 0;
+            mtbProfilePromotionPoints.ShortcutsEnabled = true;
+            mtbProfilePromotionPoints.Size = new Size(306, 48);
+            mtbProfilePromotionPoints.TabIndex = 35;
+            mtbProfilePromotionPoints.TabStop = false;
+            mtbProfilePromotionPoints.TextAlign = HorizontalAlignment.Left;
+            mtbProfilePromotionPoints.TrailingIcon = null;
+            mtbProfilePromotionPoints.UseSystemPasswordChar = false;
+            // 
+            // label35
+            // 
+            label35.AutoSize = true;
+            label35.Font = new Font("Segoe UI", 10F);
+            label35.ForeColor = Color.Gray;
+            label35.Location = new Point(31, 446);
+            label35.Name = "label35";
+            label35.Size = new Size(172, 23);
+            label35.TabIndex = 34;
+            label35.Text = "Pontos de Fidelidade:";
+            // 
+            // mtbProfilePhoneNumber
+            // 
+            mtbProfilePhoneNumber.AnimateReadOnly = false;
+            mtbProfilePhoneNumber.AutoCompleteMode = AutoCompleteMode.None;
+            mtbProfilePhoneNumber.AutoCompleteSource = AutoCompleteSource.None;
+            mtbProfilePhoneNumber.BackgroundImageLayout = ImageLayout.None;
+            mtbProfilePhoneNumber.CharacterCasing = CharacterCasing.Normal;
+            mtbProfilePhoneNumber.Depth = 0;
+            mtbProfilePhoneNumber.Enabled = false;
+            mtbProfilePhoneNumber.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            mtbProfilePhoneNumber.HideSelection = true;
+            mtbProfilePhoneNumber.LeadingIcon = null;
+            mtbProfilePhoneNumber.Location = new Point(31, 386);
+            mtbProfilePhoneNumber.MaxLength = 32767;
+            mtbProfilePhoneNumber.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            mtbProfilePhoneNumber.Name = "mtbProfilePhoneNumber";
+            mtbProfilePhoneNumber.PasswordChar = '\0';
+            mtbProfilePhoneNumber.PrefixSuffixText = null;
+            mtbProfilePhoneNumber.ReadOnly = true;
+            mtbProfilePhoneNumber.RightToLeft = RightToLeft.No;
+            mtbProfilePhoneNumber.SelectedText = "";
+            mtbProfilePhoneNumber.SelectionLength = 0;
+            mtbProfilePhoneNumber.SelectionStart = 0;
+            mtbProfilePhoneNumber.ShortcutsEnabled = true;
+            mtbProfilePhoneNumber.Size = new Size(306, 48);
+            mtbProfilePhoneNumber.TabIndex = 33;
+            mtbProfilePhoneNumber.TabStop = false;
+            mtbProfilePhoneNumber.TextAlign = HorizontalAlignment.Left;
+            mtbProfilePhoneNumber.TrailingIcon = null;
+            mtbProfilePhoneNumber.UseSystemPasswordChar = false;
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Font = new Font("Segoe UI", 10F);
+            label34.ForeColor = Color.Gray;
+            label34.Location = new Point(31, 360);
+            label34.Name = "label34";
+            label34.Size = new Size(169, 23);
+            label34.TabIndex = 32;
+            label34.Text = "Número de Telefone:";
+            // 
+            // mtbProfileEmail
+            // 
+            mtbProfileEmail.AnimateReadOnly = false;
+            mtbProfileEmail.AutoCompleteMode = AutoCompleteMode.None;
+            mtbProfileEmail.AutoCompleteSource = AutoCompleteSource.None;
+            mtbProfileEmail.BackgroundImageLayout = ImageLayout.None;
+            mtbProfileEmail.CharacterCasing = CharacterCasing.Normal;
+            mtbProfileEmail.Depth = 0;
+            mtbProfileEmail.Enabled = false;
+            mtbProfileEmail.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            mtbProfileEmail.HideSelection = true;
+            mtbProfileEmail.LeadingIcon = null;
+            mtbProfileEmail.Location = new Point(31, 301);
+            mtbProfileEmail.MaxLength = 32767;
+            mtbProfileEmail.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            mtbProfileEmail.Name = "mtbProfileEmail";
+            mtbProfileEmail.PasswordChar = '\0';
+            mtbProfileEmail.PrefixSuffixText = null;
+            mtbProfileEmail.ReadOnly = true;
+            mtbProfileEmail.RightToLeft = RightToLeft.No;
+            mtbProfileEmail.SelectedText = "";
+            mtbProfileEmail.SelectionLength = 0;
+            mtbProfileEmail.SelectionStart = 0;
+            mtbProfileEmail.ShortcutsEnabled = true;
+            mtbProfileEmail.Size = new Size(306, 48);
+            mtbProfileEmail.TabIndex = 31;
+            mtbProfileEmail.TabStop = false;
+            mtbProfileEmail.TextAlign = HorizontalAlignment.Left;
+            mtbProfileEmail.TrailingIcon = null;
+            mtbProfileEmail.UseSystemPasswordChar = false;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Font = new Font("Segoe UI", 10F);
+            label33.ForeColor = Color.Gray;
+            label33.Location = new Point(31, 275);
+            label33.Name = "label33";
+            label33.Size = new Size(55, 23);
+            label33.TabIndex = 30;
+            label33.Text = "Email:";
             // 
             // materialCard4
             // 
@@ -1385,7 +1567,7 @@ namespace CorteCerto.App.Pages
             mtbProfileName.SelectionLength = 0;
             mtbProfileName.SelectionStart = 0;
             mtbProfileName.ShortcutsEnabled = true;
-            mtbProfileName.Size = new Size(312, 48);
+            mtbProfileName.Size = new Size(306, 48);
             mtbProfileName.TabIndex = 29;
             mtbProfileName.TabStop = false;
             mtbProfileName.TextAlign = HorizontalAlignment.Left;
@@ -1785,5 +1967,13 @@ namespace CorteCerto.App.Pages
         private ReaLTaiizor.Controls.MaterialTextBoxEdit mtbProfileName;
         private Label label32;
         private Label label31;
+        private MaterialTextBoxEdit mtbProfilePhoneNumber;
+        private Label label34;
+        private MaterialTextBoxEdit mtbProfileEmail;
+        private Label label33;
+        private MaterialTextBoxEdit mtbProfilePromotionPoints;
+        private Label label35;
+        private MaterialCheckBox mchbProfileEditMode;
+        private MaterialButton btnSaveProfileChanges;
     }
 }
