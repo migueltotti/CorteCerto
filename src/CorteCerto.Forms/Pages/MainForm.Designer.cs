@@ -1,4 +1,6 @@
-﻿namespace CorteCerto.App.Pages
+﻿using ReaLTaiizor.Controls;
+
+namespace CorteCerto.App.Pages
 {
     partial class MainForm
     {
@@ -28,16 +30,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            sideBar = new ReaLTaiizor.Controls.MaterialCard();
-            mtbRegisterBarberProfile = new ReaLTaiizor.Controls.MaterialButton();
+            sideBar = new MaterialCard();
+            mtbRegisterBarberProfile = new MaterialButton();
             btnBarberAvailabilities = new ReaLTaiizor.Controls.Button();
             label6 = new Label();
-            btnLogout = new ReaLTaiizor.Controls.MaterialButton();
-            btnUserAction = new ReaLTaiizor.Controls.MaterialButton();
+            btnLogout = new MaterialButton();
+            btnUserAction = new MaterialButton();
             lblUserEmail = new Label();
             lblUserName = new Label();
-            parrotButton2 = new ReaLTaiizor.Controls.ParrotButton();
-            separator1 = new ReaLTaiizor.Controls.Separator();
+            parrotButton2 = new ParrotButton();
+            separator1 = new Separator();
             btnConfigurations = new ReaLTaiizor.Controls.Button();
             btnReports = new ReaLTaiizor.Controls.Button();
             label3 = new Label();
@@ -48,69 +50,74 @@
             btnDashboard = new ReaLTaiizor.Controls.Button();
             label1 = new Label();
             tabControlMain = new TabControl();
-            tabPageDashboard = new TabPage();
-            dashboardCard = new ReaLTaiizor.Controls.MaterialCard();
-            btnDashboardNewAppointment = new ReaLTaiizor.Controls.MaterialButton();
-            btnDashboardNewService = new ReaLTaiizor.Controls.MaterialButton();
+            tabPageDashboard = new System.Windows.Forms.TabPage();
+            dashboardCard = new MaterialCard();
+            btnDashboardNewAppointment = new MaterialButton();
+            btnDashboardNewService = new MaterialButton();
             label11 = new Label();
             label4 = new Label();
-            tabPageAppointments = new TabPage();
-            calendarCard = new ReaLTaiizor.Controls.MaterialCard();
+            tabPageAppointments = new System.Windows.Forms.TabPage();
+            calendarCard = new MaterialCard();
             listView1 = new ListView();
-            btnYearCalendar = new ReaLTaiizor.Controls.ParrotButton();
-            btnMonthCalendar = new ReaLTaiizor.Controls.ParrotButton();
-            btnWeekCalendar = new ReaLTaiizor.Controls.ParrotButton();
+            btnYearCalendar = new ParrotButton();
+            btnMonthCalendar = new ParrotButton();
+            btnWeekCalendar = new ParrotButton();
             label5 = new Label();
             label14 = new Label();
-            appointmentCard = new ReaLTaiizor.Controls.MaterialCard();
-            btnNewAppointment = new ReaLTaiizor.Controls.MaterialButton();
+            appointmentCard = new MaterialCard();
+            btnNewAppointment = new MaterialButton();
             label12 = new Label();
             label13 = new Label();
-            tabPageServices = new TabPage();
-            materialCard3 = new ReaLTaiizor.Controls.MaterialCard();
+            tabPageServices = new System.Windows.Forms.TabPage();
+            materialCard3 = new MaterialCard();
             label29 = new Label();
             label28 = new Label();
             label27 = new Label();
             label26 = new Label();
-            materialButton2 = new ReaLTaiizor.Controls.MaterialButton();
+            materialButton2 = new MaterialButton();
             label25 = new Label();
             label24 = new Label();
             flpServiceCardList = new FlowLayoutPanel();
-            btnApplyFilters = new ReaLTaiizor.Controls.MaterialButton();
+            btnApplyFilters = new MaterialButton();
             label23 = new Label();
-            mcbPriceOperatorFilter = new ReaLTaiizor.Controls.MaterialComboBox();
-            mtbPriceFilter = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            mcbPriceOperatorFilter = new MaterialComboBox();
+            mtbPriceFilter = new MaterialTextBoxEdit();
             label22 = new Label();
-            mcbDurationOperatorFilter = new ReaLTaiizor.Controls.MaterialComboBox();
-            mtbDurationFilter = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            mcbDurationOperatorFilter = new MaterialComboBox();
+            mtbDurationFilter = new MaterialTextBoxEdit();
             label20 = new Label();
-            btnSearchServices = new ReaLTaiizor.Controls.MaterialButton();
-            mtbServiceName = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            materialCard2 = new ReaLTaiizor.Controls.MaterialCard();
-            mtbNewService = new ReaLTaiizor.Controls.MaterialButton();
+            btnSearchServices = new MaterialButton();
+            mtbServiceName = new MaterialTextBoxEdit();
+            materialCard2 = new MaterialCard();
+            mtbNewService = new MaterialButton();
             label7 = new Label();
             label19 = new Label();
-            tabPageBarbers = new TabPage();
+            tabPageBarbers = new System.Windows.Forms.TabPage();
             label8 = new Label();
-            tabPageReports = new TabPage();
+            tabPageReports = new System.Windows.Forms.TabPage();
             label9 = new Label();
-            tabPageConfigurations = new TabPage();
+            tabPageConfigurations = new System.Windows.Forms.TabPage();
+            materialCard4 = new MaterialCard();
             label10 = new Label();
-            tabPageAvailability = new TabPage();
-            cardSaturdayAvailability = new ReaLTaiizor.Controls.MaterialCard();
+            label30 = new Label();
+            mtbProfileName = new MaterialTextBoxEdit();
+            label32 = new Label();
+            label31 = new Label();
+            tabPageAvailability = new System.Windows.Forms.TabPage();
+            cardSaturdayAvailability = new MaterialCard();
             lblEndTime = new Label();
             label21 = new Label();
             lblStartTime = new Label();
             label18 = new Label();
-            btnEditDayAvailability = new ReaLTaiizor.Controls.MaterialButton();
+            btnEditDayAvailability = new MaterialButton();
             label17 = new Label();
-            materialCard1 = new ReaLTaiizor.Controls.MaterialCard();
+            materialCard1 = new MaterialCard();
             label15 = new Label();
             label16 = new Label();
-            materialButton3 = new ReaLTaiizor.Controls.MaterialButton();
-            materialButton4 = new ReaLTaiizor.Controls.MaterialButton();
-            materialButton5 = new ReaLTaiizor.Controls.MaterialButton();
-            materialButton6 = new ReaLTaiizor.Controls.MaterialButton();
+            materialButton3 = new MaterialButton();
+            materialButton4 = new MaterialButton();
+            materialButton5 = new MaterialButton();
+            materialButton6 = new MaterialButton();
             sideBar.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPageDashboard.SuspendLayout();
@@ -124,6 +131,7 @@
             tabPageBarbers.SuspendLayout();
             tabPageReports.SuspendLayout();
             tabPageConfigurations.SuspendLayout();
+            materialCard4.SuspendLayout();
             tabPageAvailability.SuspendLayout();
             cardSaturdayAvailability.SuspendLayout();
             materialCard1.SuspendLayout();
@@ -167,11 +175,11 @@
             mtbRegisterBarberProfile.AutoSize = false;
             mtbRegisterBarberProfile.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             mtbRegisterBarberProfile.BackColor = SystemColors.Control;
-            mtbRegisterBarberProfile.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            mtbRegisterBarberProfile.Density = MaterialButton.MaterialButtonDensity.Default;
             mtbRegisterBarberProfile.Depth = 0;
             mtbRegisterBarberProfile.HighEmphasis = true;
             mtbRegisterBarberProfile.Icon = null;
-            mtbRegisterBarberProfile.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            mtbRegisterBarberProfile.IconType = MaterialButton.MaterialIconType.Rebase;
             mtbRegisterBarberProfile.Location = new Point(13, 499);
             mtbRegisterBarberProfile.Margin = new Padding(4, 6, 4, 6);
             mtbRegisterBarberProfile.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -180,7 +188,7 @@
             mtbRegisterBarberProfile.Size = new Size(275, 36);
             mtbRegisterBarberProfile.TabIndex = 26;
             mtbRegisterBarberProfile.Text = "Registrar perfil de barbeiro";
-            mtbRegisterBarberProfile.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            mtbRegisterBarberProfile.Type = MaterialButton.MaterialButtonType.Outlined;
             mtbRegisterBarberProfile.UseAccentColor = false;
             mtbRegisterBarberProfile.UseVisualStyleBackColor = false;
             mtbRegisterBarberProfile.Click += mtbRegisterBarberProfile_Click;
@@ -223,11 +231,11 @@
             btnLogout.AutoSize = false;
             btnLogout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnLogout.BackColor = SystemColors.Control;
-            btnLogout.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnLogout.Density = MaterialButton.MaterialButtonDensity.Default;
             btnLogout.Depth = 0;
             btnLogout.HighEmphasis = true;
             btnLogout.Icon = null;
-            btnLogout.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnLogout.IconType = MaterialButton.MaterialIconType.Rebase;
             btnLogout.Location = new Point(155, 634);
             btnLogout.Margin = new Padding(4, 6, 4, 6);
             btnLogout.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -236,7 +244,7 @@
             btnLogout.Size = new Size(133, 36);
             btnLogout.TabIndex = 23;
             btnLogout.Text = "Sair";
-            btnLogout.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnLogout.Type = MaterialButton.MaterialButtonType.Contained;
             btnLogout.UseAccentColor = true;
             btnLogout.UseVisualStyleBackColor = false;
             btnLogout.Click += btnLogout_Click;
@@ -247,11 +255,11 @@
             btnUserAction.AutoSize = false;
             btnUserAction.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnUserAction.BackColor = SystemColors.Control;
-            btnUserAction.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnUserAction.Density = MaterialButton.MaterialButtonDensity.Default;
             btnUserAction.Depth = 0;
             btnUserAction.HighEmphasis = true;
             btnUserAction.Icon = null;
-            btnUserAction.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnUserAction.IconType = MaterialButton.MaterialIconType.Rebase;
             btnUserAction.Location = new Point(13, 634);
             btnUserAction.Margin = new Padding(4, 6, 4, 6);
             btnUserAction.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -260,7 +268,7 @@
             btnUserAction.Size = new Size(133, 36);
             btnUserAction.TabIndex = 13;
             btnUserAction.Text = "Perfil";
-            btnUserAction.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            btnUserAction.Type = MaterialButton.MaterialButtonType.Outlined;
             btnUserAction.UseAccentColor = false;
             btnUserAction.UseVisualStyleBackColor = false;
             btnUserAction.Click += btnUserAction_Click;
@@ -292,7 +300,7 @@
             parrotButton2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             parrotButton2.BackgroundColor = Color.Transparent;
             parrotButton2.ButtonImage = Properties.Resources.user;
-            parrotButton2.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
+            parrotButton2.ButtonStyle = ParrotButton.Style.MaterialRounded;
             parrotButton2.ButtonText = "";
             parrotButton2.ClickBackColor = Color.FromArgb(73, 167, 235);
             parrotButton2.ClickTextColor = Color.Black;
@@ -301,7 +309,7 @@
             parrotButton2.Horizontal_Alignment = StringAlignment.Center;
             parrotButton2.HoverBackgroundColor = Color.FromArgb(192, 244, 255);
             parrotButton2.HoverTextColor = Color.Black;
-            parrotButton2.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
+            parrotButton2.ImagePosition = ParrotButton.ImgPosition.Left;
             parrotButton2.Location = new Point(26, 562);
             parrotButton2.Name = "parrotButton2";
             parrotButton2.Size = new Size(45, 42);
@@ -531,11 +539,11 @@
             btnDashboardNewAppointment.AutoSize = false;
             btnDashboardNewAppointment.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnDashboardNewAppointment.BackColor = SystemColors.Control;
-            btnDashboardNewAppointment.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnDashboardNewAppointment.Density = MaterialButton.MaterialButtonDensity.Default;
             btnDashboardNewAppointment.Depth = 0;
             btnDashboardNewAppointment.HighEmphasis = true;
             btnDashboardNewAppointment.Icon = Properties.Resources.calendar_plus;
-            btnDashboardNewAppointment.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnDashboardNewAppointment.IconType = MaterialButton.MaterialIconType.Rebase;
             btnDashboardNewAppointment.Location = new Point(528, 27);
             btnDashboardNewAppointment.Margin = new Padding(4, 6, 4, 6);
             btnDashboardNewAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -544,7 +552,7 @@
             btnDashboardNewAppointment.Size = new Size(193, 49);
             btnDashboardNewAppointment.TabIndex = 26;
             btnDashboardNewAppointment.Text = "Novo Agendamento";
-            btnDashboardNewAppointment.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnDashboardNewAppointment.Type = MaterialButton.MaterialButtonType.Contained;
             btnDashboardNewAppointment.UseAccentColor = false;
             btnDashboardNewAppointment.UseVisualStyleBackColor = false;
             btnDashboardNewAppointment.Click += btnDashboardNewAppointment_Click;
@@ -555,11 +563,11 @@
             btnDashboardNewService.AutoSize = false;
             btnDashboardNewService.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnDashboardNewService.BackColor = SystemColors.Control;
-            btnDashboardNewService.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnDashboardNewService.Density = MaterialButton.MaterialButtonDensity.Default;
             btnDashboardNewService.Depth = 0;
             btnDashboardNewService.HighEmphasis = true;
             btnDashboardNewService.Icon = Properties.Resources.barber_pole;
-            btnDashboardNewService.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnDashboardNewService.IconType = MaterialButton.MaterialIconType.Rebase;
             btnDashboardNewService.Location = new Point(729, 27);
             btnDashboardNewService.Margin = new Padding(4, 6, 4, 6);
             btnDashboardNewService.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -568,7 +576,7 @@
             btnDashboardNewService.Size = new Size(153, 49);
             btnDashboardNewService.TabIndex = 25;
             btnDashboardNewService.Text = "Novo Serviço";
-            btnDashboardNewService.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            btnDashboardNewService.Type = MaterialButton.MaterialButtonType.Outlined;
             btnDashboardNewService.UseAccentColor = false;
             btnDashboardNewService.UseVisualStyleBackColor = false;
             btnDashboardNewService.Click += btnDashboardNewService_Click;
@@ -642,7 +650,7 @@
             btnYearCalendar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnYearCalendar.BackgroundColor = Color.Gray;
             btnYearCalendar.ButtonImage = null;
-            btnYearCalendar.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
+            btnYearCalendar.ButtonStyle = ParrotButton.Style.MaterialRounded;
             btnYearCalendar.ButtonText = "Ano";
             btnYearCalendar.ClickBackColor = Color.FromArgb(195, 195, 195);
             btnYearCalendar.ClickTextColor = Color.DodgerBlue;
@@ -651,7 +659,7 @@
             btnYearCalendar.Horizontal_Alignment = StringAlignment.Center;
             btnYearCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
             btnYearCalendar.HoverTextColor = Color.DodgerBlue;
-            btnYearCalendar.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
+            btnYearCalendar.ImagePosition = ParrotButton.ImgPosition.Left;
             btnYearCalendar.Location = new Point(816, 17);
             btnYearCalendar.Name = "btnYearCalendar";
             btnYearCalendar.Size = new Size(84, 40);
@@ -666,7 +674,7 @@
             btnMonthCalendar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnMonthCalendar.BackgroundColor = Color.Gray;
             btnMonthCalendar.ButtonImage = null;
-            btnMonthCalendar.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
+            btnMonthCalendar.ButtonStyle = ParrotButton.Style.MaterialRounded;
             btnMonthCalendar.ButtonText = "Mês";
             btnMonthCalendar.ClickBackColor = Color.FromArgb(195, 195, 195);
             btnMonthCalendar.ClickTextColor = Color.DodgerBlue;
@@ -675,7 +683,7 @@
             btnMonthCalendar.Horizontal_Alignment = StringAlignment.Center;
             btnMonthCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
             btnMonthCalendar.HoverTextColor = Color.DodgerBlue;
-            btnMonthCalendar.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
+            btnMonthCalendar.ImagePosition = ParrotButton.ImgPosition.Left;
             btnMonthCalendar.Location = new Point(726, 17);
             btnMonthCalendar.Name = "btnMonthCalendar";
             btnMonthCalendar.Size = new Size(84, 40);
@@ -690,7 +698,7 @@
             btnWeekCalendar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnWeekCalendar.BackgroundColor = Color.Gray;
             btnWeekCalendar.ButtonImage = null;
-            btnWeekCalendar.ButtonStyle = ReaLTaiizor.Controls.ParrotButton.Style.MaterialRounded;
+            btnWeekCalendar.ButtonStyle = ParrotButton.Style.MaterialRounded;
             btnWeekCalendar.ButtonText = "Semana";
             btnWeekCalendar.ClickBackColor = Color.FromArgb(195, 195, 195);
             btnWeekCalendar.ClickTextColor = Color.DodgerBlue;
@@ -699,7 +707,7 @@
             btnWeekCalendar.Horizontal_Alignment = StringAlignment.Center;
             btnWeekCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
             btnWeekCalendar.HoverTextColor = Color.DodgerBlue;
-            btnWeekCalendar.ImagePosition = ReaLTaiizor.Controls.ParrotButton.ImgPosition.Left;
+            btnWeekCalendar.ImagePosition = ParrotButton.ImgPosition.Left;
             btnWeekCalendar.Location = new Point(636, 17);
             btnWeekCalendar.Name = "btnWeekCalendar";
             btnWeekCalendar.Size = new Size(84, 40);
@@ -754,11 +762,11 @@
             btnNewAppointment.AutoSize = false;
             btnNewAppointment.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnNewAppointment.BackColor = SystemColors.Control;
-            btnNewAppointment.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnNewAppointment.Density = MaterialButton.MaterialButtonDensity.Default;
             btnNewAppointment.Depth = 0;
             btnNewAppointment.HighEmphasis = true;
             btnNewAppointment.Icon = Properties.Resources.calendar_plus;
-            btnNewAppointment.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnNewAppointment.IconType = MaterialButton.MaterialIconType.Rebase;
             btnNewAppointment.Location = new Point(706, 32);
             btnNewAppointment.Margin = new Padding(4, 6, 4, 6);
             btnNewAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -767,7 +775,7 @@
             btnNewAppointment.Size = new Size(193, 49);
             btnNewAppointment.TabIndex = 27;
             btnNewAppointment.Text = "Novo Agendamento";
-            btnNewAppointment.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnNewAppointment.Type = MaterialButton.MaterialButtonType.Contained;
             btnNewAppointment.UseAccentColor = false;
             btnNewAppointment.UseVisualStyleBackColor = false;
             btnNewAppointment.Click += btnNewAppointment_Click;
@@ -896,12 +904,12 @@
             materialButton2.Anchor = AnchorStyles.Right;
             materialButton2.AutoSize = false;
             materialButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            materialButton2.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton2.Density = MaterialButton.MaterialButtonDensity.Default;
             materialButton2.Depth = 0;
             materialButton2.ForeColor = Color.Black;
             materialButton2.HighEmphasis = true;
             materialButton2.Icon = null;
-            materialButton2.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Default;
+            materialButton2.IconType = MaterialButton.MaterialIconType.Default;
             materialButton2.Location = new Point(554, 38);
             materialButton2.Margin = new Padding(4, 6, 4, 6);
             materialButton2.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -910,7 +918,7 @@
             materialButton2.Size = new Size(91, 40);
             materialButton2.TabIndex = 41;
             materialButton2.Text = "Agendar";
-            materialButton2.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            materialButton2.Type = MaterialButton.MaterialButtonType.Outlined;
             materialButton2.UseAccentColor = true;
             materialButton2.UseVisualStyleBackColor = true;
             materialButton2.Visible = false;
@@ -955,12 +963,12 @@
             btnApplyFilters.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnApplyFilters.AutoSize = false;
             btnApplyFilters.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnApplyFilters.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnApplyFilters.Density = MaterialButton.MaterialButtonDensity.Default;
             btnApplyFilters.Depth = 0;
             btnApplyFilters.ForeColor = Color.Black;
             btnApplyFilters.HighEmphasis = true;
             btnApplyFilters.Icon = null;
-            btnApplyFilters.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Default;
+            btnApplyFilters.IconType = MaterialButton.MaterialIconType.Default;
             btnApplyFilters.Location = new Point(731, 433);
             btnApplyFilters.Margin = new Padding(4, 6, 4, 6);
             btnApplyFilters.MaximumSize = new Size(200, 40);
@@ -971,7 +979,7 @@
             btnApplyFilters.Size = new Size(200, 40);
             btnApplyFilters.TabIndex = 40;
             btnApplyFilters.Text = "Aplicar filtros";
-            btnApplyFilters.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnApplyFilters.Type = MaterialButton.MaterialButtonType.Contained;
             btnApplyFilters.UseAccentColor = false;
             btnApplyFilters.UseVisualStyleBackColor = true;
             btnApplyFilters.Click += btnApplyFilters_Click;
@@ -1142,12 +1150,12 @@
             btnSearchServices.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSearchServices.AutoSize = false;
             btnSearchServices.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnSearchServices.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnSearchServices.Density = MaterialButton.MaterialButtonDensity.Default;
             btnSearchServices.Depth = 0;
             btnSearchServices.ForeColor = Color.Black;
             btnSearchServices.HighEmphasis = true;
             btnSearchServices.Icon = Properties.Resources.search;
-            btnSearchServices.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Default;
+            btnSearchServices.IconType = MaterialButton.MaterialIconType.Default;
             btnSearchServices.Location = new Point(670, 132);
             btnSearchServices.Margin = new Padding(4, 6, 4, 6);
             btnSearchServices.MaximumSize = new Size(46, 40);
@@ -1157,7 +1165,7 @@
             btnSearchServices.NoAccentTextColor = Color.Empty;
             btnSearchServices.Size = new Size(46, 40);
             btnSearchServices.TabIndex = 32;
-            btnSearchServices.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnSearchServices.Type = MaterialButton.MaterialButtonType.Contained;
             btnSearchServices.UseAccentColor = false;
             btnSearchServices.UseVisualStyleBackColor = true;
             btnSearchServices.Click += btnSearchServices_Click;
@@ -1218,11 +1226,11 @@
             mtbNewService.AutoSize = false;
             mtbNewService.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             mtbNewService.BackColor = SystemColors.Control;
-            mtbNewService.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            mtbNewService.Density = MaterialButton.MaterialButtonDensity.Default;
             mtbNewService.Depth = 0;
             mtbNewService.HighEmphasis = true;
             mtbNewService.Icon = Properties.Resources.barber_pole;
-            mtbNewService.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            mtbNewService.IconType = MaterialButton.MaterialIconType.Rebase;
             mtbNewService.Location = new Point(729, 27);
             mtbNewService.Margin = new Padding(4, 6, 4, 6);
             mtbNewService.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -1231,7 +1239,7 @@
             mtbNewService.Size = new Size(153, 49);
             mtbNewService.TabIndex = 28;
             mtbNewService.Text = "Novo Serviço";
-            mtbNewService.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            mtbNewService.Type = MaterialButton.MaterialButtonType.Outlined;
             mtbNewService.UseAccentColor = false;
             mtbNewService.UseVisualStyleBackColor = false;
             // 
@@ -1303,7 +1311,10 @@
             // 
             // tabPageConfigurations
             // 
-            tabPageConfigurations.Controls.Add(label10);
+            tabPageConfigurations.Controls.Add(materialCard4);
+            tabPageConfigurations.Controls.Add(mtbProfileName);
+            tabPageConfigurations.Controls.Add(label32);
+            tabPageConfigurations.Controls.Add(label31);
             tabPageConfigurations.Location = new Point(4, 29);
             tabPageConfigurations.Name = "tabPageConfigurations";
             tabPageConfigurations.Padding = new Padding(3);
@@ -1312,16 +1323,96 @@
             tabPageConfigurations.Text = "Configurations";
             tabPageConfigurations.UseVisualStyleBackColor = true;
             // 
+            // materialCard4
+            // 
+            materialCard4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            materialCard4.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard4.Controls.Add(label10);
+            materialCard4.Controls.Add(label30);
+            materialCard4.Depth = 0;
+            materialCard4.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard4.Location = new Point(17, 3);
+            materialCard4.Margin = new Padding(14);
+            materialCard4.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            materialCard4.Name = "materialCard4";
+            materialCard4.Padding = new Padding(14);
+            materialCard4.Size = new Size(914, 106);
+            materialCard4.TabIndex = 28;
+            // 
             // label10
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 10F);
             label10.ForeColor = Color.Gray;
-            label10.Location = new Point(57, 35);
+            label10.Location = new Point(17, 61);
             label10.Name = "label10";
-            label10.Size = new Size(122, 23);
-            label10.TabIndex = 30;
-            label10.Text = "Configurations";
+            label10.Size = new Size(180, 23);
+            label10.TabIndex = 25;
+            label10.Text = "Informações da conta.";
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label30.ForeColor = Color.Black;
+            label30.Location = new Point(17, 14);
+            label30.Name = "label30";
+            label30.Size = new Size(87, 38);
+            label30.TabIndex = 25;
+            label30.Text = "Perfil";
+            // 
+            // mtbProfileName
+            // 
+            mtbProfileName.AnimateReadOnly = false;
+            mtbProfileName.AutoCompleteMode = AutoCompleteMode.None;
+            mtbProfileName.AutoCompleteSource = AutoCompleteSource.None;
+            mtbProfileName.BackgroundImageLayout = ImageLayout.None;
+            mtbProfileName.CharacterCasing = CharacterCasing.Normal;
+            mtbProfileName.Depth = 0;
+            mtbProfileName.Enabled = false;
+            mtbProfileName.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            mtbProfileName.HideSelection = true;
+            mtbProfileName.LeadingIcon = null;
+            mtbProfileName.Location = new Point(31, 218);
+            mtbProfileName.MaxLength = 32767;
+            mtbProfileName.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            mtbProfileName.Name = "mtbProfileName";
+            mtbProfileName.PasswordChar = '\0';
+            mtbProfileName.PrefixSuffixText = null;
+            mtbProfileName.ReadOnly = true;
+            mtbProfileName.RightToLeft = RightToLeft.No;
+            mtbProfileName.SelectedText = "";
+            mtbProfileName.SelectionLength = 0;
+            mtbProfileName.SelectionStart = 0;
+            mtbProfileName.ShortcutsEnabled = true;
+            mtbProfileName.Size = new Size(312, 48);
+            mtbProfileName.TabIndex = 29;
+            mtbProfileName.TabStop = false;
+            mtbProfileName.TextAlign = HorizontalAlignment.Left;
+            mtbProfileName.TrailingIcon = null;
+            mtbProfileName.UseSystemPasswordChar = false;
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Segoe UI", 10F);
+            label32.ForeColor = Color.Gray;
+            label32.Location = new Point(31, 192);
+            label32.Name = "label32";
+            label32.Size = new Size(146, 23);
+            label32.TabIndex = 26;
+            label32.Text = "Nome de usuário:";
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label31.ForeColor = Color.Black;
+            label31.Location = new Point(31, 143);
+            label31.Name = "label31";
+            label31.Size = new Size(217, 31);
+            label31.TabIndex = 26;
+            label31.Text = "Informações gerais";
             // 
             // tabPageAvailability
             // 
@@ -1401,11 +1492,11 @@
             btnEditDayAvailability.AutoSize = false;
             btnEditDayAvailability.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btnEditDayAvailability.BackColor = SystemColors.Control;
-            btnEditDayAvailability.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnEditDayAvailability.Density = MaterialButton.MaterialButtonDensity.Default;
             btnEditDayAvailability.Depth = 0;
             btnEditDayAvailability.HighEmphasis = true;
             btnEditDayAvailability.Icon = null;
-            btnEditDayAvailability.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnEditDayAvailability.IconType = MaterialButton.MaterialIconType.Rebase;
             btnEditDayAvailability.Location = new Point(18, 190);
             btnEditDayAvailability.Margin = new Padding(4, 6, 4, 6);
             btnEditDayAvailability.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -1414,7 +1505,7 @@
             btnEditDayAvailability.Size = new Size(214, 36);
             btnEditDayAvailability.TabIndex = 27;
             btnEditDayAvailability.Text = "Editar";
-            btnEditDayAvailability.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            btnEditDayAvailability.Type = MaterialButton.MaterialButtonType.Outlined;
             btnEditDayAvailability.UseAccentColor = false;
             btnEditDayAvailability.UseVisualStyleBackColor = false;
             // 
@@ -1473,11 +1564,11 @@
             materialButton3.AutoSize = false;
             materialButton3.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             materialButton3.BackColor = SystemColors.Control;
-            materialButton3.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton3.Density = MaterialButton.MaterialButtonDensity.Default;
             materialButton3.Depth = 0;
             materialButton3.HighEmphasis = true;
             materialButton3.Icon = Properties.Resources.calendar_plus;
-            materialButton3.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            materialButton3.IconType = MaterialButton.MaterialIconType.Rebase;
             materialButton3.Location = new Point(1344, 27);
             materialButton3.Margin = new Padding(4, 6, 4, 6);
             materialButton3.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -1486,7 +1577,7 @@
             materialButton3.Size = new Size(193, 55);
             materialButton3.TabIndex = 26;
             materialButton3.Text = "Novo Agendamento";
-            materialButton3.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButton3.Type = MaterialButton.MaterialButtonType.Contained;
             materialButton3.UseAccentColor = false;
             materialButton3.UseVisualStyleBackColor = false;
             // 
@@ -1496,11 +1587,11 @@
             materialButton4.AutoSize = false;
             materialButton4.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             materialButton4.BackColor = SystemColors.Control;
-            materialButton4.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton4.Density = MaterialButton.MaterialButtonDensity.Default;
             materialButton4.Depth = 0;
             materialButton4.HighEmphasis = true;
             materialButton4.Icon = Properties.Resources.barber_pole;
-            materialButton4.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            materialButton4.IconType = MaterialButton.MaterialIconType.Rebase;
             materialButton4.Location = new Point(1545, 27);
             materialButton4.Margin = new Padding(4, 6, 4, 6);
             materialButton4.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -1509,7 +1600,7 @@
             materialButton4.Size = new Size(153, 55);
             materialButton4.TabIndex = 25;
             materialButton4.Text = "Novo Serviço";
-            materialButton4.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            materialButton4.Type = MaterialButton.MaterialButtonType.Outlined;
             materialButton4.UseAccentColor = false;
             materialButton4.UseVisualStyleBackColor = false;
             // 
@@ -1519,11 +1610,11 @@
             materialButton5.AutoSize = false;
             materialButton5.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             materialButton5.BackColor = SystemColors.Control;
-            materialButton5.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton5.Density = MaterialButton.MaterialButtonDensity.Default;
             materialButton5.Depth = 0;
             materialButton5.HighEmphasis = true;
             materialButton5.Icon = Properties.Resources.calendar_plus;
-            materialButton5.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            materialButton5.IconType = MaterialButton.MaterialIconType.Rebase;
             materialButton5.Location = new Point(2109, 27);
             materialButton5.Margin = new Padding(4, 6, 4, 6);
             materialButton5.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -1532,7 +1623,7 @@
             materialButton5.Size = new Size(193, 493);
             materialButton5.TabIndex = 26;
             materialButton5.Text = "Novo Agendamento";
-            materialButton5.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            materialButton5.Type = MaterialButton.MaterialButtonType.Contained;
             materialButton5.UseAccentColor = false;
             materialButton5.UseVisualStyleBackColor = false;
             // 
@@ -1542,11 +1633,11 @@
             materialButton6.AutoSize = false;
             materialButton6.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             materialButton6.BackColor = SystemColors.Control;
-            materialButton6.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            materialButton6.Density = MaterialButton.MaterialButtonDensity.Default;
             materialButton6.Depth = 0;
             materialButton6.HighEmphasis = true;
             materialButton6.Icon = Properties.Resources.barber_pole;
-            materialButton6.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            materialButton6.IconType = MaterialButton.MaterialIconType.Rebase;
             materialButton6.Location = new Point(2310, 27);
             materialButton6.Margin = new Padding(4, 6, 4, 6);
             materialButton6.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
@@ -1555,7 +1646,7 @@
             materialButton6.Size = new Size(153, 493);
             materialButton6.TabIndex = 25;
             materialButton6.Text = "Novo Serviço";
-            materialButton6.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            materialButton6.Type = MaterialButton.MaterialButtonType.Outlined;
             materialButton6.UseAccentColor = false;
             materialButton6.UseVisualStyleBackColor = false;
             // 
@@ -1595,6 +1686,8 @@
             tabPageReports.PerformLayout();
             tabPageConfigurations.ResumeLayout(false);
             tabPageConfigurations.PerformLayout();
+            materialCard4.ResumeLayout(false);
+            materialCard4.PerformLayout();
             tabPageAvailability.ResumeLayout(false);
             cardSaturdayAvailability.ResumeLayout(false);
             cardSaturdayAvailability.PerformLayout();
@@ -1621,16 +1714,15 @@
         private ReaLTaiizor.Controls.MaterialButton btnLogout;
         private ReaLTaiizor.Controls.Button btnDashboard;
         private TabControl tabControlMain;
-        private TabPage tabPageDashboard;
-        private TabPage tabPageAppointments;
-        private TabPage tabPageServices;
-        private TabPage tabPageBarbers;
-        private TabPage tabPageReports;
-        private TabPage tabPageConfigurations;
+        private System.Windows.Forms.TabPage tabPageDashboard;
+        private System.Windows.Forms.TabPage tabPageAppointments;
+        private System.Windows.Forms.TabPage tabPageServices;
+        private System.Windows.Forms.TabPage tabPageBarbers;
+        private System.Windows.Forms.TabPage tabPageReports;
+        private System.Windows.Forms.TabPage tabPageConfigurations;
         private Label label6;
         private Label label8;
         private Label label9;
-        private Label label10;
         private ReaLTaiizor.Controls.MaterialCard dashboardCard;
         private ReaLTaiizor.Controls.MaterialButton btnDashboardNewService;
         private Label label11;
@@ -1650,7 +1742,7 @@
         private ReaLTaiizor.Controls.ParrotButton btnMonthCalendar;
         private ReaLTaiizor.Controls.ParrotButton btnWeekCalendar;
         private ReaLTaiizor.Controls.Button btnBarberAvailabilities;
-        private TabPage tabPageAvailability;
+        private System.Windows.Forms.TabPage tabPageAvailability;
         private ListView listView1;
         private ReaLTaiizor.Controls.MaterialButton btnNewAppointment;
         private ReaLTaiizor.Controls.MaterialButton mtbRegisterBarberProfile;
@@ -1687,5 +1779,11 @@
         private ReaLTaiizor.Controls.MaterialButton materialButton2;
         private Label label25;
         private Label label24;
+        private ReaLTaiizor.Controls.MaterialCard materialCard4;
+        private Label label10;
+        private Label label30;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit mtbProfileName;
+        private Label label32;
+        private Label label31;
     }
 }
