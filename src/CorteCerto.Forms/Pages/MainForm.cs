@@ -116,7 +116,7 @@ namespace CorteCerto.App.Pages
                 lblUserName.Text = _sessionService.GetUserName();
                 lblUserEmail.Text = _sessionService.GetUserEmail();
 
-                btnUserAction.Text = "Profile";
+                btnUserAction.Text = "Perfil";
             }
             else
             {
@@ -425,10 +425,10 @@ namespace CorteCerto.App.Pages
             SetUserInfo();
         }
 
-
         private void btnLogout_Click(object sender, EventArgs e)
         {
             LogoutUser();
+            tabControlMain.SelectedIndex = 0;
         }
 
         private async void btnUserAction_Click(object sender, EventArgs e)
@@ -452,10 +452,17 @@ namespace CorteCerto.App.Pages
 
         private async void btnAppoitments_Click(object sender, EventArgs e)
         {
-            tabControlMain.SelectedIndex = 1;
-
-            //await LoadAppointmentCards(null);
-            //await LoadAppointmentRequestsCards();
+            if (_sessionService.IsAuthenticated)
+            {
+                tabControlMain.SelectedIndex = 1;
+                await LoadAppointmentCards(null);
+                await LoadAppointmentRequestsCards();
+            }
+            else
+            {
+                MessageBox.Show("Você precisa fazer login para acessar esta seção.", "Acesso Negado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private async void btnServices_Click(object sender, EventArgs e)
@@ -533,8 +540,6 @@ namespace CorteCerto.App.Pages
             _navegationService.NavegateTo<RegisterServiceForm>();
         }
 
-        #endregion
-
         private void mtbRegisterBarberProfile_Click(object sender, EventArgs e)
         {
             if (_sessionService.CurrentUserHasBarberProfile())
@@ -574,10 +579,8 @@ namespace CorteCerto.App.Pages
             if (tb == null)
                 return;
 
-            // Remove tudo que não for número
             tb.Text = new string(tb.Text.Where(char.IsDigit).ToArray());
 
-            // Move o cursor para o final
             tb.SelectionStart = tb.Text.Length;
         }
 
@@ -816,5 +819,7 @@ namespace CorteCerto.App.Pages
         {
             await LoadBarbers();
         }
+
+        #endregion
     }
 }
