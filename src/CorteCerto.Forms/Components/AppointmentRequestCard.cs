@@ -3,6 +3,7 @@ using CorteCerto.App.Interfaces;
 using CorteCerto.App.Pages;
 using CorteCerto.Application.DTO;
 using CorteCerto.Domain.Entities;
+using CorteCerto.Domain.Enums;
 using ReaLTaiizor.Controls;
 using CheckBox = System.Windows.Forms.CheckBox;
 
@@ -189,7 +190,7 @@ internal class AppointmentRequestCard : MaterialCard
                 HighEmphasis = true,
                 Icon = null,
                 IconType = MaterialButton.MaterialIconType.Rebase,
-                Location = new Point(10, 166),
+                Location = new Point(10, 186),
                 Margin = new Padding(4, 6, 4, 6),
                 MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER,
                 Name = $"btnShowMoreInfo-{_appointment.Id}",
@@ -203,11 +204,38 @@ internal class AppointmentRequestCard : MaterialCard
             };
         }
 
+        private Label CreateAppointmentStatus()
+        {
+            return new Label
+            {
+                Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0),
+                ForeColor = GetAppointmentStatusColor(_appointment.Status),
+                Location = new Point(10, 157),
+                Name = $"lblStatus-{_appointment.Id}",
+                Size = new Size(201, 20),
+                TabIndex = 41,
+                Text = _appointment.Status.ToPortuguese(),
+            };
+        }
+
+        private Color GetAppointmentStatusColor(AppointmentStatus status)
+        {
+            return status switch
+            {
+                AppointmentStatus.WaitingForAprovement => Color.Orange,
+                AppointmentStatus.Scheduled => Color.Green,
+                AppointmentStatus.Completed => Color.Blue,
+                AppointmentStatus.Canceled => Color.Red,
+                _ => Color.Black,
+            };
+
+        }
+
         public AppointmentRequestCard Build()
         {
             var card = new AppointmentRequestCard(_navegationService)
             {
-                Size = new Size(218, 206),
+                Size = new Size(218, 232),
                 Padding = new Padding(14),
                 Margin = new Padding(14),
                 Appointment = _appointment,
@@ -220,6 +248,7 @@ internal class AppointmentRequestCard : MaterialCard
             var cardWeekDay = CreateWeekDay();
             var cardServiceName = CreateServiceName();
             var showMoreInfoButton = CreateShowMoreInfoButton();
+            var cardAppointmentStatus = CreateAppointmentStatus();
 
             card.Controls.Add(cardCustomerName);
 
@@ -231,6 +260,7 @@ internal class AppointmentRequestCard : MaterialCard
             card.Controls.Add(cardWeekDay);
             card.Controls.Add(cardServiceName);
             card.Controls.Add(showMoreInfoButton);
+            card.Controls.Add(cardAppointmentStatus);
 
             card.AddEventClickShowMoreInfoButton();
 

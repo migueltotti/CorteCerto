@@ -62,6 +62,7 @@ namespace CorteCerto.App.Pages
             btnConfirmAppointment = new MaterialButton();
             flpAppointmentRequest = new FlowLayoutPanel();
             materialCard5 = new MaterialCard();
+            label51 = new Label();
             checkBox1 = new System.Windows.Forms.CheckBox();
             materialButton1 = new MaterialButton();
             label50 = new Label();
@@ -204,7 +205,7 @@ namespace CorteCerto.App.Pages
             sideBar.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             sideBar.Name = "sideBar";
             sideBar.Padding = new Padding(14);
-            sideBar.Size = new Size(314, 700);
+            sideBar.Size = new Size(314, 757);
             sideBar.TabIndex = 11;
             // 
             // mtbRegisterBarberProfile
@@ -218,7 +219,7 @@ namespace CorteCerto.App.Pages
             mtbRegisterBarberProfile.HighEmphasis = true;
             mtbRegisterBarberProfile.Icon = null;
             mtbRegisterBarberProfile.IconType = MaterialButton.MaterialIconType.Rebase;
-            mtbRegisterBarberProfile.Location = new Point(13, 499);
+            mtbRegisterBarberProfile.Location = new Point(13, 556);
             mtbRegisterBarberProfile.Margin = new Padding(4, 6, 4, 6);
             mtbRegisterBarberProfile.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             mtbRegisterBarberProfile.Name = "mtbRegisterBarberProfile";
@@ -274,7 +275,7 @@ namespace CorteCerto.App.Pages
             btnLogout.HighEmphasis = true;
             btnLogout.Icon = null;
             btnLogout.IconType = MaterialButton.MaterialIconType.Rebase;
-            btnLogout.Location = new Point(155, 634);
+            btnLogout.Location = new Point(155, 691);
             btnLogout.Margin = new Padding(4, 6, 4, 6);
             btnLogout.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnLogout.Name = "btnLogout";
@@ -298,7 +299,7 @@ namespace CorteCerto.App.Pages
             btnUserAction.HighEmphasis = true;
             btnUserAction.Icon = null;
             btnUserAction.IconType = MaterialButton.MaterialIconType.Rebase;
-            btnUserAction.Location = new Point(13, 634);
+            btnUserAction.Location = new Point(13, 691);
             btnUserAction.Margin = new Padding(4, 6, 4, 6);
             btnUserAction.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnUserAction.Name = "btnUserAction";
@@ -316,7 +317,7 @@ namespace CorteCerto.App.Pages
             lblUserEmail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblUserEmail.Font = new Font("Segoe UI", 10F);
             lblUserEmail.ForeColor = Color.Gray;
-            lblUserEmail.Location = new Point(87, 596);
+            lblUserEmail.Location = new Point(87, 653);
             lblUserEmail.Name = "lblUserEmail";
             lblUserEmail.Size = new Size(210, 23);
             lblUserEmail.TabIndex = 22;
@@ -327,7 +328,7 @@ namespace CorteCerto.App.Pages
             lblUserName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblUserName.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblUserName.ForeColor = Color.Black;
-            lblUserName.Location = new Point(87, 562);
+            lblUserName.Location = new Point(87, 619);
             lblUserName.Name = "lblUserName";
             lblUserName.Size = new Size(210, 28);
             lblUserName.TabIndex = 21;
@@ -348,7 +349,7 @@ namespace CorteCerto.App.Pages
             parrotButton2.HoverBackgroundColor = Color.FromArgb(192, 244, 255);
             parrotButton2.HoverTextColor = Color.Black;
             parrotButton2.ImagePosition = ParrotButton.ImgPosition.Left;
-            parrotButton2.Location = new Point(26, 562);
+            parrotButton2.Location = new Point(26, 619);
             parrotButton2.Name = "parrotButton2";
             parrotButton2.Size = new Size(45, 42);
             parrotButton2.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
@@ -361,7 +362,7 @@ namespace CorteCerto.App.Pages
             // 
             separator1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             separator1.LineColor = Color.Gray;
-            separator1.Location = new Point(13, 544);
+            separator1.Location = new Point(13, 601);
             separator1.Name = "separator1";
             separator1.Size = new Size(275, 8);
             separator1.TabIndex = 20;
@@ -539,7 +540,7 @@ namespace CorteCerto.App.Pages
             tabControlMain.Location = new Point(329, 67);
             tabControlMain.Name = "tabControlMain";
             tabControlMain.SelectedIndex = 0;
-            tabControlMain.Size = new Size(956, 701);
+            tabControlMain.Size = new Size(956, 758);
             tabControlMain.TabIndex = 12;
             // 
             // tabPageDashboard
@@ -548,7 +549,7 @@ namespace CorteCerto.App.Pages
             tabPageDashboard.Location = new Point(4, 29);
             tabPageDashboard.Name = "tabPageDashboard";
             tabPageDashboard.Padding = new Padding(3);
-            tabPageDashboard.Size = new Size(948, 668);
+            tabPageDashboard.Size = new Size(948, 725);
             tabPageDashboard.TabIndex = 0;
             tabPageDashboard.Text = "Dashboard";
             tabPageDashboard.UseVisualStyleBackColor = true;
@@ -648,10 +649,11 @@ namespace CorteCerto.App.Pages
             tabPageAppointments.Location = new Point(4, 29);
             tabPageAppointments.Name = "tabPageAppointments";
             tabPageAppointments.Padding = new Padding(3);
-            tabPageAppointments.Size = new Size(948, 668);
+            tabPageAppointments.Size = new Size(948, 725);
             tabPageAppointments.TabIndex = 1;
             tabPageAppointments.Text = "Appointments";
             tabPageAppointments.UseVisualStyleBackColor = true;
+            tabPageAppointments.Enter += tabPageAppointments_Enter;
             // 
             // calendarCard
             // 
@@ -671,7 +673,7 @@ namespace CorteCerto.App.Pages
             calendarCard.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             calendarCard.Name = "calendarCard";
             calendarCard.Padding = new Padding(14);
-            calendarCard.Size = new Size(917, 538);
+            calendarCard.Size = new Size(917, 595);
             calendarCard.TabIndex = 28;
             // 
             // mcbAppointmentStatus
@@ -687,9 +689,10 @@ namespace CorteCerto.App.Pages
             mcbAppointmentStatus.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
             mcbAppointmentStatus.ForeColor = Color.FromArgb(222, 0, 0, 0);
             mcbAppointmentStatus.FormattingEnabled = true;
+            mcbAppointmentStatus.Hint = "Status";
             mcbAppointmentStatus.IntegralHeight = false;
             mcbAppointmentStatus.ItemHeight = 43;
-            mcbAppointmentStatus.Items.AddRange(new object[] { "Aguardando aprovação", "Agendado", "Finalizado", "Cancelado" });
+            mcbAppointmentStatus.Items.AddRange(new object[] { "Sem filtro", "Aguardando aprovação", "Agendado", "Finalizado", "Cancelado" });
             mcbAppointmentStatus.Location = new Point(654, 14);
             mcbAppointmentStatus.MaxDropDownItems = 4;
             mcbAppointmentStatus.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
@@ -733,13 +736,14 @@ namespace CorteCerto.App.Pages
             flpAppointmentRequest.Controls.Add(materialCard5);
             flpAppointmentRequest.Location = new Point(17, 290);
             flpAppointmentRequest.Name = "flpAppointmentRequest";
-            flpAppointmentRequest.Size = new Size(882, 231);
+            flpAppointmentRequest.Size = new Size(882, 288);
             flpAppointmentRequest.TabIndex = 34;
             flpAppointmentRequest.WrapContents = false;
             // 
             // materialCard5
             // 
             materialCard5.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard5.Controls.Add(label51);
             materialCard5.Controls.Add(checkBox1);
             materialCard5.Controls.Add(materialButton1);
             materialCard5.Controls.Add(label50);
@@ -754,9 +758,19 @@ namespace CorteCerto.App.Pages
             materialCard5.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             materialCard5.Name = "materialCard5";
             materialCard5.Padding = new Padding(14);
-            materialCard5.Size = new Size(218, 206);
+            materialCard5.Size = new Size(218, 232);
             materialCard5.TabIndex = 0;
             materialCard5.Visible = false;
+            // 
+            // label51
+            // 
+            label51.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label51.ForeColor = Color.Black;
+            label51.Location = new Point(10, 157);
+            label51.Name = "label51";
+            label51.Size = new Size(201, 20);
+            label51.TabIndex = 41;
+            label51.Text = "Aguardando agendamento";
             // 
             // checkBox1
             // 
@@ -776,7 +790,7 @@ namespace CorteCerto.App.Pages
             materialButton1.HighEmphasis = true;
             materialButton1.Icon = null;
             materialButton1.IconType = MaterialButton.MaterialIconType.Rebase;
-            materialButton1.Location = new Point(10, 166);
+            materialButton1.Location = new Point(10, 186);
             materialButton1.Margin = new Padding(4, 6, 4, 6);
             materialButton1.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             materialButton1.Name = "materialButton1";
@@ -824,7 +838,7 @@ namespace CorteCerto.App.Pages
             label47.ForeColor = Color.Black;
             label47.Location = new Point(10, 97);
             label47.Name = "label47";
-            label47.Size = new Size(201, 63);
+            label47.Size = new Size(201, 51);
             label47.TabIndex = 35;
             label47.Text = "Cabelo e Barba ";
             // 
@@ -857,7 +871,7 @@ namespace CorteCerto.App.Pages
             flpAppointments.Location = new Point(17, 72);
             flpAppointments.MaximumSize = new Size(0, 400);
             flpAppointments.Name = "flpAppointments";
-            flpAppointments.Size = new Size(882, 158);
+            flpAppointments.Size = new Size(882, 215);
             flpAppointments.TabIndex = 32;
             // 
             // label5
@@ -963,7 +977,7 @@ namespace CorteCerto.App.Pages
             tabPageServices.Location = new Point(4, 29);
             tabPageServices.Name = "tabPageServices";
             tabPageServices.Padding = new Padding(3);
-            tabPageServices.Size = new Size(948, 668);
+            tabPageServices.Size = new Size(948, 725);
             tabPageServices.TabIndex = 2;
             tabPageServices.Text = "Services";
             tabPageServices.UseVisualStyleBackColor = true;
@@ -1414,7 +1428,7 @@ namespace CorteCerto.App.Pages
             tabPageBarbers.Location = new Point(4, 29);
             tabPageBarbers.Name = "tabPageBarbers";
             tabPageBarbers.Padding = new Padding(3);
-            tabPageBarbers.Size = new Size(948, 668);
+            tabPageBarbers.Size = new Size(948, 725);
             tabPageBarbers.TabIndex = 3;
             tabPageBarbers.Text = "Barbers";
             tabPageBarbers.UseVisualStyleBackColor = true;
@@ -1436,7 +1450,7 @@ namespace CorteCerto.App.Pages
             tabPageReports.Location = new Point(4, 29);
             tabPageReports.Name = "tabPageReports";
             tabPageReports.Padding = new Padding(3);
-            tabPageReports.Size = new Size(948, 668);
+            tabPageReports.Size = new Size(948, 725);
             tabPageReports.TabIndex = 4;
             tabPageReports.Text = "Reports";
             tabPageReports.UseVisualStyleBackColor = true;
@@ -1488,7 +1502,7 @@ namespace CorteCerto.App.Pages
             tabPageConfigurations.Location = new Point(4, 29);
             tabPageConfigurations.Name = "tabPageConfigurations";
             tabPageConfigurations.Padding = new Padding(3);
-            tabPageConfigurations.Size = new Size(948, 668);
+            tabPageConfigurations.Size = new Size(948, 725);
             tabPageConfigurations.TabIndex = 5;
             tabPageConfigurations.Text = "Configurations";
             tabPageConfigurations.UseVisualStyleBackColor = true;
@@ -2129,7 +2143,7 @@ namespace CorteCerto.App.Pages
             tabPageAvailability.Location = new Point(4, 29);
             tabPageAvailability.Name = "tabPageAvailability";
             tabPageAvailability.Padding = new Padding(3);
-            tabPageAvailability.Size = new Size(948, 668);
+            tabPageAvailability.Size = new Size(948, 725);
             tabPageAvailability.TabIndex = 6;
             tabPageAvailability.Text = "Availability";
             tabPageAvailability.UseVisualStyleBackColor = true;
@@ -2362,7 +2376,7 @@ namespace CorteCerto.App.Pages
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1291, 774);
+            ClientSize = new Size(1291, 831);
             Controls.Add(tabControlMain);
             Controls.Add(sideBar);
             IsMdiContainer = true;
@@ -2532,5 +2546,6 @@ namespace CorteCerto.App.Pages
         private MaterialButton btnConfirmAppointment;
         private System.Windows.Forms.CheckBox checkBox1;
         private MaterialComboBox mcbAppointmentStatus;
+        private Label label51;
     }
 }

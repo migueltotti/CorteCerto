@@ -302,7 +302,7 @@ namespace CorteCerto.App.Pages
                 AppointmentStatus: status
             ));
 
-            List<AppointmentDto> appointments = [..customerAppointments.Results, ..barberAppointments.Results];
+            List<AppointmentDto> appointments = [.. customerAppointments.Results, .. barberAppointments.Results];
 
             AppointmentRequestCard card;
 
@@ -310,7 +310,7 @@ namespace CorteCerto.App.Pages
             int yLocaltionPoint = 14;
             const int padding = 10;
 
-            foreach (var appointmentRequest in appointments)
+            foreach (var appointmentRequest in appointments.OrderBy(a => a.Date))
             {
                 card = AppointmentRequestCard.Builder
                     .Create(_navegationService)
@@ -322,12 +322,6 @@ namespace CorteCerto.App.Pages
                 flpAppointments.Controls.Add(card);
 
                 xLocaltionPoint += 218 + padding;
-
-                //if (xLocaltionPoint + card.Size.Width + padding > flpAppointments.Width)
-                //{
-                //    xLocaltionPoint = 14;
-                //    yLocaltionPoint += 216;
-                //}
             }
         }
 
@@ -406,8 +400,8 @@ namespace CorteCerto.App.Pages
         {
             tabControlMain.SelectedIndex = 1;
 
-            await LoadAppointmentCards(null);
-            await LoadAppointmentRequestsCards();
+            //await LoadAppointmentCards(null);
+            //await LoadAppointmentRequestsCards();
         }
 
         private async void btnServices_Click(object sender, EventArgs e)
@@ -723,15 +717,26 @@ namespace CorteCerto.App.Pages
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
+                await LoadAppointmentCards();
                 await LoadAppointmentRequestsCards();
             }
         }
 
         private async void mcbAppointmentStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
+            var statusIndex = mcbAppointmentStatus.SelectedIndex - 1;
+
             await LoadAppointmentCards(
-                status: (AppointmentStatus)mcbAppointmentStatus.SelectedIndex
+                status: statusIndex >= 0 ?
+                    (AppointmentStatus)statusIndex :
+                    null
             );
+        }
+
+        private async void tabPageAppointments_Enter(object sender, EventArgs e)
+        {
+            await LoadAppointmentCards();
+            await LoadAppointmentRequestsCards();
         }
     }
 }
