@@ -30,9 +30,9 @@ namespace CorteCerto.App.Pages
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             sideBar = new MaterialCard();
             mtbRegisterBarberProfile = new MaterialButton();
             btnBarberAvailabilities = new ReaLTaiizor.Controls.Button();
@@ -164,6 +164,7 @@ namespace CorteCerto.App.Pages
             materialButton4 = new MaterialButton();
             materialButton5 = new MaterialButton();
             materialButton6 = new MaterialButton();
+            btnCleanFilters = new MaterialButton();
             sideBar.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPageDashboard.SuspendLayout();
@@ -975,6 +976,7 @@ namespace CorteCerto.App.Pages
             // 
             // tabPageServices
             // 
+            tabPageServices.Controls.Add(btnCleanFilters);
             tabPageServices.Controls.Add(mchbMyServicesFilter);
             tabPageServices.Controls.Add(materialCard3);
             tabPageServices.Controls.Add(flpServiceCardList);
@@ -1536,37 +1538,37 @@ namespace CorteCerto.App.Pages
             dgvBarbers.BorderStyle = BorderStyle.None;
             dgvBarbers.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dgvBarbers.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(0, 174, 219);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(255, 255, 255);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(0, 198, 247);
-            dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(17, 17, 17);
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvBarbers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(0, 174, 219);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(0, 198, 247);
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(17, 17, 17);
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvBarbers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvBarbers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(255, 255, 255);
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
-            dataGridViewCellStyle5.ForeColor = Color.FromArgb(136, 136, 136);
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(0, 198, 247);
-            dataGridViewCellStyle5.SelectionForeColor = Color.FromArgb(17, 17, 17);
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvBarbers.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(136, 136, 136);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(0, 198, 247);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(17, 17, 17);
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvBarbers.DefaultCellStyle = dataGridViewCellStyle2;
             dgvBarbers.EnableHeadersVisualStyles = false;
             dgvBarbers.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
             dgvBarbers.GridColor = Color.FromArgb(255, 255, 255);
             dgvBarbers.Location = new Point(14, 200);
             dgvBarbers.Name = "dgvBarbers";
             dgvBarbers.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(0, 174, 219);
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
-            dataGridViewCellStyle6.ForeColor = Color.FromArgb(255, 255, 255);
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(0, 198, 247);
-            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(17, 17, 17);
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgvBarbers.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(0, 174, 219);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(0, 198, 247);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(17, 17, 17);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvBarbers.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvBarbers.RowHeadersWidth = 51;
             dgvBarbers.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dgvBarbers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -2539,6 +2541,32 @@ namespace CorteCerto.App.Pages
             materialButton6.UseAccentColor = false;
             materialButton6.UseVisualStyleBackColor = false;
             // 
+            // btnCleanFilters
+            // 
+            btnCleanFilters.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCleanFilters.AutoSize = false;
+            btnCleanFilters.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnCleanFilters.Density = MaterialButton.MaterialButtonDensity.Default;
+            btnCleanFilters.Depth = 0;
+            btnCleanFilters.ForeColor = Color.Black;
+            btnCleanFilters.HighEmphasis = true;
+            btnCleanFilters.Icon = null;
+            btnCleanFilters.IconType = MaterialButton.MaterialIconType.Default;
+            btnCleanFilters.Location = new Point(731, 529);
+            btnCleanFilters.Margin = new Padding(4, 6, 4, 6);
+            btnCleanFilters.MaximumSize = new Size(200, 40);
+            btnCleanFilters.MinimumSize = new Size(200, 40);
+            btnCleanFilters.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnCleanFilters.Name = "btnCleanFilters";
+            btnCleanFilters.NoAccentTextColor = Color.Empty;
+            btnCleanFilters.Size = new Size(200, 40);
+            btnCleanFilters.TabIndex = 42;
+            btnCleanFilters.Text = "Limpar filtros";
+            btnCleanFilters.Type = MaterialButton.MaterialButtonType.Contained;
+            btnCleanFilters.UseAccentColor = true;
+            btnCleanFilters.UseVisualStyleBackColor = true;
+            btnCleanFilters.Click += btnCleanFilters_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -2722,5 +2750,6 @@ namespace CorteCerto.App.Pages
         private PoisonDataGridView dgvBarbers;
         private MaterialButton btnSearchBarbers;
         private MaterialTextBoxEdit mtbBarberNameOrEmail;
+        private MaterialButton btnCleanFilters;
     }
 }

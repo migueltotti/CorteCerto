@@ -379,6 +379,138 @@ namespace CorteCerto.App.Pages
             }
         }
 
+        private async Task SaveProfileChanges()
+        {
+            if (IsProfileInfoValid())
+            {
+                if (HasProfileEmailChanged())
+                {
+                    var updateEmailCommand = new UpdatePersonEmailCommand(
+                        _sessionService.GetCurrentUser()!.Id,
+                        _oldEmail,
+                        mtbProfileEmail.Text
+                    );
+
+                    var emailResult = await _mediator.SendAsync(updateEmailCommand);
+
+                    if (emailResult.IsFailure)
+                    {
+                        MessageBox.Show($"Não foi possivel atualizar o email, erro: {emailResult.Error.Description}", "Atualização de informações da conta.",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    _oldEmail = mtbProfileEmail.Text;
+                }
+
+                if (HasProfileChanges())
+                {
+                    var updateProfileInfo = new UpdateProfileInfoCommand(
+                        _sessionService.GetCurrentUser()!.Id,
+                        mtbProfileName.Text,
+                        mtbProfilePhoneNumber.Text
+                    );
+
+                    var profileResult = await _mediator.SendAsync(updateProfileInfo);
+
+                    if (profileResult.IsFailure)
+                    {
+                        MessageBox.Show($"Não foi possivel atualizar o nome ou o numero de telefone, erro: {profileResult.Error.Description}", "Atualização de informações da conta.",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        mtbProfileName.Text = profileResult.Data.Name;
+                        mtbProfilePhoneNumber.Text = profileResult.Data.PhoneNumber;
+
+                        _oldName = profileResult.Data.Name;
+                        _oldPhoneNumber = profileResult.Data.PhoneNumber;
+                    }
+                }
+
+                mchbProfileEditMode.Checked = false;
+            }
+        }
+
+        private async Task SaveBarberProfileChanges()
+        {
+            if (IsBarberInfoValid() && HasBarberProfileChanges())
+            {
+                var updateBarberInfo = new UpdateBarberProfileCommand(
+                    _sessionService.GetCurrentUser()!.Id,
+                    mtbProfileName.Text,
+                    mrtbBarberDescription.Text,
+                    mtbBarberPortifolioUrl.Text != "" ? mtbBarberPortifolioUrl.Text : null,
+                    mtbProfilePhoneNumber.Text,
+                    mtbBarberCep.Text,
+                    Int32.Parse(mtbBarberAddressNumber.Text)
+                );
+
+                var barberResult = await _mediator.SendAsync(updateBarberInfo);
+
+                if (barberResult.IsFailure)
+                {
+                    MessageBox.Show($"Não foi possivel atualizar descrição, portifolio, cep ou numero de endereço do barbeiro, erro: {barberResult.Error.Description}", "Atualização de informações da conta.",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    var cep = barberResult.Data.Address.ZipCode;
+
+                    mrtbBarberDescription.Text = barberResult.Data.Description;
+                    mtbBarberPortifolioUrl.Text = barberResult.Data.PortfolioUrl;
+                    mtbBarberCep.Text = $"{cep.Substring(0, 5)}-{cep.Substring(5, 3)}";
+                    mtbBarberAddressNumber.Text = barberResult.Data.Address.Number.ToString();
+
+                    mtbBarberAddressCountry.Text = barberResult.Data.Address.Country;
+                    mtbBarberAddressState.Text = barberResult.Data.Address.State;
+                    mtbBarberAddressCity.Text = barberResult.Data.Address.City;
+                    mtbBarberAddress.Text = barberResult.Data.Address.Street;
+
+                    _oldDescription = barberResult.Data.Description;
+                    _oldPortifolioUrl = barberResult.Data.PortfolioUrl;
+                    _oldCep = $"{cep.Substring(0, 5)}-{cep.Substring(5, 3)}";
+                    _oldAddressNumber = barberResult.Data.Address.Number.ToString();
+                }
+
+                mchbBarberEditMode.Checked = false;
+            }
+        }
+
+        private async Task AproveAppointment()
+        {
+            AppointmentDto? firstSelectedAppointment = null;
+
+            foreach (AppointmentRequestCard card in flpAppointmentRequest.Controls)
+            {
+                if (card.IsSelected)
+                {
+                    firstSelectedAppointment = card.Appointment;
+                    break;
+                }
+            }
+
+            if (firstSelectedAppointment is not null)
+            {
+                var command = new ApproveAppointmentCommand(
+                    firstSelectedAppointment.Id,
+                    firstSelectedAppointment.Barber.Id
+                );
+
+                var result = await _mediator.SendAsync(command);
+
+                if (result.IsFailure)
+                {
+                    MessageBox.Show($"Não foi possivel aprovar o pedido de agendamento, erro: {result.Error.Description}",
+                        "Aprovar pedido de agendamento.",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                await LoadAppointmentCards();
+                await LoadAppointmentRequestsCards();
+            }
+        }
+
+
         private bool HasProfileChanges()
         {
             return
@@ -620,54 +752,7 @@ namespace CorteCerto.App.Pages
 
         private async void btnSaveProfileChanges_Click(object sender, EventArgs e)
         {
-            if (IsProfileInfoValid())
-            {
-                if (HasProfileEmailChanged())
-                {
-                    var updateEmailCommand = new UpdatePersonEmailCommand(
-                        _sessionService.GetCurrentUser()!.Id,
-                        _oldEmail,
-                        mtbProfileEmail.Text
-                    );
-
-                    var emailResult = await _mediator.SendAsync(updateEmailCommand);
-
-                    if (emailResult.IsFailure)
-                    {
-                        MessageBox.Show($"Não foi possivel atualizar o email, erro: {emailResult.Error.Description}", "Atualização de informações da conta.",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                    _oldEmail = mtbProfileEmail.Text;
-                }
-
-                if (HasProfileChanges())
-                {
-                    var updateProfileInfo = new UpdateProfileInfoCommand(
-                        _sessionService.GetCurrentUser()!.Id,
-                        mtbProfileName.Text,
-                        mtbProfilePhoneNumber.Text
-                    );
-
-                    var profileResult = await _mediator.SendAsync(updateProfileInfo);
-
-                    if (profileResult.IsFailure)
-                    {
-                        MessageBox.Show($"Não foi possivel atualizar o nome ou o numero de telefone, erro: {profileResult.Error.Description}", "Atualização de informações da conta.",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        mtbProfileName.Text = profileResult.Data.Name;
-                        mtbProfilePhoneNumber.Text = profileResult.Data.PhoneNumber;
-
-                        _oldName = profileResult.Data.Name;
-                        _oldPhoneNumber = profileResult.Data.PhoneNumber;
-                    }
-                }
-
-                mchbProfileEditMode.Checked = false;
-            }
+            await SaveProfileChanges();
         }
 
         private void mchbProfileEditMode_CheckedChanged(object sender, EventArgs e)
@@ -709,81 +794,12 @@ namespace CorteCerto.App.Pages
 
         private async void btnSaveBarberChanges_Click(object sender, EventArgs e)
         {
-            if (IsBarberInfoValid() && HasBarberProfileChanges())
-            {
-                var updateBarberInfo = new UpdateBarberProfileCommand(
-                    _sessionService.GetCurrentUser()!.Id,
-                    mtbProfileName.Text,
-                    mrtbBarberDescription.Text,
-                    mtbBarberPortifolioUrl.Text != "" ? mtbBarberPortifolioUrl.Text : null,
-                    mtbProfilePhoneNumber.Text,
-                    mtbBarberCep.Text,
-                    Int32.Parse(mtbBarberAddressNumber.Text)
-                );
-
-                var barberResult = await _mediator.SendAsync(updateBarberInfo);
-
-                if (barberResult.IsFailure)
-                {
-                    MessageBox.Show($"Não foi possivel atualizar descrição, portifolio, cep ou numero de endereço do barbeiro, erro: {barberResult.Error.Description}", "Atualização de informações da conta.",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    var cep = barberResult.Data.Address.ZipCode;
-
-                    mrtbBarberDescription.Text = barberResult.Data.Description;
-                    mtbBarberPortifolioUrl.Text = barberResult.Data.PortfolioUrl;
-                    mtbBarberCep.Text = $"{cep.Substring(0, 5)}-{cep.Substring(5, 3)}";
-                    mtbBarberAddressNumber.Text = barberResult.Data.Address.Number.ToString();
-
-                    mtbBarberAddressCountry.Text = barberResult.Data.Address.Country;
-                    mtbBarberAddressState.Text = barberResult.Data.Address.State;
-                    mtbBarberAddressCity.Text = barberResult.Data.Address.City;
-                    mtbBarberAddress.Text = barberResult.Data.Address.Street;
-
-                    _oldDescription = barberResult.Data.Description;
-                    _oldPortifolioUrl = barberResult.Data.PortfolioUrl;
-                    _oldCep = $"{cep.Substring(0, 5)}-{cep.Substring(5, 3)}";
-                    _oldAddressNumber = barberResult.Data.Address.Number.ToString();
-                }
-
-                mchbBarberEditMode.Checked = false;
-            }
+            await SaveBarberProfileChanges();
         }
 
         private async void btnConfirmAppointment_Click(object sender, EventArgs e)
         {
-            AppointmentDto? firstSelectedAppointment = null;
-
-            foreach (AppointmentRequestCard card in flpAppointmentRequest.Controls)
-            {
-                if (card.IsSelected)
-                {
-                    firstSelectedAppointment = card.Appointment;
-                    break;
-                }
-            }
-
-            if (firstSelectedAppointment is not null)
-            {
-                var command = new ApproveAppointmentCommand(
-                    firstSelectedAppointment.Id,
-                    firstSelectedAppointment.Barber.Id
-                );
-
-                var result = await _mediator.SendAsync(command);
-
-                if (result.IsFailure)
-                {
-                    MessageBox.Show($"Não foi possivel aprovar o pedido de agendamento, erro: {result.Error.Description}",
-                        "Aprovar pedido de agendamento.",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                await LoadAppointmentCards();
-                await LoadAppointmentRequestsCards();
-            }
+            await AproveAppointment();
         }
 
         private async void mcbAppointmentStatus_SelectedIndexChanged(object sender, EventArgs e)
@@ -821,5 +837,14 @@ namespace CorteCerto.App.Pages
         }
 
         #endregion
+
+        private async void btnCleanFilters_Click(object sender, EventArgs e)
+        {
+            mtbServiceName.Text = "";
+            mtbDurationFilter.Text = "";
+            mtbPriceFilter.Text = "";
+
+            await LoadServiceCards();
+        }
     }
 }
