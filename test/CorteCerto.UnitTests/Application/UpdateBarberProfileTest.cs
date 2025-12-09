@@ -2,6 +2,8 @@
 using CorteCerto.Application.Validations;
 using CorteCerto.Domain.Errors;
 using CorteCerto.Domain.Interfaces.Repositories;
+using CorteCerto.Domain.Interfaces.Services;
+using CorteCerto.Domain.Services;
 using CorteCerto.Infrastructure.Context;
 using CorteCerto.Infrastructure.Repositories;
 using FluentValidation;
@@ -30,6 +32,7 @@ public class UpdateBarberProfileTest
         services.AddDbContext<CorteCertoDbContext>(options =>
             options.UseNpgsql("User ID=developer;Password=123456789;Server=localhost;Port=5432;Database=corteCertoDb;"));
         services.AddScoped<IBarberRepository, BarberRepository>();
+        services.AddScoped<IAddressService, AddressService>();
         services.AddLogging();
         services.AddMapster();
         services.AddScoped<IValidator<UpdateBarberProfileCommand>, UpdateBarberProfileValidator>();
@@ -38,6 +41,7 @@ public class UpdateBarberProfileTest
 
         commandHandler = new UpdateBarberProfileCommandHandler(
             provider.GetRequiredService<IBarberRepository>(),
+            provider.GetRequiredService<IAddressService>(),
             provider.GetRequiredService<IValidator<UpdateBarberProfileCommand>>(),
             provider.GetRequiredService<ILogger<UpdateBarberProfileCommandHandler>>()
         );
@@ -52,7 +56,9 @@ public class UpdateBarberProfileTest
             "te",
             "",
             "",
-            "1231231231231312"
+            "1231231231231312",
+            "1787",
+            0
         );
 
         // Act
@@ -72,7 +78,9 @@ public class UpdateBarberProfileTest
             "teste",
             "wdadawdadawda",
             "awdadadwa",
-            "18999999999"
+            "18999999999",
+            "17800067",
+            111
         );
 
         // Act
@@ -92,7 +100,9 @@ public class UpdateBarberProfileTest
             "Teste da Silva Alterado",
             "Descrição do Teste da Silva Alterado",
             "https://testeDaSilvaAlterado.com",
-            "18991234768"
+            "18991234768",
+            "72906-264",
+            12
         );
 
         // Act

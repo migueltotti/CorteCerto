@@ -106,6 +106,12 @@ internal static class ConfigureDI
         TypeAdapterConfig<ServiceDto, ServiceModel>
             .NewConfig()
             .Map(dest => dest.Barber, src => src.Barber.Name);
+        TypeAdapterConfig<BarberDto, BarberModel>
+            .NewConfig()
+            .Map(dest => dest.Address, src => src.Address.Street + ", " + src.Address.Number)
+            .Map(dest => dest.City, src => src.Address.City)
+            .Map(dest => dest.State, src => src.Address.State)
+            .Map(dest => dest.Country, src => src.Address.Country);
         #endregion
 
         #region Forms

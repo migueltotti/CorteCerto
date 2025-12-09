@@ -1,6 +1,7 @@
 ﻿using CorteCerto.App.Components;
 using CorteCerto.App.Helpers;
 using CorteCerto.App.Interfaces;
+using CorteCerto.App.Models;
 using CorteCerto.Application.DTO;
 using CorteCerto.Application.UseCases.Commands.Barbers;
 using CorteCerto.Application.UseCases.Commands.People;
@@ -13,6 +14,7 @@ using CorteCerto.Domain.Enums;
 using CorteCerto.Domain.Filters;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
+using Mapster;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using ReaLTaiizor.Controls;
@@ -130,6 +132,41 @@ namespace CorteCerto.App.Pages
             btnUserAction.Text = "Login";
 
             _sessionService.ClearSession();
+        }
+
+        private async Task LoadBarbers()
+        {
+            GetBarbersQuery query;
+
+            if (mtbBarberNameOrEmail.Text != "")
+            {
+                if (mtbBarberNameOrEmail.Text.Contains("@"))
+                {
+                    query = new GetBarbersQuery(
+                        Email: mtbBarberNameOrEmail.Text
+                    );
+                }
+                else
+                {
+                    query = new GetBarbersQuery(
+                        Name: mtbBarberNameOrEmail.Text
+                    );
+                }
+            }
+            else
+            {
+                query = new GetBarbersQuery();
+            }
+
+            var barbersResult = await _mediator.QueryAsync(query);
+
+            var barbers = barbersResult.Results.ToList();
+
+            var formatedBarbers = barbers.Adapt<List<BarberModel>>();
+
+            dgvBarbers.DataSource = null;
+            dgvBarbers.DataSource = formatedBarbers;
+            dgvBarbers.Columns["Id"].Visible = false;
         }
 
         private async Task LoadAvailabilityCards()
@@ -428,9 +465,10 @@ namespace CorteCerto.App.Pages
             await LoadServiceCards();
         }
 
-        private void btnBarbers_Click(object sender, EventArgs e)
+        private async void btnBarbers_Click(object sender, EventArgs e)
         {
             tabControlMain.SelectedIndex = 3;
+            await LoadBarbers();
         }
 
         private void btnReports_Click(object sender, EventArgs e)
@@ -772,6 +810,11 @@ namespace CorteCerto.App.Pages
 
                 mchbMyServicesFilter.Checked = false;
             }
+        }
+
+        private async void btnSearchBarbers_Click(object sender, EventArgs e)
+        {
+            await LoadBarbers();
         }
     }
 }

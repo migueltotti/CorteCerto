@@ -30,6 +30,9 @@ namespace CorteCerto.App.Pages
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             sideBar = new MaterialCard();
             mtbRegisterBarberProfile = new MaterialButton();
             btnBarberAvailabilities = new ReaLTaiizor.Controls.Button();
@@ -104,7 +107,12 @@ namespace CorteCerto.App.Pages
             label7 = new Label();
             label19 = new Label();
             tabPageBarbers = new System.Windows.Forms.TabPage();
+            btnSearchBarbers = new MaterialButton();
+            mtbBarberNameOrEmail = new MaterialTextBoxEdit();
+            dgvBarbers = new PoisonDataGridView();
+            materialCard6 = new MaterialCard();
             label8 = new Label();
+            label52 = new Label();
             tabPageReports = new System.Windows.Forms.TabPage();
             label9 = new Label();
             tabPageConfigurations = new System.Windows.Forms.TabPage();
@@ -169,6 +177,8 @@ namespace CorteCerto.App.Pages
             materialCard3.SuspendLayout();
             materialCard2.SuspendLayout();
             tabPageBarbers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvBarbers).BeginInit();
+            materialCard6.SuspendLayout();
             tabPageReports.SuspendLayout();
             tabPageConfigurations.SuspendLayout();
             materialCard4.SuspendLayout();
@@ -1446,7 +1456,10 @@ namespace CorteCerto.App.Pages
             // 
             // tabPageBarbers
             // 
-            tabPageBarbers.Controls.Add(label8);
+            tabPageBarbers.Controls.Add(btnSearchBarbers);
+            tabPageBarbers.Controls.Add(mtbBarberNameOrEmail);
+            tabPageBarbers.Controls.Add(dgvBarbers);
+            tabPageBarbers.Controls.Add(materialCard6);
             tabPageBarbers.Location = new Point(4, 29);
             tabPageBarbers.Name = "tabPageBarbers";
             tabPageBarbers.Padding = new Padding(3);
@@ -1455,16 +1468,145 @@ namespace CorteCerto.App.Pages
             tabPageBarbers.Text = "Barbers";
             tabPageBarbers.UseVisualStyleBackColor = true;
             // 
+            // btnSearchBarbers
+            // 
+            btnSearchBarbers.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSearchBarbers.AutoSize = false;
+            btnSearchBarbers.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnSearchBarbers.Density = MaterialButton.MaterialButtonDensity.Default;
+            btnSearchBarbers.Depth = 0;
+            btnSearchBarbers.ForeColor = Color.Black;
+            btnSearchBarbers.HighEmphasis = true;
+            btnSearchBarbers.Icon = Properties.Resources.search;
+            btnSearchBarbers.IconType = MaterialButton.MaterialIconType.Default;
+            btnSearchBarbers.Location = new Point(668, 140);
+            btnSearchBarbers.Margin = new Padding(4, 6, 4, 6);
+            btnSearchBarbers.MaximumSize = new Size(46, 40);
+            btnSearchBarbers.MinimumSize = new Size(46, 40);
+            btnSearchBarbers.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnSearchBarbers.Name = "btnSearchBarbers";
+            btnSearchBarbers.NoAccentTextColor = Color.Empty;
+            btnSearchBarbers.Size = new Size(46, 40);
+            btnSearchBarbers.TabIndex = 34;
+            btnSearchBarbers.Type = MaterialButton.MaterialButtonType.Contained;
+            btnSearchBarbers.UseAccentColor = false;
+            btnSearchBarbers.UseVisualStyleBackColor = true;
+            btnSearchBarbers.Click += btnSearchBarbers_Click;
+            // 
+            // mtbBarberNameOrEmail
+            // 
+            mtbBarberNameOrEmail.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            mtbBarberNameOrEmail.AnimateReadOnly = false;
+            mtbBarberNameOrEmail.AutoCompleteMode = AutoCompleteMode.None;
+            mtbBarberNameOrEmail.AutoCompleteSource = AutoCompleteSource.None;
+            mtbBarberNameOrEmail.BackgroundImageLayout = ImageLayout.None;
+            mtbBarberNameOrEmail.CharacterCasing = CharacterCasing.Normal;
+            mtbBarberNameOrEmail.Depth = 0;
+            mtbBarberNameOrEmail.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            mtbBarberNameOrEmail.HideSelection = true;
+            mtbBarberNameOrEmail.Hint = "Insira o nome do barbeiro ou o email.";
+            mtbBarberNameOrEmail.LeadingIcon = null;
+            mtbBarberNameOrEmail.Location = new Point(14, 137);
+            mtbBarberNameOrEmail.MaxLength = 32767;
+            mtbBarberNameOrEmail.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            mtbBarberNameOrEmail.Name = "mtbBarberNameOrEmail";
+            mtbBarberNameOrEmail.PasswordChar = '\0';
+            mtbBarberNameOrEmail.PrefixSuffixText = null;
+            mtbBarberNameOrEmail.ReadOnly = false;
+            mtbBarberNameOrEmail.RightToLeft = RightToLeft.No;
+            mtbBarberNameOrEmail.SelectedText = "";
+            mtbBarberNameOrEmail.SelectionLength = 0;
+            mtbBarberNameOrEmail.SelectionStart = 0;
+            mtbBarberNameOrEmail.ShortcutsEnabled = true;
+            mtbBarberNameOrEmail.Size = new Size(646, 48);
+            mtbBarberNameOrEmail.TabIndex = 33;
+            mtbBarberNameOrEmail.TabStop = false;
+            mtbBarberNameOrEmail.TextAlign = HorizontalAlignment.Left;
+            mtbBarberNameOrEmail.TrailingIcon = null;
+            mtbBarberNameOrEmail.UseSystemPasswordChar = false;
+            // 
+            // dgvBarbers
+            // 
+            dgvBarbers.AllowUserToResizeRows = false;
+            dgvBarbers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvBarbers.BackgroundColor = Color.FromArgb(255, 255, 255);
+            dgvBarbers.BorderStyle = BorderStyle.None;
+            dgvBarbers.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvBarbers.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(0, 174, 219);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(0, 198, 247);
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(17, 17, 17);
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvBarbers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvBarbers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(136, 136, 136);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(0, 198, 247);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(17, 17, 17);
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvBarbers.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvBarbers.EnableHeadersVisualStyles = false;
+            dgvBarbers.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
+            dgvBarbers.GridColor = Color.FromArgb(255, 255, 255);
+            dgvBarbers.Location = new Point(14, 200);
+            dgvBarbers.Name = "dgvBarbers";
+            dgvBarbers.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(0, 174, 219);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Pixel);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(255, 255, 255);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(0, 198, 247);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(17, 17, 17);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvBarbers.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvBarbers.RowHeadersWidth = 51;
+            dgvBarbers.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dgvBarbers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvBarbers.Size = new Size(917, 420);
+            dgvBarbers.TabIndex = 30;
+            // 
+            // materialCard6
+            // 
+            materialCard6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            materialCard6.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard6.Controls.Add(label8);
+            materialCard6.Controls.Add(label52);
+            materialCard6.Depth = 0;
+            materialCard6.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            materialCard6.Location = new Point(14, 14);
+            materialCard6.Margin = new Padding(14);
+            materialCard6.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            materialCard6.Name = "materialCard6";
+            materialCard6.Padding = new Padding(14);
+            materialCard6.Size = new Size(917, 106);
+            materialCard6.TabIndex = 29;
+            // 
             // label8
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 10F);
             label8.ForeColor = Color.Gray;
-            label8.Location = new Point(96, 73);
+            label8.Location = new Point(17, 61);
             label8.Name = "label8";
-            label8.Size = new Size(67, 23);
-            label8.TabIndex = 28;
-            label8.Text = "Barbers";
+            label8.Size = new Size(325, 23);
+            label8.TabIndex = 25;
+            label8.Text = "Procure por barbeiros de sua preferencia.";
+            // 
+            // label52
+            // 
+            label52.AutoSize = true;
+            label52.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label52.ForeColor = Color.Black;
+            label52.Location = new Point(17, 14);
+            label52.Name = "label52";
+            label52.Size = new Size(141, 38);
+            label52.TabIndex = 25;
+            label52.Text = "Barbeiros";
             // 
             // tabPageReports
             // 
@@ -2428,7 +2570,9 @@ namespace CorteCerto.App.Pages
             materialCard2.ResumeLayout(false);
             materialCard2.PerformLayout();
             tabPageBarbers.ResumeLayout(false);
-            tabPageBarbers.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvBarbers).EndInit();
+            materialCard6.ResumeLayout(false);
+            materialCard6.PerformLayout();
             tabPageReports.ResumeLayout(false);
             tabPageReports.PerformLayout();
             tabPageConfigurations.ResumeLayout(false);
@@ -2468,7 +2612,6 @@ namespace CorteCerto.App.Pages
         private System.Windows.Forms.TabPage tabPageReports;
         private System.Windows.Forms.TabPage tabPageConfigurations;
         private Label label6;
-        private Label label8;
         private Label label9;
         private ReaLTaiizor.Controls.MaterialCard dashboardCard;
         private ReaLTaiizor.Controls.MaterialButton btnDashboardNewService;
@@ -2570,5 +2713,11 @@ namespace CorteCerto.App.Pages
         private MaterialComboBox mcbAppointmentStatus;
         private Label label51;
         private MaterialCheckBox mchbMyServicesFilter;
+        private MaterialCard materialCard6;
+        private Label label8;
+        private Label label52;
+        private PoisonDataGridView dgvBarbers;
+        private MaterialButton btnSearchBarbers;
+        private MaterialTextBoxEdit mtbBarberNameOrEmail;
     }
 }

@@ -231,7 +231,7 @@ internal class ServiceCard : MaterialCard
                 NoAccentTextColor = Color.Empty,
                 Size = new Size(91, 40),
                 TabIndex = 41,
-                Text = "Editart",
+                Text = "Editar",
                 Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined,
                 UseVisualStyleBackColor = true
             };
