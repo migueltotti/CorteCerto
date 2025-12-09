@@ -310,32 +310,35 @@ namespace CorteCerto.App.Pages
         {
             flpAppointmentRequest.Controls.Clear();
 
-            var barberId = _sessionService.GetCurrentUser()!.Id;
-
-            var appointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
-                BarberId: barberId,
-                AppointmentStatus: Domain.Enums.AppointmentStatus.WaitingForAprovement
-            ));
-
-            AppointmentRequestCard card;
-
-            int xLocaltionPoint = 14;
-            int yLocaltionPoint = 14;
-            const int padding = 10;
-
-            foreach (var appointmentRequest in appointments.Results)
+            if (_sessionService.IsAuthenticated)
             {
-                card = AppointmentRequestCard.Builder
-                    .Create(_navegationService)
-                    .WithAppointment(appointmentRequest)
-                    .WithSelectedCheckBox()
-                    .Build();
+                var barberId = _sessionService.GetCurrentUser()!.Id;
 
-                card.Location = new Point(xLocaltionPoint, yLocaltionPoint);
+                var appointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
+                    BarberId: barberId,
+                    AppointmentStatus: Domain.Enums.AppointmentStatus.WaitingForAprovement
+                ));
 
-                flpAppointmentRequest.Controls.Add(card);
+                AppointmentRequestCard card;
 
-                xLocaltionPoint += 218 + padding;
+                int xLocaltionPoint = 14;
+                int yLocaltionPoint = 14;
+                const int padding = 10;
+
+                foreach (var appointmentRequest in appointments.Results)
+                {
+                    card = AppointmentRequestCard.Builder
+                        .Create(_navegationService)
+                        .WithAppointment(appointmentRequest)
+                        .WithSelectedCheckBox()
+                        .Build();
+
+                    card.Location = new Point(xLocaltionPoint, yLocaltionPoint);
+
+                    flpAppointmentRequest.Controls.Add(card);
+
+                    xLocaltionPoint += 218 + padding;
+                }
             }
         }
 
@@ -343,38 +346,41 @@ namespace CorteCerto.App.Pages
         {
             flpAppointments.Controls.Clear();
 
-            var personId = _sessionService.GetCurrentUser()!.Id;
-
-            var customerAppointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
-                CustomerId: personId,
-                AppointmentStatus: status
-            ));
-
-            var barberAppointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
-                BarberId: personId,
-                AppointmentStatus: status
-            ));
-
-            List<AppointmentDto> appointments = [.. customerAppointments.Results, .. barberAppointments.Results];
-
-            AppointmentRequestCard card;
-
-            int xLocaltionPoint = 14;
-            int yLocaltionPoint = 14;
-            const int padding = 10;
-
-            foreach (var appointmentRequest in appointments.OrderBy(a => a.Date))
+            if (_sessionService.IsAuthenticated)
             {
-                card = AppointmentRequestCard.Builder
-                    .Create(_navegationService)
-                    .WithAppointment(appointmentRequest)
-                    .Build();
+                var personId = _sessionService.GetCurrentUser()!.Id;
 
-                card.Location = new Point(xLocaltionPoint, yLocaltionPoint);
+                var customerAppointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
+                    CustomerId: personId,
+                    AppointmentStatus: status
+                ));
 
-                flpAppointments.Controls.Add(card);
+                var barberAppointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
+                    BarberId: personId,
+                    AppointmentStatus: status
+                ));
 
-                xLocaltionPoint += 218 + padding;
+                List<AppointmentDto> appointments = [.. customerAppointments.Results, .. barberAppointments.Results];
+
+                AppointmentRequestCard card;
+
+                int xLocaltionPoint = 14;
+                int yLocaltionPoint = 14;
+                const int padding = 10;
+
+                foreach (var appointmentRequest in appointments.OrderBy(a => a.Date))
+                {
+                    card = AppointmentRequestCard.Builder
+                        .Create(_navegationService)
+                        .WithAppointment(appointmentRequest)
+                        .Build();
+
+                    card.Location = new Point(xLocaltionPoint, yLocaltionPoint);
+
+                    flpAppointments.Controls.Add(card);
+
+                    xLocaltionPoint += 218 + padding;
+                }
             }
         }
 
@@ -586,8 +592,8 @@ namespace CorteCerto.App.Pages
             if (_sessionService.IsAuthenticated)
             {
                 tabControlMain.SelectedIndex = 1;
-                await LoadAppointmentCards(null);
-                await LoadAppointmentRequestsCards();
+                //await LoadAppointmentCards(null);
+                //await LoadAppointmentRequestsCards();
             }
             else
             {

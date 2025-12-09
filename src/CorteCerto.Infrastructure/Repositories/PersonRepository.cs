@@ -15,6 +15,7 @@ namespace CorteCerto.Infrastructure.Repositories
         public Task<Person?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
         {
             return context.People
+                .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Email == email, cancellationToken);
         }
     }
