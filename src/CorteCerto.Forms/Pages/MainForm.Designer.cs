@@ -82,6 +82,7 @@ namespace CorteCerto.App.Pages
             label12 = new Label();
             label13 = new Label();
             tabPageServices = new System.Windows.Forms.TabPage();
+            btnCleanFilters = new MaterialButton();
             mchbMyServicesFilter = new MaterialCheckBox();
             materialCard3 = new MaterialCard();
             label29 = new Label();
@@ -164,7 +165,10 @@ namespace CorteCerto.App.Pages
             materialButton4 = new MaterialButton();
             materialButton5 = new MaterialButton();
             materialButton6 = new MaterialButton();
-            btnCleanFilters = new MaterialButton();
+            dateTimePicker1 = new DateTimePicker();
+            dateTimePicker2 = new DateTimePicker();
+            label53 = new Label();
+            label54 = new Label();
             sideBar.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPageDashboard.SuspendLayout();
@@ -555,7 +559,7 @@ namespace CorteCerto.App.Pages
             tabControlMain.Location = new Point(329, 67);
             tabControlMain.Name = "tabControlMain";
             tabControlMain.SelectedIndex = 0;
-            tabControlMain.Size = new Size(956, 758);
+            tabControlMain.Size = new Size(1112, 758);
             tabControlMain.TabIndex = 12;
             // 
             // tabPageDashboard
@@ -564,7 +568,7 @@ namespace CorteCerto.App.Pages
             tabPageDashboard.Location = new Point(4, 29);
             tabPageDashboard.Name = "tabPageDashboard";
             tabPageDashboard.Padding = new Padding(3);
-            tabPageDashboard.Size = new Size(948, 725);
+            tabPageDashboard.Size = new Size(1104, 725);
             tabPageDashboard.TabIndex = 0;
             tabPageDashboard.Text = "Dashboard";
             tabPageDashboard.UseVisualStyleBackColor = true;
@@ -664,7 +668,7 @@ namespace CorteCerto.App.Pages
             tabPageAppointments.Location = new Point(4, 29);
             tabPageAppointments.Name = "tabPageAppointments";
             tabPageAppointments.Padding = new Padding(3);
-            tabPageAppointments.Size = new Size(948, 725);
+            tabPageAppointments.Size = new Size(1104, 725);
             tabPageAppointments.TabIndex = 1;
             tabPageAppointments.Text = "Appointments";
             tabPageAppointments.UseVisualStyleBackColor = true;
@@ -674,6 +678,10 @@ namespace CorteCerto.App.Pages
             // 
             calendarCard.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             calendarCard.BackColor = Color.FromArgb(255, 255, 255);
+            calendarCard.Controls.Add(label54);
+            calendarCard.Controls.Add(label53);
+            calendarCard.Controls.Add(dateTimePicker2);
+            calendarCard.Controls.Add(dateTimePicker1);
             calendarCard.Controls.Add(mcbAppointmentStatus);
             calendarCard.Controls.Add(btnConfirmAppointment);
             calendarCard.Controls.Add(flpAppointmentRequest);
@@ -688,7 +696,7 @@ namespace CorteCerto.App.Pages
             calendarCard.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             calendarCard.Name = "calendarCard";
             calendarCard.Padding = new Padding(14);
-            calendarCard.Size = new Size(917, 595);
+            calendarCard.Size = new Size(1073, 595);
             calendarCard.TabIndex = 28;
             // 
             // mcbAppointmentStatus
@@ -708,7 +716,7 @@ namespace CorteCerto.App.Pages
             mcbAppointmentStatus.IntegralHeight = false;
             mcbAppointmentStatus.ItemHeight = 43;
             mcbAppointmentStatus.Items.AddRange(new object[] { "Sem filtro", "Aguardando aprovação", "Agendado", "Finalizado", "Cancelado" });
-            mcbAppointmentStatus.Location = new Point(654, 14);
+            mcbAppointmentStatus.Location = new Point(810, 14);
             mcbAppointmentStatus.MaxDropDownItems = 4;
             mcbAppointmentStatus.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             mcbAppointmentStatus.Name = "mcbAppointmentStatus";
@@ -728,7 +736,7 @@ namespace CorteCerto.App.Pages
             btnConfirmAppointment.HighEmphasis = true;
             btnConfirmAppointment.Icon = null;
             btnConfirmAppointment.IconType = MaterialButton.MaterialIconType.Rebase;
-            btnConfirmAppointment.Location = new Point(678, 249);
+            btnConfirmAppointment.Location = new Point(834, 249);
             btnConfirmAppointment.Margin = new Padding(4, 6, 4, 6);
             btnConfirmAppointment.MaximumSize = new Size(221, 32);
             btnConfirmAppointment.MinimumSize = new Size(221, 32);
@@ -751,7 +759,7 @@ namespace CorteCerto.App.Pages
             flpAppointmentRequest.Controls.Add(materialCard5);
             flpAppointmentRequest.Location = new Point(17, 290);
             flpAppointmentRequest.Name = "flpAppointmentRequest";
-            flpAppointmentRequest.Size = new Size(882, 288);
+            flpAppointmentRequest.Size = new Size(1038, 288);
             flpAppointmentRequest.TabIndex = 34;
             flpAppointmentRequest.WrapContents = false;
             // 
@@ -886,7 +894,7 @@ namespace CorteCerto.App.Pages
             flpAppointments.Location = new Point(17, 72);
             flpAppointments.MaximumSize = new Size(0, 400);
             flpAppointments.Name = "flpAppointments";
-            flpAppointments.Size = new Size(882, 215);
+            flpAppointments.Size = new Size(1038, 215);
             flpAppointments.TabIndex = 32;
             // 
             // label5
@@ -925,7 +933,7 @@ namespace CorteCerto.App.Pages
             appointmentCard.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             appointmentCard.Name = "appointmentCard";
             appointmentCard.Padding = new Padding(14);
-            appointmentCard.Size = new Size(917, 106);
+            appointmentCard.Size = new Size(1073, 106);
             appointmentCard.TabIndex = 27;
             // 
             // btnNewAppointment
@@ -939,7 +947,7 @@ namespace CorteCerto.App.Pages
             btnNewAppointment.HighEmphasis = true;
             btnNewAppointment.Icon = Properties.Resources.calendar_plus;
             btnNewAppointment.IconType = MaterialButton.MaterialIconType.Rebase;
-            btnNewAppointment.Location = new Point(706, 32);
+            btnNewAppointment.Location = new Point(862, 32);
             btnNewAppointment.Margin = new Padding(4, 6, 4, 6);
             btnNewAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnNewAppointment.Name = "btnNewAppointment";
@@ -994,10 +1002,36 @@ namespace CorteCerto.App.Pages
             tabPageServices.Location = new Point(4, 29);
             tabPageServices.Name = "tabPageServices";
             tabPageServices.Padding = new Padding(3);
-            tabPageServices.Size = new Size(948, 725);
+            tabPageServices.Size = new Size(1104, 725);
             tabPageServices.TabIndex = 2;
             tabPageServices.Text = "Services";
             tabPageServices.UseVisualStyleBackColor = true;
+            // 
+            // btnCleanFilters
+            // 
+            btnCleanFilters.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCleanFilters.AutoSize = false;
+            btnCleanFilters.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnCleanFilters.Density = MaterialButton.MaterialButtonDensity.Default;
+            btnCleanFilters.Depth = 0;
+            btnCleanFilters.ForeColor = Color.Black;
+            btnCleanFilters.HighEmphasis = true;
+            btnCleanFilters.Icon = null;
+            btnCleanFilters.IconType = MaterialButton.MaterialIconType.Default;
+            btnCleanFilters.Location = new Point(731, 529);
+            btnCleanFilters.Margin = new Padding(4, 6, 4, 6);
+            btnCleanFilters.MaximumSize = new Size(200, 40);
+            btnCleanFilters.MinimumSize = new Size(200, 40);
+            btnCleanFilters.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnCleanFilters.Name = "btnCleanFilters";
+            btnCleanFilters.NoAccentTextColor = Color.Empty;
+            btnCleanFilters.Size = new Size(200, 40);
+            btnCleanFilters.TabIndex = 42;
+            btnCleanFilters.Text = "Limpar filtros";
+            btnCleanFilters.Type = MaterialButton.MaterialButtonType.Contained;
+            btnCleanFilters.UseAccentColor = true;
+            btnCleanFilters.UseVisualStyleBackColor = true;
+            btnCleanFilters.Click += btnCleanFilters_Click;
             // 
             // mchbMyServicesFilter
             // 
@@ -1468,7 +1502,7 @@ namespace CorteCerto.App.Pages
             tabPageBarbers.Location = new Point(4, 29);
             tabPageBarbers.Name = "tabPageBarbers";
             tabPageBarbers.Padding = new Padding(3);
-            tabPageBarbers.Size = new Size(948, 725);
+            tabPageBarbers.Size = new Size(1104, 725);
             tabPageBarbers.TabIndex = 3;
             tabPageBarbers.Text = "Barbers";
             tabPageBarbers.UseVisualStyleBackColor = true;
@@ -1619,7 +1653,7 @@ namespace CorteCerto.App.Pages
             tabPageReports.Location = new Point(4, 29);
             tabPageReports.Name = "tabPageReports";
             tabPageReports.Padding = new Padding(3);
-            tabPageReports.Size = new Size(948, 725);
+            tabPageReports.Size = new Size(1104, 725);
             tabPageReports.TabIndex = 4;
             tabPageReports.Text = "Reports";
             tabPageReports.UseVisualStyleBackColor = true;
@@ -1671,7 +1705,7 @@ namespace CorteCerto.App.Pages
             tabPageConfigurations.Location = new Point(4, 29);
             tabPageConfigurations.Name = "tabPageConfigurations";
             tabPageConfigurations.Padding = new Padding(3);
-            tabPageConfigurations.Size = new Size(948, 725);
+            tabPageConfigurations.Size = new Size(1104, 725);
             tabPageConfigurations.TabIndex = 5;
             tabPageConfigurations.Text = "Profile";
             tabPageConfigurations.UseVisualStyleBackColor = true;
@@ -2312,7 +2346,7 @@ namespace CorteCerto.App.Pages
             tabPageAvailability.Location = new Point(4, 29);
             tabPageAvailability.Name = "tabPageAvailability";
             tabPageAvailability.Padding = new Padding(3);
-            tabPageAvailability.Size = new Size(948, 725);
+            tabPageAvailability.Size = new Size(1104, 725);
             tabPageAvailability.TabIndex = 6;
             tabPageAvailability.Text = "Availability";
             tabPageAvailability.UseVisualStyleBackColor = true;
@@ -2541,37 +2575,47 @@ namespace CorteCerto.App.Pages
             materialButton6.UseAccentColor = false;
             materialButton6.UseVisualStyleBackColor = false;
             // 
-            // btnCleanFilters
+            // dateTimePicker1
             // 
-            btnCleanFilters.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnCleanFilters.AutoSize = false;
-            btnCleanFilters.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnCleanFilters.Density = MaterialButton.MaterialButtonDensity.Default;
-            btnCleanFilters.Depth = 0;
-            btnCleanFilters.ForeColor = Color.Black;
-            btnCleanFilters.HighEmphasis = true;
-            btnCleanFilters.Icon = null;
-            btnCleanFilters.IconType = MaterialButton.MaterialIconType.Default;
-            btnCleanFilters.Location = new Point(731, 529);
-            btnCleanFilters.Margin = new Padding(4, 6, 4, 6);
-            btnCleanFilters.MaximumSize = new Size(200, 40);
-            btnCleanFilters.MinimumSize = new Size(200, 40);
-            btnCleanFilters.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            btnCleanFilters.Name = "btnCleanFilters";
-            btnCleanFilters.NoAccentTextColor = Color.Empty;
-            btnCleanFilters.Size = new Size(200, 40);
-            btnCleanFilters.TabIndex = 42;
-            btnCleanFilters.Text = "Limpar filtros";
-            btnCleanFilters.Type = MaterialButton.MaterialButtonType.Contained;
-            btnCleanFilters.UseAccentColor = true;
-            btnCleanFilters.UseVisualStyleBackColor = true;
-            btnCleanFilters.Click += btnCleanFilters_Click;
+            dateTimePicker1.Location = new Point(554, 10);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(250, 27);
+            dateTimePicker1.TabIndex = 37;
+            // 
+            // dateTimePicker2
+            // 
+            dateTimePicker2.Location = new Point(554, 39);
+            dateTimePicker2.Name = "dateTimePicker2";
+            dateTimePicker2.Size = new Size(250, 27);
+            dateTimePicker2.TabIndex = 38;
+            // 
+            // label53
+            // 
+            label53.AutoSize = true;
+            label53.Font = new Font("Segoe UI", 10F);
+            label53.ForeColor = Color.Black;
+            label53.Location = new Point(453, 14);
+            label53.Name = "label53";
+            label53.Size = new Size(95, 23);
+            label53.TabIndex = 39;
+            label53.Text = "Data inicio:";
+            // 
+            // label54
+            // 
+            label54.AutoSize = true;
+            label54.Font = new Font("Segoe UI", 10F);
+            label54.ForeColor = Color.Black;
+            label54.Location = new Point(453, 39);
+            label54.Name = "label54";
+            label54.Size = new Size(79, 23);
+            label54.TabIndex = 40;
+            label54.Text = "Data fim:";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1291, 831);
+            ClientSize = new Size(1447, 831);
             Controls.Add(tabControlMain);
             Controls.Add(sideBar);
             IsMdiContainer = true;
@@ -2751,5 +2795,9 @@ namespace CorteCerto.App.Pages
         private MaterialButton btnSearchBarbers;
         private MaterialTextBoxEdit mtbBarberNameOrEmail;
         private MaterialButton btnCleanFilters;
+        private Label label54;
+        private Label label53;
+        private DateTimePicker dateTimePicker2;
+        private DateTimePicker dateTimePicker1;
     }
 }

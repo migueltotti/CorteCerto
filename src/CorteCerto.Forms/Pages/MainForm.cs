@@ -310,8 +310,7 @@ namespace CorteCerto.App.Pages
         {
             flpAppointmentRequest.Controls.Clear();
 
-            //var barberId = _sessionService.GetCurrentUser()!.Id;
-            var barberId = Guid.Parse("c160437f-405c-4203-824f-033b827a089c");
+            var barberId = _sessionService.GetCurrentUser()!.Id;
 
             var appointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
                 BarberId: barberId,
@@ -344,7 +343,7 @@ namespace CorteCerto.App.Pages
         {
             flpAppointments.Controls.Clear();
 
-            var personId = Guid.Parse("c160437f-405c-4203-824f-033b827a089c");//_sessionService.GetCurrentUser()!.Id;
+            var personId = _sessionService.GetCurrentUser()!.Id;
 
             var customerAppointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
                 CustomerId: personId,

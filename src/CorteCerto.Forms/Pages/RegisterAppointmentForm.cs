@@ -169,7 +169,10 @@ namespace CorteCerto.App.Pages
                     return;
                 }
 
-                for (var time = totalTimeAvailable.StartTime.TimeOfDay; time <= totalTimeAvailable.EndTime.TimeOfDay; time = time.Add(TimeSpan.FromMinutes(30)))
+                var localStartTime = totalTimeAvailable.StartTime.ToLocalTime();
+                var localEndTime = totalTimeAvailable.EndTime.ToLocalTime();
+
+                for (var time = localStartTime.TimeOfDay; time <= localEndTime.TimeOfDay; time = time.Add(TimeSpan.FromMinutes(30)))
                 {
                     cb.Items.Add(time);
                 }
