@@ -8,6 +8,7 @@ using CorteCerto.Application.UseCases.Queries.Barbers;
 using CorteCerto.Application.UseCases.Queries.Customers;
 using CorteCerto.Application.UseCases.Queries.People;
 using CorteCerto.Domain.Entities;
+using CorteCerto.Domain.Enums;
 using CorteCerto.Domain.Filters;
 using LiteBus.Commands.Abstractions;
 using LiteBus.Queries.Abstractions;
@@ -274,6 +275,7 @@ namespace CorteCerto.App.Pages
                 card = AppointmentRequestCard.Builder
                     .Create(_navegationService)
                     .WithAppointment(appointmentRequest)
+                    .WithSelectedCheckBox()
                     .Build();
 
                 card.Location = new Point(xLocaltionPoint, yLocaltionPoint);
@@ -281,6 +283,51 @@ namespace CorteCerto.App.Pages
                 flpAppointmentRequest.Controls.Add(card);
 
                 xLocaltionPoint += 218 + padding;
+            }
+        }
+
+        private async Task LoadAppointmentCards(AppointmentStatus? status = null)
+        {
+            flpAppointments.Controls.Clear();
+
+            var personId = Guid.Parse("c160437f-405c-4203-824f-033b827a089c");//_sessionService.GetCurrentUser()!.Id;
+
+            var customerAppointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
+                CustomerId: personId,
+                AppointmentStatus: status
+            ));
+
+            var barberAppointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
+                BarberId: personId,
+                AppointmentStatus: status
+            ));
+
+            List<AppointmentDto> appointments = [..customerAppointments.Results, ..barberAppointments.Results];
+
+            AppointmentRequestCard card;
+
+            int xLocaltionPoint = 14;
+            int yLocaltionPoint = 14;
+            const int padding = 10;
+
+            foreach (var appointmentRequest in appointments)
+            {
+                card = AppointmentRequestCard.Builder
+                    .Create(_navegationService)
+                    .WithAppointment(appointmentRequest)
+                    .Build();
+
+                card.Location = new Point(xLocaltionPoint, yLocaltionPoint);
+
+                flpAppointments.Controls.Add(card);
+
+                xLocaltionPoint += 218 + padding;
+
+                //if (xLocaltionPoint + card.Size.Width + padding > flpAppointments.Width)
+                //{
+                //    xLocaltionPoint = 14;
+                //    yLocaltionPoint += 216;
+                //}
             }
         }
 
@@ -359,6 +406,7 @@ namespace CorteCerto.App.Pages
         {
             tabControlMain.SelectedIndex = 1;
 
+            await LoadAppointmentCards(null);
             await LoadAppointmentRequestsCards();
         }
 
@@ -671,12 +719,19 @@ namespace CorteCerto.App.Pages
                 if (result.IsFailure)
                 {
                     MessageBox.Show($"Não foi possivel aprovar o pedido de agendamento, erro: {result.Error.Description}",
-                        "Atualização de informações da conta.",
+                        "Aprovar pedido de agendamento.",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 await LoadAppointmentRequestsCards();
             }
+        }
+
+        private async void mcbAppointmentStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            await LoadAppointmentCards(
+                status: (AppointmentStatus)mcbAppointmentStatus.SelectedIndex
+            );
         }
     }
 }

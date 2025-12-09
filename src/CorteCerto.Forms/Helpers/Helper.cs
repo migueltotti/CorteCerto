@@ -1,4 +1,5 @@
-﻿using CorteCerto.Domain.Filters;
+﻿using CorteCerto.Domain.Enums;
+using CorteCerto.Domain.Filters;
 using System.Text.RegularExpressions;
 
 namespace CorteCerto.App.Helpers;
@@ -23,6 +24,18 @@ public static partial class Helper
             DayOfWeek.Thursday => "Quinta",
             DayOfWeek.Friday => "Sexta",
             DayOfWeek.Saturday => "Sábado",
+            _ => throw new NotImplementedException()
+        };
+    }
+
+    public static string ToPortuguese(this AppointmentStatus status)
+    {
+        return status switch
+        {
+            AppointmentStatus.WaitingForAprovement => "Aguardando aprovação",
+            AppointmentStatus.Scheduled => "Agendado",
+            AppointmentStatus.Completed => "Finalizado",
+            AppointmentStatus.Canceled => "Cancelado",
             _ => throw new NotImplementedException()
         };
     }

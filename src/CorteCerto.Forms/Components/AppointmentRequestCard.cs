@@ -67,6 +67,7 @@ internal class AppointmentRequestCard : MaterialCard
     {
         private INavegationService _navegationService;
         private AppointmentDto _appointment;
+        private bool _withSelectedCheckBox = false;
 
         public static Builder Create(INavegationService navegationService)
         {
@@ -80,6 +81,12 @@ internal class AppointmentRequestCard : MaterialCard
         public Builder WithAppointment(AppointmentDto appointment)
         {
             _appointment = appointment;
+            return this;
+        }
+
+        public Builder WithSelectedCheckBox()
+        {
+            _withSelectedCheckBox = true;
             return this;
         }
 
@@ -215,7 +222,10 @@ internal class AppointmentRequestCard : MaterialCard
             var showMoreInfoButton = CreateShowMoreInfoButton();
 
             card.Controls.Add(cardCustomerName);
-            card.Controls.Add(cardConfirmAppointmentCheckBox);
+
+            if(_withSelectedCheckBox)
+                card.Controls.Add(cardConfirmAppointmentCheckBox);
+
             card.Controls.Add(cardDate);
             card.Controls.Add(cardTime);
             card.Controls.Add(cardWeekDay);
@@ -223,7 +233,9 @@ internal class AppointmentRequestCard : MaterialCard
             card.Controls.Add(showMoreInfoButton);
 
             card.AddEventClickShowMoreInfoButton();
-            card.AddEventCheckedChangedIsAppointmentSelectedCheckBox();
+
+            if (_withSelectedCheckBox)
+                card.AddEventCheckedChangedIsAppointmentSelectedCheckBox();
 
             return card;
         }

@@ -58,6 +58,7 @@ namespace CorteCerto.App.Pages
             label4 = new Label();
             tabPageAppointments = new System.Windows.Forms.TabPage();
             calendarCard = new MaterialCard();
+            mcbAppointmentStatus = new MaterialComboBox();
             btnConfirmAppointment = new MaterialButton();
             flpAppointmentRequest = new FlowLayoutPanel();
             materialCard5 = new MaterialCard();
@@ -70,9 +71,6 @@ namespace CorteCerto.App.Pages
             label46 = new Label();
             label45 = new Label();
             flpAppointments = new FlowLayoutPanel();
-            btnYearCalendar = new ParrotButton();
-            btnMonthCalendar = new ParrotButton();
-            btnWeekCalendar = new ParrotButton();
             label5 = new Label();
             label14 = new Label();
             appointmentCard = new MaterialCard();
@@ -659,13 +657,11 @@ namespace CorteCerto.App.Pages
             // 
             calendarCard.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             calendarCard.BackColor = Color.FromArgb(255, 255, 255);
+            calendarCard.Controls.Add(mcbAppointmentStatus);
             calendarCard.Controls.Add(btnConfirmAppointment);
             calendarCard.Controls.Add(flpAppointmentRequest);
             calendarCard.Controls.Add(label45);
             calendarCard.Controls.Add(flpAppointments);
-            calendarCard.Controls.Add(btnYearCalendar);
-            calendarCard.Controls.Add(btnMonthCalendar);
-            calendarCard.Controls.Add(btnWeekCalendar);
             calendarCard.Controls.Add(label5);
             calendarCard.Controls.Add(label14);
             calendarCard.Depth = 0;
@@ -677,6 +673,31 @@ namespace CorteCerto.App.Pages
             calendarCard.Padding = new Padding(14);
             calendarCard.Size = new Size(917, 538);
             calendarCard.TabIndex = 28;
+            // 
+            // mcbAppointmentStatus
+            // 
+            mcbAppointmentStatus.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            mcbAppointmentStatus.AutoResize = false;
+            mcbAppointmentStatus.BackColor = Color.FromArgb(255, 255, 255);
+            mcbAppointmentStatus.Depth = 0;
+            mcbAppointmentStatus.DrawMode = DrawMode.OwnerDrawVariable;
+            mcbAppointmentStatus.DropDownHeight = 174;
+            mcbAppointmentStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            mcbAppointmentStatus.DropDownWidth = 121;
+            mcbAppointmentStatus.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            mcbAppointmentStatus.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            mcbAppointmentStatus.FormattingEnabled = true;
+            mcbAppointmentStatus.IntegralHeight = false;
+            mcbAppointmentStatus.ItemHeight = 43;
+            mcbAppointmentStatus.Items.AddRange(new object[] { "Aguardando aprovação", "Agendado", "Finalizado", "Cancelado" });
+            mcbAppointmentStatus.Location = new Point(654, 14);
+            mcbAppointmentStatus.MaxDropDownItems = 4;
+            mcbAppointmentStatus.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            mcbAppointmentStatus.Name = "mcbAppointmentStatus";
+            mcbAppointmentStatus.Size = new Size(245, 49);
+            mcbAppointmentStatus.StartIndex = 0;
+            mcbAppointmentStatus.TabIndex = 36;
+            mcbAppointmentStatus.SelectedIndexChanged += mcbAppointmentStatus_SelectedIndexChanged;
             // 
             // btnConfirmAppointment
             // 
@@ -831,84 +852,13 @@ namespace CorteCerto.App.Pages
             // flpAppointments
             // 
             flpAppointments.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            flpAppointments.BackColor = Color.Red;
+            flpAppointments.AutoScroll = true;
+            flpAppointments.BackColor = Color.White;
             flpAppointments.Location = new Point(17, 72);
             flpAppointments.MaximumSize = new Size(0, 400);
             flpAppointments.Name = "flpAppointments";
             flpAppointments.Size = new Size(882, 158);
             flpAppointments.TabIndex = 32;
-            // 
-            // btnYearCalendar
-            // 
-            btnYearCalendar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnYearCalendar.BackgroundColor = Color.Gray;
-            btnYearCalendar.ButtonImage = null;
-            btnYearCalendar.ButtonStyle = ParrotButton.Style.MaterialRounded;
-            btnYearCalendar.ButtonText = "Ano";
-            btnYearCalendar.ClickBackColor = Color.FromArgb(195, 195, 195);
-            btnYearCalendar.ClickTextColor = Color.DodgerBlue;
-            btnYearCalendar.CornerRadius = 20;
-            btnYearCalendar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnYearCalendar.Horizontal_Alignment = StringAlignment.Center;
-            btnYearCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
-            btnYearCalendar.HoverTextColor = Color.DodgerBlue;
-            btnYearCalendar.ImagePosition = ParrotButton.ImgPosition.Left;
-            btnYearCalendar.Location = new Point(816, 17);
-            btnYearCalendar.Name = "btnYearCalendar";
-            btnYearCalendar.Size = new Size(84, 40);
-            btnYearCalendar.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            btnYearCalendar.TabIndex = 31;
-            btnYearCalendar.TextColor = Color.White;
-            btnYearCalendar.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            btnYearCalendar.Vertical_Alignment = StringAlignment.Center;
-            // 
-            // btnMonthCalendar
-            // 
-            btnMonthCalendar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnMonthCalendar.BackgroundColor = Color.Gray;
-            btnMonthCalendar.ButtonImage = null;
-            btnMonthCalendar.ButtonStyle = ParrotButton.Style.MaterialRounded;
-            btnMonthCalendar.ButtonText = "Mês";
-            btnMonthCalendar.ClickBackColor = Color.FromArgb(195, 195, 195);
-            btnMonthCalendar.ClickTextColor = Color.DodgerBlue;
-            btnMonthCalendar.CornerRadius = 20;
-            btnMonthCalendar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnMonthCalendar.Horizontal_Alignment = StringAlignment.Center;
-            btnMonthCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
-            btnMonthCalendar.HoverTextColor = Color.DodgerBlue;
-            btnMonthCalendar.ImagePosition = ParrotButton.ImgPosition.Left;
-            btnMonthCalendar.Location = new Point(726, 17);
-            btnMonthCalendar.Name = "btnMonthCalendar";
-            btnMonthCalendar.Size = new Size(84, 40);
-            btnMonthCalendar.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            btnMonthCalendar.TabIndex = 30;
-            btnMonthCalendar.TextColor = Color.White;
-            btnMonthCalendar.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            btnMonthCalendar.Vertical_Alignment = StringAlignment.Center;
-            // 
-            // btnWeekCalendar
-            // 
-            btnWeekCalendar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnWeekCalendar.BackgroundColor = Color.Gray;
-            btnWeekCalendar.ButtonImage = null;
-            btnWeekCalendar.ButtonStyle = ParrotButton.Style.MaterialRounded;
-            btnWeekCalendar.ButtonText = "Semana";
-            btnWeekCalendar.ClickBackColor = Color.FromArgb(195, 195, 195);
-            btnWeekCalendar.ClickTextColor = Color.DodgerBlue;
-            btnWeekCalendar.CornerRadius = 20;
-            btnWeekCalendar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnWeekCalendar.Horizontal_Alignment = StringAlignment.Center;
-            btnWeekCalendar.HoverBackgroundColor = Color.FromArgb(225, 225, 225);
-            btnWeekCalendar.HoverTextColor = Color.DodgerBlue;
-            btnWeekCalendar.ImagePosition = ParrotButton.ImgPosition.Left;
-            btnWeekCalendar.Location = new Point(636, 17);
-            btnWeekCalendar.Name = "btnWeekCalendar";
-            btnWeekCalendar.Size = new Size(84, 40);
-            btnWeekCalendar.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            btnWeekCalendar.TabIndex = 29;
-            btnWeekCalendar.TextColor = Color.White;
-            btnWeekCalendar.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            btnWeekCalendar.Vertical_Alignment = StringAlignment.Center;
             // 
             // label5
             // 
@@ -2499,9 +2449,6 @@ namespace CorteCerto.App.Pages
         private ReaLTaiizor.Controls.MaterialButton materialButton4;
         private Label label12;
         private Label label13;
-        private ReaLTaiizor.Controls.ParrotButton btnYearCalendar;
-        private ReaLTaiizor.Controls.ParrotButton btnMonthCalendar;
-        private ReaLTaiizor.Controls.ParrotButton btnWeekCalendar;
         private ReaLTaiizor.Controls.Button btnBarberAvailabilities;
         private System.Windows.Forms.TabPage tabPageAvailability;
         private ReaLTaiizor.Controls.MaterialButton btnNewAppointment;
@@ -2584,5 +2531,6 @@ namespace CorteCerto.App.Pages
         private MaterialButton materialButton1;
         private MaterialButton btnConfirmAppointment;
         private System.Windows.Forms.CheckBox checkBox1;
+        private MaterialComboBox mcbAppointmentStatus;
     }
 }

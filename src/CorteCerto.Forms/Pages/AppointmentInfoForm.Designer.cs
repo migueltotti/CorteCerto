@@ -46,6 +46,9 @@
             mtbServiceDuration = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             mtbServiceDescription = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             lblAppointmentDate = new Label();
+            btnCancelAppointment = new ReaLTaiizor.Controls.MaterialButton();
+            btnCompleteAppointment = new ReaLTaiizor.Controls.MaterialButton();
+            lblAppointmentStatus = new Label();
             SuspendLayout();
             // 
             // label1
@@ -522,11 +525,68 @@
             lblAppointmentDate.TabIndex = 18;
             lblAppointmentDate.Text = "21/12/2025 19:00, Sábado";
             // 
+            // btnCancelAppointment
+            // 
+            btnCancelAppointment.AutoSize = false;
+            btnCancelAppointment.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnCancelAppointment.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnCancelAppointment.Depth = 0;
+            btnCancelAppointment.HighEmphasis = true;
+            btnCancelAppointment.Icon = null;
+            btnCancelAppointment.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnCancelAppointment.Location = new Point(606, 563);
+            btnCancelAppointment.Margin = new Padding(4, 6, 4, 6);
+            btnCancelAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnCancelAppointment.Name = "btnCancelAppointment";
+            btnCancelAppointment.NoAccentTextColor = Color.Empty;
+            btnCancelAppointment.Size = new Size(158, 36);
+            btnCancelAppointment.TabIndex = 19;
+            btnCancelAppointment.Text = "Cancelar";
+            btnCancelAppointment.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnCancelAppointment.UseAccentColor = true;
+            btnCancelAppointment.UseVisualStyleBackColor = true;
+            btnCancelAppointment.Click += btnCancelAppointment_Click;
+            // 
+            // btnCompleteAppointment
+            // 
+            btnCompleteAppointment.AutoSize = false;
+            btnCompleteAppointment.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnCompleteAppointment.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnCompleteAppointment.Depth = 0;
+            btnCompleteAppointment.HighEmphasis = true;
+            btnCompleteAppointment.Icon = null;
+            btnCompleteAppointment.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
+            btnCompleteAppointment.Location = new Point(440, 563);
+            btnCompleteAppointment.Margin = new Padding(4, 6, 4, 6);
+            btnCompleteAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnCompleteAppointment.Name = "btnCompleteAppointment";
+            btnCompleteAppointment.NoAccentTextColor = Color.Empty;
+            btnCompleteAppointment.Size = new Size(158, 36);
+            btnCompleteAppointment.TabIndex = 20;
+            btnCompleteAppointment.Text = "Completar";
+            btnCompleteAppointment.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Outlined;
+            btnCompleteAppointment.UseAccentColor = false;
+            btnCompleteAppointment.UseVisualStyleBackColor = true;
+            btnCompleteAppointment.Click += btnCompleteAppointment_Click;
+            // 
+            // lblAppointmentStatus
+            // 
+            lblAppointmentStatus.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAppointmentStatus.Location = new Point(25, 563);
+            lblAppointmentStatus.Name = "lblAppointmentStatus";
+            lblAppointmentStatus.RightToLeft = RightToLeft.No;
+            lblAppointmentStatus.Size = new Size(262, 31);
+            lblAppointmentStatus.TabIndex = 21;
+            lblAppointmentStatus.Text = "Esperando por Aprovação";
+            // 
             // AppointmentInfoForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 567);
+            ClientSize = new Size(800, 622);
+            Controls.Add(lblAppointmentStatus);
+            Controls.Add(btnCompleteAppointment);
+            Controls.Add(btnCancelAppointment);
             Controls.Add(lblAppointmentDate);
             Controls.Add(mtbServiceDescription);
             Controls.Add(mtbServiceDuration);
@@ -574,5 +634,8 @@
         private ReaLTaiizor.Controls.MaterialTextBoxEdit mtbServiceDuration;
         private ReaLTaiizor.Controls.MaterialTextBoxEdit mtbServiceDescription;
         private Label lblAppointmentDate;
+        private ReaLTaiizor.Controls.MaterialButton btnCancelAppointment;
+        private ReaLTaiizor.Controls.MaterialButton btnCompleteAppointment;
+        private Label lblAppointmentStatus;
     }
 }
