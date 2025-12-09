@@ -7,6 +7,7 @@ using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.UseCases.Queries.Barbers;
 using CorteCerto.Application.UseCases.Queries.Customers;
 using CorteCerto.Application.UseCases.Queries.People;
+using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Enums;
 using CorteCerto.Domain.Filters;
@@ -174,7 +175,8 @@ namespace CorteCerto.App.Pages
             TimeSpan? duration = null,
             decimal? price = null,
             PriceOperator priceOperator = default,
-            DurationOperator durationOperator = default
+            DurationOperator durationOperator = default,
+            bool onlyMyServices = false
         )
         {
             var query = new GetServicesQuery
@@ -186,7 +188,11 @@ namespace CorteCerto.App.Pages
                 DurationOperator: durationOperator
             );
 
-            var services = await _mediator.QueryAsync(query);
+            var servicesResult = await _mediator.QueryAsync(query);
+
+            var services = onlyMyServices ?
+                [.. servicesResult.Results.Where(s => s.Barber.Id == _sessionService.GetCurrentUser()!.Id)]
+                : servicesResult.Results;
 
             ServiceCard card;
 
@@ -195,12 +201,23 @@ namespace CorteCerto.App.Pages
 
             flpServiceCardList.Controls.Clear();
 
-            foreach (var service in services.Results)
+            foreach (var service in services)
             {
-                card = ServiceCard.Builder
+                if (onlyMyServices)
+                {
+                    card = ServiceCard.Builder
                     .Create(_sessionService, _navegationService, _mediator)
                     .WithService(service)
+                    .WithEditButtonInsteadOfSchedule()
                     .Build();
+                }
+                else
+                {
+                    card = ServiceCard.Builder
+                        .Create(_sessionService, _navegationService, _mediator)
+                        .WithService(service)
+                        .Build();
+                }
 
                 card.Location = new Point(xLocaltionPoint, yLocaltionPoint);
 
@@ -468,6 +485,11 @@ namespace CorteCerto.App.Pages
             }
         }
 
+        private void mtbNewService_Click(object sender, EventArgs e)
+        {
+            _navegationService.NavegateTo<RegisterServiceForm>();
+        }
+
         private void btnDashboardNewService_Click(object sender, EventArgs e)
         {
             _navegationService.NavegateTo<RegisterServiceForm>();
@@ -528,7 +550,8 @@ namespace CorteCerto.App.Pages
                 duration: mtbDurationFilter.Text != "" ? TimeSpan.FromMinutes(Int32.Parse(mtbDurationFilter.Text)) : null,
                 price: mtbPriceFilter.Text != "" ? Decimal.Parse(mtbPriceFilter.Text.Replace(",", ".")) : null,
                 priceOperator: mcbPriceOperatorFilter.Text.ToPriceOperator(),
-                durationOperator: mcbDurationOperatorFilter.Text.ToDurationOperator()
+                durationOperator: mcbDurationOperatorFilter.Text.ToDurationOperator(),
+                onlyMyServices: mchbMyServicesFilter.Checked
             );
         }
 
@@ -737,6 +760,18 @@ namespace CorteCerto.App.Pages
         {
             await LoadAppointmentCards();
             await LoadAppointmentRequestsCards();
+        }
+
+        private void mchbMyServicesFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_sessionService.CurrentUserHasBarberProfile())
+            {
+                MessageBox.Show($"Você deve ter um perfil de barbeiro para buscar pelos seus serviços",
+                        "Buscar apenas meus serviços",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                mchbMyServicesFilter.Checked = false;
+            }
         }
     }
 }

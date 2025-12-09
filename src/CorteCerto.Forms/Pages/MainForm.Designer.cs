@@ -79,6 +79,7 @@ namespace CorteCerto.App.Pages
             label12 = new Label();
             label13 = new Label();
             tabPageServices = new System.Windows.Forms.TabPage();
+            mchbMyServicesFilter = new MaterialCheckBox();
             materialCard3 = new MaterialCard();
             label29 = new Label();
             label28 = new Label();
@@ -961,6 +962,7 @@ namespace CorteCerto.App.Pages
             // 
             // tabPageServices
             // 
+            tabPageServices.Controls.Add(mchbMyServicesFilter);
             tabPageServices.Controls.Add(materialCard3);
             tabPageServices.Controls.Add(flpServiceCardList);
             tabPageServices.Controls.Add(btnApplyFilters);
@@ -981,6 +983,25 @@ namespace CorteCerto.App.Pages
             tabPageServices.TabIndex = 2;
             tabPageServices.Text = "Services";
             tabPageServices.UseVisualStyleBackColor = true;
+            // 
+            // mchbMyServicesFilter
+            // 
+            mchbMyServicesFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            mchbMyServicesFilter.AutoSize = true;
+            mchbMyServicesFilter.Depth = 0;
+            mchbMyServicesFilter.Location = new Point(731, 432);
+            mchbMyServicesFilter.Margin = new Padding(0);
+            mchbMyServicesFilter.MouseLocation = new Point(-1, -1);
+            mchbMyServicesFilter.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            mchbMyServicesFilter.Name = "mchbMyServicesFilter";
+            mchbMyServicesFilter.ReadOnly = false;
+            mchbMyServicesFilter.Ripple = true;
+            mchbMyServicesFilter.Size = new Size(138, 37);
+            mchbMyServicesFilter.TabIndex = 41;
+            mchbMyServicesFilter.Text = "Meus Serviços";
+            mchbMyServicesFilter.UseAccentColor = false;
+            mchbMyServicesFilter.UseVisualStyleBackColor = true;
+            mchbMyServicesFilter.CheckedChanged += mchbMyServicesFilter_CheckedChanged;
             // 
             // materialCard3
             // 
@@ -1126,7 +1147,7 @@ namespace CorteCerto.App.Pages
             btnApplyFilters.HighEmphasis = true;
             btnApplyFilters.Icon = null;
             btnApplyFilters.IconType = MaterialButton.MaterialIconType.Default;
-            btnApplyFilters.Location = new Point(731, 433);
+            btnApplyFilters.Location = new Point(731, 477);
             btnApplyFilters.Margin = new Padding(4, 6, 4, 6);
             btnApplyFilters.MaximumSize = new Size(200, 40);
             btnApplyFilters.MinimumSize = new Size(200, 40);
@@ -1399,6 +1420,7 @@ namespace CorteCerto.App.Pages
             mtbNewService.Type = MaterialButton.MaterialButtonType.Outlined;
             mtbNewService.UseAccentColor = false;
             mtbNewService.UseVisualStyleBackColor = false;
+            mtbNewService.Click += mtbNewService_Click;
             // 
             // label7
             // 
@@ -2547,5 +2569,6 @@ namespace CorteCerto.App.Pages
         private System.Windows.Forms.CheckBox checkBox1;
         private MaterialComboBox mcbAppointmentStatus;
         private Label label51;
+        private MaterialCheckBox mchbMyServicesFilter;
     }
 }
