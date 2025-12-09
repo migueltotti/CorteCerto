@@ -45,11 +45,11 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(-418, 18);
+            btnCancel.Location = new Point(-774, 18);
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(-562, 15);
+            btnSave.Location = new Point(-918, 15);
             // 
             // fieldPanel
             // 
@@ -193,6 +193,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(449, 336);
             Name = "EditBarberAvailabilityForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "EditBarberAvailabilityForm";
             actionPanel.ResumeLayout(false);
             fieldPanel.ResumeLayout(false);
