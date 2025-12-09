@@ -98,6 +98,11 @@ namespace CorteCerto.App.Pages
                 17,
                 flpAppointmentRequest.Location.Y + 292
             );
+
+            btnConfirmAppointment.Location = new Point(
+                calendarCard.Width - 221 - 18,
+                label45.Location.Y
+            );
         }
 
         private void SetUserInfo()
@@ -248,11 +253,13 @@ namespace CorteCerto.App.Pages
 
         private async Task LoadAppointmentRequestsCards()
         {
+            flpAppointmentRequest.Controls.Clear();
+
             //var barberId = _sessionService.GetCurrentUser()!.Id;
             var barberId = Guid.Parse("c160437f-405c-4203-824f-033b827a089c");
 
             var appointments = await _mediator.QueryAsync(new GetAppointmentsQuery(
-                BarberId: barberId, 
+                BarberId: barberId,
                 AppointmentStatus: Domain.Enums.AppointmentStatus.WaitingForAprovement
             ));
 
@@ -265,7 +272,7 @@ namespace CorteCerto.App.Pages
             foreach (var appointmentRequest in appointments.Results)
             {
                 card = AppointmentRequestCard.Builder
-                    .Create(_mediator)
+                    .Create(_navegationService)
                     .WithAppointment(appointmentRequest)
                     .Build();
 
@@ -636,6 +643,39 @@ namespace CorteCerto.App.Pages
                 }
 
                 mchbBarberEditMode.Checked = false;
+            }
+        }
+
+        private async void btnConfirmAppointment_Click(object sender, EventArgs e)
+        {
+            AppointmentDto? firstSelectedAppointment = null;
+
+            foreach (AppointmentRequestCard card in flpAppointmentRequest.Controls)
+            {
+                if (card.IsSelected)
+                {
+                    firstSelectedAppointment = card.Appointment;
+                    break;
+                }
+            }
+
+            if (firstSelectedAppointment is not null)
+            {
+                var command = new ApproveAppointmentCommand(
+                    firstSelectedAppointment.Id,
+                    firstSelectedAppointment.Barber.Id
+                );
+
+                var result = await _mediator.SendAsync(command);
+
+                if (result.IsFailure)
+                {
+                    MessageBox.Show($"Não foi possivel aprovar o pedido de agendamento, erro: {result.Error.Description}",
+                        "Atualização de informações da conta.",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                await LoadAppointmentRequestsCards();
             }
         }
     }

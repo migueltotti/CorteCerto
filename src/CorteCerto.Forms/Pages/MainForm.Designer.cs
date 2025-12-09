@@ -58,8 +58,10 @@ namespace CorteCerto.App.Pages
             label4 = new Label();
             tabPageAppointments = new System.Windows.Forms.TabPage();
             calendarCard = new MaterialCard();
+            btnConfirmAppointment = new MaterialButton();
             flpAppointmentRequest = new FlowLayoutPanel();
             materialCard5 = new MaterialCard();
+            checkBox1 = new System.Windows.Forms.CheckBox();
             materialButton1 = new MaterialButton();
             label50 = new Label();
             label49 = new Label();
@@ -657,6 +659,7 @@ namespace CorteCerto.App.Pages
             // 
             calendarCard.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             calendarCard.BackColor = Color.FromArgb(255, 255, 255);
+            calendarCard.Controls.Add(btnConfirmAppointment);
             calendarCard.Controls.Add(flpAppointmentRequest);
             calendarCard.Controls.Add(label45);
             calendarCard.Controls.Add(flpAppointments);
@@ -675,6 +678,32 @@ namespace CorteCerto.App.Pages
             calendarCard.Size = new Size(917, 538);
             calendarCard.TabIndex = 28;
             // 
+            // btnConfirmAppointment
+            // 
+            btnConfirmAppointment.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnConfirmAppointment.AutoSize = false;
+            btnConfirmAppointment.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnConfirmAppointment.BackColor = SystemColors.Control;
+            btnConfirmAppointment.Density = MaterialButton.MaterialButtonDensity.Default;
+            btnConfirmAppointment.Depth = 0;
+            btnConfirmAppointment.HighEmphasis = true;
+            btnConfirmAppointment.Icon = null;
+            btnConfirmAppointment.IconType = MaterialButton.MaterialIconType.Rebase;
+            btnConfirmAppointment.Location = new Point(678, 249);
+            btnConfirmAppointment.Margin = new Padding(4, 6, 4, 6);
+            btnConfirmAppointment.MaximumSize = new Size(221, 32);
+            btnConfirmAppointment.MinimumSize = new Size(221, 32);
+            btnConfirmAppointment.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
+            btnConfirmAppointment.Name = "btnConfirmAppointment";
+            btnConfirmAppointment.NoAccentTextColor = Color.Empty;
+            btnConfirmAppointment.Size = new Size(221, 32);
+            btnConfirmAppointment.TabIndex = 35;
+            btnConfirmAppointment.Text = "Confirmar agendamento";
+            btnConfirmAppointment.Type = MaterialButton.MaterialButtonType.Outlined;
+            btnConfirmAppointment.UseAccentColor = true;
+            btnConfirmAppointment.UseVisualStyleBackColor = false;
+            btnConfirmAppointment.Click += btnConfirmAppointment_Click;
+            // 
             // flpAppointmentRequest
             // 
             flpAppointmentRequest.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -690,6 +719,7 @@ namespace CorteCerto.App.Pages
             // materialCard5
             // 
             materialCard5.BackColor = Color.FromArgb(255, 255, 255);
+            materialCard5.Controls.Add(checkBox1);
             materialCard5.Controls.Add(materialButton1);
             materialCard5.Controls.Add(label50);
             materialCard5.Controls.Add(label49);
@@ -705,6 +735,16 @@ namespace CorteCerto.App.Pages
             materialCard5.Padding = new Padding(14);
             materialCard5.Size = new Size(218, 206);
             materialCard5.TabIndex = 0;
+            materialCard5.Visible = false;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(184, 17);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(18, 17);
+            checkBox1.TabIndex = 40;
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // materialButton1
             // 
@@ -763,7 +803,7 @@ namespace CorteCerto.App.Pages
             label47.ForeColor = Color.Black;
             label47.Location = new Point(10, 97);
             label47.Name = "label47";
-            label47.Size = new Size(201, 78);
+            label47.Size = new Size(201, 63);
             label47.TabIndex = 35;
             label47.Text = "Cabelo e Barba ";
             // 
@@ -773,7 +813,7 @@ namespace CorteCerto.App.Pages
             label46.ForeColor = Color.Black;
             label46.Location = new Point(10, 14);
             label46.Name = "label46";
-            label46.Size = new Size(201, 32);
+            label46.Size = new Size(168, 32);
             label46.TabIndex = 35;
             label46.Text = "Jose da silva";
             // 
@@ -2392,6 +2432,7 @@ namespace CorteCerto.App.Pages
             calendarCard.PerformLayout();
             flpAppointmentRequest.ResumeLayout(false);
             materialCard5.ResumeLayout(false);
+            materialCard5.PerformLayout();
             appointmentCard.ResumeLayout(false);
             appointmentCard.PerformLayout();
             tabPageServices.ResumeLayout(false);
@@ -2541,5 +2582,7 @@ namespace CorteCerto.App.Pages
         private Label label47;
         private Label label46;
         private MaterialButton materialButton1;
+        private MaterialButton btnConfirmAppointment;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

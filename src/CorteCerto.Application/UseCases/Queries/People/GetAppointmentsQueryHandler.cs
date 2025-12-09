@@ -26,7 +26,7 @@ public class GetAppointmentsQueryHandler(
             .WithPagination(query.PageSize, query.PageNumber)
             .Build();
 
-        var appointments = await appointmentRepository.GetWithFilter(filter, ["Barber", "Customer", "Service"], cancellationToken);
+        var appointments = await appointmentRepository.GetWithFilter(filter, ["Barber.Address.City.State.Country", "Customer", "Service"], cancellationToken);
 
         var paginatedResponse = appointments.Results.Adapt<List<AppointmentDto>>();
 

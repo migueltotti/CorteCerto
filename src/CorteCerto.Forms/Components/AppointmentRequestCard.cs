@@ -1,7 +1,10 @@
 ﻿using CorteCerto.App.Helpers;
 using CorteCerto.App.Interfaces;
+using CorteCerto.App.Pages;
 using CorteCerto.Application.DTO;
+using CorteCerto.Domain.Entities;
 using ReaLTaiizor.Controls;
+using CheckBox = System.Windows.Forms.CheckBox;
 
 namespace CorteCerto.App.Components;
 
@@ -9,23 +12,36 @@ internal class AppointmentRequestCard : MaterialCard
 {
     #region Variables
     public AppointmentDto Appointment { get; set; }
+    public bool IsSelected { get; set; } = false;
 
-    private readonly ICustomMediator _mediator;
+    private readonly INavegationService _navegationService;
     #endregion
 
     #region Methods
-    private AppointmentRequestCard(ICustomMediator mediator)
+    private AppointmentRequestCard(INavegationService navegationService)
     {
-        _mediator = mediator;
+        _navegationService = navegationService;
     }
 
     private void AddEventClickShowMoreInfoButton()
     {
         foreach (var control in Controls)
         {
-            if (control is MaterialButton btn && btn.Name == $"btnShowMoreInfo{Appointment.Id}")
+            if (control is MaterialButton btn && btn.Name == $"btnShowMoreInfo-{Appointment.Id}")
             {
                 btn.Click += BtnShowMoreInfo_Click;
+                break;
+            }
+        }
+    }
+
+    private void AddEventCheckedChangedIsAppointmentSelectedCheckBox()
+    {
+        foreach (var control in Controls)
+        {
+            if (control is CheckBox chb && chb.Name == $"chbIsAppointmentSelected-{Appointment.Id}")
+            {
+                chb.CheckedChanged += chbIsAppointmentSelected_CheckedChanged;
                 break;
             }
         }
@@ -35,16 +51,13 @@ internal class AppointmentRequestCard : MaterialCard
     #region Events
     private void BtnShowMoreInfo_Click(object? sender, EventArgs e)
     {
-        //var editForm = new EditBarberAvailabilityForm(_mediator, DayOfWeek);
+        _navegationService.NavegateTo<AppointmentInfoForm>(initializer: init =>
+            init.InitializeWithAppointmentDto(Appointment));
+    }
 
-        //editForm.ShowDialog();
-
-        //if (editForm.DialogResult == DialogResult.OK && !editForm.IsDisposed)
-        //{
-        //    SetAvailability(editForm.availabilityResult.startTime, editForm.availabilityResult.endTime);
-        //}
-
-        //editForm.Dispose();
+    private void chbIsAppointmentSelected_CheckedChanged(object sender, EventArgs e)
+    {
+        IsSelected = !IsSelected;
     }
 
     #endregion
@@ -52,14 +65,14 @@ internal class AppointmentRequestCard : MaterialCard
     #region Builder Class
     public class Builder()
     {
-        private ICustomMediator _mediator;
+        private INavegationService _navegationService;
         private AppointmentDto _appointment;
 
-        public static Builder Create(ICustomMediator mediator)
+        public static Builder Create(INavegationService navegationService)
         {
             var builder = new Builder()
             {
-                _mediator = mediator
+                _navegationService = navegationService
             };
 
             return builder;
@@ -83,9 +96,23 @@ internal class AppointmentRequestCard : MaterialCard
                 ForeColor = Color.Black,
                 Location = new Point(10, 14),
                 Name = $"lblCustomerName-{_appointment.Id}",
-                Size = new Size(201, 32),
+                Size = new Size(168, 32),
                 TabIndex = 35,
                 Text = $"{firtsName} {secondName}"
+            };
+        }
+
+        private CheckBox CreateConfirmAppointmentCheckBox()
+        {
+            return new CheckBox
+            {
+                AutoSize = true,
+                Location = new Point(184, 17),
+                Name = $"chbIsAppointmentSelected-{_appointment.Id}",
+                Size = new Size(18, 17),
+                TabIndex = 40,
+                UseVisualStyleBackColor = true,
+                Checked = false
             };
         }
 
@@ -110,7 +137,7 @@ internal class AppointmentRequestCard : MaterialCard
                 Name = $"lblTime-{_appointment.Id}",
                 Size = new Size(101, 24),
                 TabIndex = 37,
-                Text = _appointment.Date.ToString("HH:mm")
+                Text = _appointment.Date.ToLocalTime().ToString("HH:mm")
             };
 
             return (lblDate, lblTime);
@@ -138,7 +165,7 @@ internal class AppointmentRequestCard : MaterialCard
                 ForeColor = Color.Black,
                 Location = new Point(10, 97),
                 Name = $"lblServiceName-{_appointment.Id}",
-                Size = new Size(201, 78),
+                Size = new Size(201, 65),
                 TabIndex = 35,
                 Text = _appointment.Service.Name
             };
@@ -171,7 +198,7 @@ internal class AppointmentRequestCard : MaterialCard
 
         public AppointmentRequestCard Build()
         {
-            var card = new AppointmentRequestCard(_mediator)
+            var card = new AppointmentRequestCard(_navegationService)
             {
                 Size = new Size(218, 206),
                 Padding = new Padding(14),
@@ -181,12 +208,14 @@ internal class AppointmentRequestCard : MaterialCard
             };
 
             var cardCustomerName = CreateCustomerNameTitle();
+            var cardConfirmAppointmentCheckBox = CreateConfirmAppointmentCheckBox();
             var (cardDate, cardTime) = CreateDateAndTimeLabels();
             var cardWeekDay = CreateWeekDay();
             var cardServiceName = CreateServiceName();
             var showMoreInfoButton = CreateShowMoreInfoButton();
 
             card.Controls.Add(cardCustomerName);
+            card.Controls.Add(cardConfirmAppointmentCheckBox);
             card.Controls.Add(cardDate);
             card.Controls.Add(cardTime);
             card.Controls.Add(cardWeekDay);
@@ -194,6 +223,7 @@ internal class AppointmentRequestCard : MaterialCard
             card.Controls.Add(showMoreInfoButton);
 
             card.AddEventClickShowMoreInfoButton();
+            card.AddEventCheckedChangedIsAppointmentSelectedCheckBox();
 
             return card;
         }
