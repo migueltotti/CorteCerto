@@ -1,9 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CorteCerto.Application\CorteCerto.Application.csproj" />
+    <ProjectReference Include="..\CorteCerto.Domain\CorteCerto.Domain.csproj" />
+    <ProjectReference Include="..\CorteCerto.Infrastructure\CorteCerto.Infrastructure.csproj" />
+  </ItemGroup>
 
 </Project>

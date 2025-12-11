@@ -1,0 +1,34 @@
+# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+# This stage is used when running from VS in fast mode (Default for Debug configuration)
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+
+# This stage is used to build the service project
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["src/CorteCerto.Api/CorteCerto.Api.csproj", "src/CorteCerto.Api/"]
+COPY ["src/CorteCerto.CrossCutting/CorteCerto.CrossCutting.csproj", "src/CorteCerto.CrossCutting/"]
+COPY ["src/CorteCerto.Application/CorteCerto.Application.csproj", "src/CorteCerto.Application/"]
+COPY ["src/CorteCerto.Domain/CorteCerto.Domain.csproj", "src/CorteCerto.Domain/"]
+COPY ["src/CorteCerto.Infrastructure/CorteCerto.Infrastructure.csproj", "src/CorteCerto.Infrastructure/"]
+RUN dotnet restore "./src/CorteCerto.Api/CorteCerto.Api.csproj"
+COPY . .
+WORKDIR "/src/src/CorteCerto.Api"
+RUN dotnet build "./CorteCerto.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# This stage is used to publish the service project to be copied to the final stage
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./CorteCerto.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "CorteCerto.Api.dll"]

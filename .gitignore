@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/CorteCerto.Api/appsettings.Development.json
+/src/CorteCerto.Api/appsettings.Development.json
