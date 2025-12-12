@@ -1,20 +1,20 @@
-﻿using CorteCerto.Domain.Interfaces.Services;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using CorteCerto.Domain.Interfaces.Services;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CorteCerto.Infrastructure.Authentication;
 
-public class TokenProvider : ITokenProvider
+public class TokenProvider(IOptions<JwtSettings> settings) : ITokenProvider
 {
     private readonly JwtSecurityTokenHandler _tokenHandler = new JwtSecurityTokenHandler();
 
     public JwtSecurityToken GenerateAccessToken(IEnumerable<Claim> claims)
     {
-        var key = Environment.GetEnvironmentVariable("SECRET_KEY") 
-            ?? throw new InvalidOperationException("Invalid secret key!");
+        var key = settings.Value.SecretKey;
 
         var privateKey = Encoding.UTF8.GetBytes(key);
 
@@ -24,9 +24,9 @@ public class TokenProvider : ITokenProvider
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(Double.Parse(Environment.GetEnvironmentVariable("TOKEN_VALIDITY_IN_MINUTES"))),
-            Audience = Environment.GetEnvironmentVariable("VALID_AUDIENCE"),
-            Issuer = Environment.GetEnvironmentVariable("VALID_ISSUER"),
+            Expires = DateTime.UtcNow.AddMinutes(settings.Value.TokenValidityInMinutes),
+            Audience = settings.Value.Audience,
+            Issuer = settings.Value.Issuer,
             SigningCredentials = signingCredentials
         };
 
@@ -50,8 +50,7 @@ public class TokenProvider : ITokenProvider
 
     public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
     {
-        var secretKey = Environment.GetEnvironmentVariable("SECRET_KEY")
-            ?? throw new InvalidOperationException("Invalid secret key!");
+        var secretKey = settings.Value.SecretKey;
 
         var tokenValidationParameters = new TokenValidationParameters   
         {

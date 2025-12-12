@@ -2,6 +2,7 @@
 using CorteCerto.Infrastructure.Authentication;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.Extensions.Options;
 
 namespace CorteCerto.UnitTests.Infrastructure;
 
@@ -12,13 +13,16 @@ public class TokenProviderTest
 
     public TokenProviderTest()
     {
-        tokenProvider = new TokenProvider();
+        var jwtSettings = new JwtSettings()
+        {
+            SecretKey = "piuUGAWduihAI(*!&@#_(!HPIUAGWDIUY(!Y1231`d1231",
+            TokenValidityInMinutes = 5,
+            Audience = "CorteCertoAudience",
+            Issuer = "CorteCertoIssuer"
+        };
+        
+        tokenProvider = new TokenProvider(Options.Create(jwtSettings));
         tokenHandler = new JwtSecurityTokenHandler();
-
-        Environment.SetEnvironmentVariable("SECRET_KEY", "piuUGAWduihAI(*!&@#_(!HPIUAGWDIUY(!Y1231`d1231");
-        Environment.SetEnvironmentVariable("TOKEN_VALIDITY_IN_MINUTES", "5");
-        Environment.SetEnvironmentVariable("VALID_AUDIENCE", "CorteCertoAudience");
-        Environment.SetEnvironmentVariable("VALID_ISSUER", "CorteCertoIssuer");
     }
 
     [Fact]
