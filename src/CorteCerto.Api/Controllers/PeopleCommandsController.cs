@@ -1,6 +1,5 @@
 using CorteCerto.Application.Requests;
 using CorteCerto.Application.UseCases.Commands.People;
-using LiteBus.Commands;
 using LiteBus.Commands.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 

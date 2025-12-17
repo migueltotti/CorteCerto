@@ -1,5 +1,8 @@
+using CorrelationId;
+using CorrelationId.DependencyInjection;
 using CorteCerto.CrossCutting.Extensions;
 using CorteCerto.CrossCutting.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,13 +12,24 @@ builder.Services
     .AddSingleton<ISettings>(applicationSettings)
     .AddControllers();
 
+builder.Host.UseSerilog((context, configuration) => 
+    configuration.ReadFrom.Configuration(context.Configuration));
+
 builder.Services
+    .AddDefaultCorrelationId()
     .AddDatabase(applicationSettings.PostgresSettings)
     .AddJwtSettings(applicationSettings.JwtSettings)
     .AddServices()
     .AddRepositories()
     .AddValidators()
     .AddMediator();
+
+builder.Services.AddCorrelationId(options =>
+{
+    options.RequestHeader = "X-Correlation-Id";
+    options.ResponseHeader = "X-Correlation-Id";
+    options.IncludeInResponse = true;
+});
 
 builder.Services.AddOpenApi();
 
@@ -24,6 +38,8 @@ var app = builder.Build();
 app.MapOpenApi();
 
 app
+    .UseCorrelationId()
+    .UseSerilogRequestLogging()
     .UseHttpsRedirection()
     .UseAuthorization();
 
