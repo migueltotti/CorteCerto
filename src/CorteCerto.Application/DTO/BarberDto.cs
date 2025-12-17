@@ -1,4 +1,6 @@
 ﻿
+using CorteCerto.Domain.Entities;
+
 namespace CorteCerto.Application.DTO;
 
 public record BarberDto(

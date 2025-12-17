@@ -4,7 +4,7 @@ namespace CorteCerto.Domain.Filters;
 
 public class AppointmentFilter
 {
-    public Guid? AppointmentId { get; private set; }
+    public IEnumerable<Guid>? AppointmentIds { get; private set; }
     public Guid? CustomerId { get; private set; }
     public Guid? BarberId { get; private set; }
     public int? ServiceId { get; private set; }
@@ -33,7 +33,7 @@ public class AppointmentFilter
             _filter.PageNumber = PageNumber;
             return this;
         }
-        public Builder WithAppointmentId(Guid? id) { _filter.AppointmentId = id; return this; }
+        public Builder WithAppointmentIds(IEnumerable<Guid>? ids) { _filter.AppointmentIds = ids; return this; }
         public Builder WithCustomerId(Guid? customerId) { _filter.CustomerId = customerId; return this; }
         public Builder WithBarberId(Guid? barberId) { _filter.BarberId = barberId; return this; }
         public Builder WithServiceId(int? serviceId) { _filter.ServiceId = serviceId; return this; }

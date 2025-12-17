@@ -1,4 +1,5 @@
-﻿using CorteCerto.Application.UseCases.Queries.Barbers;
+﻿using CorteCerto.Application.Requests;
+using CorteCerto.Application.UseCases.Queries.Barbers;
 using CorteCerto.Application.UseCases.Queries.People;
 using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Enums;
@@ -37,16 +38,7 @@ public class GetAppointmentsTest
     {
         // Arrange
         var query = new GetAppointmentsQuery(
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
+            new GetAppointmentsRequest()
         );
 
         // Act
@@ -64,16 +56,7 @@ public class GetAppointmentsTest
     {
         // Arrange
         var query = new GetAppointmentsQuery(
-            Guid.Parse("4e14d509-25e0-453b-8d96-7a717c39aed6"),
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
+            new GetAppointmentsRequest(Ids: [Guid.Parse("4e14d509-25e0-453b-8d96-7a717c39aed6")])
         );
 
         // Act
@@ -92,16 +75,7 @@ public class GetAppointmentsTest
     {
         // Arrange
         var query = new GetAppointmentsQuery(
-            null,
-            Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
+            new GetAppointmentsRequest(CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"))
         );
 
         // Act
@@ -120,16 +94,7 @@ public class GetAppointmentsTest
     {
         // Arrange
         var query = new GetAppointmentsQuery(
-            null,
-            null,
-            Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
+            new GetAppointmentsRequest(BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"))
         );
 
         // Act
@@ -148,16 +113,7 @@ public class GetAppointmentsTest
     {
         // Arrange
         var query = new GetAppointmentsQuery(
-            null,
-            null,
-            null,
-            11,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
+            new GetAppointmentsRequest(ServiceId: 11)
         );
 
         // Act
@@ -176,16 +132,7 @@ public class GetAppointmentsTest
     {
         // Arrange
         var query = new GetAppointmentsQuery(
-            null,
-            null,
-            null,
-            null,
-            "Teste",
-            null,
-            null,
-            null,
-            null,
-            null
+            new GetAppointmentsRequest(CustomerName: "Teste")
         );
 
         // Act
@@ -204,16 +151,7 @@ public class GetAppointmentsTest
     {
         // Arrange
         var query = new GetAppointmentsQuery(
-            null,
-            null,
-            null,
-            null,
-            null,
-            "Miguel",
-            null,
-            null,
-            null,
-            null
+            new GetAppointmentsRequest(BarberName: "Miguel")
         );
 
         // Act
@@ -231,16 +169,7 @@ public class GetAppointmentsTest
     {
         // Arrange
         var query = new GetAppointmentsQuery(
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            "Cabelo e Barba Pelo Root Agregate",
-            null,
-            null,
-            null
+            new GetAppointmentsRequest(BarberName: "Cabelo e Barba Pelo Root Agregate")
         );
 
         // Act
@@ -259,16 +188,7 @@ public class GetAppointmentsTest
     {
         // Arrange
         var query = new GetAppointmentsQuery(
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            AppointmentStatus.Canceled,
-            null,
-            null
+            new GetAppointmentsRequest(AppointmentStatus: AppointmentStatus.Canceled)
         );
 
         // Act
@@ -287,16 +207,10 @@ public class GetAppointmentsTest
     {
         // Arrange
         var query = new GetAppointmentsQuery(
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            DateTime.UtcNow.AddDays(-10),
-            DateTime.UtcNow.AddDays(10)
+           new GetAppointmentsRequest(
+               InitialDate: DateTime.UtcNow.AddDays(-10),
+               FinalDate: DateTime.UtcNow.AddDays(10)
+            )
         );
 
         // Act
@@ -315,18 +229,10 @@ public class GetAppointmentsTest
     {
         // Arrange
         var query = new GetAppointmentsQuery(
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            2,
-            1
+            new GetAppointmentsRequest(
+                PageSize: 2,
+                PageNumber: 1
+            )
         );
 
         // Act

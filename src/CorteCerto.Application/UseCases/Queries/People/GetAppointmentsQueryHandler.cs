@@ -14,16 +14,16 @@ public class GetAppointmentsQueryHandler(
     public async Task<PagedResult<AppointmentDto>> HandleAsync(GetAppointmentsQuery query, CancellationToken cancellationToken = default)
     {
         var filter = new AppointmentFilter.Builder()
-            .WithAppointmentId(query.Id)
-            .WithCustomerId(query.CustomerId)
-            .WithBarberId(query.BarberId)
-            .WithServiceId(query.ServiceId)
-            .WithCustomerName(query.CustomerName)
-            .WithBarberName(query.BarberName)
-            .WithServiceName(query.ServiceName)
-            .WithAppointmentStatus(query.AppointmentStatus)
-            .WithDate(query.InitialDate, query.FinalDate)
-            .WithPagination(query.PageSize, query.PageNumber)
+            .WithAppointmentIds(query.Request.Ids)
+            .WithCustomerId(query.Request.CustomerId)
+            .WithBarberId(query.Request.BarberId)
+            .WithServiceId(query.Request.ServiceId)
+            .WithCustomerName(query.Request.CustomerName)
+            .WithBarberName(query.Request.BarberName)
+            .WithServiceName(query.Request.ServiceName)
+            .WithAppointmentStatus(query.Request.AppointmentStatus)
+            .WithDate(query.Request.InitialDate, query.Request.FinalDate)
+            .WithPagination(query.Request.PageSize, query.Request.PageNumber)
             .Build();
 
         var appointments = await appointmentRepository.GetWithFilter(filter, ["Barber.Address.City.State.Country", "Customer", "Service"], cancellationToken);

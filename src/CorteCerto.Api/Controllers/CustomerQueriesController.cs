@@ -10,7 +10,7 @@ namespace CorteCerto.Api.Controllers;
 public class CustomerQueriesController(IQueryMediator queryMediator) : Controller
 {
     [HttpGet]
-    public async Task<IActionResult> GetCustomersWithFilterAsync([FromRoute] GetPeopleRequest request, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> GetCustomersWithFilterAsync([FromQuery] GetPeopleRequest request, CancellationToken cancellationToken = default)
     {
         var barbers = await queryMediator.QueryAsync(new GetCustomersQuery(request),  cancellationToken);
         

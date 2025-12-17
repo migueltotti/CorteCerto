@@ -19,8 +19,8 @@ public class AppointmentRepository(CorteCertoDbContext context) :
             .AsNoTracking()
             .AsQueryable();
 
-        if (filter.AppointmentId is not null)
-            query = query.Where(a => a.Id.Equals(filter.AppointmentId));
+        if (filter.AppointmentIds is not null)
+            query = query.Where(a => filter.AppointmentIds.Contains(a.Id));
 
         if (filter.CustomerId is not null)
             query = query.Where(a => a.Customer.Id.Equals(filter.CustomerId));
@@ -63,7 +63,7 @@ public class AppointmentRepository(CorteCertoDbContext context) :
             .Skip((filter.PageNumber - 1) * filter.PageSize)
             .Take(filter.PageSize);
 
-        var results = await paginatedQuery.ToListAsync();
+        var results = await paginatedQuery.ToListAsync(token);
 
         var totalCount = await GetPaginationTotalCount(query);
 
