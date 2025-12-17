@@ -14,6 +14,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CorteCerto.Application.Requests;
+using Mapster;
+using Microsoft.Extensions.Logging;
 
 namespace CorteCerto.UnitTests.Application;
 
@@ -29,15 +32,18 @@ public class CreateAccountTest
         services.AddDbContext<CorteCertoDbContext>(options =>
             options.UseNpgsql("User ID=developer;Password=123456789;Server=localhost;Port=5432;Database=corteCertoDb;"));
         services.AddScoped<ICustomerRepository, CustomerRepository>();
-        services.AddScoped<IValidator<CreateAccountCommand>, CreateAccountValidator>();
+        services.AddScoped<IValidator<CreateAccountRequest>, CreateAccountValidator>();
         services.AddScoped<IPasswordHashService, PasswordHashService>();
+        services.AddMapster();
+        services.AddLogging();
 
         provider = services.BuildServiceProvider();
 
         commandHandler = new CreateAccountCommandHandler(
             provider.GetRequiredService<ICustomerRepository>(),
-            provider.GetRequiredService<IValidator<CreateAccountCommand>>(),
-            provider.GetRequiredService<IPasswordHashService>());
+            provider.GetRequiredService<IValidator<CreateAccountRequest>>(),
+            provider.GetRequiredService<IPasswordHashService>(),
+            provider.GetRequiredService<ILogger<CreateAccountCommandHandler>>());
     }
 
 
@@ -46,10 +52,12 @@ public class CreateAccountTest
     {
         // Arrange
         var command = new CreateAccountCommand(
-            "Tes",
-            "testeFalhoDaSilva",
-            "Teste1231w23",
-            "18997872005-1231"
+            new CreateAccountRequest(
+                "Tes",
+                "testeFalhoDaSilva",
+                "Teste1231w23",
+                "18997872005-1231"
+            )
         );
 
         // Act
@@ -65,10 +73,12 @@ public class CreateAccountTest
     {
         // Arrange
         var command = new CreateAccountCommand(
-            "Teste com email duplicado",
-            "teste@silva.com",
-            "Teste12@23",
-            "18999999999"
+            new CreateAccountRequest(
+                "Teste com email duplicado",
+                "teste@silva.com",
+                "Teste12@23",
+                "18999999999"
+            )
         );
 
         // Act
@@ -84,10 +94,12 @@ public class CreateAccountTest
     {
         // Arrange
         var command = new CreateAccountCommand(
-            "Teste da Silva",
-            "teste4@silva",
-            "Teste123@",
-            "18997872005"
+            new CreateAccountRequest(
+                "Teste da Silva",
+                "teste4@silva",
+                "Teste123@",
+                "18997872005"
+            )
         );
 
         // Act

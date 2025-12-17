@@ -3,10 +3,11 @@ using CorteCerto.Domain.Helpers;
 using FluentValidation;
 using FluentValidation.Validators;
 using System.Text.RegularExpressions;
+using CorteCerto.Application.Requests;
 
 namespace CorteCerto.Application.Validations;
 
-public partial class CreateAccountValidator : AbstractValidator<CreateAccountCommand>
+public partial class CreateAccountValidator : AbstractValidator<CreateAccountRequest>
 {
     public CreateAccountValidator()
     {
@@ -36,6 +37,4 @@ public partial class CreateAccountValidator : AbstractValidator<CreateAccountCom
             .Must(p => PasswordHelper.HasNumber.IsMatch(p)).WithMessage("Senha deve conter pelo menos um numero.")
             .Must(p => PasswordHelper.HasSpecialCharacter.IsMatch(p)).WithMessage("Senha deve conter pelo menos um caracter especial.");
     }
-
-    
 }
