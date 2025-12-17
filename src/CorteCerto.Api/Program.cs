@@ -24,13 +24,6 @@ builder.Services
     .AddValidators()
     .AddMediator();
 
-builder.Services.AddCorrelationId(options =>
-{
-    options.RequestHeader = "X-Correlation-Id";
-    options.ResponseHeader = "X-Correlation-Id";
-    options.IncludeInResponse = true;
-});
-
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
