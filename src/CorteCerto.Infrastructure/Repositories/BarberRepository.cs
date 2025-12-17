@@ -18,13 +18,13 @@ public class BarberRepository(CorteCertoDbContext context) :
             .AsQueryable()
             .AsNoTracking();
 
-        if (filter.Id is not null)
-            query = query.Where(b => b.Id == filter.Id);
+        if (filter.Ids is not null)
+            query = query.Where(b => filter.Ids.Contains(b.Id));
 
-        if (filter.Name is not null && filter.Name != String.Empty)
+        if (filter.Name is not null && filter.Name != string.Empty)
             query = query.Where(b => b.Name.Contains(filter.Name));
 
-        if (filter.Email is not null && filter.Email != String.Empty)
+        if (filter.Email is not null && filter.Email != string.Empty)
             query = query.Where(b => b.Email == filter.Email);
 
         query = query.OrderBy(b => b.Name);
@@ -41,7 +41,7 @@ public class BarberRepository(CorteCertoDbContext context) :
             .Skip((filter.PageNumber - 1) * filter.PageSize)
             .Take(filter.PageSize);
 
-        var results = await paginatedQuery.ToListAsync();
+        var results = await paginatedQuery.ToListAsync(token);
 
         var totalCount = await GetPaginationTotalCount(query);
 

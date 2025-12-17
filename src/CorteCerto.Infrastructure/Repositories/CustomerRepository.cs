@@ -18,13 +18,13 @@ public class CustomerRepository(CorteCertoDbContext context) :
             .AsQueryable()
             .AsNoTracking();
 
-        if (filter.Id is not null)
-            query = query.Where(c => c.Id == filter.Id);
+        if (filter.Ids is not null)
+            query = query.Where(c => filter.Ids.Contains(c.Id));
 
-        if (filter.Name is not null && filter.Name != String.Empty)
+        if (filter.Name is not null && filter.Name != string.Empty)
             query = query.Where(c => c.Name.Contains(filter.Name));
 
-        if (filter.Email is not null && filter.Email != String.Empty)
+        if (filter.Email is not null && filter.Email != string.Empty)
             query = query.Where(c => c.Email == filter.Email);
 
         query = query.OrderBy(c => c.Name);
@@ -41,7 +41,7 @@ public class CustomerRepository(CorteCertoDbContext context) :
             .Skip((filter.PageNumber - 1) * filter.PageSize)
             .Take(filter.PageSize);
 
-        var results = await paginatedQuery.ToListAsync();
+        var results = await paginatedQuery.ToListAsync(token);
 
         var totalCount = await GetPaginationTotalCount(query);
 

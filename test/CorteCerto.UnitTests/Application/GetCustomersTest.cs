@@ -1,4 +1,5 @@
-﻿using CorteCerto.Application.UseCases.Queries.Barbers;
+﻿using CorteCerto.Application.Requests;
+using CorteCerto.Application.UseCases.Queries.Barbers;
 using CorteCerto.Application.UseCases.Queries.Customers;
 using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Infrastructure.Context;
@@ -35,11 +36,7 @@ public class GetCustomersTest
     public async Task GetCustomer_WithoutFilters_ShouldReturnPagedCustomersCollection()
     {
         // Arrange
-        var query = new GetCustomersQuery(
-            null,
-            null,
-            null
-        );
+        var query = new GetCustomersQuery(new GetPeopleRequest());
 
         // Act
         var result = await queryHandler.HandleAsync(query);
@@ -56,11 +53,10 @@ public class GetCustomersTest
     {
         // Arrange
         var query = new GetCustomersQuery(
-            null,
-            null,
-            null,
-            PageSize: 2,
-            PageNumber: 1
+            new GetPeopleRequest(
+                PageSize: 2,
+                PageNumber: 1
+            )
         );
 
         // Act
@@ -80,9 +76,9 @@ public class GetCustomersTest
     {
         // Arrange
         var query = new GetCustomersQuery(
-            Guid.Parse("6bad02d7-b8bf-41bd-bb05-0f58369facf1"),
-            null,
-            null
+            new GetPeopleRequest(
+                Ids: [Guid.Parse("6bad02d7-b8bf-41bd-bb05-0f58369facf1")]
+            )
         );
 
         // Act
@@ -101,9 +97,9 @@ public class GetCustomersTest
     {
         // Arrange
         var query = new GetCustomersQuery(
-            null,
-            "Teste da Silva",
-            null
+            new GetPeopleRequest(
+                Name: "Teste da Silva"
+            )
         );
 
         // Act
@@ -121,9 +117,9 @@ public class GetCustomersTest
     {
         // Arrange
         var query = new GetCustomersQuery(
-            null,
-            null,
-            "teste@silva.com"
+            new GetPeopleRequest(
+                Email: "teste@silva.com"
+            )
         );
 
         // Act

@@ -15,10 +15,10 @@ public class GetBarbersQueryHandler(
     public async Task<PagedResult<BarberDto>> HandleAsync(GetBarbersQuery query, CancellationToken cancellationToken = default)
     {
         var filter = new PersonFilter.Builder()
-            .WithId(query.Id)
-            .WithName(query.Name)
-            .WithEmail(query.Email)
-            .WithPagination(query.PageSize, query.PageNumber)
+            .WithIds(query.Request.Ids)
+            .WithName(query.Request.Name)
+            .WithEmail(query.Request.Email)
+            .WithPagination(query.Request.PageSize, query.Request.PageNumber)
             .Build();
 
         var barbers = await barberRepository.GetWithFilter(filter, ["Address.City.State.Country"], token: cancellationToken);

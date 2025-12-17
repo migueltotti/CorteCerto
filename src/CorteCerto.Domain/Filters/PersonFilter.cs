@@ -4,7 +4,7 @@ namespace CorteCerto.Domain.Filters;
 
 public class PersonFilter
 {
-    public Guid? Id { get; private set; } = null;
+    public IEnumerable<Guid>? Ids { get; private set; } = null;
     public string? Name { get; private set; } = null;
     public string? Email { get; private set; } = null;
     public int PageSize { get; set; } = 50;
@@ -18,16 +18,16 @@ public class PersonFilter
     {
         private readonly PersonFilter _filter = new();
 
-        public Builder WithPagination(int PageSize, int PageNumber)
+        public Builder WithPagination(int pageSize, int pageNumber)
         {
-            _filter.PageSize = PageSize;
-            _filter.PageNumber = PageNumber;
+            _filter.PageSize = pageSize;
+            _filter.PageNumber = pageNumber;
             return this;
         } 
 
-        public Builder WithId(Guid? id)
+        public Builder WithIds(IEnumerable<Guid>? id)
         {
-            _filter.Id = id;
+            _filter.Ids = id;
             return this;
         }
 
