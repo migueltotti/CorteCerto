@@ -22,6 +22,7 @@ builder.Services
     .AddServices()
     .AddRepositories()
     .AddValidators()
+    .AddMapper()
     .AddMediator();
 
 builder.Services.AddOpenApi();

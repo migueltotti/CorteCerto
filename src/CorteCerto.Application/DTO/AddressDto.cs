@@ -6,5 +6,8 @@ public record AddressDto
     string Neighborhood,
     int Number,
     string ZipCode,
-    CityDto City
+    string City,
+    string State,
+    string StateAcronym,
+    string Country
 );
