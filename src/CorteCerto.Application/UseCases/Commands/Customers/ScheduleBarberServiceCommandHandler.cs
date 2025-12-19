@@ -25,47 +25,47 @@ public class ScheduleBarberServiceCommandHandler(
 
         if (!validationResult.IsValid)
         {
-            logger.LogInformation("Invalid informations for scheduling ServiceId: {ServiceId}, by BarberId: {BarberId} for CustomerId: {CustomerId}", command.ServiceId, command.BarberId, command.CustomerId);
+            logger.LogInformation("Invalid information for scheduling ServiceId: {ServiceId}, by BarberId: {BarberId} for CustomerId: {CustomerId}", command.Request.ServiceId, command.Request.BarberId, command.Request.CustomerId);
 
             return Result<AppointmentDto>.Failure(AppointmentErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
 
-        if (command.CustomerId.Equals(command.BarberId))
+        if (command.Request.CustomerId.Equals(command.Request.BarberId))
         {
-            logger.LogInformation("Barber and Customer are the same with Id {PersonId}", command.CustomerId);
+            logger.LogInformation("Barber and Customer are the same with Id {PersonId}", command.Request.CustomerId);
 
             return Result<AppointmentDto>.Failure(AppointmentErrors.InvalidAppointment);
         }
         
-        var customer = await customerRepository.Select(command.CustomerId, null, cancellationToken);
+        var customer = await customerRepository.Select(command.Request.CustomerId, null, cancellationToken);
 
         if (customer is null)
         {
-            logger.LogInformation("Customer not found with CustomerId: {CustomerId}", command.CustomerId);
+            logger.LogInformation("Customer not found with CustomerId: {CustomerId}", command.Request.CustomerId);
 
             return Result<AppointmentDto>.Failure(CustomerErrors.NotFoundById);
         }
 
-        var barber = await barberRepository.Select(command.BarberId, ["Services", "Availabilities", "Appointments"], cancellationToken);
+        var barber = await barberRepository.Select(command.Request.BarberId, ["Services", "Availabilities", "Appointments"], cancellationToken);
 
         if (barber is null)
         {
-            logger.LogInformation("Barber not found with BarberId: {BarberId}", command.BarberId);
+            logger.LogInformation("Barber not found with BarberId: {BarberId}", command.Request.BarberId);
 
             return Result<AppointmentDto>.Failure(BarberErrors.NotFoundById);
         }
 
-        var service = barber.GetService(command.ServiceId);
+        var service = barber.GetService(command.Request.ServiceId);
 
         if (service is null)
         {
-            logger.LogInformation("Service with ServiceId: {ServiceId} not found for Barber with BarberId: {BarberId}", command.ServiceId, command.BarberId);
+            logger.LogInformation("Service with ServiceId: {ServiceId} not found for Barber with BarberId: {BarberId}", command.Request.ServiceId, command.Request.BarberId);
 
             return Result<AppointmentDto>.Failure(BarberErrors.ServiceNotFound);
         }
 
         var appointmentResult = Appointment.Create(
-            command.Date.ToUniversalTime(),
+            command.Request.Date.ToUniversalTime(),
             TimeSpan.FromHours(2),
             customer,
             barber,
@@ -74,14 +74,22 @@ public class ScheduleBarberServiceCommandHandler(
 
         if (appointmentResult.IsFailure)
         {
-            logger.LogInformation("Failed to create Appointment for CustomerId: {CustomerId}, with ServiceId: {ServiceId} of BarberId: {BarberId} at Date {Date}", command.CustomerId, command.ServiceId, command.BarberId, command.Date);
+            logger.LogInformation("Failed to create Appointment for CustomerId: {CustomerId}, with ServiceId: {ServiceId} of BarberId: {BarberId} at Date {Date}", 
+                command.Request.CustomerId, 
+                command.Request.ServiceId, 
+                command.Request.BarberId, 
+                command.Request.Date);
 
             return Result<AppointmentDto>.Failure(appointmentResult.Error);
         }
 
         appointmentRepository.Insert(appointmentResult.Data);
 
-        logger.LogInformation("Appointment created successfully for CustomerId: {CustomerId}, with ServiceId: {ServiceId} of BarberId: {BarberId} at Date {Date}", command.CustomerId, command.ServiceId, command.BarberId, command.Date);
+        logger.LogInformation("Appointment created successfully for CustomerId: {CustomerId}, with ServiceId: {ServiceId} of BarberId: {BarberId} at Date {Date}", 
+            command.Request.CustomerId, 
+            command.Request.ServiceId, 
+            command.Request.BarberId, 
+            command.Request.Date);
 
         var appointmentResponse = appointmentResult.Data.Adapt<AppointmentDto>();
 

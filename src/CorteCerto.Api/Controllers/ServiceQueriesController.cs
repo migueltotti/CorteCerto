@@ -10,6 +10,7 @@ namespace CorteCerto.Api.Controllers;
 public class ServiceQueriesController(IQueryMediator queryMediator) : Controller
 {
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetServicesWithFilterAsync([FromQuery] GetServicesRequest request, CancellationToken cancellationToken = default)
     {
         var services = await queryMediator.QueryAsync(new GetServicesQuery(request), cancellationToken);

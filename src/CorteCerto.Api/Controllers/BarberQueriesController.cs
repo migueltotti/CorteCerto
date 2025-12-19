@@ -10,6 +10,7 @@ namespace CorteCerto.Api.Controllers;
 public class BarberQueriesController(IQueryMediator queryMediator) : Controller
 {
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetBarbersWithFilterAsync([FromQuery] GetPeopleRequest request, CancellationToken cancellationToken = default)
     {
         var barbers = await queryMediator.QueryAsync(new GetBarbersQuery(request),  cancellationToken);

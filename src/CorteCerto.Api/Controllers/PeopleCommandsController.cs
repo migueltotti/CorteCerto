@@ -10,6 +10,8 @@ namespace CorteCerto.Api.Controllers;
 public class PeopleCommandsController(ICommandMediator commandMediator) : Controller
 {
     [HttpPost("create-account")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAccountAsync([FromBody] CreateAccountRequest request, CancellationToken cancellationToken)
     {
         var result = await commandMediator.SendAsync(new CreateAccountCommand(request), cancellationToken);
@@ -17,6 +19,6 @@ public class PeopleCommandsController(ICommandMediator commandMediator) : Contro
         if (result.IsFailure)
             return BadRequest(result.Error);
 
-        return Ok(result.Data);
+        return Created(string.Empty, result.Data);
     }
 }

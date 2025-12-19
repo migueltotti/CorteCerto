@@ -8,6 +8,7 @@ public class ServiceFilter
     public PriceOperator PriceOperator { get; private set; } = default;
     public TimeSpan? Duration { get; private set; } = null!;
     public DurationOperator DurationOperator { get; private set; } = default;
+    public Guid? BarberId { get; private set; } = null!;
     public int PageSize { get; set; } = 50;
     public int PageNumber { get; set; } = 1;
 
@@ -49,6 +50,12 @@ public class ServiceFilter
         {
             _serviceFilter.Duration = duration;
             _serviceFilter.DurationOperator = @operator;
+            return this;
+        }
+        
+        public Builder WithBarberId(Guid? barberId)
+        {
+            _serviceFilter.BarberId = barberId;
             return this;
         }
 

@@ -11,7 +11,7 @@ public class ApproveAppointmentValidator : AbstractValidator<ApproveAppointmentC
             .NotNull().WithMessage("Id do Agendamento não pode ser nulo.")
             .NotEmpty().WithMessage("Id do Agendamento é obrigatório.");
 
-        RuleFor(x => x.BarberId)
+        RuleFor(x => x.Request.BarberId)
             .NotNull().WithMessage("Id do Barbeiro não pode ser nulo.")
             .NotEmpty().WithMessage("Id do Barbeiro é obrigatório.");
     }

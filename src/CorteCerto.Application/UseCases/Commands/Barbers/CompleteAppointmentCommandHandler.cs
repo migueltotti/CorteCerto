@@ -35,7 +35,7 @@ public class CompleteAppointmentCommandHandler(
             return Result<AppointmentDto>.Failure(AppointmentErrors.NotFoundById);
         }
 
-        var completeResult = appointment.Complete(command.BarberId);
+        var completeResult = appointment.Complete(command.Request.BarberId);
 
         if (completeResult.IsFailure)
         {

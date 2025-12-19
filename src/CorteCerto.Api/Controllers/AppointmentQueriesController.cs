@@ -10,6 +10,7 @@ namespace CorteCerto.Api.Controllers;
 public class AppointmentQueriesController(IQueryMediator queryMediator) : Controller
 {
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAppointmentsWithFilterAsync([FromQuery] GetAppointmentsRequest request, CancellationToken cancellationToken)
     {
         var result = await queryMediator.QueryAsync(new GetAppointmentsQuery(request), cancellationToken);

@@ -21,7 +21,7 @@ public class CancelAppointmentCommandHandler(
 
         if (!validationResult.IsValid)
         {
-            logger.LogInformation("Appointment cancelate validation failed for AppointmentId: {AppointmentId}", command.AppointmentId);
+            logger.LogInformation("Appointment cancellation validation failed for AppointmentId: {AppointmentId}", command.AppointmentId);
 
             return Result<AppointmentDto>.Failure(AppointmentErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
@@ -35,11 +35,11 @@ public class CancelAppointmentCommandHandler(
             return Result<AppointmentDto>.Failure(AppointmentErrors.NotFoundById);
         }
 
-        var approvementResult = appointment.Cancelate(command.BarberId, command.CustomerId);
+        var approvementResult = appointment.Cancelate(command.Request.BarberId, command.Request.CustomerId);
 
         if (approvementResult.IsFailure)
         {
-            logger.LogInformation("Appointment cancelation failed for AppointmentId: {AppointmentId}", command.AppointmentId);
+            logger.LogInformation("Appointment cancellation failed for AppointmentId: {AppointmentId}", command.AppointmentId);
 
             return Result<AppointmentDto>.Failure(approvementResult.Error);
         }

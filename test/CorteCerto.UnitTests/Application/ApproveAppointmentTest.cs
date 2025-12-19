@@ -1,4 +1,5 @@
-﻿using CorteCerto.Application.UseCases.Commands.Barbers;
+﻿using CorteCerto.Application.Requests;
+using CorteCerto.Application.UseCases.Commands.Barbers;
 using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.Validations;
 using CorteCerto.Domain.Enums;
@@ -46,7 +47,9 @@ public class ApproveAppointmentTest
         // Arrange
         var command = new ApproveAppointmentCommand(
             Guid.NewGuid(),
-            Guid.NewGuid()
+            new ApproveAppointmentRequest(
+                Guid.NewGuid()
+            )
         );
 
         // Act
@@ -63,7 +66,7 @@ public class ApproveAppointmentTest
         // Arrange
         var command = new ApproveAppointmentCommand(
             Guid.Parse("ff410b56-fa74-409a-8c8e-f0f94885f1d5"),
-            Guid.NewGuid()
+            new ApproveAppointmentRequest(Guid.NewGuid())
         );
 
         // Act
@@ -80,7 +83,7 @@ public class ApproveAppointmentTest
         // Arrange
         var command = new ApproveAppointmentCommand(
             Guid.Parse("b38fa14d-d01e-4ed6-b850-a4a2695c6962"),
-            Guid.Parse("c160437f-405c-4203-824f-033b827a089c")
+            new ApproveAppointmentRequest(Guid.Parse("c160437f-405c-4203-824f-033b827a089c"))
         );
 
         // Act
@@ -97,7 +100,7 @@ public class ApproveAppointmentTest
         // Arrange
         var command = new ApproveAppointmentCommand(
             Guid.Parse("ff410b56-fa74-409a-8c8e-f0f94885f1d5"),
-            Guid.Parse("c160437f-405c-4203-824f-033b827a089c")
+            new ApproveAppointmentRequest(Guid.Parse("c160437f-405c-4203-824f-033b827a089c"))
         );
 
         // Act

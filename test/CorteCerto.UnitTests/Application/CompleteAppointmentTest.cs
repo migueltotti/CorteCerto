@@ -1,4 +1,5 @@
-﻿using CorteCerto.Application.UseCases.Commands.Barbers;
+﻿using CorteCerto.Application.Requests;
+using CorteCerto.Application.UseCases.Commands.Barbers;
 using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.Validations;
 using CorteCerto.Domain.Enums;
@@ -46,7 +47,7 @@ public class CompleteAppointmentTest
         // Arrange
         var command = new CompleteAppointmentCommand(
             Guid.NewGuid(),
-            Guid.NewGuid()
+            new CompleteAppointmentRequest(Guid.NewGuid())
         );
 
         // Act
@@ -63,7 +64,7 @@ public class CompleteAppointmentTest
         // Arrange
         var command = new CompleteAppointmentCommand(
             Guid.Parse("ff410b56-fa74-409a-8c8e-f0f94885f1d5"),
-            Guid.NewGuid()
+            new CompleteAppointmentRequest(Guid.NewGuid())
         );
 
         // Act
@@ -80,7 +81,7 @@ public class CompleteAppointmentTest
         // Arrange
         var command = new CompleteAppointmentCommand(
             Guid.Parse("4e14d509-25e0-453b-8d96-7a717c39aed6"),
-            Guid.Parse("c160437f-405c-4203-824f-033b827a089c")
+            new CompleteAppointmentRequest(Guid.Parse("c160437f-405c-4203-824f-033b827a089c"))
         );
 
         // Act
@@ -97,7 +98,7 @@ public class CompleteAppointmentTest
         // Arrange
         var command = new CompleteAppointmentCommand(
             Guid.Parse("ff410b56-fa74-409a-8c8e-f0f94885f1d5"),
-            Guid.Parse("c160437f-405c-4203-824f-033b827a089c")
+            new CompleteAppointmentRequest(Guid.Parse("c160437f-405c-4203-824f-033b827a089c"))
         );
 
         // Act

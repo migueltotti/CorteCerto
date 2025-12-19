@@ -47,6 +47,9 @@ public class ServiceRepository(CorteCertoDbContext context) :
             };
         }
 
+        if (filter.BarberId is not null)
+            query = query.Where(s => s.Barber.Id == filter.BarberId);
+
         if (includes is not null)
         {
             foreach (var include in includes)

@@ -19,6 +19,7 @@ public class GetServicesQueryHandler(
             .WithPrice(query.Request.Price, query.Request.PriceOperator)
             .WithDuration(query.Request.Duration, query.Request.DurationOperator)
             .WithPagination(query.Request.PageSize, query.Request.PageNumber)
+            .WithBarberId(query.Request.BarberId)
             .Build();
 
         var services = await serviceRepository.GetWithFilter(filter, ["Barber"], cancellationToken);

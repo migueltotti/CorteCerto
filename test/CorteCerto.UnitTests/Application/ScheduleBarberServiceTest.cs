@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CorteCerto.Application.Requests;
 
 namespace CorteCerto.UnitTests.Application;
 
@@ -53,10 +54,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.NewGuid(),
-            CustomerId: Guid.NewGuid(),
-            ServiceId: 0,
-            Date: DateTime.MinValue
+            new RegisterAppointmentRequest(
+                BarberId: Guid.NewGuid(),
+                CustomerId: Guid.NewGuid(),
+                ServiceId: 0,
+                Date: DateTime.MinValue
+            )
         );
 
         // Act
@@ -72,10 +75,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            CustomerId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            ServiceId: 1,
-            Date: DateTime.UtcNow.AddDays(1)
+            new RegisterAppointmentRequest(
+                BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                CustomerId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                ServiceId: 1,
+                Date: DateTime.UtcNow.AddDays(1)
+            )
         );
 
         // Act
@@ -91,10 +96,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.NewGuid(),
-            CustomerId: Guid.NewGuid(),
-            ServiceId: 1,
-            Date: DateTime.UtcNow.AddDays(1)
+            new RegisterAppointmentRequest(
+                BarberId: Guid.NewGuid(),
+                CustomerId: Guid.NewGuid(),
+                ServiceId: 1,
+                Date: DateTime.UtcNow.AddDays(1)
+            )
         );
 
         // Act
@@ -110,10 +117,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.NewGuid(),
-            CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
-            ServiceId: 1,
-            Date: DateTime.UtcNow.AddDays(1)
+            new RegisterAppointmentRequest(
+                BarberId: Guid.NewGuid(),
+                CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
+                ServiceId: 1,
+                Date: DateTime.UtcNow.AddDays(1)
+            )
         );
 
         // Act
@@ -129,10 +138,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
-            ServiceId: 999,
-            Date: DateTime.UtcNow.AddDays(1)
+            new RegisterAppointmentRequest(
+                BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
+                ServiceId: 999,
+                Date: DateTime.UtcNow.AddDays(1)
+            )
         );
 
         // Act
@@ -148,10 +159,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
-            ServiceId: 1,
-            Date: DateTime.UtcNow.AddDays(-5)
+            new RegisterAppointmentRequest(
+                BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
+                ServiceId: 1,
+                Date: DateTime.UtcNow.AddDays(-5)
+            )
         );
 
         // Act
@@ -167,10 +180,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
-            ServiceId: 1,
-            Date: DateTime.Parse("2025-11-25T23:50:00Z").ToUniversalTime()
+            new RegisterAppointmentRequest(
+                BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
+                ServiceId: 1,
+                Date: DateTime.Parse("2025-11-25T23:50:00Z").ToUniversalTime()
+            )
         );
 
         // Act
@@ -186,10 +201,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
-            ServiceId: 1,
-            Date: DateTime.Parse("2025-11-24T09:00:00Z").ToUniversalTime()
+            new RegisterAppointmentRequest(
+                BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
+                ServiceId: 1,
+                Date: DateTime.Parse("2025-11-24T09:00:00Z").ToUniversalTime()
+            )
         );
 
         // Act
@@ -205,10 +222,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
-            ServiceId: 1,
-            Date: DateTime.Parse("2025-11-24T12:30:00Z").ToUniversalTime()
+            new RegisterAppointmentRequest(
+                BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
+                ServiceId: 1,
+                Date: DateTime.Parse("2025-11-24T12:30:00Z").ToUniversalTime()
+            )
         );
 
         // Act
@@ -224,10 +243,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
-            ServiceId: 1,
-            Date: DateTime.Parse("2025-11-24T19:50:00Z").ToUniversalTime()
+            new RegisterAppointmentRequest(
+                BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
+                ServiceId: 1,
+                Date: DateTime.Parse("2025-11-24T19:50:00Z").ToUniversalTime()
+            )
         );
 
         // Act
@@ -243,10 +264,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
-            ServiceId: 1,
-            Date: DateTime.Parse("2025-11-24T12:20:00Z").ToUniversalTime()
+            new RegisterAppointmentRequest(
+                BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
+                ServiceId: 1,
+                Date: DateTime.Parse("2025-11-24T12:20:00Z").ToUniversalTime()
+            )
         );
 
         // Act
@@ -262,10 +285,12 @@ public class ScheduleBarberServiceTest
     {
         // arrange
         var command = new ScheduleBarberServiceCommand(
-            BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
-            CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
-            ServiceId: 11,
-            Date: DateTime.Parse("2025-11-24T17:30:00Z").ToUniversalTime()
+            new RegisterAppointmentRequest(
+                BarberId: Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
+                CustomerId: Guid.Parse("6f76249a-c359-4ee3-aba8-80fc0f60def7"),
+                ServiceId: 11,
+                Date: DateTime.Parse("2025-11-24T17:30:00Z").ToUniversalTime()
+            )
         );
 
         // Act

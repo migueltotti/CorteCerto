@@ -10,6 +10,7 @@ public record GetServicesRequest(
     decimal? Price = null,
     PriceOperator PriceOperator = default,
     DurationOperator DurationOperator = default,
+    Guid? BarberId = null,
     int PageSize = 50,
     int PageNumber = 1    
 );
