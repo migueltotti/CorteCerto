@@ -2,6 +2,7 @@
 
 public class ServiceFilter
 {
+    public IEnumerable<int>? Ids { get; set; } = null!;
     public string? Name { get; private set; } = null!;
     public decimal? Price { get; private set; } = null!;
     public PriceOperator PriceOperator { get; private set; } = default;
@@ -24,6 +25,13 @@ public class ServiceFilter
             _serviceFilter.PageNumber = PageNumber;
             return this;
         }
+        
+        public Builder WithIds(IEnumerable<int>? ids)
+        {
+            _serviceFilter.Ids = ids;
+            return this;
+        }
+        
         public Builder WithName(string? name)
         {
             _serviceFilter.Name = name;

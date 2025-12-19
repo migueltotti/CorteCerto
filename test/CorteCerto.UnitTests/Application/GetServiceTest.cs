@@ -1,4 +1,5 @@
-﻿using CorteCerto.Application.UseCases.Queries.Barbers;
+﻿using CorteCerto.Application.Requests;
+using CorteCerto.Application.UseCases.Queries.Barbers;
 using CorteCerto.Application.UseCases.Queries.People;
 using CorteCerto.Domain.Filters;
 using CorteCerto.Domain.Interfaces.Repositories;
@@ -36,9 +37,7 @@ public class GetServiceTest
     {
         // Arrange
         var query = new GetServicesQuery(
-            null,
-            null,
-            null
+            new GetServicesRequest()
         );
 
         // Act
@@ -56,11 +55,10 @@ public class GetServiceTest
     {
         // Arrange
         var query = new GetServicesQuery(
-            null,
-            null,
-            null,
-            PageSize: 2,
-            PageNumber: 1
+            new GetServicesRequest(
+                PageSize: 2,
+                PageNumber: 1
+            )
         );
 
         // Act
@@ -80,9 +78,9 @@ public class GetServiceTest
     {
         // Arrange
         var query = new GetServicesQuery(
-            "Teste",
-            null,
-            null
+            new GetServicesRequest(
+                Name: "Teste"
+            )
         );
 
         // Act
@@ -102,10 +100,10 @@ public class GetServiceTest
     {
         // Arrange
         var query = new GetServicesQuery(
-            null,
-            null,
-            Price: 45,
-            PriceOperator: PriceOperator.GreaterThan
+            new GetServicesRequest(
+                Price: 45,
+                PriceOperator: PriceOperator.GreaterThan
+            )
         );
 
         // Act
@@ -125,10 +123,10 @@ public class GetServiceTest
     {
         // Arrange
         var query = new GetServicesQuery(
-            null,
-            Duration: TimeSpan.FromHours(1),
-            null,
-            DurationOperator: DurationOperator.LessThan
+            new GetServicesRequest(
+                Duration: TimeSpan.FromHours(1),
+                DurationOperator: DurationOperator.LessThan
+            )
         );
 
         // Act

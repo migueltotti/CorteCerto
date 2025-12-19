@@ -15,10 +15,10 @@ public class GetServicesQueryHandler(
     public async Task<PagedResult<ServiceDto>> HandleAsync(GetServicesQuery query, CancellationToken cancellationToken = default)
     {
         var filter = new ServiceFilter.Builder()
-            .WithName(query.Name)
-            .WithPrice(query.Price, query.PriceOperator)
-            .WithDuration(query.Duration, query.DurationOperator)
-            .WithPagination(query.PageSize, query.PageNumber)
+            .WithName(query.Request.Name)
+            .WithPrice(query.Request.Price, query.Request.PriceOperator)
+            .WithDuration(query.Request.Duration, query.Request.DurationOperator)
+            .WithPagination(query.Request.PageSize, query.Request.PageNumber)
             .Build();
 
         var services = await serviceRepository.GetWithFilter(filter, ["Barber"], cancellationToken);

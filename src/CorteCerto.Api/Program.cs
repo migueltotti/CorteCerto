@@ -2,6 +2,7 @@ using CorrelationId;
 using CorrelationId.DependencyInjection;
 using CorteCerto.CrossCutting.Extensions;
 using CorteCerto.CrossCutting.Models;
+using Scalar.AspNetCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,10 @@ var applicationSettings = builder.Configuration.GetApplicationSettings(builder.E
 builder.Services
     .AddSingleton<ISettings>(applicationSettings)
     .AddControllers();
+
+builder.Services
+    .AddEndpointsApiExplorer()
+    .AddOpenApi();
 
 builder.Host.UseSerilog((context, configuration) => 
     configuration.ReadFrom.Configuration(context.Configuration));
@@ -30,6 +35,7 @@ builder.Services.AddOpenApi();
 var app = builder.Build();
 
 app.MapOpenApi();
+app.MapScalarApiReference();
 
 app
     .UseCorrelationId()

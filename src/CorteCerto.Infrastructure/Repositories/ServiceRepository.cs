@@ -19,6 +19,9 @@ public class ServiceRepository(CorteCertoDbContext context) :
             .AsNoTracking()
             .AsQueryable();
 
+        if (filter.Ids is not null)
+            query = query.Where(s => filter.Ids.Contains(s.Id));
+        
         if (!string.IsNullOrEmpty(filter.Name))
             query = query.Where(s => s.Name.Contains(filter.Name));
 
