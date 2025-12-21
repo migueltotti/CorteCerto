@@ -46,7 +46,7 @@ public class ScheduleBarberServiceCommandHandler(
             return Result<AppointmentDto>.Failure(CustomerErrors.NotFoundById);
         }
 
-        var barber = await barberRepository.Select(command.Request.BarberId, ["Services", "Availabilities", "Appointments"], cancellationToken);
+        var barber = await barberRepository.Select(command.Request.BarberId, ["Services", "Availabilities", "Appointments", "Address.City.State.Country"], cancellationToken);
 
         if (barber is null)
         {

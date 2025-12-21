@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\CorteCerto.Application\CorteCerto.Application.csproj" />
+    <ProjectReference Include="..\..\src\CorteCerto.CrossCutting\CorteCerto.CrossCutting.csproj" />
     <ProjectReference Include="..\..\src\CorteCerto.Domain\CorteCerto.Domain.csproj" />
     <ProjectReference Include="..\..\src\CorteCerto.Infrastructure\CorteCerto.Infrastructure.csproj" />
   </ItemGroup>

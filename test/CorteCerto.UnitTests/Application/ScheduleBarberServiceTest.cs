@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CorteCerto.Application.Requests;
+using CorteCerto.CrossCutting.Extensions;
 
 namespace CorteCerto.UnitTests.Application;
 
@@ -37,6 +38,7 @@ public class ScheduleBarberServiceTest
         services.AddLogging();
         services.AddMapster();
         services.AddScoped<IValidator<ScheduleBarberServiceCommand>, ScheduleBarberServiceValidator>();
+        services.AddMapper();
 
         provider = services.BuildServiceProvider();
 
@@ -298,7 +300,7 @@ public class ScheduleBarberServiceTest
 
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Equal(DateTime.Parse("2025-11-22T10:30:00-03:00").ToUniversalTime(), result.Data.Date);
+        Assert.Equal(DateTime.Parse("2025-12-22T10:30:00-03:00").ToUniversalTime(), result.Data.Date);
         Assert.Equal(20, result.Data.Service.Id);
         Assert.Equal(AppointmentStatus.WaitingForAprovement, result.Data.Status);
     }
