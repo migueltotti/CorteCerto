@@ -23,28 +23,28 @@ public class UpsertBarberAvailabilityCommandHandler(
 
         if (!validationResult.IsValid)
         {
-            logger.LogInformation("Barber Availability infos validation failed for Barber with BarberId: {BarberId}", command.BarberId);
+            logger.LogInformation("Barber Availability infos validation failed for Barber with BarberId: {BarberId}", command.Request.BarberId);
 
             return Result<BarberDto>.Failure(BarberErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
 
-        var barber = await barberRepository.Select(command.BarberId, ["Availabilities"], cancellationToken);
+        var barber = await barberRepository.Select(command.Request.BarberId, ["Availabilities"], cancellationToken);
 
         if (barber is null)
         {
-            logger.LogInformation("Barber not found for BarberId: {BarberId}", command.BarberId);
+            logger.LogInformation("Barber not found for BarberId: {BarberId}", command.Request.BarberId);
 
             return Result<BarberDto>.Failure(BarberErrors.NotFoundById);
         }
 
         var availabilityResult = BarberAvailability.Create(
-            command.DayOfWeek,
-            command.StartTime,
-            command.EndTime);
+            command.Request.DayOfWeek,
+            command.Request.StartTime,
+            command.Request.EndTime);
 
         if (availabilityResult.IsFailure)
         {
-            logger.LogInformation("Barber Availability creation failed for BarberId: {BarberId}", command.BarberId);
+            logger.LogInformation("Barber Availability creation failed for BarberId: {BarberId}", command.Request.BarberId);
 
             return Result<BarberDto>.Failure(availabilityResult.Error);
         }
@@ -53,7 +53,7 @@ public class UpsertBarberAvailabilityCommandHandler(
 
         barberRepository.Update(barber);
 
-        logger.LogInformation("Availability upserted successfully for BarberId: {BarberId}", command.BarberId);
+        logger.LogInformation("Availability of {DayOfWeek} upserted successfully for BarberId: {BarberId}", command.Request.DayOfWeek, command.Request.BarberId);
 
         var barberResponse = barber.Adapt<BarberDto>();
 
