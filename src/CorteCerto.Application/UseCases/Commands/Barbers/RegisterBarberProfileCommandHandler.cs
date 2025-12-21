@@ -1,16 +1,14 @@
-﻿using CorteCerto.Application.DTO;
+﻿using System.Text.Json;
+using CorteCerto.Application.DTO;
 using CorteCerto.Domain.Base;
-using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Errors;
-using CorteCerto.Domain.Helpers;
-using Barber = CorteCerto.Domain.Entities.Barber;
 using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Domain.Interfaces.Services;
 using FluentValidation;
 using LiteBus.Commands.Abstractions;
 using Mapster;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
+using Barber = CorteCerto.Domain.Entities.Barber;
 
 namespace CorteCerto.Application.UseCases.Commands.Barbers;
 
@@ -33,7 +31,7 @@ public class RegisterBarberProfileCommandHandler(
             return Result<BarberDto>.Failure(CustomerErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
 
-        var person = await personRepository.Select(command.PersonId);
+        var person = await personRepository.Select(command.PersonId, token: cancellationToken);
 
         if (person is null)
         {
@@ -41,7 +39,6 @@ public class RegisterBarberProfileCommandHandler(
 
             return Result<BarberDto>.Failure(CustomerErrors.NotFoundById);
         }
-
 
         var addressResult = await addressService.CreateAddressByCep(command.Cep, command.AddressNumber);
 
@@ -59,7 +56,7 @@ public class RegisterBarberProfileCommandHandler(
             person.PhoneNumber,
             person.PasswordHash,
             command.Description,
-            command.PortfolioUrl ?? String.Empty,
+            command.PortfolioUrl ?? string.Empty,
             addressResult.Data
         );
 

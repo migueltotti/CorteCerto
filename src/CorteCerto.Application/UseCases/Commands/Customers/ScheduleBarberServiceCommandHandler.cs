@@ -78,7 +78,7 @@ public class ScheduleBarberServiceCommandHandler(
                 command.Request.CustomerId, 
                 command.Request.ServiceId, 
                 command.Request.BarberId, 
-                command.Request.Date);
+                command.Request.Date.ToUniversalTime());
 
             return Result<AppointmentDto>.Failure(appointmentResult.Error);
         }
@@ -89,7 +89,7 @@ public class ScheduleBarberServiceCommandHandler(
             command.Request.CustomerId, 
             command.Request.ServiceId, 
             command.Request.BarberId, 
-            command.Request.Date);
+            command.Request.Date.ToUniversalTime());
 
         var appointmentResponse = appointmentResult.Data.Adapt<AppointmentDto>();
 

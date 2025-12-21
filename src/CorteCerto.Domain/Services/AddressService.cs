@@ -36,26 +36,26 @@ public class AddressService(
             return Result<Address>.Success(address);
         }
 
-        var addressLookuResult = await viaCepGateway.GetAddressByCepAsync(cep.RemoveHifen());
+        var addressLookupResult = await viaCepGateway.GetAddressByCepAsync(cep.RemoveHifen());
 
-        if (addressLookuResult.IsFailure)
-            return Result<Address>.Failure(addressLookuResult.Error);
+        if (addressLookupResult.IsFailure)
+            return Result<Address>.Failure(addressLookupResult.Error);
 
         var country = await GetOrCreateBrazilCountry();
 
         var state = await GetOrCreateStateByAcronym(
-            addressLookuResult.Data.StateAcronym,
-            addressLookuResult.Data.StateName,
+            addressLookupResult.Data.StateAcronym,
+            addressLookupResult.Data.StateName,
             country);
 
         var city = await GetOrCreateCityByState(
-            addressLookuResult.Data.CityName,
+            addressLookupResult.Data.CityName,
             state);
 
         address = new Address(
-            addressLookuResult.Data.Street,
+            addressLookupResult.Data.Street,
             number,
-            addressLookuResult.Data.Neighborhood,
+            addressLookupResult.Data.Neighborhood,
             cep.RemoveHifen(),
             city);
 

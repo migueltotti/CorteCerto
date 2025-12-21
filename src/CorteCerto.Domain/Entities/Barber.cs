@@ -3,6 +3,7 @@ using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Errors;
 using CorteCerto.Domain.ValueObjects;
 using System.Threading;
+using CorteCerto.Domain.Enums;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CorteCerto.Domain.Entities;
@@ -118,16 +119,15 @@ public class Barber : Person
 
     public bool HasAppointmentAtTime(DateTime dateTime)
     {
-        return Appointments.Exists(ap => 
-            ap.Date.DayOfWeek.Equals(dateTime.DayOfWeek) && 
-            ap.Date.Equals(dateTime));
+        return Appointments.Exists(ap => ap.Date.Equals(dateTime));
     }
 
-    public bool HasAppointmentEndTimeCollision(DateTime initialDateTime, TimeSpan duration)
+    public bool HasAppointmentEndTimeCollision(DateTime startTime, DateTime endDateTime)
     {
         return Appointments.Exists(ap => 
-            ap.Date.DayOfWeek.Equals(initialDateTime.DayOfWeek) &&
-            initialDateTime.TimeOfDay < ap.Date.TimeOfDay &&
-            ap.Date.TimeOfDay < initialDateTime.Add(duration).TimeOfDay);
+            ap.Date.DayOfWeek.Equals(endDateTime.DayOfWeek) &&
+            startTime < ap.Date &&
+            ap.Date.Add(ap.Service.Duration) <= endDateTime &&
+            ap.Status is not AppointmentStatus.Completed and AppointmentStatus.Canceled);
     }
 }

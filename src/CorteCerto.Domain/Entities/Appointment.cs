@@ -29,29 +29,35 @@ public class Appointment : BaseEntity<Guid>
 
     public static Result<Appointment> Create(DateTime date, TimeSpan responseDeadline, Customer customer, Barber barber, Service service)
     {
-        if (date <= DateTime.Now)
+        var appointmentStartTimeUtc = date.ToUniversalTime();
+        var appointmentEndTimeUtc = date.Add(service.Duration).ToUniversalTime();
+        
+        if (appointmentStartTimeUtc <= DateTime.UtcNow)
             return Result<Appointment>.Failure(AppointmentErrors.InvalidDate);
 
-        var availabilityForDate = barber.GetAvailabilityAt(date.DayOfWeek);
+        var availabilityForDate = barber.GetAvailabilityAt(appointmentStartTimeUtc.DayOfWeek);
 
         if (availabilityForDate is null)
             return Result<Appointment>.Failure(BarberErrors.NotAvailableAtDate);
 
-        if (availabilityForDate.StartTime.TimeOfDay > date.TimeOfDay)
+        var (availabilityStartTime, availabilityEndTime) =
+            availabilityForDate.GetTimeAvailabilityFormatedForAppointmentDate(appointmentStartTimeUtc);
+
+        if (availabilityStartTime > appointmentStartTimeUtc)
             return Result<Appointment>.Failure(BarberErrors.NotAvailableStartTime);
 
-        if (barber.HasAppointmentAtTime(date))
+        if (barber.HasAppointmentAtTime(appointmentStartTimeUtc))
             return Result<Appointment>.Failure(AppointmentErrors.AppointmentExistsAtTime);
 
-        if (availabilityForDate.EndTime.TimeOfDay < date.Add(service.Duration).TimeOfDay)
+        if (availabilityEndTime < appointmentEndTimeUtc)
             return Result<Appointment>.Failure(BarberErrors.NotAvailableAtTime);
-
-        if (barber.HasAppointmentEndTimeCollision(date, service.Duration))
+        
+        if (barber.HasAppointmentEndTimeCollision(appointmentStartTimeUtc, appointmentEndTimeUtc))
             return Result<Appointment>.Failure(AppointmentErrors.EndTimeCollision);
 
         return Result<Appointment>.Success(new Appointment(
             Guid.NewGuid(), 
-            date,
+            appointmentStartTimeUtc,
             responseDeadline, 
             customer, 
             barber, 
@@ -59,7 +65,7 @@ public class Appointment : BaseEntity<Guid>
         ));
     }
 
-    public Result Aprove(Guid barberId)
+    public Result Approve(Guid barberId)
     {
         if (!barberId.Equals(Barber.Id))
             return Result.Failure(AppointmentErrors.BarberIdMismatch);
@@ -85,7 +91,7 @@ public class Appointment : BaseEntity<Guid>
         return Result.Success();
     }
 
-    public Result Cancelate(Guid barberId, Guid customerId)
+    public Result Cancel(Guid barberId, Guid customerId)
     {
         if (!barberId.Equals(Barber.Id))
             return Result.Failure(AppointmentErrors.BarberIdMismatch);

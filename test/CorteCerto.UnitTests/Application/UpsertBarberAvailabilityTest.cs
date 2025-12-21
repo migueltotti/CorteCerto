@@ -44,8 +44,8 @@ public class UpsertBarberAvailabilityTest
         var command = new UpsertBarberAvailabilityCommand(
             Guid.Parse("c160437f-405c-4203-824f-033b827a08cc"),
             DayOfWeek.Monday,
-            DateTime.Parse("07:00:00"),
-            DateTime.Parse("19:00:00")
+            DateTime.Parse("07:00:00-03:00"),
+            DateTime.Parse("19:00:00-03:00")
         );
 
         // Act
@@ -63,8 +63,8 @@ public class UpsertBarberAvailabilityTest
         var command = new UpsertBarberAvailabilityCommand(
             Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
             DayOfWeek.Monday,
-            DateTime.Parse("10:00:00"),
-            DateTime.Parse("7:00:00")
+            DateTime.Parse("10:00:00-03:00"),
+            DateTime.Parse("7:00:00-03:00")
         );
 
         // Act
@@ -82,8 +82,8 @@ public class UpsertBarberAvailabilityTest
         var command = new UpsertBarberAvailabilityCommand(
             Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
             DayOfWeek.Monday,
-            DateTime.Parse("08:00:00"),
-            DateTime.Parse("22:00:00")
+            DateTime.Parse("08:00:00-03:00"),
+            DateTime.Parse("22:00:00-03:00")
         );
 
         // Act
@@ -100,8 +100,8 @@ public class UpsertBarberAvailabilityTest
         var command = new UpsertBarberAvailabilityCommand(
             Guid.Parse("c160437f-405c-4203-824f-033b827a089c"),
             DayOfWeek.Monday,
-            DateTime.Parse("09:00:00"),
-            DateTime.Parse("17:00:00")
+            DateTime.Parse("09:00:00-03:00"),
+            DateTime.Parse("17:00:00-03:00")
         );
 
         // Act

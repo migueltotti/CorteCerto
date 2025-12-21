@@ -35,7 +35,7 @@ public class ApproveAppointmentCommandHandler(
             return Result<AppointmentDto>.Failure(AppointmentErrors.NotFoundById);
         }
 
-        var approvementResult = appointment.Aprove(command.Request.BarberId);
+        var approvementResult = appointment.Approve(command.Request.BarberId);
 
         if (approvementResult.IsFailure)
         {

@@ -20,16 +20,8 @@ public class ScheduleBarberServiceValidator : AbstractValidator<ScheduleBarberSe
             .NotEmpty().WithMessage("Id do Serviço é obrigatório.")
             .GreaterThan(0).WithMessage("Id do Serviço não pode ser negativo.");
 
-        RuleFor(x => x.Request.Date.Date)
+        RuleFor(x => x.Request.Date)
             .NotNull().WithMessage("Data não pode ser nulo.")
             .NotEmpty().WithMessage("Data é obrigatória.");
-        
-        RuleFor(x => x.Request.Date.Time)
-            .NotNull().WithMessage("Horário não pode ser nulo.")
-            .NotEmpty().WithMessage("Horário é obrigatória.");
-        
-        RuleFor(x => x.Request.Date.Timezone)
-            .NotNull().WithMessage("Fuso horário não pode ser nulo.")
-            .NotEmpty().WithMessage("Fuso horário é obrigatória.");
     }
 }

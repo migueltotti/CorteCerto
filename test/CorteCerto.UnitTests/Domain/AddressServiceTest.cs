@@ -40,7 +40,7 @@ public class AddressServiceTest
 
 
     [Fact]
-    public async Task CreateAddress_WithValidCep_ShouldbeSuccess()
+    public async Task CreateAddress_WithValidCep_ShouldBeSuccess()
     {
         // Arrange
         var cep = "01001000";
@@ -55,5 +55,5 @@ public class AddressServiceTest
         Assert.Equal("São Paulo", addressResult.Data.City.Name);
         Assert.Equal("SP", addressResult.Data.City.State.Acronym);
         Assert.Equal("Brasil", addressResult.Data.City.State.Country.Name);
-    } 
+    }
 }

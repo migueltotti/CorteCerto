@@ -35,7 +35,7 @@ public class CancelAppointmentCommandHandler(
             return Result<AppointmentDto>.Failure(AppointmentErrors.NotFoundById);
         }
 
-        var approvementResult = appointment.Cancelate(command.Request.BarberId, command.Request.CustomerId);
+        var approvementResult = appointment.Cancel(command.Request.BarberId, command.Request.CustomerId);
 
         if (approvementResult.IsFailure)
         {
