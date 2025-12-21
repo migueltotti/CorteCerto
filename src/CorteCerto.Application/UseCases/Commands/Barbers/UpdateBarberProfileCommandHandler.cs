@@ -56,7 +56,7 @@ public class UpdateBarberProfileCommandHandler(
         barber = barber
             .SetName(command.Name)
             .SetDescription(command.Description)
-            .SetPortifolioUrl(command.PortfolioUrl)
+            .SetPortifolioUrl(command.PortfolioUrl ?? "")
             .SetPhoneNumber(command.PhoneNumber);
 
         barberRepository.Update(barber);
