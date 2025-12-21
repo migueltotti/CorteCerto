@@ -15,6 +15,8 @@ public class AddressRepository(CorteCertoDbContext context) :
         var address = await context.Addresses
             .AsNoTracking()
             .Include(a => a.City)
+            .ThenInclude(c => c.State)
+            .ThenInclude(s => s.Country)
             .FirstOrDefaultAsync(a => a.ZipCode == zipCode);
 
         return address;

@@ -26,25 +26,25 @@ public class RegisterBarberProfileCommandHandler(
 
         if (!validationResult.IsValid)
         {
-            logger.LogInformation("Barber infos validation failed for PersonId: {PersonId}", command.PersonId);
+            logger.LogInformation("Barber infos validation failed for PersonId: {PersonId}", command.Request.PersonId);
 
             return Result<BarberDto>.Failure(CustomerErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
 
-        var person = await personRepository.Select(command.PersonId, token: cancellationToken);
+        var person = await personRepository.Select(command.Request.PersonId, token: cancellationToken);
 
         if (person is null)
         {
-            logger.LogInformation("Person not found for PersonId: {PersonId}", command.PersonId);
+            logger.LogInformation("Person not found for PersonId: {PersonId}", command.Request.PersonId);
 
             return Result<BarberDto>.Failure(CustomerErrors.NotFoundById);
         }
 
-        var addressResult = await addressService.CreateAddressByCep(command.Cep, command.AddressNumber);
+        var addressResult = await addressService.CreateAddressByCep(command.Request.Cep, command.Request.AddressNumber);
 
         if (addressResult.IsFailure)
         {
-            logger.LogInformation("Address not found for Cep: {Cep}", command.Cep);
+            logger.LogInformation("Address not found for Cep: {Cep}", command.Request.Cep);
 
             return Result<BarberDto>.Failure(addressResult.Error);
         }
@@ -55,14 +55,14 @@ public class RegisterBarberProfileCommandHandler(
             person.Email,
             person.PhoneNumber,
             person.PasswordHash,
-            command.Description,
-            command.PortfolioUrl ?? string.Empty,
+            command.Request.Description,
+            command.Request.PortfolioUrl ?? string.Empty,
             addressResult.Data
         );
 
         await barberRepository.RegisterBarber(barber);
 
-        logger.LogInformation("Barber profile registered successfully for PersonId: {PersonId}", command.PersonId);
+        logger.LogInformation("Barber profile registered successfully for PersonId: {PersonId}", command.Request.PersonId);
 
         return Result<BarberDto>.Success(barber.Adapt<BarberDto>());
     }

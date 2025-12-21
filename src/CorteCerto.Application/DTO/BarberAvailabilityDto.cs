@@ -6,6 +6,6 @@ namespace CorteCerto.Application.DTO;
 public record BarberAvailabilityDto(
     [property: JsonConverter(typeof(JsonStringEnumConverter))]
     DayOfWeek DayOfWeek,
-    DateTime StartTime,
-    DateTime EndTime
+    TimeOnly StartTime,
+    TimeOnly EndTime
 );

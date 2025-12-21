@@ -18,6 +18,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CorteCerto.Application.Requests;
 
 namespace CorteCerto.UnitTests.Application;
 
@@ -52,11 +53,13 @@ public class RegisterBarberProfileTest
         // Arrange
         var command = new RegisterBarberProfileCommand
         (
-            Guid.NewGuid(),
-            "", // Invalid description
-            null,
-            "12345-678",
-            100
+            new RegisterBarberProfileRequest(
+                Guid.NewGuid(),
+                "", // Invalid description
+                null,
+                "12345-678",
+                100
+            )
         );
 
         var commandHandler = new RegisterBarberProfileCommandHandler(
@@ -81,11 +84,13 @@ public class RegisterBarberProfileTest
         // Arrange
         var command = new RegisterBarberProfileCommand
         (
-            Guid.NewGuid(),
-            "Teste Cep inválido", // Invalid description
-            null,
-            "12345-678",
-            100
+            new RegisterBarberProfileRequest(
+                Guid.NewGuid(),
+                "Teste Cep inválido", // Invalid description
+                null,
+                "12345-678",
+                100
+            )
         );
 
         var commandHandler = new RegisterBarberProfileCommandHandler(
@@ -110,11 +115,13 @@ public class RegisterBarberProfileTest
         // Arrange
         var command = new RegisterBarberProfileCommand
         (
-            Guid.Parse("fceceaf7-2d08-44f7-8752-a5b39ba820ed"),
-            "Teste Cep inválido", // Invalid description
-            null,
-            "12345-678",
-            100
+            new RegisterBarberProfileRequest(
+                Guid.Parse("fceceaf7-2d08-44f7-8752-a5b39ba820ed"),
+                "Teste Cep inválido", // Invalid description
+                null,
+                "12345-678",
+                100
+            )
         );
 
         var commandHandler = new RegisterBarberProfileCommandHandler(
@@ -139,11 +146,13 @@ public class RegisterBarberProfileTest
         // Arrange
         var command = new RegisterBarberProfileCommand
         (
-            Guid.Parse("6bad02d7-b8bf-41bd-bb05-0f58369facf1"),
-            "Miguel Teste `3, mesmo Address",
-            null,
-            "01001-000",
-            111
+            new RegisterBarberProfileRequest(
+                Guid.Parse("6bad02d7-b8bf-41bd-bb05-0f58369facf1"),
+                "Miguel Teste `3, mesmo Address",
+                null,
+                "01001-000",
+                111
+            )
         );
 
         var commandHandler = new RegisterBarberProfileCommandHandler(
