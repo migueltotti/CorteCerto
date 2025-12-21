@@ -25,7 +25,7 @@ public class BarberCommandsController(ICommandMediator commandMediator) : Contro
     }
     
     [HttpPut("profile")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdateBarberProfileAsync([FromBody] UpdateBarberProfileRequest request, CancellationToken cancellationToken)
@@ -35,11 +35,11 @@ public class BarberCommandsController(ICommandMediator commandMediator) : Contro
         if (result.IsFailure)
             return BadRequest(result.Error);
 
-        return Created(string.Empty, result.Data);
+        return Ok(result.Data);
     }
     
     [HttpPut("availability")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpsertBarberAvailabilityAsync([FromBody] UpsertBarberAvailabilityRequest request, CancellationToken cancellationToken)
@@ -49,6 +49,6 @@ public class BarberCommandsController(ICommandMediator commandMediator) : Contro
         if (result.IsFailure)
             return BadRequest(result.Error);
 
-        return Created(string.Empty, result.Data);
+        return Ok(result.Data);
     }
 }
