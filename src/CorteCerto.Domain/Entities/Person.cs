@@ -62,8 +62,8 @@ public abstract class Person : BaseEntity<Guid>
         RefreshTokenExpiresAt = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes);
     }
 
-    public void RemoveRefreshToken()
+    public bool IsRefreshTokenExpired()
     {
-        RefreshToken = "";
+        return RefreshTokenExpiresAt < DateTime.UtcNow;
     }
 }

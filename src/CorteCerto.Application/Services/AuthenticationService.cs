@@ -41,12 +41,54 @@ public class AuthenticationService(
 
         var refreshToken = tokenProvider.GenerateRefreshToken();
 
-        person.SetRefreshToken(refreshToken, 5);
+        person.SetRefreshToken(refreshToken, 30);
 
         personRepository.Update(person);
 
         var token = new Token(_tokenHandler.WriteToken(accessToken), refreshToken, person.RefreshTokenExpiresAt!.Value);
 
         return Result<Token>.Success(token);
+    }
+
+    public async Task<Result<Token>> AuthenticateWithRefreshTokenAsync(string token, string refreshToken, CancellationToken cancellationToken)
+    {
+        var claims = tokenProvider.GetPrincipalFromExpiredToken(token);
+
+        var personEmail = claims.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)!.Value;
+        
+        var person = await personRepository.GetByEmailAsync(personEmail, cancellationToken);
+        
+        if(person is null)
+        {
+            logger.LogInformation("User not found with Email: {Email}", personEmail);
+
+            return Result<Token>.Failure(AuthenticationErrors.NotFoundByEmail);
+        }
+
+        if (person.IsRefreshTokenExpired())
+        {
+            logger.LogInformation("Refresh Token expired for user with Email: {Email}", personEmail);
+
+            return Result<Token>.Failure(AuthenticationErrors.RefreshTokenExpired);
+        }
+
+        if (person.RefreshToken != refreshToken)
+        {
+            logger.LogInformation("Incorrect Refresh Token for user with Email: {Email}", personEmail);
+
+            return Result<Token>.Failure(AuthenticationErrors.IncorrectRefreshToken);
+        }
+        
+        var accessToken = tokenProvider.GenerateAccessToken(claims.Claims);
+
+        var newRefreshToken = tokenProvider.GenerateRefreshToken();
+
+        person.SetRefreshToken(newRefreshToken, 30);
+
+        personRepository.Update(person);
+
+        var newAccessToken = new Token(_tokenHandler.WriteToken(accessToken), newRefreshToken, person.RefreshTokenExpiresAt!.Value);
+
+        return Result<Token>.Success(newAccessToken);
     }
 }

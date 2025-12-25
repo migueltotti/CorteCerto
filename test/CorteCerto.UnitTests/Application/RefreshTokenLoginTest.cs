@@ -1,7 +1,6 @@
-﻿using CorteCerto.Application.Services;
+using CorteCerto.Application.Services;
 using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.Validations;
-using CorteCerto.Domain.Entities;
 using CorteCerto.Domain.Errors;
 using CorteCerto.Domain.Interfaces.Repositories;
 using CorteCerto.Domain.Interfaces.Services;
@@ -14,21 +13,16 @@ using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 
 namespace CorteCerto.UnitTests.Application;
 
-public class LoginTest
+public class RefreshTokenLoginTest
 {
     private ServiceProvider provider;
-    private readonly LoginCommandHandler commandHandler;
+    private readonly RefreshTokenLoginCommandHandler commandHandler;
 
-    public LoginTest()
+    public RefreshTokenLoginTest()
     {
         var services = new ServiceCollection();
 
@@ -40,7 +34,7 @@ public class LoginTest
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddLogging();
         services.AddMapster();
-        services.AddScoped<IValidator<LoginCommand>, LoginValidator>();
+        services.AddScoped<IValidator<RefreshTokenLoginCommand>, RefreshTokenLoginValidator>();
         var settings = new JwtSettings()
         {
             SecretKey = "piuUGAWduihAI(*!&@#_(!HPIUAGWDIUY(!Y1231`d1231",
@@ -52,24 +46,18 @@ public class LoginTest
 
         provider = services.BuildServiceProvider();
 
-        commandHandler = new LoginCommandHandler(
-            provider.GetRequiredService<IPersonRepository>(),
-            provider.GetRequiredService<IValidator<LoginCommand>>(),
+        commandHandler = new RefreshTokenLoginCommandHandler(
             provider.GetRequiredService<IAuthenticationService>(),
-            provider.GetRequiredService<ILogger<LoginCommandHandler>>()
+            provider.GetRequiredService<IValidator<RefreshTokenLoginCommand>>(),
+            provider.GetRequiredService<ILogger<RefreshTokenLoginCommandHandler>>()
         );
-
-        Environment.SetEnvironmentVariable("SECRET_KEY", "piuUGAWduihAI(*!&@#_(!HPIUAGWDIUY(!Y1231`d1231");
-        Environment.SetEnvironmentVariable("TOKEN_VALIDITY_IN_MINUTES", "5");
-        Environment.SetEnvironmentVariable("VALID_AUDIENCE", "CorteCertoAudience");
-        Environment.SetEnvironmentVariable("VALID_ISSUER", "CorteCertoIssuer");
     }
-
+    
     [Fact]
-    public async Task Login_WithInvalidCredentials_ShouldReturnFail()
+    public async Task RefreshTokenLogin_WithInvalidCredentials_ShouldReturnFail()
     {
         // Arrange
-        var command = new LoginCommand("sla", "sla2");
+        var command = new RefreshTokenLoginCommand("", "");
 
         // Act
         var result = await commandHandler.HandleAsync(command);
@@ -78,40 +66,30 @@ public class LoginTest
         Assert.True(result.IsFailure);
         Assert.Equal("AuthenticationError.LoginValidationError", result.Error.Code);
     }
-
+    
     [Fact]
-    public async Task Login_WithIncorrectEmail_ShouldReturnFail()
+    public async Task RefreshTokenLogin_WithExpiredRefreshTokenCredentials_ShouldReturnFail()
     {
         // Arrange
-        var command = new LoginCommand("teste12313teste@gmail.com", "EmailIncorreto123@");
+        var command = new RefreshTokenLoginCommand(
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0ZTBiMmYzNi00OTNjLTQ3MDMtOGEwNS0xYWYxZjE0OWVkZjYiLCJlbWFpbCI6InRlc3RlNEBhcGkuY29tIiwidW5pcXVlX25hbWUiOiJUZXN0ZTMgQVBJIEF0dWFsaXphZG8iLCJuYmYiOjE3NjY1ODQ3NDksImV4cCI6MTc2NjU4NTM0OSwiaWF0IjoxNzY2NTg0NzQ5LCJpc3MiOiJDb3J0ZUNlcnRvLkFwaSIsImF1ZCI6IkNvcnRlQ2VydG8uQXBpIn0.Wrrs1hOda2xOhvMM5ZEB17nccSOUxg91N9kw_DUaaGQ", 
+            "Bayp2wT5DlkB4TtzzZ05LY1P+h/6r/zzcG6LsUNE1Wvkyxb40D3kJyvps7wH4XfH4LLEOLkQ8nGskmgS4SGkQ06RBv1pdjeSv8WUpGDsnHuRMKAwfMVFSSJguhyZ/YxouQ68Uw1lIkgwPV4JL/Q8GP96ZC75DVMr7aRQgwSCVHE=");
 
         // Act
         var result = await commandHandler.HandleAsync(command);
 
         // Assert
         Assert.True(result.IsFailure);
-        Assert.Equal(AuthenticationErrors.NotFoundByEmail, result.Error);
+        Assert.Equal(result.Error, AuthenticationErrors.RefreshTokenExpired);
     }
-
+    
     [Fact]
-    public async Task Login_WithIncorrectPassword_ShouldReturnFail()
+    public async Task RefreshTokenLogin_WithValidCredentials_ShouldReturnSuccess()
     {
         // Arrange
-        var command = new LoginCommand("teste2@silva", "EmailIncorreto123@");
-
-        // Act
-        var result = await commandHandler.HandleAsync(command);
-
-        // Assert
-        Assert.True(result.IsFailure);
-        Assert.Equal(AuthenticationErrors.IncorrectPassowrd, result.Error);
-    }
-
-    [Fact]
-    public async Task Login_WithCorrectCredentials_ShouldReturnSuccess()
-    {
-        // Arrange
-        var command = new LoginCommand("teste4@api.com", "Teste123#");
+        var command = new RefreshTokenLoginCommand(
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0ZTBiMmYzNi00OTNjLTQ3MDMtOGEwNS0xYWYxZjE0OWVkZjYiLCJlbWFpbCI6InRlc3RlNEBhcGkuY29tIiwidW5pcXVlX25hbWUiOiJUZXN0ZTMgQVBJIEF0dWFsaXphZG8iLCJuYmYiOjE3NjY2NjU4MDEsImV4cCI6MTc2NjY2NjQwMSwiaWF0IjoxNzY2NjY1ODAxLCJpc3MiOiJDb3J0ZUNlcnRvLkFwaSIsImF1ZCI6IkNvcnRlQ2VydG8uQXBpIn0.-gTxeDLJ9Z6mK_212vIaf2wQNBVInksAhXnQwk5R4uI", 
+            "KODAw1wEiNg8/akLMB83lVdjfKUBwG1OGddc2oW0xBYo/5Z6qa0T2aRv6THgqKO4dq1gF658jmupvoCWkuL2kGzkboXVI7juIkcCYepCSB6gQ+PNxxPgHPr5d6q1ZRxNpMdyQMerKNzFHA2C2CE/fOe6RahOUQz0E/qAgtgZ+J0=");
 
         // Act
         var result = await commandHandler.HandleAsync(command);
