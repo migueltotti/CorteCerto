@@ -10,19 +10,6 @@ namespace CorteCerto.Api.Controllers;
 [Route("api/people")]
 public class PeopleCommandsController(ICommandMediator commandMediator) : Controller
 {
-    [HttpPost("create-account")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateAccountAsync([FromBody] CreateAccountRequest request, CancellationToken cancellationToken)
-    {
-        var result = await commandMediator.SendAsync(new CreateAccountCommand(request), cancellationToken);
-        
-        if (result.IsFailure)
-            return BadRequest(result.Error);
-
-        return Created(string.Empty, result.Data);
-    }
-    
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -49,5 +36,74 @@ public class PeopleCommandsController(ICommandMediator commandMediator) : Contro
             return BadRequest(result.Error);
 
         return Created(string.Empty, result.Data);
+    }
+    
+    [HttpPost("account/create")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateAccountAsync([FromBody] CreateAccountRequest request, CancellationToken cancellationToken)
+    {
+        var result = await commandMediator.SendAsync(new CreateAccountCommand(request), cancellationToken);
+        
+        if (result.IsFailure)
+            return BadRequest(result.Error);
+
+        return Created(string.Empty, result.Data);
+    }
+    
+    [HttpDelete("account/delete")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> DeleteAccountAsync([FromBody] DeleteAccountRequest request, CancellationToken cancellationToken)
+    {
+        var result = await commandMediator.SendAsync(new DeleteAccountCommand(request.PersonId), cancellationToken);
+        
+        if (result.IsFailure)
+            return BadRequest(result.Error);
+
+        return Ok();
+    }
+    
+    [HttpPatch("{id:guid}/email")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdatePersonEmailAsync([FromRoute] Guid id, [FromBody] UpdatePersonEmailRequest request, CancellationToken cancellationToken)
+    {
+        var result = await commandMediator.SendAsync(new UpdatePersonEmailCommand(id, request.CurrentEmail, request.NewEmail), cancellationToken);
+        
+        if (result.IsFailure)
+            return BadRequest(result.Error);
+
+        return Ok();
+    }
+    
+    [HttpPatch("{id:guid}/password")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdatePersonPasswordAsync([FromRoute]Guid id, [FromBody] UpdatePersonPasswordRequest request, CancellationToken cancellationToken)
+    {
+        var result = await commandMediator.SendAsync(new UpdatePersonPasswordCommand(id, request.CurrentPassword, request.NewPassword), cancellationToken);
+        
+        if (result.IsFailure)
+            return BadRequest(result.Error);
+
+        return Ok();
+    }
+    
+    [HttpPatch("{id:guid}/infos")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdatePersonInfosAsync([FromRoute]Guid id, [FromBody] UpdateProfileInfoRequest request, CancellationToken cancellationToken)
+    {
+        var result = await commandMediator.SendAsync(new UpdateProfileInfoCommand(id, request.NewName, request.NewPhoneNumber), cancellationToken);
+        
+        if (result.IsFailure)
+            return BadRequest(result.Error);
+
+        return Ok(result.Data);
     }
 }

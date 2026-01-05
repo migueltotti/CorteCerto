@@ -10,7 +10,7 @@ using System.Text.Json;
 namespace CorteCerto.Application.UseCases.Commands.People;
 
 public class UpdatePersonEmailCommandHandler(
-    IPersonRepository personRepository,
+    ICustomerRepository customerRepository,
     IValidator<UpdatePersonEmailCommand> validator,
     ILogger<UpdatePersonEmailCommandHandler> logger)
     : ICommandHandler<UpdatePersonEmailCommand, Result<bool>>
@@ -26,7 +26,7 @@ public class UpdatePersonEmailCommandHandler(
             return Result<bool>.Failure(PersonErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
 
-        var person = await personRepository.Select(command.PersonId, null, cancellationToken);
+        var person = await customerRepository.Select(command.PersonId, null, cancellationToken);
 
         if (person is null)
         {
@@ -44,7 +44,7 @@ public class UpdatePersonEmailCommandHandler(
 
         person.UpdateEmail(command.NewEmail);
 
-        personRepository.Update(person);
+        customerRepository.Update(person);
 
         return Result<bool>.Success(true);
     }
