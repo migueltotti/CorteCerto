@@ -31,7 +31,7 @@ public class UpdatePersonEmailTest
         provider = services.BuildServiceProvider();
 
         commandHandler = new UpdatePersonEmailCommandHandler(
-            provider.GetRequiredService<IPersonRepository>(),
+            provider.GetRequiredService<ICustomerRepository>(),
             provider.GetRequiredService<IValidator<UpdatePersonEmailCommand>>(),
             provider.GetRequiredService<ILogger<UpdatePersonEmailCommandHandler>>()
         );
