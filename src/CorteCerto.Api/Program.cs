@@ -1,5 +1,6 @@
 using CorrelationId;
 using CorrelationId.DependencyInjection;
+using CorteCerto.Api.Middlewares;
 using CorteCerto.CrossCutting.Extensions;
 using CorteCerto.CrossCutting.Models;
 using Scalar.AspNetCore;
@@ -14,14 +15,10 @@ builder.Services
     .AddControllers();
 
 builder.Services
-    .AddEndpointsApiExplorer()
-    .AddOpenApi();
-
-builder.Host.UseSerilog((context, configuration) => 
-    configuration.ReadFrom.Configuration(context.Configuration));
-
-builder.Services
+    .AddExceptionHandler<GlobalExceptionHandler>()
     .AddDefaultCorrelationId()
+    .AddEndpointsApiExplorer()
+    .AddOpenApi()
     .AddDatabase(applicationSettings.PostgresSettings)
     .AddJwtSettings(applicationSettings.JwtSettings)
     .AddServices()
@@ -30,7 +27,8 @@ builder.Services
     .AddMapper()
     .AddMediator();
 
-builder.Services.AddOpenApi();
+builder.Host.UseSerilog((context, configuration) => 
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 var app = builder.Build();
 
@@ -39,6 +37,7 @@ app.MapScalarApiReference();
 
 app
     .UseCorrelationId()
+    .UseExceptionHandler()
     .UseSerilogRequestLogging()
     .UseHttpsRedirection()
     .UseAuthorization();
