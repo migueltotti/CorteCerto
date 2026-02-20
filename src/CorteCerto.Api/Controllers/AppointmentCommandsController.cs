@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CorteCerto.Api.Controllers;
 
 [ApiController]
-[Route("api/appointments")]
+[Route("api/v1/appointments")]
 public class AppointmentCommandsController(ICommandMediator commandMediator) : Controller
 {
     [HttpPost]

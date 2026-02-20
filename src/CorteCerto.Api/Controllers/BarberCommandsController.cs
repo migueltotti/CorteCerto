@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CorteCerto.Api.Controllers;
 
 [ApiController]
-[Route("api/barbers")]
+[Route("api/v1/barbers")]
 public class BarberCommandsController(ICommandMediator commandMediator) : Controller
 {
     [HttpPost("register-profile")]

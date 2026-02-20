@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CorteCerto.Api.Controllers;
 
 [ApiController]
-[Route("api/people")]
+[Route("api/v1/people")]
 public class PeopleCommandsController(ICommandMediator commandMediator) : Controller
 {
     [HttpPost("login")]

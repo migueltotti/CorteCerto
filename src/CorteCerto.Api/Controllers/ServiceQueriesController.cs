@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CorteCerto.Api.Controllers;
 
 [ApiController]
-[Route("api/services")]
+[Route("api/v1/services")]
 public class ServiceQueriesController(IQueryMediator queryMediator) : Controller
 {
     [HttpGet]

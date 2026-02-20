@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CorteCerto.Api.Controllers;
 
 [ApiController]
-[Route("api/barbers")]
+[Route("api/v1/barbers")]
 public class BarberQueriesController(IQueryMediator queryMediator) : Controller
 {
     [HttpGet]
