@@ -1,6 +1,7 @@
 using CorrelationId;
 using CorrelationId.DependencyInjection;
 using CorteCerto.Api.Middlewares;
+using CorteCerto.Api.RateLimiters;
 using CorteCerto.CrossCutting.Extensions;
 using CorteCerto.CrossCutting.Models;
 using Scalar.AspNetCore;
@@ -17,6 +18,7 @@ builder.Services
 builder.Services
     .AddProblemDetails()
     .AddExceptionHandler<GlobalExceptionHandler>()
+    .AddRateLimiters()
     .AddDefaultCorrelationId()
     .AddEndpointsApiExplorer()
     .AddOpenApi()
@@ -38,9 +40,11 @@ app.MapScalarApiReference();
 
 app
     .UseCorrelationId()
+    .UseRateLimiter()
     .UseExceptionHandler()
     .UseSerilogRequestLogging()
     .UseHttpsRedirection()
+    .UseAuthentication()
     .UseAuthorization();
 
 app.MapControllers();
