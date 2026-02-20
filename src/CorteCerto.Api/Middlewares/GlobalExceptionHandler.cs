@@ -6,8 +6,6 @@ namespace CorteCerto.Api.Middlewares;
 
 public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {
-    private readonly ILogger<GlobalExceptionHandler> _logger = logger;
-
     public async ValueTask<bool> TryHandleAsync(
         HttpContext httpContext,
         Exception exception,
@@ -23,7 +21,7 @@ public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IE
             _ => HttpStatusCode.InternalServerError
         };
 
-        _logger.LogError(exception,
+        logger.LogError(exception,
             "Unhandled exception ({TraceId}) at {Path}. Message: {Message}",
             traceId,
             httpContext.Request.Path,

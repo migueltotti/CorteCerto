@@ -15,6 +15,7 @@ builder.Services
     .AddControllers();
 
 builder.Services
+    .AddProblemDetails()
     .AddExceptionHandler<GlobalExceptionHandler>()
     .AddDefaultCorrelationId()
     .AddEndpointsApiExplorer()
