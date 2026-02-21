@@ -8,6 +8,8 @@ using LiteBus.Commands.Abstractions;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
+using CorteCerto.Application.Interfaces;
+using Hangfire;
 
 namespace CorteCerto.Application.UseCases.Commands.Customers;
 
@@ -90,6 +92,10 @@ public class ScheduleBarberServiceCommandHandler(
             command.Request.ServiceId, 
             command.Request.BarberId, 
             command.Request.Date.ToUniversalTime());
+
+        BackgroundJob.Schedule<IAppointmentExpirationJob>(
+            x => x.HandleApprovalExpirationAsync(appointmentResult.Data.Id),
+            appointmentResult.Data.ResponseDeadline);
 
         var appointmentResponse = appointmentResult.Data.Adapt<AppointmentDto>();
 

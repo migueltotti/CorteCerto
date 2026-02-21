@@ -106,4 +106,12 @@ public class Appointment : BaseEntity<Guid>
 
         return Result.Success();
     }
+
+    public void ExpireIfNotApproved()
+    {
+        if (Status is AppointmentStatus.WaitingForAprovement)
+        {
+            Status = AppointmentStatus.Canceled;
+        }
+    }
 }
