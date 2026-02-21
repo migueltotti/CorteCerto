@@ -4,6 +4,7 @@ using CorteCerto.Api.Middlewares;
 using CorteCerto.Api.RateLimiters;
 using CorteCerto.CrossCutting.Extensions;
 using CorteCerto.CrossCutting.Models;
+using Hangfire;
 using Scalar.AspNetCore;
 using Serilog;
 
@@ -28,7 +29,8 @@ builder.Services
     .AddRepositories()
     .AddValidators()
     .AddMapper()
-    .AddMediator();
+    .AddMediator()
+    .ConfigureHangfire(applicationSettings.HangfireSettings);
 
 builder.Host.UseSerilog((context, configuration) => 
     configuration.ReadFrom.Configuration(context.Configuration));
@@ -45,8 +47,10 @@ app
     .UseSerilogRequestLogging()
     .UseHttpsRedirection()
     .UseAuthentication()
-    .UseAuthorization();
+    .UseAuthorization()
+    .UseHangfireDashboard();
 
 app.MapControllers();
+app.MapHangfireDashboard();
 
 await app.RunAsync();
