@@ -14,6 +14,7 @@ public static class ConfigurationBuilderExtension
 		{
 			settings!.PostgresSettings.ConnectionString = GetEnvironmentVariableValue("PostgreSql_ConnectionString", settings.PostgresSettings.ConnectionString);
 			settings.JwtSettings.SecretKey = GetEnvironmentVariableValue("Jwt_SecretKey", settings.JwtSettings.SecretKey);
+			settings.HangfireSettings.DatabaseConnectionString = GetEnvironmentVariableValue("Hangfire_ConnectionString", settings.HangfireSettings.DatabaseConnectionString);
 		}
 
 		return settings!;
