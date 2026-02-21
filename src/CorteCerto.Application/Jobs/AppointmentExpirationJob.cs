@@ -8,7 +8,7 @@ public class AppointmentExpirationJob(
     IAppointmentRepository appointmentRepository,
     ILogger<AppointmentExpirationJob> logger) : IAppointmentExpirationJob
 {
-    public async Task HandleApprovalExpirationAsync(Guid appointmentId)
+    public async Task HandleApprovalExpirationAsync(Guid appointmentId, DateTime registrationTimeInUtc)
     {
         var appointment = await appointmentRepository.Select(appointmentId);
 
@@ -18,7 +18,7 @@ public class AppointmentExpirationJob(
             return;
         }
 
-        appointment.ExpireIfNotApproved();
+        appointment.ExpireIfNotApproved(registrationTimeInUtc);
         
         appointmentRepository.Update(appointment);
         

@@ -94,7 +94,7 @@ public class ScheduleBarberServiceCommandHandler(
             command.Request.Date.ToUniversalTime());
 
         BackgroundJob.Schedule<IAppointmentExpirationJob>(
-            x => x.HandleApprovalExpirationAsync(appointmentResult.Data.Id),
+            x => x.HandleApprovalExpirationAsync(appointmentResult.Data.Id, DateTime.UtcNow),
             appointmentResult.Data.ResponseDeadline);
 
         var appointmentResponse = appointmentResult.Data.Adapt<AppointmentDto>();
