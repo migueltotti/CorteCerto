@@ -21,4 +21,10 @@ public class Customer : Person
         PromotionPoints = 0;
         Appointments = [];
     }
+
+    public void AccruePointsFromService(decimal serviceAmount)
+    {
+        if (serviceAmount >= 0)
+            PromotionPoints += (int)serviceAmount;
+    }
 }

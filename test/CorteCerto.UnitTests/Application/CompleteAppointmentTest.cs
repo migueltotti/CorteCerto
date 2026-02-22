@@ -30,6 +30,7 @@ public class CompleteAppointmentTest
             options.UseNpgsql("User ID=developer;Password=123456789;Server=localhost;Port=5432;Database=corteCertoDb;"));
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
         services.AddScoped<IValidator<CompleteAppointmentCommand>, CompleteAppointmentValidator>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddLogging();
         services.AddMapster();
 
@@ -37,6 +38,7 @@ public class CompleteAppointmentTest
 
         commandHandler = new CompleteAppointmentCommandHandler(
             provider.GetRequiredService<IAppointmentRepository>(),
+            provider.GetRequiredService<ICustomerRepository>(),
             provider.GetRequiredService<IValidator<CompleteAppointmentCommand>>(),
             provider.GetRequiredService<ILogger<CompleteAppointmentCommandHandler>>());
     }

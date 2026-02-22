@@ -12,6 +12,7 @@ namespace CorteCerto.Application.UseCases.Commands.Barbers;
 
 public class CompleteAppointmentCommandHandler(
     IAppointmentRepository appointmentRepository,
+    ICustomerRepository customerRepository,
     IValidator<CompleteAppointmentCommand> validator,
     ILogger<CompleteAppointmentCommandHandler> logger) : ICommandHandler<CompleteAppointmentCommand, Result<AppointmentDto>>
 {
@@ -26,7 +27,7 @@ public class CompleteAppointmentCommandHandler(
             return Result<AppointmentDto>.Failure(AppointmentErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
 
-        var appointment = await appointmentRepository.Select(command.AppointmentId, ["Barber"], cancellationToken);
+        var appointment = await appointmentRepository.Select(command.AppointmentId, ["Barber", "Customer", "Service"], cancellationToken);
 
         if (appointment is null)
         {
@@ -44,7 +45,12 @@ public class CompleteAppointmentCommandHandler(
             return Result<AppointmentDto>.Failure(completeResult.Error);
         }
 
+        var customer = appointment.Customer;
+        
+        customer.AccruePointsFromService(appointment.Service.Price);
+
         appointmentRepository.Update(appointment);
+        customerRepository.Update(customer);
 
         return Result<AppointmentDto>.Success(appointment.Adapt<AppointmentDto>());
     }
