@@ -24,12 +24,12 @@ builder.Services
     .AddEndpointsApiExplorer()
     .AddOpenApi()
     .AddDatabase(applicationSettings.PostgresSettings)
-    .AddJwtSettings(applicationSettings.JwtSettings)
     .AddServices()
     .AddRepositories()
     .AddValidators()
     .AddMapper()
     .AddMediator()
+    .ConfigureAuthentication(applicationSettings.JwtSettings)
     .ConfigureHangfire(applicationSettings.HangfireSettings);
 
 builder.Host.UseSerilog((context, configuration) => 

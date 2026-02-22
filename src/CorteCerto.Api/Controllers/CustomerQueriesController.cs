@@ -1,11 +1,13 @@
 using CorteCerto.Application.Requests;
 using CorteCerto.Application.UseCases.Queries.Customers;
 using LiteBus.Queries.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CorteCerto.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/v1/customers")]
 public class CustomerQueriesController(IQueryMediator queryMediator) : Controller
 {

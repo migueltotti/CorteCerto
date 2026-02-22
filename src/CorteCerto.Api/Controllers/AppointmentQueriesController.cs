@@ -1,11 +1,13 @@
 using CorteCerto.Application.Requests;
 using CorteCerto.Application.UseCases.Queries.People;
 using LiteBus.Queries.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CorteCerto.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("/api/v1/appointments")]
 public class AppointmentQueriesController(IQueryMediator queryMediator) : Controller
 {

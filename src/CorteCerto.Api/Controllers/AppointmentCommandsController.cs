@@ -3,11 +3,13 @@ using CorteCerto.Application.UseCases.Commands.Barbers;
 using CorteCerto.Application.UseCases.Commands.Customers;
 using CorteCerto.Application.UseCases.Commands.People;
 using LiteBus.Commands.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CorteCerto.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/v1/appointments")]
 public class AppointmentCommandsController(ICommandMediator commandMediator) : Controller
 {

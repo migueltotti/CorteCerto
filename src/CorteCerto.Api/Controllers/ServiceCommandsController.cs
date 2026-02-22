@@ -2,11 +2,13 @@ using CorteCerto.Application.Requests;
 using CorteCerto.Application.UseCases.Commands.Barbers;
 using LiteBus.Commands.Abstractions;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CorteCerto.Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/v1/services")]
 public class ServiceCommandsController(ICommandMediator commandMediator) : Controller
 {
