@@ -15,6 +15,11 @@ public static class ConfigurationBuilderExtension
 			settings!.PostgresSettings.ConnectionString = GetEnvironmentVariableValue("PostgreSql_ConnectionString", settings.PostgresSettings.ConnectionString);
 			settings.JwtSettings.SecretKey = GetEnvironmentVariableValue("Jwt_SecretKey", settings.JwtSettings.SecretKey);
 			settings.HangfireSettings.DatabaseConnectionString = GetEnvironmentVariableValue("Hangfire_ConnectionString", settings.HangfireSettings.DatabaseConnectionString);
+			settings.SmtpClientSettings.Host = GetEnvironmentVariableValue("Smtp_Host", settings.SmtpClientSettings.Host);
+			settings.SmtpClientSettings.Port = int.Parse(GetEnvironmentVariableValue("Smtp_Port", settings.SmtpClientSettings.Port.ToString()));
+			settings.SmtpClientSettings.Name = GetEnvironmentVariableValue("Smtp_Name", settings.SmtpClientSettings.Name);
+			settings.SmtpClientSettings.Username = GetEnvironmentVariableValue("Smtp_Username", settings.SmtpClientSettings.Username);
+			settings.SmtpClientSettings.Password = GetEnvironmentVariableValue("Smtp_Password", settings.SmtpClientSettings.Password);
 		}
 
 		return settings!;
