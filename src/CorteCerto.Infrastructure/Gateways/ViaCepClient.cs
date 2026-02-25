@@ -27,11 +27,11 @@ public class ViaCepClient(HttpClient httpClient) : IViaCepClient
         return Result<AddressLookupResult>.Success(
             new AddressLookupResult
             (
-                viaCepResponse.Logradouro!,
-                viaCepResponse.Bairro!,
-                viaCepResponse.Localidade!,
-                viaCepResponse.Uf!,
-                viaCepResponse.Estado!
+                viaCepResponse?.PublicPlace!,
+                viaCepResponse?.District!,
+                viaCepResponse?.Location!,
+                viaCepResponse?.Uf!,
+                viaCepResponse?.State!
             ));
     }
 }
