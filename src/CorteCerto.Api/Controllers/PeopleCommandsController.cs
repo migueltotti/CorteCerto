@@ -39,7 +39,6 @@ public class PeopleCommandsController(ICommandMediator commandMediator) : Contro
         return Created(string.Empty, result.Data);
     }
     
-    [Authorize]
     [HttpPost("account/create")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
