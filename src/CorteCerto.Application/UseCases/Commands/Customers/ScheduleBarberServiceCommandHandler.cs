@@ -17,6 +17,7 @@ public class ScheduleBarberServiceCommandHandler(
     IBarberRepository barberRepository,
     ICustomerRepository customerRepository,
     IAppointmentRepository appointmentRepository,
+    IEmailService emailService,
     IValidator<ScheduleBarberServiceCommand> validator,
     ILogger<ScheduleBarberServiceCommandHandler> logger)
     : ICommandHandler<ScheduleBarberServiceCommand, Result<AppointmentDto>>
@@ -96,6 +97,8 @@ public class ScheduleBarberServiceCommandHandler(
         BackgroundJob.Schedule<IAppointmentExpirationJob>(
             x => x.HandleApprovalExpirationAsync(appointmentResult.Data.Id, DateTime.UtcNow),
             appointmentResult.Data.ResponseDeadline);
+
+        await emailService.SendCustomerAppointmentRequestedNotificationAsync(appointmentResult.Data, cancellationToken);
 
         var appointmentResponse = appointmentResult.Data.Adapt<AppointmentDto>();
 

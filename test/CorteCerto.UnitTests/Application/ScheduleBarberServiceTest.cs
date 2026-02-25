@@ -16,7 +16,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CorteCerto.Application.Interfaces;
 using CorteCerto.Application.Requests;
+using CorteCerto.Application.Services;
 using CorteCerto.CrossCutting.Extensions;
 
 namespace CorteCerto.UnitTests.Application;
@@ -35,6 +37,7 @@ public class ScheduleBarberServiceTest
         services.AddScoped<IBarberRepository, BarberRepository>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+        services.AddScoped<IEmailService, EmailService>();
         services.AddLogging();
         services.AddMapster();
         services.AddScoped<IValidator<ScheduleBarberServiceCommand>, ScheduleBarberServiceValidator>();
@@ -46,6 +49,7 @@ public class ScheduleBarberServiceTest
             provider.GetRequiredService<IBarberRepository>(),
             provider.GetRequiredService<ICustomerRepository>(),
             provider.GetRequiredService<IAppointmentRepository>(),
+            provider.GetRequiredService<IEmailService>(),
             provider.GetRequiredService<IValidator<ScheduleBarberServiceCommand>>(),
             provider.GetRequiredService<ILogger<ScheduleBarberServiceCommandHandler>>()
         );

@@ -19,6 +19,7 @@ public static class ServicesExtension
         services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddScoped<IAppointmentExpirationJob, AppointmentExpirationJob>();
+        services.AddTransient<IEmailService, EmailService>();
         
         return services;
     }
