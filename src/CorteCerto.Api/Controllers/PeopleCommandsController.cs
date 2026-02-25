@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace CorteCerto.Api.Controllers;
 
 [ApiController]
-[Authorize]
 [Route("api/v1/people")]
 public class PeopleCommandsController(ICommandMediator commandMediator) : Controller
 {
@@ -40,6 +39,7 @@ public class PeopleCommandsController(ICommandMediator commandMediator) : Contro
         return Created(string.Empty, result.Data);
     }
     
+    [Authorize]
     [HttpPost("account/create")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -53,6 +53,7 @@ public class PeopleCommandsController(ICommandMediator commandMediator) : Contro
         return Created(string.Empty, result.Data);
     }
     
+    [Authorize]
     [HttpDelete("account/delete")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -67,6 +68,7 @@ public class PeopleCommandsController(ICommandMediator commandMediator) : Contro
         return Ok();
     }
     
+    [Authorize]
     [HttpPatch("{id:guid}/email")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -81,6 +83,7 @@ public class PeopleCommandsController(ICommandMediator commandMediator) : Contro
         return Ok();
     }
     
+    [Authorize]
     [HttpPatch("{id:guid}/password")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -95,6 +98,7 @@ public class PeopleCommandsController(ICommandMediator commandMediator) : Contro
         return Ok();
     }
     
+    [Authorize]
     [HttpPatch("{id:guid}/infos")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
