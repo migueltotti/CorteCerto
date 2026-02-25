@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CorteCerto.Application\CorteCerto.Application.csproj" />
     <ProjectReference Include="..\CorteCerto.Domain\CorteCerto.Domain.csproj" />
   </ItemGroup>
 

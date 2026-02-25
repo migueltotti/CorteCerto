@@ -1,6 +1,6 @@
 using CorteCerto.Domain.Base;
 
-namespace CorteCerto.Domain.Interfaces.Gateways;
+namespace CorteCerto.Application.Interfaces;
 
 public interface IEmailGateway
 {

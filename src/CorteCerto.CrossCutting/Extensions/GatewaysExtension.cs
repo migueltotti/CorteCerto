@@ -1,4 +1,4 @@
-using CorteCerto.Domain.Interfaces.Gateways;
+using CorteCerto.Application.Interfaces;
 using CorteCerto.Infrastructure.Gateways;
 using Microsoft.Extensions.DependencyInjection;
 

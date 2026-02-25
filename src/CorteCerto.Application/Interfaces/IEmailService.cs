@@ -1,7 +1,6 @@
-using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Entities;
 
-namespace CorteCerto.Domain.Interfaces.Services;
+namespace CorteCerto.Application.Interfaces;
 
 public interface IEmailService
 {
@@ -9,5 +8,5 @@ public interface IEmailService
     Task SendCustomerAppointmentRegisteredNotificationAsync(Appointment appointment, CancellationToken cancellationToken);
     Task SendCustomerAppointmentScheduledNotificationAsync(Appointment appointment, CancellationToken cancellationToken);
     Task SendCustomerAppointmentCompletedNotificationAsync(Appointment appointment, CancellationToken cancellationToken);
-    Task SendCustomerAppointmentCanceledNotificationAsync(Appointment appointment, CancellationToken cancellationToken);
+    Task SendCustomerAppointmentCanceledNotificationAsync(Appointment appointment, string cancellationReason, CancellationToken cancellationToken);
 }

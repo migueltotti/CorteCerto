@@ -1,4 +1,4 @@
-using CorteCerto.Domain.Interfaces.Gateways;
+using CorteCerto.Application.Interfaces;
 using CorteCerto.Infrastructure.Factories;
 using CorteCerto.Infrastructure.Models;
 using Microsoft.Extensions.Logging;
