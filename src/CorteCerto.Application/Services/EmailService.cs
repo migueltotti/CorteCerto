@@ -35,7 +35,7 @@ public class EmailService(IEmailGateway gateway, ILogger<EmailService> logger) :
         await gateway.SendEmailAsync(customer.Name, customer.Email, subject, body, cancellationToken);
     }
 
-    public async Task SendCustomerAppointmentRegisteredNotificationAsync(Appointment appointment,
+    public async Task SendCustomerAppointmentRequestedNotificationAsync(Appointment appointment,
         CancellationToken cancellationToken)
     {
         var customer = appointment.Customer;
