@@ -25,12 +25,14 @@ builder.Services
     .AddOpenApi()
     .AddDatabase(applicationSettings.PostgresSettings)
     .AddServices()
+    .AddGateways()
     .AddRepositories()
     .AddValidators()
     .AddMapper()
     .AddMediator()
     .ConfigureAuthentication(applicationSettings.JwtSettings)
-    .ConfigureHangfire(applicationSettings.HangfireSettings);
+    .ConfigureHangfire(applicationSettings.HangfireSettings)
+    .ConfigureSmtpClient(applicationSettings.SmtpClientSettings);
 
 builder.Host.UseSerilog((context, configuration) => 
     configuration.ReadFrom.Configuration(context.Configuration));

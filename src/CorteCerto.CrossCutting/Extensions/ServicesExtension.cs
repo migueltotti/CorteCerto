@@ -18,7 +18,6 @@ public static class ServicesExtension
         services.AddScoped<IPasswordHashService, PasswordHashService>();
         services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<ITokenProvider, TokenProvider>();
-        services.AddScoped<IViaCepGateway, ViaCepGateway>();
         services.AddScoped<IAppointmentExpirationJob, AppointmentExpirationJob>();
         
         return services;

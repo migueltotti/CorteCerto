@@ -9,15 +9,10 @@ namespace CorteCerto.Infrastructure.Gateways;
 
 public class ViaCepGateway : IViaCepGateway, IDisposable
 {
-    private readonly HttpClient _httpClient;
-
-    public ViaCepGateway()
+    private readonly HttpClient _httpClient = new()
     {
-        _httpClient = new HttpClient
-        {
-            BaseAddress = new Uri("https://viacep.com.br/ws/")
-        };
-    }
+        BaseAddress = new Uri("https://viacep.com.br/ws/")
+    };
 
     public async Task<Result<AddressLookupResult>> GetAddressByCepAsync(string zipCode)
     {
