@@ -39,7 +39,7 @@ public class RegisterBarberProfileTest
         services.AddScoped<IStateRepository, StateRepository>();
         services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<IAddressRepository, AddressRepository>();
-        services.AddScoped<IViaCepGateway, ViaCepGateway>();
+        services.AddScoped<IViaCepClient, ViaCepClient>();
         services.AddScoped<IAddressService, AddressService>();
         services.AddScoped<IValidator<RegisterBarberProfileCommand>, RegisterBarberProfileValidator>();
         services.AddLogging();

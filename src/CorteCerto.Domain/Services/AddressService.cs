@@ -8,7 +8,7 @@ using CorteCerto.Domain.Interfaces.Services;
 namespace CorteCerto.Domain.Services;
 
 public class AddressService(
-    IViaCepGateway viaCepGateway,
+    IViaCepClient viaCepClient,
     ICountryRepository countryRepository,
     IStateRepository stateRepository,
     ICityRepository cityRepository,
@@ -36,7 +36,7 @@ public class AddressService(
             return Result<Address>.Success(address);
         }
 
-        var addressLookupResult = await viaCepGateway.GetAddressByCepAsync(cep.RemoveHifen());
+        var addressLookupResult = await viaCepClient.GetAddressByCepAsync(cep.RemoveHifen());
 
         if (addressLookupResult.IsFailure)
             return Result<Address>.Failure(addressLookupResult.Error);

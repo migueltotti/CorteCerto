@@ -27,6 +27,7 @@ builder.Services
     .AddServices()
     .AddGateways()
     .AddRepositories()
+    .AddHttpClients(applicationSettings)
     .AddValidators()
     .AddMapper()
     .AddMediator()

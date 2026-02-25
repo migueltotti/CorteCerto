@@ -9,13 +9,18 @@ using System.Threading.Tasks;
 
 namespace CorteCerto.UnitTests.Infrastructure;
 
-public class ViaCepGatewayTest
+public class ViaCepClientTest
 {
-    private readonly IViaCepGateway _gateway;
+    private readonly HttpClient _httpClient;
+    private readonly IViaCepClient _client;
 
-    public ViaCepGatewayTest()
+    public ViaCepClientTest()
     {
-        _gateway = new ViaCepGateway();
+        _httpClient = new HttpClient
+        {
+            BaseAddress = new Uri("https://viacep.com.br/ws/"),
+        };
+        _client = new ViaCepClient(_httpClient);
     }
 
     [Fact]
@@ -25,7 +30,7 @@ public class ViaCepGatewayTest
         var validZipCode = "01001000"; // Example of a valid zip code, 8 numbers without hyphen
 
         // Act
-        var result = await _gateway.GetAddressByCepAsync(validZipCode);
+        var result = await _client.GetAddressByCepAsync(validZipCode);
 
         // Assert
         Assert.True(result.IsSuccess);
@@ -44,7 +49,7 @@ public class ViaCepGatewayTest
         var validZipCode = "99999999"; // Example of a invalid zip code
 
         // Act
-        var result = await _gateway.GetAddressByCepAsync(validZipCode);
+        var result = await _client.GetAddressByCepAsync(validZipCode);
 
         // Assert
         Assert.False(result.IsSuccess);
@@ -59,7 +64,7 @@ public class ViaCepGatewayTest
         var validZipCode = "123456789"; // Example of zip code with wrong format 9 digits instead of 8
 
         // Act
-        var result = await _gateway.GetAddressByCepAsync(validZipCode);
+        var result = await _client.GetAddressByCepAsync(validZipCode);
 
         // Assert
         Assert.False(result.IsSuccess);

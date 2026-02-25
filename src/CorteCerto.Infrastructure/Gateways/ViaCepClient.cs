@@ -1,32 +1,23 @@
-﻿using CorteCerto.Domain.Base;
+﻿using System.Net.Http.Json;
+using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Interfaces.Gateways;
 using CorteCerto.Domain.Responses;
 using CorteCerto.Infrastructure.DTO;
-using System.Net.Http.Json;
-using System.Text.Json;
 
 namespace CorteCerto.Infrastructure.Gateways;
 
-public class ViaCepGateway : IViaCepGateway, IDisposable
+public class ViaCepClient(HttpClient httpClient) : IViaCepClient
 {
-    private readonly HttpClient _httpClient = new()
-    {
-        BaseAddress = new Uri("https://viacep.com.br/ws/")
-    };
-
     public async Task<Result<AddressLookupResult>> GetAddressByCepAsync(string zipCode)
     {
-        var response = await _httpClient.GetAsync($"{zipCode}/json/");
+        var response = await httpClient.GetAsync($"{zipCode}/json/");
 
         if (!response.IsSuccessStatusCode)
         {
             return Result<AddressLookupResult>.Failure(new Error("ViaCepGateway.ServerError", "Failed to comunicate with ViaCep."));
         }
 
-        var viaCepResponse = await response.Content.ReadFromJsonAsync<ViaCepResponse>(new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        var viaCepResponse = await response.Content.ReadFromJsonAsync<ViaCepResponse>();
 
         if (viaCepResponse is not null && !viaCepResponse.IsValid())
         {
@@ -43,6 +34,4 @@ public class ViaCepGateway : IViaCepGateway, IDisposable
                 viaCepResponse.Estado!
             ));
     }
-
-    public void Dispose() => _httpClient.Dispose();
 }

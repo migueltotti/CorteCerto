@@ -26,7 +26,7 @@ public class AddressServiceTest
 
         services.AddDbContext<CorteCertoDbContext>(options =>
             options.UseNpgsql("User ID=developer;Password=123456789;Server=localhost;Port=5432;Database=corteCertoDb;"));
-        services.AddScoped<IViaCepGateway, ViaCepGateway>();
+        services.AddScoped<IViaCepClient, ViaCepClient>();
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IStateRepository, StateRepository>();
         services.AddScoped<ICityRepository, CityRepository>();

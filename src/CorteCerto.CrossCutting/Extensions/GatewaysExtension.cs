@@ -8,7 +8,6 @@ public static class GatewaysExtension
 {
     public static IServiceCollection AddGateways(this IServiceCollection services)
     {
-        services.AddScoped<IViaCepGateway, ViaCepGateway>();
         services.AddTransient<IEmailGateway, EmailGateway>();
 
         return services;
