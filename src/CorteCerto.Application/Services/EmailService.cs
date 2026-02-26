@@ -1,6 +1,5 @@
 using CorteCerto.Application.Interfaces;
 using CorteCerto.Domain.Entities;
-using CorteCerto.Domain.Interfaces.Gateways;
 using Microsoft.Extensions.Logging;
 
 namespace CorteCerto.Application.Services;
@@ -212,11 +211,10 @@ public class EmailService(IEmailGateway gateway, ILogger<EmailService> logger) :
         var service = appointment.Service;
         var brazilTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo");
         var localDateTime = TimeZoneInfo.ConvertTimeFromUtc(appointment.Date, brazilTimeZone);
-        var earnedPoints = (int)service.Price;
 
-        var subject = "Agendamento e Serviço Finalizado";
+        var subject = "Agendamento Cancelado";
         var body = $"""
-                    Olá, {customer.Name} 🎉
+                    Olá, {customer.Name}
 
                     Informamos que seu agendamento foi cancelado.
 
@@ -225,7 +223,9 @@ public class EmailService(IEmailGateway gateway, ILogger<EmailService> logger) :
                     📌 Detalhes do Agendamento
 
                     ✂️ Barbeiro: {barber.Name}
+                    
                     💈 Serviço: {service.Name}
+                    
                     📅 Data e horário: {localDateTime.Date:dd/MM/yyyy} às {localDateTime.Date.TimeOfDay}
 
                     ----------------------------------------------------------------------------------------------------
