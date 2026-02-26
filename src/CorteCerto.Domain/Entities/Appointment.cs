@@ -107,12 +107,15 @@ public class Appointment : BaseEntity<Guid>
         return Result.Success();
     }
 
-    public void ExpireIfNotApproved(DateTime registrationTimeInUtc)
+    public bool ExpireIfNotApproved(DateTime registrationTimeInUtc)
     {
         if (Status is AppointmentStatus.WaitingForAprovement && 
             DateTime.UtcNow >= registrationTimeInUtc.Add(ResponseDeadline))
         {
             Status = AppointmentStatus.Canceled;
+            return true;
         }
+
+        return false;
     }
 }
