@@ -9,7 +9,7 @@ public class Appointment : BaseEntity<Guid>
     public DateTime Date { get; private set; }
     public AppointmentStatus Status { get; private set; }
     public TimeSpan ResponseDeadline { get; private set; }
-    public Customer Customer { get; private set; }
+    public Customer? Customer { get; private set; }
     public Barber Barber { get; private set; }
     public Service Service { get; private set; }
     
@@ -17,7 +17,7 @@ public class Appointment : BaseEntity<Guid>
     {
     }
 
-    private Appointment(Guid id, DateTime date, TimeSpan responseDeadline, Customer customer, Barber barber, Service service) : base(id)
+    private Appointment(Guid id, DateTime date, TimeSpan responseDeadline, Customer? customer, Barber barber, Service service) : base(id)
     {
         Date = date;
         Status = AppointmentStatus.WaitingForAprovement;
@@ -96,7 +96,7 @@ public class Appointment : BaseEntity<Guid>
         if (!barberId.Equals(Barber.Id))
             return Result.Failure(AppointmentErrors.BarberIdMismatch);
 
-        if (!customerId.Equals(Customer.Id))
+        if (!customerId.Equals(Customer?.Id ?? Guid.Empty))
             return Result.Failure(AppointmentErrors.CustomerIdMismatch);
 
         if (Status is AppointmentStatus.Completed)

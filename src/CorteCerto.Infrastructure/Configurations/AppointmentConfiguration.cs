@@ -20,11 +20,10 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
             .HasConversion<string>()
             .IsRequired();
 
-
         builder.HasOne(a => a.Customer)
             .WithMany(c => c.Appointments)
             .HasForeignKey("CustomerId")
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasOne(a => a.Barber)
             .WithMany(b => b.Appointments)
