@@ -1,4 +1,6 @@
-﻿using CorteCerto.Application.DTO;
+﻿using System.Text.Json;
+using CorteCerto.Application.DTO;
+using CorteCerto.Application.Interfaces;
 using CorteCerto.Domain.Base;
 using CorteCerto.Domain.Errors;
 using CorteCerto.Domain.Interfaces.Repositories;
@@ -6,13 +8,13 @@ using FluentValidation;
 using LiteBus.Commands.Abstractions;
 using Mapster;
 using Microsoft.Extensions.Logging;
-using System.Text.Json;
 
 namespace CorteCerto.Application.UseCases.Commands.Barbers;
 
 public class ApproveAppointmentCommandHandler(
     IAppointmentRepository appointmentRepository,
     IValidator<ApproveAppointmentCommand> validator,
+    IEmailService emailService,
     ILogger<ApproveAppointmentCommandHandler> logger): ICommandHandler<ApproveAppointmentCommand, Result<AppointmentDto>>
 {
     public async Task<Result<AppointmentDto>> HandleAsync(ApproveAppointmentCommand command, CancellationToken cancellationToken = default)
@@ -26,7 +28,7 @@ public class ApproveAppointmentCommandHandler(
             return Result<AppointmentDto>.Failure(AppointmentErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
 
-        var appointment = await appointmentRepository.Select(command.AppointmentId, ["Barber"], cancellationToken);
+        var appointment = await appointmentRepository.Select(command.AppointmentId, ["Barber.Address.City.State", "Customer", "Service"], cancellationToken);
 
         if (appointment is null)
         {
@@ -45,6 +47,8 @@ public class ApproveAppointmentCommandHandler(
         }
 
         appointmentRepository.Update(appointment);
+
+        await emailService.SendCustomerAppointmentScheduledNotificationAsync(appointment, cancellationToken);
 
         return Result<AppointmentDto>.Success(appointment.Adapt<AppointmentDto>());
     }

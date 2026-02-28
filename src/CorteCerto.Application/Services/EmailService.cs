@@ -123,7 +123,7 @@ public class EmailService(IEmailGateway gateway, ILogger<EmailService> logger) :
                     {service.Duration.TotalMinutes} minutos
 
                     📅 Data e horário:
-                    {localDateTime.Date:dd/MM/yyyy} às {localDateTime.Date.TimeOfDay}
+                    {localDateTime.Date:dd/MM/yyyy} às {localDateTime.TimeOfDay}
 
                     ----------------------------------------------------------------------------------------------------
 
