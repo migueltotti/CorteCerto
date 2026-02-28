@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CorteCerto.Application.Interfaces;
 using CorteCerto.Application.Requests;
 using Mapster;
 using Microsoft.Extensions.Logging;
@@ -34,6 +35,7 @@ public class CreateAccountTest
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IValidator<CreateAccountRequest>, CreateAccountValidator>();
         services.AddScoped<IPasswordHashService, PasswordHashService>();
+        services.AddScoped<IEmailService, IEmailService>();
         services.AddMapster();
         services.AddLogging();
 
@@ -43,6 +45,7 @@ public class CreateAccountTest
             provider.GetRequiredService<ICustomerRepository>(),
             provider.GetRequiredService<IValidator<CreateAccountRequest>>(),
             provider.GetRequiredService<IPasswordHashService>(),
+            provider.GetRequiredService<IEmailService>(),
             provider.GetRequiredService<ILogger<CreateAccountCommandHandler>>());
     }
 

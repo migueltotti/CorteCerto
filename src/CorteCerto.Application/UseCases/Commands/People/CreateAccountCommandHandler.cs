@@ -7,6 +7,7 @@ using CorteCerto.Domain.Interfaces.Services;
 using FluentValidation;
 using LiteBus.Commands.Abstractions;
 using System.Text.Json;
+using CorteCerto.Application.Interfaces;
 using CorteCerto.Application.Requests;
 using Mapster;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ public class CreateAccountCommandHandler(
     ICustomerRepository customerRepository,
     IValidator<CreateAccountRequest> validator,
     IPasswordHashService hashService,
+    IEmailService emailService,
     ILogger<CreateAccountCommandHandler> logger) 
     : ICommandHandler<CreateAccountCommand, Result<CustomerDto>>
 {
@@ -51,6 +53,8 @@ public class CreateAccountCommandHandler(
         );
 
         customerRepository.Insert(newCustomer);
+
+        await emailService.SendUserEmailConfirmationAsync(newCustomer, cancellationToken);
         
         logger.LogInformation("Account created successfully for email: {Email}", command.Request.Email);
 
