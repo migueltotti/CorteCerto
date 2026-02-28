@@ -24,12 +24,12 @@ public class UpdateBarberProfileCommandHandler(
 
         if (!validationResult.IsValid)
         {
-            logger.LogInformation("Invalid informations for updating Barber profile with BarberId: {BarberId}", command.BarberId);
+            logger.LogInformation("Invalid information's for updating Barber profile with BarberId: {BarberId}", command.BarberId);
 
             return Result<BarberDto>.Failure(BarberErrors.ValidationError(JsonSerializer.Serialize(validationResult.Errors)));
         }
 
-        var barber = await barberRepository.Select(command.BarberId, ["Address.City.State.Country"], cancellationToken);
+        var barber = await barberRepository.Select(command.BarberId, ["Address"], cancellationToken);
 
         if (barber is null)
         {
@@ -38,7 +38,7 @@ public class UpdateBarberProfileCommandHandler(
             return Result<BarberDto>.Failure(BarberErrors.NotFoundById);
         }
 
-        if (command.Cep != barber.Address.ZipCode || command.AddressNumber != barber.Address.Number)
+        if (command.Cep != barber.Address?.ZipCode || command.AddressNumber != barber.Address.Number)
         {
             var addressResult = await addressService.CreateAddressByCep(command.Cep, command.AddressNumber);
 
@@ -61,7 +61,7 @@ public class UpdateBarberProfileCommandHandler(
 
         barberRepository.Update(barber);
 
-        logger.LogInformation("Barber profile updated sucessfully with BarberId: {BarberId}", barber.Id);
+        logger.LogInformation("Barber profile updated successfully with BarberId: {BarberId}", barber.Id);
 
         return Result<BarberDto>.Success(barber.Adapt<BarberDto>());
     }
