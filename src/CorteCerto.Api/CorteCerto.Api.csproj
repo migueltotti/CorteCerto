@@ -8,6 +8,7 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
     <LangVersion>14</LangVersion>
+    <NoWarn>CA1873</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
