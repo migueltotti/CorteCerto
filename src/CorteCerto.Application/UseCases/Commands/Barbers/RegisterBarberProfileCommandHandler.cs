@@ -57,7 +57,7 @@ public class RegisterBarberProfileCommandHandler(
             person.PasswordHash,
             command.Request.Description,
             command.Request.PortfolioUrl ?? string.Empty,
-            addressResult.Data
+            addressResult.Data.Id
         );
 
         await barberRepository.RegisterBarber(barber);

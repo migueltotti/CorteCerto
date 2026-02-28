@@ -16,7 +16,7 @@ public class AddressService(
 {
     public async Task<Result<Address>> CreateAddressByCep(string cep, int number)
     {
-        var addressExists = await addressRepository.GetAddressWithCityByZipCode(cep.RemoveHifen());
+        var addressExists = await addressRepository.GetAddressByZipCode(cep.RemoveHifen());
 
         Address address;
 
@@ -27,9 +27,7 @@ public class AddressService(
                 number,
                 addressExists.Neighborhood,
                 addressExists.ZipCode,
-                addressExists.City);
-
-            cityRepository.AttachObject(addressExists.City);
+                addressExists.CityId);
 
             addressRepository.Insert(address);
 
@@ -46,20 +44,19 @@ public class AddressService(
         var state = await GetOrCreateStateByAcronym(
             addressLookupResult.Data.StateAcronym,
             addressLookupResult.Data.StateName,
-            country);
+            country.Id);
 
         var city = await GetOrCreateCityByState(
             addressLookupResult.Data.CityName,
-            state);
+            state.Id,
+            addressLookupResult.Data.StateAcronym);
 
         address = new Address(
             addressLookupResult.Data.Street,
             number,
             addressLookupResult.Data.Neighborhood,
             cep.RemoveHifen(),
-            city);
-
-        cityRepository.AttachObject(city);
+            city.Id);
 
         addressRepository.Insert(address);
 
@@ -80,30 +77,28 @@ public class AddressService(
         return country;
     }
 
-    private async Task<State> GetOrCreateStateByAcronym(string stateAcronym, string name, Country country)
+    private async Task<State> GetOrCreateStateByAcronym(string stateAcronym, string name, int countryId)
     {
         var state = await stateRepository.GeyStateByAcronym(stateAcronym);
 
         if (state is null)
         {
-            state = new State(name, stateAcronym, country);
+            state = new State(name, stateAcronym, countryId);
 
-            countryRepository.AttachObject(country);
             stateRepository.Insert(state);
         }
 
         return state;
     }
 
-    private async Task<City> GetOrCreateCityByState(string cityName, State state)
+    private async Task<City> GetOrCreateCityByState(string cityName, int stateId, string stateAcronym)
     {
-        var city = await cityRepository.GetCityByNameAndStateAcronym(cityName, state.Acronym);
+        var city = await cityRepository.GetCityByNameAndStateAcronym(cityName, stateAcronym);
 
         if (city is null)
         {
-            city = new City(cityName, state);
+            city = new City(cityName, stateId);
 
-            stateRepository.AttachObject(state);
             cityRepository.Insert(city);
         }
 
