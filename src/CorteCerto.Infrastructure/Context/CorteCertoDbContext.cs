@@ -1,10 +1,5 @@
 ﻿using CorteCerto.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CorteCerto.Infrastructure.Context;
 
@@ -13,11 +8,6 @@ public class CorteCertoDbContext : DbContext
     public CorteCertoDbContext(DbContextOptions<CorteCertoDbContext> options) : base(options)
     {
     }
-
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //    optionsBuilder.UseNpgsql("User ID=developer;Password=123456789;Server=localhost;Port=5432;Database=corteCertoDb;");
-    //}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

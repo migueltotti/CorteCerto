@@ -1,9 +1,7 @@
 using CorteCerto.CrossCutting.Models;
 using CorteCerto.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace CorteCerto.CrossCutting.Extensions;
 
@@ -14,6 +12,7 @@ public static class DatabaseExtension
         services.AddDbContext<CorteCertoDbContext>(config =>
         {
             config.UseNpgsql(postgresSettings.ConnectionString);
+            config.EnableSensitiveDataLogging();
         });
         
         return services;
