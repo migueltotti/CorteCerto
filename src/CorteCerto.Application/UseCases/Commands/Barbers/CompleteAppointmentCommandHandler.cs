@@ -7,6 +7,7 @@ using LiteBus.Commands.Abstractions;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
+using CorteCerto.Application.Interfaces;
 
 namespace CorteCerto.Application.UseCases.Commands.Barbers;
 
@@ -14,6 +15,7 @@ public class CompleteAppointmentCommandHandler(
     IAppointmentRepository appointmentRepository,
     ICustomerRepository customerRepository,
     IValidator<CompleteAppointmentCommand> validator,
+    IEmailService emailService,
     ILogger<CompleteAppointmentCommandHandler> logger) : ICommandHandler<CompleteAppointmentCommand, Result<AppointmentDto>>
 {
     public async Task<Result<AppointmentDto>> HandleAsync(CompleteAppointmentCommand command, CancellationToken cancellationToken = default)
@@ -47,11 +49,13 @@ public class CompleteAppointmentCommandHandler(
 
         var customer = appointment.Customer;
         
-        customer.AccruePointsFromService(appointment.Service.Price);
+        customer?.AccruePointsFromService(appointment.Service.Price);
 
         appointmentRepository.Update(appointment);
-        customerRepository.Update(customer);
+        customerRepository.Update(customer!);
 
+        await emailService.SendCustomerAppointmentCompletedNotificationAsync(appointment, cancellationToken);
+        
         return Result<AppointmentDto>.Success(appointment.Adapt<AppointmentDto>());
     }
 }

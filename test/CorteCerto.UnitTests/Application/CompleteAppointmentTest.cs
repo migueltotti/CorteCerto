@@ -1,4 +1,6 @@
-﻿using CorteCerto.Application.Requests;
+﻿using CorteCerto.Application.Interfaces;
+using CorteCerto.Application.Requests;
+using CorteCerto.Application.Services;
 using CorteCerto.Application.UseCases.Commands.Barbers;
 using CorteCerto.Application.UseCases.Commands.People;
 using CorteCerto.Application.Validations;
@@ -31,6 +33,7 @@ public class CompleteAppointmentTest
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
         services.AddScoped<IValidator<CompleteAppointmentCommand>, CompleteAppointmentValidator>();
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddTransient<IEmailService, EmailService>();
         services.AddLogging();
         services.AddMapster();
 
@@ -40,6 +43,7 @@ public class CompleteAppointmentTest
             provider.GetRequiredService<IAppointmentRepository>(),
             provider.GetRequiredService<ICustomerRepository>(),
             provider.GetRequiredService<IValidator<CompleteAppointmentCommand>>(),
+            provider.GetRequiredService<IEmailService>(),
             provider.GetRequiredService<ILogger<CompleteAppointmentCommandHandler>>());
     }
 
