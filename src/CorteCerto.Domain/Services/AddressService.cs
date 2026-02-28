@@ -22,6 +22,9 @@ public class AddressService(
 
         if(addressExists is not null)
         {
+            if (addressExists.Number == number)
+                return Result<Address>.Success(addressExists);
+            
             address = new Address(
                 addressExists.Street,
                 number,
