@@ -19,7 +19,7 @@ public class BarberConfiguration : IEntityTypeConfiguration<Barber>
 
         builder.HasOne(b => b.Address)
             .WithOne()
-            .HasForeignKey<Barber>("AddressId")
+            .HasForeignKey<Barber>(b => b.AddressId)
             .OnDelete(DeleteBehavior.SetNull);
 
         builder.OwnsMany(b => b.Availabilities, availabilitiesBuilder =>

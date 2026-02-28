@@ -27,7 +27,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         // Use a shadow FK "StateId" because City doesn't expose a StateId property in the entity signature
         builder.HasOne(c => c.State)
                .WithMany(s => s.Cities)
-               .HasForeignKey("StateId")
+               .HasForeignKey(c => c.StateId)
                .IsRequired()
                .OnDelete(DeleteBehavior.Restrict);
 
@@ -35,7 +35,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         // Use a shadow FK "CityId" because Address doesn't expose a CityId property in the entity signature
         builder.HasMany(c => c.Addresses)
                .WithOne(a => a.City)
-               .HasForeignKey("CityId")
+               .HasForeignKey(a => a.CityId)
                .IsRequired()
                .OnDelete(DeleteBehavior.Cascade);
 

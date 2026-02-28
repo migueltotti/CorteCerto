@@ -24,14 +24,14 @@ public class StateConfiguration : IEntityTypeConfiguration<State>
         // Relation: State -> Country (many states belong to one country)
         builder.HasOne(s => s.Country)
                .WithMany(c => c.States)
-               .HasForeignKey("CountryId")
+               .HasForeignKey(s => s.CountryId)
                .IsRequired()
                .OnDelete(DeleteBehavior.Restrict);
 
         // Relation: State -> Cities (one state has many cities)
         builder.HasMany(s => s.Cities)
                .WithOne(c => c.State)
-               .HasForeignKey("StateId")
+               .HasForeignKey(c => c.StateId)
                .IsRequired()
                .OnDelete(DeleteBehavior.Restrict);
 

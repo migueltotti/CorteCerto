@@ -23,7 +23,7 @@ public class AddressConfiguration : IEntityTypeConfiguration<Address>
 
         builder.HasOne(a => a.City)
                .WithMany(c => c.Addresses)
-               .HasForeignKey("CityId")
+               .HasForeignKey(a => a.CityId)
                .IsRequired()
                .OnDelete(DeleteBehavior.Restrict);
     }

@@ -21,7 +21,7 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
          // Relation: Country -> States (one country has many states)
          builder.HasMany(c => c.States)
             .WithOne(s => s.Country)
-            .HasForeignKey("CountryId")
+            .HasForeignKey(s => s.CountryId)
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
 

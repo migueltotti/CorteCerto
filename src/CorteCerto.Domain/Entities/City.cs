@@ -1,22 +1,18 @@
 ﻿using CorteCerto.Domain.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CorteCerto.Domain.Entities;
 
 public class City : BaseEntity<int>
 {
     public string Name { get; private set; }
-    public List<Address> Addresses{ get; private set; }
-    public State State { get; private set; }
+    public List<Address>? Addresses{ get; private set; }
+    public int StateId { get; private set; }
+    public State? State { get; private set; }
 
-    public City(string name, State state)
+    public City(string name, int stateId)
     {
         Name = name;
-        State = state;
+        StateId = stateId;
         Addresses = [];
     }
 
